@@ -1,0 +1,79 @@
+.Header {
+    height: 65px;
+    width: 100vw;
+    background-color: #232A35;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+
+
+    .Icon {
+        flex-basis: 20%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 18px;
+        text-align: left;
+        background-color: black;
+    }
+
+    .Nav {
+
+        flex-basis: 80%;
+        display: flex;
+        justify-content: space-between;
+
+        .Menu {
+            display: flex;
+            height: 100%;
+
+            .Item {
+                height: 100%;
+                width: 300px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+        }
+
+        .Control {
+            margin-right: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            font-size: 14px;
+            text-align: left;
+
+            .ico {
+                width: 1.25rem;
+                height: 1.25rem;
+                font-size: 1.25rem;
+                margin-right: 22px;
+            }
+
+            .ava {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .img {
+                    width: 1rem;
+                    height: 1rem;
+                    background-color: white;
+                    border-radius: 2rem;
+                    margin-right: 9px;
+                }
+
+            }
+
+
+        }
+    }
+
+
+
+
+
+}
