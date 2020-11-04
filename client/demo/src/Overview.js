@@ -1,5 +1,6 @@
 import React from 'react';
-import Header from './Header';
+import Head from './Header';
+import {Row, Col} from "antd";
 
 class Overview extends React.Component{
     constructor(props){
@@ -11,7 +12,10 @@ class Overview extends React.Component{
     render(){
         return (
             <div id="overview">
-                <Header />
+                <Head />
+                <Row >
+                    
+                </Row>
             </div>
         )
     }

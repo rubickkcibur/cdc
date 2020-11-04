@@ -1,5 +1,7 @@
 import React from 'react';
-import Header from './Header';
+import Head from './Header';
+import {Row, Col, Card} from "antd";
+import "./Report.css";
 
 class Report extends React.Component{
     constructor(props){
@@ -11,7 +13,16 @@ class Report extends React.Component{
     render(){
         return (
             <div id="report">
-                <Header />
+                <Head />
+                <Row id="canvasbelow">
+                   <Col id="left">
+                        <Card id="basicinfo" title="基本信息">
+                            
+
+                        </Card>                   
+                   </Col>
+                   <Col  id="right"></Col>
+                </Row>
             </div>
         )
     }

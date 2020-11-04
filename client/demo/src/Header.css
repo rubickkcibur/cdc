@@ -1,1 +1,72 @@
 @import '~antd/dist/antd.css';
+
+
+
+#menu-bar{
+    height: 65px;
+    width: 1366px;
+    margin-top: 0px;
+    background-color: #101010;
+}
+
+
+#title{
+    height: 65px;
+    width: 256px;
+    line-height: 65px;
+    margin-top:0px;
+    float:left;
+    color:white
+}
+
+#t1{
+    margin-left:20px;
+    font-size: 18px;
+    color: #f2f2f7;
+}
+
+#t2{
+  font-size:14px;
+  color: #f2f2f7;
+}
+
+.img{
+    width: 20px;
+    height: 20px;
+    margin-right:20px;
+}
+
+.iconl{
+    margin-right: 20px;
+}
+#report{
+    height: 65px;
+    width:256px;
+    line-height: 65px;
+    font-size:18px;
+    
+}
+
+#overview{
+    height: 65px;
+    width:256px;
+    line-height: 65px;
+    font-size:18px;
+}
+
+#usericon{
+    height: 65px;
+    width:256px;
+    line-height: 65px;
+    float:right;
+    
+}
+
+#search {
+    height:65px;
+    line-height: 65px;
+}
+
+#avator{
+    float:right;
+}

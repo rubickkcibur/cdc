@@ -1,0 +1,28 @@
+@import '~antd/dist/antd.css';
+
+#left{
+    height: 950px;
+    width: 420px;
+}
+
+#right{
+    width: 800px;
+    height:950px;
+}
+
+#canvasbelow{
+    width: 1366px;
+    background-color: #f0f0f0;
+}
+
+#basicinfo{
+    width: 399px;
+    height: 279px;
+    padding: 5px;
+}
+
+.ant-card-head-title{
+    text-align:left;
+    font-size:18px;
+}
+
