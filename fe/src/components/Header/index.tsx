@@ -1,12 +1,12 @@
-import React from "react";
+import React from "react"
 import {
   BarChartOutlined,
   BellOutlined,
   SearchOutlined,
   TeamOutlined,
-} from "@ant-design/icons";
+} from "@ant-design/icons"
 
-import sty from "./index.module.scss";
+import sty from "./index.module.scss"
 const MenuItem = [
   {
     title: "流调填报",
@@ -16,7 +16,7 @@ const MenuItem = [
     title: "流调总览",
     icon: <TeamOutlined />,
   },
-];
+]
 
 export default function KashHeader() {
   return (
@@ -48,5 +48,5 @@ export default function KashHeader() {
         </div>
       </div>
     </div>
-  );
+  )
 }

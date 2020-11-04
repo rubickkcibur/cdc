@@ -1,34 +1,79 @@
-import React from "react";
-import MainLayout from "../components/MainLayoout/PageLayout";
-import sty from "./index.module.scss";
-import Col, { ColProps } from "antd/lib/grid/col";
+import React from "react"
+import MainLayout from "../components/MainLayoout/PageLayout"
+import sty from "./index.module.scss"
+import Col, { ColProps } from "antd/lib/grid/col"
+import Row from "antd/lib/grid/row"
+import FormBasic from "../components/BasicForm"
+import PathForm from "../components/PathForm"
 const Card = ({
   children,
   title,
   grid,
+  style,
 }: {
-  children: React.ReactNode;
-  title: string;
-  grid: ColProps;
+  style?: React.CSSProperties
+  children: React.ReactNode
+  title: string
+  grid?: ColProps
 }) => {
   return (
-    <Col className={sty.KashCard} {...grid}>
+    <Col className={sty.KashCard} {...grid} style={style}>
       <div className={sty.Title}>{title}</div>
-      <div className={sty.Content}>{children}</div>;
+      <div className={sty.Content}>{children}</div>
     </Col>
-  );
-};
+  )
+}
 
 export default function index() {
   return (
     <MainLayout>
-      <div>
-        <Card title={"基本信息"}>1</Card>
-        <Card title={"路径填报"}>1</Card>
-      </div>
-      <div>
-        <Card title={"路径可视化"}>1</Card>
-      </div>
+      <Row gutter={[14, 14]}>
+        <Col
+          md={{
+            span: 7,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              height: "calc( 100vh - 120px) ",
+            }}
+          >
+            <Col span={24} style={{ flex: "0 1 auto", padding: "0" }}>
+              <Card title={"基本信息"}>
+                <div className={sty.FormContainer}>
+                  <FormBasic />
+                </div>
+              </Card>
+            </Col>
+
+            <Col
+              span={24}
+              className={sty.PathContainer}
+              style={{ padding: "0" }}
+            >
+              <Card
+                title={"路径填报"}
+                grid={{ span: 24 }}
+                style={{ height: "100%", position: "absolute", width: "100%" }}
+              >
+                <div className={sty.PathFormContainer}>
+                  <PathForm />
+                </div>
+              </Card>
+            </Col>
+          </div>
+        </Col>
+        <Col
+          md={{
+            span: 17,
+          }}
+        >
+          <Card title={"路径可视化"}>1</Card>
+        </Col>
+      </Row>
     </MainLayout>
-  );
+  )
 }

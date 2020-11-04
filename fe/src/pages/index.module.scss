@@ -1,5 +1,5 @@
 .KashCard {
-    padding: 14px;
+    background-color: white;
 
     .Title {
         font-size: 18px;
@@ -9,5 +9,30 @@
         border-bottom: #E9E9E9 solid;
     }
 
+
+}
+
+.FormContainer {
+    margin: 14px 24px 56px 27px;
+}
+
+.PathContainer {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+    height: initial;
+    margin-top: 12px;
+    padding: 0;
+    background-color: white;
+}
+
+
+
+
+.PathFormContainer {
+    margin-top: 12px;
+    overflow-y: hidden;
+    position: absolute;
+    overflow-x: hidden;
 
 }
