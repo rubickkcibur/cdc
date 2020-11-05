@@ -71,14 +71,16 @@ $guideline-width: 3px;
             background-color:#FF2D55 ;
             position: absolute;
             right: 18px;
-
-
         }
     }
-
 }
 
+.Root{
+    width: 100%;
+
+}
 .ButtonBox{
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;

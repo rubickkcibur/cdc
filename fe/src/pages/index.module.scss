@@ -1,5 +1,7 @@
 .KashCard {
     background-color: white;
+    display: flex;
+    flex-flow: column;
 
     .Title {
         font-size: 18px;
@@ -8,8 +10,10 @@
         font-family: SourceHanSansSC-regular;
         border-bottom: #E9E9E9 solid;
     }
-
-
+    .Content{
+        height: 100%;
+        flex-grow: 1;
+    }
 }
 
 .FormContainer {

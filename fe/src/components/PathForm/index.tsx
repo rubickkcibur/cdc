@@ -3,7 +3,7 @@ import { Button, Col, DatePicker, Input, Row, Select } from "antd"
 import Form, { FormInstance, useForm } from "antd/lib/form/Form"
 import FormItem from "antd/lib/form/FormItem"
 import produce from "immer"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import sty from "./index.module.scss"
 import TrafficData from './traffic.json'
 
@@ -113,6 +113,9 @@ export default function PathForm() {
     }} />
   }
   const [values, setValues] = useState<any[]>()
+  useEffect(() => {
+    onAdd()
+  }, [])
   const onAdd = useCallback(() => {
     setElements((ele) =>
       produce(ele, (draft) => {
@@ -139,6 +142,8 @@ export default function PathForm() {
   const onDel = useCallback(
     () => {
       setElements((ele) => produce(ele, d => {
+        if (d.length == 1)
+          return
         d.pop()
         if (d.length > 1)
           d.pop()
@@ -151,12 +156,14 @@ export default function PathForm() {
     [],
   )
   return (
-    <div>
-      {elements.map(renderContext)}
-      <div className={sty.ButtonBox}>
-        <Button onClick={() => onAdd()} icon={<PlusCircleOutlined />}>新增</Button>
-        <Button onClick={() => onDel()} icon={<DeleteOutlined />} danger>减少</Button>
-      </div>
-    </div>
+    <>
+      <Col className={sty.Root}>
+        {elements.map(renderContext)}
+        <div className={sty.ButtonBox}>
+          <Button onClick={() => onAdd()} icon={<PlusCircleOutlined />}>新增</Button>
+          <Button onClick={() => onDel()} icon={<DeleteOutlined />} danger>减少</Button>
+        </div>
+      </Col >
+    </>
   )
 }
