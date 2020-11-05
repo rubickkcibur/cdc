@@ -52,7 +52,7 @@ def upload(request):
         phone = data["phone"].strip()
         age = data["age"].strip()
         address = data["address"].strip()
-        path = data["path"].strip()
+        path = data["path"]
         
         res = matcher.match("Patient", name=name, gender=gender, phone=phone, age=age, address=address).first()
 
@@ -61,11 +61,14 @@ def upload(request):
             person_node = res
         else:
             person_node = Node("Patient", name=name)
-            person_node[gender] = gender
-            person_node[phone] = phone
-            person_node[age] = age
-            person_node[address] = address 
-
+            if len(gender)> 0:
+                person_node[gender] = gender
+            if len(phone) > 0:
+                person_node[phone] = phone
+            if len(age) > 0:
+                person_node[age] = age
+            if len(address) > 0:
+                person_node[address] = address  
             
             tx.create(person_node)
 
@@ -74,6 +77,7 @@ def upload(request):
         last_trans_detail = ""
         for i, p in enumerate(path):
             # every events
+            print(ImportError)
             if 'location' in p:
                 
                 time = p["time"]
@@ -84,25 +88,41 @@ def upload(request):
                 detail = p["detail"]
 
                 event_node = Node("Event", name=location)
-
-                event_node["time"] = time
-                event_node["location"] = location
-                event_node["longtitude"] = longtitude
-                event_node["latitude"] = latitude
-                event_node["detail"] = detail
+                if len(time) > 0:
+                    event_node["time"] = time
+                if len(location) > 0:
+                    event_node["location"] = location
+                if len(longtitude) > 0:
+                    event_node["longtitude"] = longtitude
+                if len(latitude) > 0:
+                    event_node["latitude"] = latitude
+                if len(detail) > 0:
+                    event_node["detail"] = detail
 
                 tx.create(event_node)
 
                 if i > 0:
-                    r_trans = Relationship(last_event_node, last_transportation, event_node, {"detail":last_trans_detail})
-                    tx.merge(r_trans)
+                    print(last_event_node)
+                    print(last_transportation)
+                    print(event_node)
+                    # r_type = Relationship.type(last_transportation)
+                    r_trans = Relationship(last_event_node, last_transportation, event_node)
+
+                    tx.create(r_trans)
 
                 for contact in contacts:
-                    contact_node = Node("Contact", name=contact)
+                    res = matcher.match("Contact", name=contact).first()
+                    if res is not None:
+                        contact_node = res
+                    else:
+                        contact_node = Node("Contact", name=contact)
+                        tx.create(contact_node)
                     r1 = Relationship(person_node, "contact", contact_node)
                     r2 = Relationship(event_node, "related", contact_node)
-                    tx.merge(r1)
-                    tx.merge(r2)
+                    tx.create(r1)
+                    tx.create(r2)
+                    # tx.merge(r1)
+                    # tx.merge(r2)
                 last_event_node = event_node
 
             else:
@@ -110,9 +130,9 @@ def upload(request):
                 last_transportation = p["transportation"]
                 last_trans_detail = p["detail"]
         
-
+        tx.commit()
         return Response({"result":"upload successfully!"}, status=status.HTTP_200_OK)
-        
+
 
                 
 
