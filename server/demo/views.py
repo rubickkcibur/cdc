@@ -8,7 +8,7 @@ import pymongo
 from py2neo import Graph, Node, Relationship, NodeMatcher
 # Create your views here.
 
-neo4j_path = "bolt://39.105.232.15:2002"
+neo4j_path = "bolt://123.57.0.181:7687"
 mongo_path = pymongo.MongoClient("mongodb://%s:%s@39.105.232.15:2005"%("admin", "123456"))
 db = mongo_path["surveys"]
 col = db["production"]
@@ -71,15 +71,15 @@ def upload(request):
                 person_node[address] = address  
             
             tx.create(person_node)
-
+            tx.commit()
         last_event_node = None
         last_transportation = ""
         last_trans_detail = ""
         for i, p in enumerate(path):
             # every events
-            print(ImportError)
+            
             if 'location' in p:
-                
+                tx = graph.begin()
                 time = p["time"]
                 location = p["location"]
                 longtitude = p["longtitude"]
@@ -98,20 +98,24 @@ def upload(request):
                     event_node["latitude"] = latitude
                 if len(detail) > 0:
                     event_node["detail"] = detail
-
+                r0 = Relationship(person_node, "travelTo", event_node)
                 tx.create(event_node)
-
+                tx.create(r0)
+   
                 if i > 0:
-                    print(last_event_node)
-                    print(last_transportation)
-                    print(event_node)
+                    # print(last_event_node)
+                    # print(last_transportation)
+                    # print(event_node)
                     # r_type = Relationship.type(last_transportation)
                     r_trans = Relationship(last_event_node, last_transportation, event_node)
 
                     tx.create(r_trans)
-
+                tx.commit()
                 for contact in contacts:
+                    tx = graph.begin()
                     res = matcher.match("Contact", name=contact).first()
+                    print(contact)
+                    print(res)
                     if res is not None:
                         contact_node = res
                     else:
@@ -119,8 +123,10 @@ def upload(request):
                         tx.create(contact_node)
                     r1 = Relationship(person_node, "contact", contact_node)
                     r2 = Relationship(event_node, "related", contact_node)
+                    
                     tx.create(r1)
                     tx.create(r2)
+                    tx.commit()
                     # tx.merge(r1)
                     # tx.merge(r2)
                 last_event_node = event_node
@@ -130,7 +136,7 @@ def upload(request):
                 last_transportation = p["transportation"]
                 last_trans_detail = p["detail"]
         
-        tx.commit()
+        
         return Response({"result":"upload successfully!"}, status=status.HTTP_200_OK)
 
 
