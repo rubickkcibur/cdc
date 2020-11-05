@@ -15,38 +15,42 @@ interface IProps {
 export default function AMapLinkedMarker({ __map__ }: IProps) {
     if (!__map__)
         console.error("no map instance injected")
-    const AMap: any = (window as any).AMap
+    const amap = useTypedSelector(e => e.PAGlobalReducer.amap)
     const vertexs = useTypedSelector(e => e.PAGlobalReducer.pauses)
+    const [curV, setV] = useState<any[]>([])
+    const [curE, setE] = useState()
 
-    const dispatch = useDispatch()
-    useEffect(() => {
-        const AMap = (window as any).AMap
-        if (AMap) {
-
-            dispatch(ActSetState({ amap: AMap }))
-        }
-    }, [])
     const generateMarker = useCallback(
         () => {
-            const markers = vertexs.map((e, i) => new AMap.Marker({ position: e.lnglat, extData: i }))
+
+            const markers = vertexs.map((e, i) => new amap.Marker({ position: new amap.LngLat(e.lnglat.lng, e.lnglat.lat), extData: i }))
+            setV(markers)
+            curV && curV.length > 0 && __map__.remove(curV)
             __map__.add(markers)
         },
-        []
+        [vertexs]
     )
     const generateEdge = useCallback(
         () => {
-            const polyline = new AMap.Polyline({
-                path: vertexs.map(e => e.lnglat),
+            const path = vertexs.map(e => new amap.LngLat(e.lnglat.lng, e.lnglat.lat))
+            const polyline = new amap.Polyline({
+                path: path,
                 borderWeight: 2,
                 strokeColor: 'red',
                 lineJoin: 'round'
             })
+            setE(polyline)
+            curE && __map__.remove(curE)
             __map__.add(polyline)
-        }, [])
+        }, [vertexs])
 
     useEffect(() => {
+        if (!amap || !__map__) return
+
+
+        console.log("generaste")
         generateMarker()
         generateEdge()
-    }, [])
+    }, [vertexs])
     return (null)
 }

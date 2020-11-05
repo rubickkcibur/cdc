@@ -4,6 +4,12 @@ import Form, { FormInstance, useForm } from "antd/lib/form/Form"
 import FormItem from "antd/lib/form/FormItem"
 import produce from "immer"
 import React, { useCallback, useEffect, useState } from "react"
+import { LngLatPos } from "react-amap"
+import { useDispatch } from "react-redux"
+import { dispatch } from "rxjs/internal/observable/pairs"
+import Search, { Tip } from "../../lib/search"
+import { ActAddPauses, ActRemovePauses } from "../../lib/state/global"
+import { useTypedSelector } from "../../lib/store"
 import sty from "./index.module.scss"
 import TrafficData from './traffic.json'
 
@@ -48,39 +54,48 @@ interface IElementProps {
   pos?: {
     last?: boolean
     first?: boolean
+    idx: number
   }
   onChange: (v: FormInstance) => any
 }
 
-interface InputIProps { value?: string, onChange?: (v: string) => void, placeholder: string }
+interface InputIProps { value?: any, onChange?: (v: string) => void, placeholder: string }
 
-const SearchInput = ({ value, onChange, placeholder }: InputIProps) => {
-  const amap = (window as any).AMap
-  const [autoComplete, setAc] = useState<any>(undefined)
+const SearchInput = ({ onChange, placeholder }: InputIProps) => {
   const [res, setRes] = useState<any>(undefined)
-
-  useEffect(() => {
-    if (!amap) return
-    console.log(444, amap)
-    amap.plugin('AMap.AutoComplete', () => {
-      var autoComplete = new amap.Autocomplete({ city: '全国' });
-      setAc(autoComplete)
-    })
-  }, [amap])
+  const [innervalue, setV] = useState<string>("")
+  function renderItems(data: any) {
+    return data?.map((e: { name: React.ReactNode }) => <div>{e.name}</div>)
+  }
 
   const onSearch = (t: string) => {
-    autoComplete?.search(t, (_: any, res: any) => {
-      const v = res.tips?.map((e: any) => ({
-        label: `${e.name}`,
-        value: e.name
-        // value: e.location,
-      }))
-      console.log(v)
-      setRes(v)
+    Search(t, (_: any, res: any) => {
+      setRes(res.tips.filter((e: { location: string | any[] }) => e.location?.length > 0))
     })
   };
 
-  return <AutoComplete placeholder={placeholder} onSearch={onSearch} options={res} />
+  return <AutoComplete
+    placeholder={placeholder}
+    onSearch={onSearch}
+    onChange={e => setV(e)}
+    onSelect={(v: string) => {
+      const obj = res.find((e: { id: string }) => e.id == v)
+      setV(obj.name)
+      return onChange && onChange(obj)
+    }}
+    value={innervalue}
+  >
+    {res?.map((e: any) => (<AutoComplete.Option key={e.id ?? "hi"} value={e.id}>{e.name}</AutoComplete.Option>))}
+  </AutoComplete>
+}
+
+const strtoll: (st: string) => LngLatPos = (st: string) => {
+  const a = st?.split(',') ?? ""
+  return {
+    lng: parseFloat(a[0]) ?? 0,
+    lat: parseFloat(a[1]) ?? 0
+  }
+
 
 
 }
@@ -88,9 +103,26 @@ const QuarterElement = ({ onChange, pos }: IElementProps) => {
   const itemGrid = { span: 12 }
   const gutterValue: { gutter: [number, number] } = { gutter: [8, 8] }
   const formItemSty = { margin: "0" }
-  const [form] = useForm()
-  const onValuesChange = (cv: any, v: any) => {
-    onChange && onChange(form.getFieldsValue())
+  const map = useTypedSelector(e => e.PAGlobalReducer.__map__)
+  const amap = useTypedSelector(e => e.PAGlobalReducer.amap)
+  const dispatch = useDispatch()
+  interface IForm {
+
+    location: Tip
+  }
+  const [form] = useForm<IForm>()
+  const onValuesChange = (cv: IForm, v: any) => {
+    onChange && onChange(form)
+    if (cv.location) {
+      const loc = strtoll(cv.location.location)
+      console.log(123, loc)
+      try {
+        map?.setCenter(new amap.LngLat(loc.lng, loc.lat))
+      } catch (e) {
+        console.log(e)
+      }
+      dispatch(ActAddPauses(pos?.idx ?? 0, { name: cv.location.name, lnglat: loc }))
+    }
   }
 
   return (
@@ -142,11 +174,13 @@ export default function PathForm() {
   const renderContext: (e: Context, idx: number) => JSX.Element = (e, idx) => {
     const Ele = e.type === "qua" ? QuarterElement : ConjectionElement
     return <Ele {...e} pos={{
+      idx: idx,
       first: idx == 0,
       last: idx == elements.length - 1
     }} />
   }
   const [values, setValues] = useState<any[]>()
+  const dispatch = useDispatch()
   useEffect(() => {
     onAdd()
   }, [])
@@ -178,12 +212,10 @@ export default function PathForm() {
       setElements((ele) => produce(ele, d => {
         if (d.length == 1)
           return
+        dispatch(ActRemovePauses())
         d.pop()
         if (d.length > 1)
           d.pop()
-
-
-
       })
       )
     },
@@ -195,7 +227,7 @@ export default function PathForm() {
         {elements.map(renderContext)}
         <div className={sty.ButtonBox}>
           <Button onClick={() => onAdd()} icon={<PlusCircleOutlined />}>新增</Button>
-          <Button onClick={() => onDel()} icon={<DeleteOutlined />} danger>减少</Button>
+          <Button onClick={() => onDel()} icon={<DeleteOutlined />} danger disabled={elements.length == 1}>减少</Button>
         </div>
       </Col >
     </>

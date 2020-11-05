@@ -7,6 +7,8 @@ import FormBasic from "../components/BasicForm"
 import PathForm from "../components/PathForm"
 import { Map } from 'react-amap'
 import AMapLinkedMarker from "../components/AMapLinkedMarker"
+import { useDispatch } from "react-redux"
+import { ActSetState } from "../lib/state/global"
 const Card = ({
   children,
   title,
@@ -27,6 +29,7 @@ const Card = ({
 }
 
 export default function index() {
+  const dispatch = useDispatch()
   return (
     <MainLayout>
       <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }}>
@@ -67,7 +70,29 @@ export default function index() {
         <Col md={{ span: 17, }} >
           <Card title={"路径可视化"} style={{ height: "100%" }}>
             <div style={{ height: "100%" }}>
-              <Map plugins={["AMap.Autocomplete"]}>
+              <Map
+                version={'1.4.0'}
+                amapkey={"d5c6e14e597ee8af84b8a4fcfbb1807f"}
+                events={{
+                  created: (ins: any) => {
+                    const AMap = (window as any).AMap
+                    dispatch(ActSetState({ __map__: ins, amap: (window as any).AMap }))
+                    console.log(11122)
+                    var auto
+                    AMap.plugin('AMap.Autocomplete', () => {
+                      try {
+
+                        auto = new AMap.Autocomplete({
+                          input: "tipinput"
+                        });
+                        console.log('auto')
+                      } catch (e) {
+                        console.log(e)
+
+                      }
+                    })
+                  }
+                }}>
                 <AMapLinkedMarker />
               </Map>
             </div>
