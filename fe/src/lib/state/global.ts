@@ -19,13 +19,14 @@ export interface Pause {
 }
 
 export type TState = {
+  amap?: any
   pauses: Pause[]
 }
 const initState: TState = {
   pauses: [],
 }
 
-const ActSetState = (data: Partial<TState>) => ({
+export const ActSetState = (data: Partial<TState>) => ({
   type: ActionsEnum.SetState,
   data,
 })

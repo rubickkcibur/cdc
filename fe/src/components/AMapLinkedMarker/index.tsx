@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { AMapLngLat } from 'react-amap'
+import { useDispatch } from 'react-redux'
+import { ActSetState } from '../../lib/state/global'
 import { useTypedSelector } from '../../lib/store'
 
 
@@ -11,13 +13,19 @@ interface IProps {
 
 
 export default function AMapLinkedMarker({ __map__ }: IProps) {
-    if (!__map__ )
+    if (!__map__)
         console.error("no map instance injected")
     const AMap: any = (window as any).AMap
-    const vertexs = useTypedSelector(e => e.PAGlobalReducer.pauses) 
-    console.log(__map__,111)
-    console.log(AMap, 111)
+    const vertexs = useTypedSelector(e => e.PAGlobalReducer.pauses)
 
+    const dispatch = useDispatch()
+    useEffect(() => {
+        const AMap = (window as any).AMap
+        if (AMap) {
+
+            dispatch(ActSetState({ amap: AMap }))
+        }
+    }, [])
     const generateMarker = useCallback(
         () => {
             const markers = vertexs.map((e, i) => new AMap.Marker({ position: e.lnglat, extData: i }))

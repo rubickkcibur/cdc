@@ -67,7 +67,7 @@ export default function index() {
         <Col md={{ span: 17, }} >
           <Card title={"路径可视化"} style={{ height: "100%" }}>
             <div style={{ height: "100%" }}>
-              <Map>
+              <Map plugins={["AMap.Autocomplete"]}>
                 <AMapLinkedMarker />
               </Map>
             </div>

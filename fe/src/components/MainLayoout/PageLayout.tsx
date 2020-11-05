@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useEffect } from "react"
 import sty from "./index.module.scss"
 import KashHeader from "../Header"
+import { useDispatch } from "react-redux"
+import { ActSetState } from "../../lib/state/global"
 
 interface IProps {
   children: React.ReactNode

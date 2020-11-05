@@ -1,11 +1,13 @@
 import { DeleteOutlined, PlusCircleOutlined } from "@ant-design/icons"
-import { Button, Col, DatePicker, Input, Row, Select } from "antd"
+import { AutoComplete, Button, Col, DatePicker, Input, Row, Select } from "antd"
 import Form, { FormInstance, useForm } from "antd/lib/form/Form"
 import FormItem from "antd/lib/form/FormItem"
 import produce from "immer"
 import React, { useCallback, useEffect, useState } from "react"
 import sty from "./index.module.scss"
 import TrafficData from './traffic.json'
+
+
 
 const ConjectionElement = ({ onChange }: any) => {
   const itemGrid = { span: 12 }
@@ -50,6 +52,38 @@ interface IElementProps {
   onChange: (v: FormInstance) => any
 }
 
+interface InputIProps { value?: string, onChange?: (v: string) => void, placeholder: string }
+
+const SearchInput = ({ value, onChange, placeholder }: InputIProps) => {
+  const amap = (window as any).AMap
+  const [autoComplete, setAc] = useState<any>(undefined)
+  const [res, setRes] = useState<any>(undefined)
+
+  useEffect(() => {
+    if (!amap) return
+    console.log(444, amap)
+    amap.plugin('AMap.AutoComplete', () => {
+      var autoComplete = new amap.Autocomplete({ city: '全国' });
+      setAc(autoComplete)
+    })
+  }, [amap])
+
+  const onSearch = (t: string) => {
+    autoComplete?.search(t, (_: any, res: any) => {
+      const v = res.tips?.map((e: any) => ({
+        label: `${e.name}`,
+        value: e.name
+        // value: e.location,
+      }))
+      console.log(v)
+      setRes(v)
+    })
+  };
+
+  return <AutoComplete placeholder={placeholder} onSearch={onSearch} options={res} />
+
+
+}
 const QuarterElement = ({ onChange, pos }: IElementProps) => {
   const itemGrid = { span: 12 }
   const gutterValue: { gutter: [number, number] } = { gutter: [8, 8] }
@@ -75,7 +109,7 @@ const QuarterElement = ({ onChange, pos }: IElementProps) => {
           </Col>
           <Col {...itemGrid}>
             <FormItem name={"location"} style={{ margin: "0" }}>
-              <Input placeholder={"搜索地点"} />
+              <SearchInput placeholder={"搜索地点"} />
             </FormItem>
           </Col>
         </Row>
