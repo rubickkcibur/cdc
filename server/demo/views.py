@@ -60,13 +60,22 @@ def upload(request):
         if res is not None:
             person_node = res
         else:
-            person_node = Node("Patient", name=name, gender=gender, phone=phone, age=age, address=address)
+            person_node = Node("Patient", name=name)
+            person_node[gender] = gender
+            person_node[phone] = phone
+            person_node[age] = age
+            person_node[address] = address 
+
             
             tx.create(person_node)
 
-        for p in path:
+        last_event_node = None
+        last_transportation = ""
+        last_trans_detail = ""
+        for i, p in enumerate(path):
             # every events
             if 'location' in p:
+                
                 time = p["time"]
                 location = p["location"]
                 longtitude = p["longtitude"]
@@ -74,11 +83,41 @@ def upload(request):
                 contacts = p["contacts"]
                 detail = p["detail"]
 
+                event_node = Node("Event", name=location)
+
+                event_node["time"] = time
+                event_node["location"] = location
+                event_node["longtitude"] = longtitude
+                event_node["latitude"] = latitude
+                event_node["detail"] = detail
+
+                tx.create(event_node)
+
+                if i > 0:
+                    r_trans = Relationship(last_event_node, last_transportation, event_node, {"detail":last_trans_detail})
+                    tx.merge(r_trans)
+
                 for contact in contacts:
                     contact_node = Node("Contact", name=contact)
-                    r1 = Relationship()
+                    r1 = Relationship(person_node, "contact", contact_node)
+                    r2 = Relationship(event_node, "related", contact_node)
+                    tx.merge(r1)
+                    tx.merge(r2)
+                last_event_node = event_node
 
-                loc_node = Node("Event", time=time, location=location, longtitude=longtitude, latitude=latitude,detail=detail)
+            else:
+                
+                last_transportation = p["transportation"]
+                last_trans_detail = p["detail"]
+        
+
+        return Response({"result":"upload successfully!"}, status=status.HTTP_200_OK)
+        
+
+                
+
+
+                
 
 
 
