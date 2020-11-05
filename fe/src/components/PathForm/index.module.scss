@@ -1,3 +1,4 @@
+$guideline-width: 3px;
 .QuaFormRoot {
     display: flex;
     justify-content: space-between;
@@ -5,6 +6,40 @@
 
     .Guide {
         width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: relative;
+        flex-shrink: 0;
+        .Dot{
+            width: 12px;
+            height: 12px;
+            border-radius:22px ;
+            background-color: #1990FF ;
+        }
+        .LineDown{
+            height: 50%;
+            width:  $guideline-width;
+            background-color: #1990FF ;
+            z-index: 1;
+            left: calc( 50% - 1.5px );
+            position: absolute;
+            top: 50%;
+            
+        }
+        .LineUp{
+
+            height: 125%;
+            width: $guideline-width;
+            background-color: #1990FF ;
+            z-index: 1;
+                left: calc( 50% - 1.5px );
+                position: absolute;
+                Bottom:50%
+        }
+
+
+
     }
 
 }
@@ -15,7 +50,40 @@
     align-items: stretch;
 
     .Guide {
-        width: 120px;
+        width: 160px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        flex-shrink: 0;
+        
+        .Dot{
+            right: 18px;
+            width: 12px;
+            position:absolute;
+            height: 12px;
+            border-radius:22px ;
+            background-color:#FF2D55 ;
+        }
+        .Line{
+            width: 112px;
+            height: $guideline-width;
+            background-color:#FF2D55 ;
+            position: absolute;
+            right: 18px;
+        }
     }
+}
+
+.Root{
+    width: 100%;
+
+}
+.ButtonBox{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
 
 }

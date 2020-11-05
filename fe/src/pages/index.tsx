@@ -5,6 +5,8 @@ import Col, { ColProps } from "antd/lib/grid/col"
 import Row from "antd/lib/grid/row"
 import FormBasic from "../components/BasicForm"
 import PathForm from "../components/PathForm"
+import { Map } from 'react-amap'
+import AMapLinkedMarker from "../components/AMapLinkedMarker"
 const Card = ({
   children,
   title,
@@ -27,12 +29,8 @@ const Card = ({
 export default function index() {
   return (
     <MainLayout>
-      <Row gutter={[14, 14]}>
-        <Col
-          md={{
-            span: 7,
-          }}
-        >
+      <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }}>
+        <Col md={{ span: 7 }} >
           <div
             style={{
               display: "flex",
@@ -66,12 +64,14 @@ export default function index() {
             </Col>
           </div>
         </Col>
-        <Col
-          md={{
-            span: 17,
-          }}
-        >
-          <Card title={"路径可视化"}>1</Card>
+        <Col md={{ span: 17, }} >
+          <Card title={"路径可视化"} style={{ height: "100%" }}>
+            <div style={{ height: "100%" }}>
+              <Map>
+                <AMapLinkedMarker />
+              </Map>
+            </div>
+          </Card>
         </Col>
       </Row>
     </MainLayout>
