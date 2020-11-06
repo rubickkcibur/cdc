@@ -1,6 +1,8 @@
 import React , {useEffect, useRef} from "react"
 import MainLayout from "../../components/MainLayoout/PageLayout"
-import Neovis from "neovis-ts/dist/neovis";
+import * as NeoVis from 'neovis.js/dist/neovis';
+
+
 
 export default function PageOverview() {
   
@@ -22,11 +24,14 @@ export default function PageOverview() {
               "caption":true
             }
         },
-        initial_cypher: "MATCH (n) RETURN n LIMIT 25"
+        initial_cypher: "MATCH (n) RETURN n"
     }
-    const vis = new Neovis(config);
+    if(window){
+
+    const vis = new NeoVis(config);
     vis.render();
     console.log(vis);
+    }
 
   })
   return <MainLayout>
