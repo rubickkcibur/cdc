@@ -1,0 +1,21 @@
+.FrameContainer{
+    width: 100%;
+    display: flex;
+    height: calc( 100vh - 65px - 16px );
+    align-items: stretch;
+    position: relative;
+    iframe{
+        width: 100%;
+        border: none;
+        background-color:white;
+    }
+    .Control{
+        position: absolute;
+        right: 8px;
+        top:8px;
+
+
+    }
+    
+
+}

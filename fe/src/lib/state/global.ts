@@ -1,3 +1,4 @@
+import { FormInstance } from "antd/lib/form"
 import { produce } from "immer"
 import { AMapLngLat, LngLat, LngLatPos } from "react-amap"
 import { Reducer } from "redux"
@@ -6,6 +7,7 @@ export const ActionsEnum = {
   SetState: "SetState",
   AddPause: "ActAddPause",
   RemovePause: "ActRemovePause",
+  UpdateFormValue: "UpdatingFormValue",
 }
 
 export interface Pause {
@@ -21,14 +23,19 @@ export interface Pause {
   ventilation?: string
   remarks?: string
 }
+type FormDual = [FormInstance | undefined, FormInstance | undefined]
 
 export type TState = {
   amap?: any
   __map__?: any
   pauses: Pause[]
+  pathform: {
+    [key: number]: FormDual
+  }
 }
 const initState: TState = {
   pauses: [],
+  pathform: {},
 }
 
 export const ActSetState = (data: Partial<TState>) => ({
@@ -46,9 +53,16 @@ export const ActRemovePauses = () => ({
   type: ActionsEnum.RemovePause,
 })
 
+export const ActUpdateValue = (formdual: FormDual, idx: number) => ({
+  type: ActionsEnum.UpdateFormValue,
+  formdual,
+  idx,
+})
+
 export type TAction = ReturnType<typeof ActSetState> &
   ReturnType<typeof ActAddPauses> &
-  ReturnType<typeof ActRemovePauses>
+  ReturnType<typeof ActRemovePauses> &
+  ReturnType<typeof ActUpdateValue>
 
 export const PAGlobalReducer: Reducer<TState, TAction> = (
   state = initState,
@@ -60,22 +74,15 @@ export const PAGlobalReducer: Reducer<TState, TAction> = (
         draft = Object.assign(draft, action.data)
         return draft
       case ActionsEnum.AddPause:
-        const old = draft.pauses.findIndex((e) => e.fidx === action.idx)
-        if (old != -1) {
-          draft.pauses[old] = {
-            ...action.pau,
-            fidx: action.idx,
-          }
-        } else {
-          draft.pauses.push({
-            ...action.pau,
-            fidx: action.idx,
-          })
-        }
-
+        draft.pauses.push(action.pau)
         return draft
       case ActionsEnum.RemovePause:
         draft.pauses.pop()
+        return draft
+      case ActionsEnum.UpdateFormValue:
+        draft.pathform[action.idx] = action.formdual
+        return draft
+      default:
         return draft
     }
     return draft

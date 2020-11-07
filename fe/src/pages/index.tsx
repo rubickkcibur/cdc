@@ -32,14 +32,14 @@ export default function index() {
   const dispatch = useDispatch()
   return (
     <MainLayout>
-      <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }}>
+      <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }} className={sty.RootRow}>
         <Col md={{ span: 7 }} >
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
-              height: "calc( 100vh - 120px) ",
+              height: "100%",
             }}
           >
             <Col span={24} style={{ flex: "0 1 auto", padding: "0" }}>
