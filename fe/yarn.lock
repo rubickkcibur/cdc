@@ -6315,6 +6315,11 @@ vis-network@^7.3.5:
   resolved "https://registry.npm.taobao.org/vis-network/download/vis-network-7.10.2.tgz#b318f1907cf006d9640c4c31a262e0782405a3cf"
   integrity sha1-sxjxkHzwBtlkDEwxomLgeCQFo88=
 
+vis-network@^8.5.2:
+  version "8.5.2"
+  resolved "https://registry.npm.taobao.org/vis-network/download/vis-network-8.5.2.tgz#20e7929d58ac2bd7062b0ee7ac4051248bc4390a"
+  integrity sha1-IOeSnVisK9cGKw7nrEBRJIvEOQo=
+
 vis@^4.21.0:
   version "4.21.0"
   resolved "https://registry.npm.taobao.org/vis/download/vis-4.21.0.tgz#dd71638bff7f6495d00bc9f40c253526133ded6b"
