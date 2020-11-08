@@ -39,9 +39,14 @@
 
 .PathFormContainer {
     margin: 12px 8px;
-    
     overflow-y: hidden;
     position: absolute;
     overflow-x: hidden;
+}
+.UploadButton{
+    position: absolute;
+    right:  0px;
+    top: 2px;
+    z-index: 10;
 
 }

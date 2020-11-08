@@ -1,2 +1,4 @@
 node_modules/
 Dockerfile
+.next/
+yarn-error.log

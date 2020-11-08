@@ -22,7 +22,7 @@ interface IElementProps {
     idx: number
   }
   value?: any
-  onChange?: (v: any, e: any[]) => any
+  onChange?: (v?: IV, e?: any[]) => any
 }
 
 
@@ -76,6 +76,7 @@ const SearchInput = ({ onChange, placeholder }: InputIProps) => {
     })
   };
 
+
   return <AutoComplete
     placeholder={placeholder}
     onSearch={onSearch}
@@ -87,7 +88,7 @@ const SearchInput = ({ onChange, placeholder }: InputIProps) => {
     }}
     value={innervalue}
   >
-    {res?.map((e: any) => (<AutoComplete.Option key={e.id ?? "hi"} value={e.id}>{e.name}</AutoComplete.Option>))}
+    {res?.map((e: any) => (< AutoComplete.Option key={e.id ?? "hi"} value={e.id}>{e.name}</AutoComplete.Option>))}
   </AutoComplete>
 }
 
@@ -97,9 +98,10 @@ const strtoll: (st: string) => LngLatPos = (st: string) => {
     lng: parseFloat(a[0]) ?? 0,
     lat: parseFloat(a[1]) ?? 0
   }
-
-
-
+}
+interface IV {
+  node?: any
+  edge?: any
 }
 const QuarterElement = ({ onChange, pos }: IElementProps) => {
   const itemGrid = { span: 12 }
@@ -109,6 +111,7 @@ const QuarterElement = ({ onChange, pos }: IElementProps) => {
   const amap = useTypedSelector(e => e.PAGlobalReducer.amap)
   const dispatch = useDispatch()
   const [form] = useForm<IForm>()
+  const [iv, setIV] = useState<IV | undefined>(undefined)
   interface IForm {
     location: Tip
   }
@@ -122,8 +125,14 @@ const QuarterElement = ({ onChange, pos }: IElementProps) => {
       }
       dispatch(ActAddPauses(pos?.idx ?? 0, { name: cv.location.name, lnglat: loc }))
     }
-    onChange && onChange(form.getFieldsValue(), form.getFieldsError())
+    setIV((e) => ({
+      ...e,
+      node: form.getFieldsValue(),
+    }))
   }
+  useEffect(() => {
+    onChange && onChange(iv, form.getFieldsError())
+  }, [iv])
 
   return (
     <>
@@ -136,35 +145,34 @@ const QuarterElement = ({ onChange, pos }: IElementProps) => {
         <Form onValuesChange={onValuesChange} form={form}>
           <Row {...gutterValue} >
             <Col {...itemGrid}>
-              <FormItem name={"date"} style={formItemSty}>
+              <FormItem name={"time"} style={formItemSty} rules={[{ required: true }]}>
                 <DatePicker showTime placeholder={"输入日期"} />
               </FormItem>
             </Col>
             <Col {...itemGrid}>
-              <FormItem name={"location"} style={{ margin: "0" }}>
+              <FormItem name={"location"} style={{ margin: "0" }} rules={[{ required: true }]}>
                 <SearchInput placeholder={"搜索地点"} />
               </FormItem>
             </Col>
           </Row>
           <Row {...gutterValue}>
             <Col {...itemGrid}>
-              <FormItem name={"people"} style={{ margin: "0" }}>
+              <FormItem name={"contacts"} style={{ margin: "0" }}>
                 <Input placeholder={"可能密接者"} />
               </FormItem>
             </Col>
             <Col {...itemGrid}>
-              <FormItem name={"record"} style={{ margin: "0" }}>
+              <FormItem name={"detail"} style={{ margin: "0" }}>
                 <Input placeholder={"备注"} />
               </FormItem>
             </Col>
           </Row>
         </Form>
       </div>
-
       {
         pos?.last ? null :
           <ConjectionElement
-            onChange={(v: any) => onChange && onChange(form.getFieldsValue(), form.getFieldsError())}
+            onChange={(v: any) => setIV(e => ({ ...e, edge: v }))}
             pos={pos}
           />
 
@@ -178,14 +186,15 @@ interface IProps {
 
 interface Context {
   type: "qua" | "con"
-  onChange?: (v: any, e: any) => void
-
+  onChange?: (v?: IV, e?: any) => void
   form?: FormInstance
 }
-export default function PathForm() {
+export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormInstance) => void }) {
   const [elements, setElements] = useState<Context[]>([])
   const dispatch = useDispatch()
-  const [form] = useForm()
+  const [form] = useForm<{
+    [key: number]: IV
+  }>()
   const renderContext: (e: Context, idx: number) => JSX.Element = (e, idx) => {
     return (
       <FormItem noStyle={true} name={idx} rules={[{ required: true }]}>
@@ -206,8 +215,12 @@ export default function PathForm() {
   }, [])
   const onAdd = () => {
     const values = form.getFieldsValue()
-    if (elements.length > 0 && !values[elements.length - 1]?.location) {
+    if (elements.length > 0 && !values[elements.length - 1]?.node?.location) {
       message.warning("请填写行程信息")
+      return
+    }
+    if (elements.length > 0 && !values[elements.length - 1]?.node?.time) {
+      message.warning("请填写时间信息")
       return
     }
 
@@ -220,13 +233,14 @@ export default function PathForm() {
     )
   }
   const onFormValuesChange = (cv: any, v: any) => {
+    onChange && onChange(v, form)
   }
   const onDel = () => {
     setElements((ele) => produce(ele, d => {
       if (d.length == 1)
         return
       const values = form.getFieldsValue()
-      if (elements.length > 0 && values[elements.length - 1]?.location) {
+      if (elements.length > 0 && values[elements.length - 1]?.node?.location) {
         dispatch(ActRemovePauses())
       }
       d.pop()

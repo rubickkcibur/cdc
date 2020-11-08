@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import MainLayout from "../components/MainLayoout/PageLayout"
 import sty from "./index.module.scss"
 import Col, { ColProps } from "antd/lib/grid/col"
@@ -9,6 +9,10 @@ import { Map } from 'react-amap'
 import AMapLinkedMarker from "../components/AMapLinkedMarker"
 import { useDispatch } from "react-redux"
 import { ActSetState } from "../lib/state/global"
+import { UploadOutlined } from "@ant-design/icons"
+import { Button, message } from "antd"
+import { FormInstance } from "antd/lib/form"
+import Axios from "axios"
 const Card = ({
   children,
   title,
@@ -30,6 +34,31 @@ const Card = ({
 
 export default function index() {
   const dispatch = useDispatch()
+  const [basicForm, setBF] = useState<FormInstance | undefined>(undefined)
+  const [pathForm, setPF] = useState<FormInstance | undefined>(undefined)
+  const onBasicChange = (values: any, form: FormInstance | undefined) => {
+    setBF(form)
+  }
+  const onPathChange = (values: any, form: FormInstance | undefined) => {
+    setPF(form)
+  }
+  const onSubmit = async () => {
+    try {
+      const basic = await basicForm?.validateFields()
+      const path: any = await pathForm?.validateFields()
+      console.log(basic, path)
+      Axios.post("http://39.105.232.15:2012/upload", {
+        basic,
+        path: {
+          nodes: path.map((e: any) => e.node),
+          edges: path.map((e: any) => e.edge)
+        },
+      }).then(e => message.success("提交成功")).catch(e => message.error("提交失败"))
+    } catch {
+      message.error("请完善信息")
+    }
+  }
+
   return (
     <MainLayout>
       <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }} className={sty.RootRow}>
@@ -45,7 +74,7 @@ export default function index() {
             <Col span={24} style={{ flex: "0 1 auto", padding: "0" }}>
               <Card title={"基本信息"}>
                 <div className={sty.FormContainer}>
-                  <FormBasic />
+                  <FormBasic onChange={onBasicChange} />
                 </div>
               </Card>
             </Col>
@@ -55,19 +84,23 @@ export default function index() {
               className={sty.PathContainer}
               style={{ padding: "0" }}
             >
+              <div className={sty.UploadButton}>
+                <Button icon={<UploadOutlined />} type={'primary'} onClick={onSubmit}>上传</Button>
+              </div>
               <Card
                 title={"路径填报"}
                 grid={{ span: 24 }}
                 style={{ height: "100%", position: "absolute", width: "100%" }}
               >
                 <div className={sty.PathFormContainer}>
-                  <PathForm />
+                  <PathForm onChange={onPathChange} />
                 </div>
               </Card>
             </Col>
           </div>
         </Col>
         <Col md={{ span: 17, }} >
+
           <Card title={"路径可视化"} style={{ height: "100%" }}>
             <div style={{ height: "100%" }}>
               <Map

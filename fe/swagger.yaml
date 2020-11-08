@@ -47,15 +47,20 @@ paths:
             age:
               type: "string"
               example: "22"
-            address:
+            addr1:
               type: "string"
-              example: "北京市海淀区学院路37号北京航空航天大学"
+              example: "北京市海淀区"
+            addr2:
+              type: "string"
+              example: "学院路37号北京航空航天大学"
             path:
               example: [{
             "time":"2020-02-01 12:00",
+            "pos":{
             "location":"蓟门桥",
             "longtitude":"127.022",
             "latitude":"98.022",
+            },
             "contacts":["王一", "李二"],
             "detail":""
         },
