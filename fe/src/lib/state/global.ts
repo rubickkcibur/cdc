@@ -74,7 +74,8 @@ export const PAGlobalReducer: Reducer<TState, TAction> = (
         draft = Object.assign(draft, action.data)
         return draft
       case ActionsEnum.AddPause:
-        draft.pauses.push(action.pau)
+        if (action.idx === draft.pauses.length) draft.pauses.push(action.pau)
+        else draft.pauses.splice(action.idx, 1, action.pau)
         return draft
       case ActionsEnum.RemovePause:
         draft.pauses.pop()
