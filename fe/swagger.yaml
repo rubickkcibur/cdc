@@ -1,0 +1,96 @@
+swagger: "2.0"
+info:
+  description: "用于上传用户基本信息和行踪轨迹"
+  version: "1.0.0"
+  title: "流调可视化后端数据接口"
+  
+host: "39.105.232.15:2012"
+basePath: "/"
+tags:
+- name: "Data Manager"
+  description: "数据访问控制"
+
+
+schemes:
+- "http"
+paths:
+  /upload:
+    post:
+      tags:
+      - "upload"
+      summary: "upload the patient information"
+      description: ""
+      operationId: "addPet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "upload the patient information, 在报文中注意path字段，path是一个数组，其中地点对象和交通工具对象交替出现"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+              example: "张三"
+            gender:
+              type: "string"
+              example: "男"
+            phone:
+              type: "string"
+              example: "1234567"
+            age:
+              type: "string"
+              example: "22"
+            address:
+              type: "string"
+              example: "北京市海淀区学院路37号北京航空航天大学"
+            path:
+              example: [{
+            "time":"2020-02-01 12:00",
+            "location":"蓟门桥",
+            "longtitude":"127.022",
+            "latitude":"98.022",
+            "contacts":["王一", "李二"],
+            "detail":""
+        },
+        {
+            "transportation":"驾车",
+            "detail":""
+        },
+        {
+            "time":"2020-02-01 13:00",
+            "location":"北京西站",
+            "longtitude":"126.022",
+            "latitude":"97.022",
+            "contacts":["李二", "赵四"],
+            "detail":""
+        },
+        {
+            "transportation":"驾车",
+            "detail":""
+        },
+        {
+            "time":"2020-02-01 17:00",
+            "location":"北京南站",
+            "longtitude":"128.022",
+            "latitude":"97.022",
+            "contacts":["刘三", "赵四"],
+            "detail":""
+        }]
+      responses:
+        "200":
+          description: "upload successfully"
+      
+  
+  
+  
+  
+  
+  
+  
