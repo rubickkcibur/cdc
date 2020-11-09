@@ -15,18 +15,20 @@ export default function PageOverview() {
       server_user: "neo4j",
       server_password: "123456",
       labels: {
-        "Event": {
-          "caption": "location",
-          "size": "count"
+        "Location": {
+          "caption": "name",
+          "size": "count",
+          "color":"red"
         }
       },
       relationships: {
-        "transport": {
-          "caption": "method",
-          "thickness": "count"
+        "To": {
+          "caption": "traffic",
+          "thickness": "count",
+          "color":"pink"
         }
       },
-      initial_cypher: "MATCH p=()-[r:transport]->() RETURN p LIMIT 25"
+      initial_cypher: "MATCH p=()-[r:To]->() RETURN p "
     };
   }
   else{
@@ -51,7 +53,7 @@ export default function PageOverview() {
                         "thickness":"count"
           }
       },
-      initial_cypher: "MATCH p=()-[r:`contact`]->() RETURN p LIMIT 25"
+      initial_cypher: "MATCH p=()-[r:With]->() RETURN p LIMIT 25"
     };
   }
                      
