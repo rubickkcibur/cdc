@@ -46,15 +46,16 @@ export default function index() {
     try {
       const basic = await basicForm?.validateFields()
       const path: any = await pathForm?.validateFields()
-      console.log(basic, path)
+      const t = Object.entries(path)
       Axios.post("http://39.105.232.15:2012/upload", {
         basic,
         path: {
-          nodes: path.map((e: any) => e.node),
-          edges: path.map((e: any) => e.edge)
+          nodes: t.map(([e, v]: any) => v.node),
+          edges: t.map(([e, v]: any) => v.edge),
         },
       }).then(e => message.success("提交成功")).catch(e => message.error("提交失败"))
-    } catch {
+    } catch (e) {
+      console.log(e)
       message.error("请完善信息")
     }
   }
