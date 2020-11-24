@@ -9,10 +9,11 @@ import { Map } from 'react-amap'
 import AMapLinkedMarker from "../components/AMapLinkedMarker"
 import { useDispatch } from "react-redux"
 import { ActSetState } from "../lib/state/global"
-import { UploadOutlined } from "@ant-design/icons"
+import { SaveOutlined, UploadOutlined } from "@ant-design/icons"
 import { Button, message } from "antd"
 import { FormInstance } from "antd/lib/form"
 import Axios from "axios"
+import Constant from '../lib/constant'
 const Card = ({
   children,
   title,
@@ -44,10 +45,19 @@ export default function index() {
   }
   const onSubmit = async () => {
     try {
+      await onSave()
+    } finally {
+
+      location && location.reload()
+    }
+
+  }
+  const onSave = async () => {
+    try {
       const basic = await basicForm?.validateFields()
       const path: any = await pathForm?.validateFields()
       const t = Object.entries(path)
-      Axios.post("http://39.105.232.15:2012/upload", {
+      Axios.post(`${Constant.apihost}/upload`, {
         basic,
         path: {
           nodes: t.map(([, v]: any) => v.node),
@@ -89,6 +99,7 @@ export default function index() {
               style={{ padding: "0" }}
             >
               <div className={sty.UploadButton}>
+                <Button icon={<SaveOutlined />} type={'primary'} onClick={onSave} style={{ marginRight: "8px" }}>保存</Button>
                 <Button icon={<UploadOutlined />} type={'primary'} onClick={onSubmit}>上传</Button>
               </div>
               <Card

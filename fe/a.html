@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="robots" content="NONE,NOARCHIVE">
+  <title>AttributeError
+          at /upload</title>
+  <style type="text/css">
+    html * { padding:0; margin:0; }
+    body * { padding:10px 20px; }
+    body * * { padding:0; }
+    body { font:small sans-serif; background-color:#fff; color:#000; }
+    body>div { border-bottom:1px solid #ddd; }
+    h1 { font-weight:normal; }
+    h2 { margin-bottom:.8em; }
+    h3 { margin:1em 0 .5em 0; }
+    h4 { margin:0 0 .5em 0; font-weight: normal; }
+    code, pre { font-size: 100%; white-space: pre-wrap; }
+    table { border:1px solid #ccc; border-collapse: collapse; width:100%; background:white; }
+    tbody td, tbody th { vertical-align:top; padding:2px 3px; }
+    thead th {
+      padding:1px 6px 1px 3px; background:#fefefe; text-align:left;
+      font-weight:normal; font-size:11px; border:1px solid #ddd;
+    }
+    tbody th { width:12em; text-align:right; color:#666; padding-right:.5em; }
+    table.vars { margin:5px 0 2px 40px; }
+    table.vars td, table.req td { font-family:monospace; }
+    table td.code { width:100%; }
+    table td.code pre { overflow:hidden; }
+    table.source th { color:#666; }
+    table.source td { font-family:monospace; white-space:pre; border-bottom:1px solid #eee; }
+    ul.traceback { list-style-type:none; color: #222; }
+    ul.traceback li.frame { padding-bottom:1em; color:#4f4f4f; }
+    ul.traceback li.user { background-color:#e0e0e0; color:#000 }
+    div.context { padding:10px 0; overflow:hidden; }
+    div.context ol { padding-left:30px; margin:0 10px; list-style-position: inside; }
+    div.context ol li { font-family:monospace; white-space:pre; color:#777; cursor:pointer; padding-left: 2px; }
+    div.context ol li pre { display:inline; }
+    div.context ol.context-line li { color:#464646; background-color:#dfdfdf; padding: 3px 2px; }
+    div.context ol.context-line li span { position:absolute; right:32px; }
+    .user div.context ol.context-line li { background-color:#bbb; color:#000; }
+    .user div.context ol li { color:#666; }
+    div.commands { margin-left: 40px; }
+    div.commands a { color:#555; text-decoration:none; }
+    .user div.commands a { color: black; }
+    #summary { background: #ffc; }
+    #summary h2 { font-weight: normal; color: #666; }
+    #explanation { background:#eee; }
+    #template, #template-not-exist { background:#f6f6f6; }
+    #template-not-exist ul { margin: 0 0 10px 20px; }
+    #template-not-exist .postmortem-section { margin-bottom: 3px; }
+    #unicode-hint { background:#eee; }
+    #traceback { background:#eee; }
+    #requestinfo { background:#f6f6f6; padding-left:120px; }
+    #summary table { border:none; background:transparent; }
+    #requestinfo h2, #requestinfo h3 { position:relative; margin-left:-100px; }
+    #requestinfo h3 { margin-bottom:-1em; }
+    .error { background: #ffc; }
+    .specific { color:#cc3300; font-weight:bold; }
+    h2 span.commands { font-size:.7em; font-weight:normal; }
+    span.commands a:link {color:#5E5694;}
+    pre.exception_value { font-family: sans-serif; color: #575757; font-size: 1.5em; margin: 10px 0 10px 0; }
+    .append-bottom { margin-bottom: 10px; }
+    .fname { user-select: all; }
+  </style>
+  
+  <script>
+    function hideAll(elems) {
+      for (var e = 0; e < elems.length; e++) {
+        elems[e].style.display = 'none';
+      }
+    }
+    window.onload = function() {
+      hideAll(document.querySelectorAll('table.vars'));
+      hideAll(document.querySelectorAll('ol.pre-context'));
+      hideAll(document.querySelectorAll('ol.post-context'));
+      hideAll(document.querySelectorAll('div.pastebin'));
+    }
+    function toggle() {
+      for (var i = 0; i < arguments.length; i++) {
+        var e = document.getElementById(arguments[i]);
+        if (e) {
+          e.style.display = e.style.display == 'none' ? 'block': 'none';
+        }
+      }
+      return false;
+    }
+    function varToggle(link, id) {
+      toggle('v' + id);
+      var s = link.getElementsByTagName('span')[0];
+      var uarr = String.fromCharCode(0x25b6);
+      var darr = String.fromCharCode(0x25bc);
+      s.textContent = s.textContent == uarr ? darr : uarr;
+      return false;
+    }
+    function switchPastebinFriendly(link) {
+      s1 = "Switch to copy-and-paste view";
+      s2 = "Switch back to interactive view";
+      link.textContent = link.textContent.trim() == s1 ? s2: s1;
+      toggle('browserTraceback', 'pastebinTraceback');
+      return false;
+    }
+  </script>
+  
+</head>
+<body>
+<div id="summary">
+  <h1>AttributeError
+       at /upload</h1>
+  <pre class="exception_value">This QueryDict instance is immutable</pre>
+  <table class="meta">
+
+    <tr>
+      <th>Request Method:</th>
+      <td>POST</td>
+    </tr>
+    <tr>
+      <th>Request URL:</th>
+      <td>http://39.105.232.15:2012/upload</td>
+    </tr>
+
+    <tr>
+      <th>Django Version:</th>
+      <td>3.1.2</td>
+    </tr>
+
+    <tr>
+      <th>Exception Type:</th>
+      <td>AttributeError</td>
+    </tr>
+
+
+    <tr>
+      <th>Exception Value:</th>
+      <td><pre>This QueryDict instance is immutable</pre></td>
+    </tr>
+
+
+    <tr>
+      <th>Exception Location:</th>
+      <td><span class="fname">/root/miniconda3/lib/python3.8/site-packages/django/http/request.py</span>, line 488, in _assert_mutable</td>
+    </tr>
+
+    <tr>
+      <th>Python Executable:</th>
+      <td>/root/miniconda3/bin/python</td>
+    </tr>
+    <tr>
+      <th>Python Version:</th>
+      <td>3.8.3</td>
+    </tr>
+    <tr>
+      <th>Python Path:</th>
+      <td><pre>[&#x27;/root/workspace/kash_visualize/server&#x27;,
+ &#x27;/root/miniconda3/lib/python38.zip&#x27;,
+ &#x27;/root/miniconda3/lib/python3.8&#x27;,
+ &#x27;/root/miniconda3/lib/python3.8/lib-dynload&#x27;,
+ &#x27;/root/miniconda3/lib/python3.8/site-packages&#x27;]</pre></td>
+    </tr>
+    <tr>
+      <th>Server time:</th>
+      <td>Tue, 24 Nov 2020 13:38:43 +0000</td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+<div id="traceback">
+  <h2>Traceback <span class="commands"><a href="#" onclick="return switchPastebinFriendly(this);">
+    Switch to copy-and-paste view</a></span>
+  </h2>
+  <div id="browserTraceback">
+    <ul class="traceback">
+      
+        
+        <li class="frame django">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/django/core/handlers/exception.py</code>, line 47, in inner
+
+          
+            <div class="context" id="c139725168646016">
+              
+                <ol start="40" class="pre-context" id="pre139725168646016">
+                
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>                response = await sync_to_async(response_for_exception)(request, exc)</pre></li>
+                
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>            return response</pre></li>
+                
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>        return inner</pre></li>
+                
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>    else:</pre></li>
+                
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>        @wraps(get_response)</pre></li>
+                
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>        def inner(request):</pre></li>
+                
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>            try:</pre></li>
+                
+                </ol>
+              
+              <ol start="47" class="context-line">
+                <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>                response = get_response(request)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='48' class="post-context" id="post139725168646016">
+                  
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>            except Exception as exc:</pre></li>
+                  
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>                response = response_for_exception(request, exc)</pre></li>
+                  
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>            return response</pre></li>
+                  
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre>        return inner</pre></li>
+                  
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725168646016', 'post139725168646016')"><pre></pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725168646016')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725168646016">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>exc</td>
+                    <td class="code"><pre>AttributeError(&#x27;This QueryDict instance is immutable&#x27;)</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>get_response</td>
+                    <td class="code"><pre>&lt;bound method BaseHandler._get_response of &lt;django.core.handlers.wsgi.WSGIHandler object at 0x7f1456af07f0&gt;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>request</td>
+                    <td class="code"><pre>&lt;WSGIRequest: POST &#x27;/upload&#x27;&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame django">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/django/core/handlers/base.py</code>, line 179, in _get_response
+
+          
+            <div class="context" id="c139725170014656">
+              
+                <ol start="172" class="pre-context" id="pre139725170014656">
+                
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>        if response is None:</pre></li>
+                
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>            wrapped_callback = self.make_view_atomic(callback)</pre></li>
+                
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>            # If it is an asynchronous view, run it in a subthread.</pre></li>
+                
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>            if asyncio.iscoroutinefunction(wrapped_callback):</pre></li>
+                
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>                wrapped_callback = async_to_sync(wrapped_callback)</pre></li>
+                
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>            try:</pre></li>
+                
+                </ol>
+              
+              <ol start="179" class="context-line">
+                <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>                response = wrapped_callback(request, *callback_args, **callback_kwargs)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='180' class="post-context" id="post139725170014656">
+                  
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>            except Exception as e:</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>                response = self.process_exception_by_middleware(e, request)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>                if response is None:</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>                    raise</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014656', 'post139725170014656')"><pre>        # Complain if the view returned None (a common error).</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170014656')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170014656">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>callback</td>
+                    <td class="code"><pre>&lt;function WrappedAPIView at 0x7f144e753b80&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>callback_args</td>
+                    <td class="code"><pre>()</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>callback_kwargs</td>
+                    <td class="code"><pre>{}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>middleware_method</td>
+                    <td class="code"><pre>&lt;bound method CsrfViewMiddleware.process_view of &lt;django.middleware.csrf.CsrfViewMiddleware object at 0x7f1456adec10&gt;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>request</td>
+                    <td class="code"><pre>&lt;WSGIRequest: POST &#x27;/upload&#x27;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>response</td>
+                    <td class="code"><pre>None</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>&lt;django.core.handlers.wsgi.WSGIHandler object at 0x7f1456af07f0&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>wrapped_callback</td>
+                    <td class="code"><pre>&lt;function WrappedAPIView at 0x7f144e753b80&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame django">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/django/views/decorators/csrf.py</code>, line 54, in wrapped_view
+
+          
+            <div class="context" id="c139725170013248">
+              
+                <ol start="47" class="pre-context" id="pre139725170013248">
+                
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>def csrf_exempt(view_func):</pre></li>
+                
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>    &quot;&quot;&quot;Mark a view function as being exempt from the CSRF view protection.&quot;&quot;&quot;</pre></li>
+                
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>    # view_func.csrf_exempt = True would also work, but decorators are nicer</pre></li>
+                
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>    # if they don&#x27;t have side effects, so return a new function.</pre></li>
+                
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>    def wrapped_view(*args, **kwargs):</pre></li>
+                
+                </ol>
+              
+              <ol start="54" class="context-line">
+                <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>        return view_func(*args, **kwargs)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='55' class="post-context" id="post139725170013248">
+                  
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>    wrapped_view.csrf_exempt = True</pre></li>
+                  
+                  <li onclick="toggle('pre139725170013248', 'post139725170013248')"><pre>    return wraps(view_func)(wrapped_view)</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170013248')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170013248">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>args</td>
+                    <td class="code"><pre>(&lt;WSGIRequest: POST &#x27;/upload&#x27;&gt;,)</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>kwargs</td>
+                    <td class="code"><pre>{}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>view_func</td>
+                    <td class="code"><pre>&lt;function WrappedAPIView at 0x7f144e753af0&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame django">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/django/views/generic/base.py</code>, line 70, in view
+
+          
+            <div class="context" id="c139725170012800">
+              
+                <ol start="63" class="pre-context" id="pre139725170012800">
+                
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>            self = cls(**initkwargs)</pre></li>
+                
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>            self.setup(request, *args, **kwargs)</pre></li>
+                
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>            if not hasattr(self, &#x27;request&#x27;):</pre></li>
+                
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>                raise AttributeError(</pre></li>
+                
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>                    &quot;%s instance has no &#x27;request&#x27; attribute. Did you override &quot;</pre></li>
+                
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>                    &quot;setup() and forget to call super()?&quot; % cls.__name__</pre></li>
+                
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>                )</pre></li>
+                
+                </ol>
+              
+              <ol start="70" class="context-line">
+                <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>            return self.dispatch(request, *args, **kwargs)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='71' class="post-context" id="post139725170012800">
+                  
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>        view.view_class = cls</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>        view.view_initkwargs = initkwargs</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>        # take name and docstring from class</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre>        update_wrapper(view, cls, updated=())</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012800', 'post139725170012800')"><pre></pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170012800')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170012800">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>args</td>
+                    <td class="code"><pre>()</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>cls</td>
+                    <td class="code"><pre>&lt;class &#x27;demo.views.WrappedAPIView&#x27;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>initkwargs</td>
+                    <td class="code"><pre>{}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>kwargs</td>
+                    <td class="code"><pre>{}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>request</td>
+                    <td class="code"><pre>&lt;WSGIRequest: POST &#x27;/upload&#x27;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>&lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame user">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py</code>, line 509, in dispatch
+
+          
+            <div class="context" id="c139725170014912">
+              
+                <ol start="502" class="pre-context" id="pre139725170014912">
+                
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>                                  self.http_method_not_allowed)</pre></li>
+                
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>            else:</pre></li>
+                
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>                handler = self.http_method_not_allowed</pre></li>
+                
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>            response = handler(request, *args, **kwargs)</pre></li>
+                
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>        except Exception as exc:</pre></li>
+                
+                </ol>
+              
+              <ol start="509" class="context-line">
+                <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>            response = self.handle_exception(exc)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='510' class="post-context" id="post139725170014912">
+                  
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>        self.response = self.finalize_response(request, response, *args, **kwargs)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>        return self.response</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>    def options(self, request, *args, **kwargs):</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014912', 'post139725170014912')"><pre>        &quot;&quot;&quot;</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170014912')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170014912">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>args</td>
+                    <td class="code"><pre>()</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>handler</td>
+                    <td class="code"><pre>&lt;bound method api_view.&lt;locals&gt;.decorator.&lt;locals&gt;.handler of &lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>kwargs</td>
+                    <td class="code"><pre>{}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>request</td>
+                    <td class="code"><pre>&lt;rest_framework.request.Request: POST &#x27;/upload&#x27;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>&lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame user">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py</code>, line 469, in handle_exception
+
+          
+            <div class="context" id="c139725170012224">
+              
+                <ol start="462" class="pre-context" id="pre139725170012224">
+                
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>        exception_handler = self.get_exception_handler()</pre></li>
+                
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>        context = self.get_exception_handler_context()</pre></li>
+                
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>        response = exception_handler(exc, context)</pre></li>
+                
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>        if response is None:</pre></li>
+                
+                </ol>
+              
+              <ol start="469" class="context-line">
+                <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>            self.raise_uncaught_exception(exc)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='470' class="post-context" id="post139725170012224">
+                  
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>        response.exception = True</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>        return response</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>    def raise_uncaught_exception(self, exc):</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012224', 'post139725170012224')"><pre>        if settings.DEBUG:</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170012224')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170012224">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>context</td>
+                    <td class="code"><pre>{&#x27;args&#x27;: (),
+ &#x27;kwargs&#x27;: {},
+ &#x27;request&#x27;: &lt;rest_framework.request.Request: POST &#x27;/upload&#x27;&gt;,
+ &#x27;view&#x27;: &lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>exc</td>
+                    <td class="code"><pre>AttributeError(&#x27;This QueryDict instance is immutable&#x27;)</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>exception_handler</td>
+                    <td class="code"><pre>&lt;function exception_handler at 0x7f14553aa310&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>response</td>
+                    <td class="code"><pre>None</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>&lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame user">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py</code>, line 480, in raise_uncaught_exception
+
+          
+            <div class="context" id="c139725170012608">
+              
+                <ol start="473" class="pre-context" id="pre139725170012608">
+                
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>    def raise_uncaught_exception(self, exc):</pre></li>
+                
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>        if settings.DEBUG:</pre></li>
+                
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>            request = self.request</pre></li>
+                
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>            renderer_format = getattr(request.accepted_renderer, &#x27;format&#x27;)</pre></li>
+                
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>            use_plaintext_traceback = renderer_format not in (&#x27;html&#x27;, &#x27;api&#x27;, &#x27;admin&#x27;)</pre></li>
+                
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>            request.force_plaintext_errors(use_plaintext_traceback)</pre></li>
+                
+                </ol>
+              
+              <ol start="480" class="context-line">
+                <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>        raise exc</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='481' class="post-context" id="post139725170012608">
+                  
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>    # Note: Views are made CSRF exempt from within `as_view` as to prevent</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>    # accidental removal of this exemption in cases where `dispatch` needs to</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>    # be overridden.</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>    def dispatch(self, request, *args, **kwargs):</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012608', 'post139725170012608')"><pre>        &quot;&quot;&quot;</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170012608')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170012608">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>exc</td>
+                    <td class="code"><pre>AttributeError(&#x27;This QueryDict instance is immutable&#x27;)</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>renderer_format</td>
+                    <td class="code"><pre>&#x27;json&#x27;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>request</td>
+                    <td class="code"><pre>&lt;rest_framework.request.Request: POST &#x27;/upload&#x27;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>&lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>use_plaintext_traceback</td>
+                    <td class="code"><pre>True</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame user">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py</code>, line 506, in dispatch
+
+          
+            <div class="context" id="c139725170014080">
+              
+                <ol start="499" class="pre-context" id="pre139725170014080">
+                
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>            # Get the appropriate handler method</pre></li>
+                
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>            if request.method.lower() in self.http_method_names:</pre></li>
+                
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>                handler = getattr(self, request.method.lower(),</pre></li>
+                
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>                                  self.http_method_not_allowed)</pre></li>
+                
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>            else:</pre></li>
+                
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>                handler = self.http_method_not_allowed</pre></li>
+                
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre></pre></li>
+                
+                </ol>
+              
+              <ol start="506" class="context-line">
+                <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>            response = handler(request, *args, **kwargs)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='507' class="post-context" id="post139725170014080">
+                  
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>        except Exception as exc:</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>            response = self.handle_exception(exc)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>        self.response = self.finalize_response(request, response, *args, **kwargs)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014080', 'post139725170014080')"><pre>        return self.response</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170014080')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170014080">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>args</td>
+                    <td class="code"><pre>()</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>handler</td>
+                    <td class="code"><pre>&lt;bound method api_view.&lt;locals&gt;.decorator.&lt;locals&gt;.handler of &lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>kwargs</td>
+                    <td class="code"><pre>{}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>request</td>
+                    <td class="code"><pre>&lt;rest_framework.request.Request: POST &#x27;/upload&#x27;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>&lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame user">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/rest_framework/decorators.py</code>, line 50, in handler
+
+          
+            <div class="context" id="c139725170014336">
+              
+                <ol start="43" class="pre-context" id="pre139725170014336">
+                
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>        assert isinstance(http_method_names, (list, tuple)), \</pre></li>
+                
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>            &#x27;@api_view expected a list of strings, received %s&#x27; % type(http_method_names).__name__</pre></li>
+                
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>        allowed_methods = set(http_method_names) | {&#x27;options&#x27;}</pre></li>
+                
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>        WrappedAPIView.http_method_names = [method.lower() for method in allowed_methods]</pre></li>
+                
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>        def handler(self, *args, **kwargs):</pre></li>
+                
+                </ol>
+              
+              <ol start="50" class="context-line">
+                <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>            return func(*args, **kwargs)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='51' class="post-context" id="post139725170014336">
+                  
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>        for method in http_method_names:</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>            setattr(WrappedAPIView, method.lower(), handler)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>        WrappedAPIView.__name__ = func.__name__</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014336', 'post139725170014336')"><pre>        WrappedAPIView.__module__ = func.__module__</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170014336')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170014336">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>args</td>
+                    <td class="code"><pre>(&lt;rest_framework.request.Request: POST &#x27;/upload&#x27;&gt;,)</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>func</td>
+                    <td class="code"><pre>&lt;function upload at 0x7f1454eb9280&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>kwargs</td>
+                    <td class="code"><pre>{}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>&lt;demo.views.WrappedAPIView object at 0x7f144e5b1940&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame user">
+          <code class="fname">/root/workspace/kash_visualize/server/demo/views.py</code>, line 26, in upload
+
+          
+            <div class="context" id="c139725170014208">
+              
+                <ol start="19" class="pre-context" id="pre139725170014208">
+                
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>@api_view([&quot;POST&quot;])</pre></li>
+                
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>def upload(request):</pre></li>
+                
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>    if request.method == &quot;POST&quot;:</pre></li>
+                
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        data = request.data</pre></li>
+                
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        </pre></li>
+                
+                </ol>
+              
+              <ol start="26" class="context-line">
+                <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        col.insert_one(data)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='27' class="post-context" id="post139725170014208">
+                  
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        name = data[&quot;basic&quot;][&quot;name&quot;].strip()</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        gender = &quot;男&quot; if data[&quot;basic&quot;][&quot;gender&quot;].strip() == &quot;male&quot; else &quot;女&quot;</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        phone = data[&quot;basic&quot;][&quot;phone&quot;].strip()</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        age = data[&quot;basic&quot;][&quot;age&quot;].strip()</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre>        address = &quot;&quot;.join(data[&quot;basic&quot;][&quot;addr1&quot;]) + data[&quot;basic&quot;][&quot;addr2&quot;]</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014208', 'post139725170014208')"><pre></pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170014208')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170014208">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>data</td>
+                    <td class="code"><pre>{&#x27;{    &quot;_id&quot;: null,    &quot;basic&quot;: {        &quot;name&quot;: &quot;张三&quot;,        &quot;person_id&quot;: &quot;110101199411076965&quot;,        &quot;gender&quot;: &quot;female&quot;,        &quot;phone&quot;: &quot;01230123123&quot;,        &quot;age&quot;: &quot;26&quot;,        &quot;addr1&quot;: [            &quot;北京市&quot;,            &quot;市辖区&quot;,            &quot;东城区&quot;        ],        &quot;addr2&quot;: &quot;东四二条社区&quot;    },    &quot;path&quot;: {        &quot;nodes&quot;: [            {                &quot;time&quot;: &quot;2020-02-19T13:09:07.893Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;东四二条社区&quot;,                    &quot;district&quot;: &quot;北京市东城区&quot;,                    &quot;adcode&quot;: &quot;110101&quot;,                    &quot;location&quot;: &quot;116.419272,39.926039&quot;,                    &quot;address&quot;: &quot;东四北大街460号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T19:12:10.726Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;国家体育场&quot;,                    &quot;district&quot;: &quot;北京市朝阳区&quot;,                    &quot;adcode&quot;: &quot;110105&quot;,                    &quot;location&quot;: &quot;116.3979,39.992197&quot;,                    &quot;address&quot;: &quot;国家体育场南路1号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                },                &quot;contacts&quot;: [&quot;蒋七&quot;],                &quot;contact_ids&quot;: [&quot;110102199804031270&quot;],                &quot;details&quot;: &quot;玩&quot;            },            {                &quot;time&quot;: &quot;2020-02-19T21:12:27.798Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;紫竹院公园&quot;,                    &quot;district&quot;: &quot;北京市海淀区&quot;,                    &quot;adcode&quot;: &quot;110108&quot;,                    &quot;location&quot;: &quot;116.318936,39.941282&quot;,                    &quot;address&quot;: &quot;中关村南大街35号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T22:11:38.401Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;新发地农产品批发市场&quot;,                    &quot;district&quot;: &quot;北京市丰台区&quot;,                    &quot;adcode&quot;: &quot;110106&quot;,                    &quot;location&quot;: &quot;116.340837,39.818204&quot;,                    &quot;address&quot;: &quot;南苑西路&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            }        ],        &quot;edges&quot;: [            {                &quot;traffic&quot;: &quot;地铁&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            null        ]    }}&#x27;: &#x27;&#x27;}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>request</td>
+                    <td class="code"><pre>&lt;rest_framework.request.Request: POST &#x27;/upload&#x27;&gt;</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame user">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/pymongo/collection.py</code>, line 694, in insert_one
+
+          
+            <div class="context" id="c139725170015936">
+              
+                <ol start="687" class="pre-context" id="pre139725170015936">
+                
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>        .. versionchanged:: 3.2</pre></li>
+                
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>          Added bypass_document_validation support</pre></li>
+                
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>        .. versionadded:: 3.0</pre></li>
+                
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>        &quot;&quot;&quot;</pre></li>
+                
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>        common.validate_is_document_type(&quot;document&quot;, document)</pre></li>
+                
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>        if not (isinstance(document, RawBSONDocument) or &quot;_id&quot; in document):</pre></li>
+                
+                </ol>
+              
+              <ol start="694" class="context-line">
+                <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>            document[&quot;_id&quot;] = ObjectId()</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='695' class="post-context" id="post139725170015936">
+                  
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>        write_concern = self._write_concern_for(session)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>        return InsertOneResult(</pre></li>
+                  
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>            self._insert(document,</pre></li>
+                  
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>                         write_concern=write_concern,</pre></li>
+                  
+                  <li onclick="toggle('pre139725170015936', 'post139725170015936')"><pre>                         bypass_doc_val=bypass_document_validation,</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170015936')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170015936">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>bypass_document_validation</td>
+                    <td class="code"><pre>False</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>document</td>
+                    <td class="code"><pre>{&#x27;{    &quot;_id&quot;: null,    &quot;basic&quot;: {        &quot;name&quot;: &quot;张三&quot;,        &quot;person_id&quot;: &quot;110101199411076965&quot;,        &quot;gender&quot;: &quot;female&quot;,        &quot;phone&quot;: &quot;01230123123&quot;,        &quot;age&quot;: &quot;26&quot;,        &quot;addr1&quot;: [            &quot;北京市&quot;,            &quot;市辖区&quot;,            &quot;东城区&quot;        ],        &quot;addr2&quot;: &quot;东四二条社区&quot;    },    &quot;path&quot;: {        &quot;nodes&quot;: [            {                &quot;time&quot;: &quot;2020-02-19T13:09:07.893Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;东四二条社区&quot;,                    &quot;district&quot;: &quot;北京市东城区&quot;,                    &quot;adcode&quot;: &quot;110101&quot;,                    &quot;location&quot;: &quot;116.419272,39.926039&quot;,                    &quot;address&quot;: &quot;东四北大街460号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T19:12:10.726Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;国家体育场&quot;,                    &quot;district&quot;: &quot;北京市朝阳区&quot;,                    &quot;adcode&quot;: &quot;110105&quot;,                    &quot;location&quot;: &quot;116.3979,39.992197&quot;,                    &quot;address&quot;: &quot;国家体育场南路1号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                },                &quot;contacts&quot;: [&quot;蒋七&quot;],                &quot;contact_ids&quot;: [&quot;110102199804031270&quot;],                &quot;details&quot;: &quot;玩&quot;            },            {                &quot;time&quot;: &quot;2020-02-19T21:12:27.798Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;紫竹院公园&quot;,                    &quot;district&quot;: &quot;北京市海淀区&quot;,                    &quot;adcode&quot;: &quot;110108&quot;,                    &quot;location&quot;: &quot;116.318936,39.941282&quot;,                    &quot;address&quot;: &quot;中关村南大街35号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T22:11:38.401Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;新发地农产品批发市场&quot;,                    &quot;district&quot;: &quot;北京市丰台区&quot;,                    &quot;adcode&quot;: &quot;110106&quot;,                    &quot;location&quot;: &quot;116.340837,39.818204&quot;,                    &quot;address&quot;: &quot;南苑西路&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            }        ],        &quot;edges&quot;: [            {                &quot;traffic&quot;: &quot;地铁&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            null        ]    }}&#x27;: &#x27;&#x27;}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>Collection(Database(MongoClient(host=[&#x27;39.105.232.15:2005&#x27;], document_class=dict, tz_aware=False, connect=True), &#x27;surveys&#x27;), &#x27;production&#x27;)</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>session</td>
+                    <td class="code"><pre>None</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame django">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/django/http/request.py</code>, line 491, in __setitem__
+
+          
+            <div class="context" id="c139725170014144">
+              
+                <ol start="484" class="pre-context" id="pre139725170014144">
+                
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>        self._encoding = value</pre></li>
+                
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>    def _assert_mutable(self):</pre></li>
+                
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>        if not self._mutable:</pre></li>
+                
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>            raise AttributeError(&quot;This QueryDict instance is immutable&quot;)</pre></li>
+                
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>    def __setitem__(self, key, value):</pre></li>
+                
+                </ol>
+              
+              <ol start="491" class="context-line">
+                <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>        self._assert_mutable()</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='492' class="post-context" id="post139725170014144">
+                  
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>        key = bytes_to_text(key, self.encoding)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>        value = bytes_to_text(value, self.encoding)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>        super().__setitem__(key, value)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>    def __delitem__(self, key):</pre></li>
+                  
+                  <li onclick="toggle('pre139725170014144', 'post139725170014144')"><pre>        self._assert_mutable()</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170014144')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170014144">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>__class__</td>
+                    <td class="code"><pre>&lt;class &#x27;django.http.request.QueryDict&#x27;&gt;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>key</td>
+                    <td class="code"><pre>&#x27;_id&#x27;</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>{&#x27;{    &quot;_id&quot;: null,    &quot;basic&quot;: {        &quot;name&quot;: &quot;张三&quot;,        &quot;person_id&quot;: &quot;110101199411076965&quot;,        &quot;gender&quot;: &quot;female&quot;,        &quot;phone&quot;: &quot;01230123123&quot;,        &quot;age&quot;: &quot;26&quot;,        &quot;addr1&quot;: [            &quot;北京市&quot;,            &quot;市辖区&quot;,            &quot;东城区&quot;        ],        &quot;addr2&quot;: &quot;东四二条社区&quot;    },    &quot;path&quot;: {        &quot;nodes&quot;: [            {                &quot;time&quot;: &quot;2020-02-19T13:09:07.893Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;东四二条社区&quot;,                    &quot;district&quot;: &quot;北京市东城区&quot;,                    &quot;adcode&quot;: &quot;110101&quot;,                    &quot;location&quot;: &quot;116.419272,39.926039&quot;,                    &quot;address&quot;: &quot;东四北大街460号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T19:12:10.726Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;国家体育场&quot;,                    &quot;district&quot;: &quot;北京市朝阳区&quot;,                    &quot;adcode&quot;: &quot;110105&quot;,                    &quot;location&quot;: &quot;116.3979,39.992197&quot;,                    &quot;address&quot;: &quot;国家体育场南路1号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                },                &quot;contacts&quot;: [&quot;蒋七&quot;],                &quot;contact_ids&quot;: [&quot;110102199804031270&quot;],                &quot;details&quot;: &quot;玩&quot;            },            {                &quot;time&quot;: &quot;2020-02-19T21:12:27.798Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;紫竹院公园&quot;,                    &quot;district&quot;: &quot;北京市海淀区&quot;,                    &quot;adcode&quot;: &quot;110108&quot;,                    &quot;location&quot;: &quot;116.318936,39.941282&quot;,                    &quot;address&quot;: &quot;中关村南大街35号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T22:11:38.401Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;新发地农产品批发市场&quot;,                    &quot;district&quot;: &quot;北京市丰台区&quot;,                    &quot;adcode&quot;: &quot;110106&quot;,                    &quot;location&quot;: &quot;116.340837,39.818204&quot;,                    &quot;address&quot;: &quot;南苑西路&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            }        ],        &quot;edges&quot;: [            {                &quot;traffic&quot;: &quot;地铁&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            null        ]    }}&#x27;: &#x27;&#x27;}</pre></td>
+                  </tr>
+                
+                  <tr>
+                    <td>value</td>
+                    <td class="code"><pre>ObjectId(&#x27;5fbd0ce3adea111babb77cb2&#x27;)</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+        
+        <li class="frame django">
+          <code class="fname">/root/miniconda3/lib/python3.8/site-packages/django/http/request.py</code>, line 488, in _assert_mutable
+
+          
+            <div class="context" id="c139725170012864">
+              
+                <ol start="481" class="pre-context" id="pre139725170012864">
+                
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>    @encoding.setter</pre></li>
+                
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>    def encoding(self, value):</pre></li>
+                
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>        self._encoding = value</pre></li>
+                
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre></pre></li>
+                
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>    def _assert_mutable(self):</pre></li>
+                
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>        if not self._mutable:</pre></li>
+                
+                </ol>
+              
+              <ol start="488" class="context-line">
+                <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>            raise AttributeError(&quot;This QueryDict instance is immutable&quot;)</pre> <span>…</span></li>
+              </ol>
+              
+                <ol start='489' class="post-context" id="post139725170012864">
+                  
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre></pre></li>
+                  
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>    def __setitem__(self, key, value):</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>        self._assert_mutable()</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>        key = bytes_to_text(key, self.encoding)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>        value = bytes_to_text(value, self.encoding)</pre></li>
+                  
+                  <li onclick="toggle('pre139725170012864', 'post139725170012864')"><pre>        super().__setitem__(key, value)</pre></li>
+                  
+              </ol>
+              
+            </div>
+          
+
+          
+            <div class="commands">
+                
+                    <a href="#" onclick="return varToggle(this, '139725170012864')"><span>&#x25b6;</span> Local vars</a>
+                
+            </div>
+            <table class="vars" id="v139725170012864">
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>self</td>
+                    <td class="code"><pre>{&#x27;{    &quot;_id&quot;: null,    &quot;basic&quot;: {        &quot;name&quot;: &quot;张三&quot;,        &quot;person_id&quot;: &quot;110101199411076965&quot;,        &quot;gender&quot;: &quot;female&quot;,        &quot;phone&quot;: &quot;01230123123&quot;,        &quot;age&quot;: &quot;26&quot;,        &quot;addr1&quot;: [            &quot;北京市&quot;,            &quot;市辖区&quot;,            &quot;东城区&quot;        ],        &quot;addr2&quot;: &quot;东四二条社区&quot;    },    &quot;path&quot;: {        &quot;nodes&quot;: [            {                &quot;time&quot;: &quot;2020-02-19T13:09:07.893Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;东四二条社区&quot;,                    &quot;district&quot;: &quot;北京市东城区&quot;,                    &quot;adcode&quot;: &quot;110101&quot;,                    &quot;location&quot;: &quot;116.419272,39.926039&quot;,                    &quot;address&quot;: &quot;东四北大街460号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T19:12:10.726Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;国家体育场&quot;,                    &quot;district&quot;: &quot;北京市朝阳区&quot;,                    &quot;adcode&quot;: &quot;110105&quot;,                    &quot;location&quot;: &quot;116.3979,39.992197&quot;,                    &quot;address&quot;: &quot;国家体育场南路1号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                },                &quot;contacts&quot;: [&quot;蒋七&quot;],                &quot;contact_ids&quot;: [&quot;110102199804031270&quot;],                &quot;details&quot;: &quot;玩&quot;            },            {                &quot;time&quot;: &quot;2020-02-19T21:12:27.798Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;紫竹院公园&quot;,                    &quot;district&quot;: &quot;北京市海淀区&quot;,                    &quot;adcode&quot;: &quot;110108&quot;,                    &quot;location&quot;: &quot;116.318936,39.941282&quot;,                    &quot;address&quot;: &quot;中关村南大街35号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T22:11:38.401Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;新发地农产品批发市场&quot;,                    &quot;district&quot;: &quot;北京市丰台区&quot;,                    &quot;adcode&quot;: &quot;110106&quot;,                    &quot;location&quot;: &quot;116.340837,39.818204&quot;,                    &quot;address&quot;: &quot;南苑西路&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            }        ],        &quot;edges&quot;: [            {                &quot;traffic&quot;: &quot;地铁&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            null        ]    }}&#x27;: &#x27;&#x27;}</pre></td>
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        </li>
+      
+    </ul>
+  </div>
+  <form action="http://dpaste.com/" name="pasteform" id="pasteform" method="post">
+
+  <div id="pastebinTraceback" class="pastebin">
+    <input type="hidden" name="language" value="PythonConsole">
+    <input type="hidden" name="title"
+      value="AttributeError at /upload">
+    <input type="hidden" name="source" value="Django Dpaste Agent">
+    <input type="hidden" name="poster" value="Django">
+    <textarea name="content" id="traceback_area" cols="140" rows="25">
+Environment:
+
+
+Request Method: POST
+Request URL: http://39.105.232.15:2012/upload
+
+Django Version: 3.1.2
+Python Version: 3.8.3
+Installed Applications:
+[&#x27;django.contrib.admin&#x27;,
+ &#x27;django.contrib.auth&#x27;,
+ &#x27;django.contrib.contenttypes&#x27;,
+ &#x27;django.contrib.sessions&#x27;,
+ &#x27;django.contrib.messages&#x27;,
+ &#x27;django.contrib.staticfiles&#x27;,
+ &#x27;demo&#x27;,
+ &#x27;rest_framework&#x27;,
+ &#x27;corsheaders&#x27;]
+Installed Middleware:
+[&#x27;django.middleware.security.SecurityMiddleware&#x27;,
+ &#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;,
+ &#x27;corsheaders.middleware.CorsMiddleware&#x27;,
+ &#x27;django.middleware.common.CommonMiddleware&#x27;,
+ &#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;,
+ &#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;,
+ &#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;,
+ &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;]
+
+
+
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/root/miniconda3/lib/python3.8/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/miniconda3/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/root/miniconda3/lib/python3.8/site-packages/django/views/generic/base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/root/miniconda3/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/root/miniconda3/lib/python3.8/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/root/workspace/kash_visualize/server/demo/views.py", line 26, in upload
+    col.insert_one(data)
+  File "/root/miniconda3/lib/python3.8/site-packages/pymongo/collection.py", line 694, in insert_one
+    document[&quot;_id&quot;] = ObjectId()
+  File "/root/miniconda3/lib/python3.8/site-packages/django/http/request.py", line 491, in __setitem__
+    self._assert_mutable()
+  File "/root/miniconda3/lib/python3.8/site-packages/django/http/request.py", line 488, in _assert_mutable
+    raise AttributeError(&quot;This QueryDict instance is immutable&quot;)
+
+Exception Type: AttributeError at /upload
+Exception Value: This QueryDict instance is immutable
+</textarea>
+  <br><br>
+  <input type="submit" value="Share this traceback on a public website">
+  </div>
+</form>
+</div>
+
+
+
+<div id="requestinfo">
+  <h2>Request information</h2>
+
+
+  
+    <h3 id="user-info">USER</h3>
+    <p>AnonymousUser</p>
+  
+
+  <h3 id="get-info">GET</h3>
+  
+    <p>No GET data</p>
+  
+
+  <h3 id="post-info">POST</h3>
+  
+    <table class="req">
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td>{    &quot;_id&quot;: null,    &quot;basic&quot;: {        &quot;name&quot;: &quot;张三&quot;,        &quot;person_id&quot;: &quot;110101199411076965&quot;,        &quot;gender&quot;: &quot;female&quot;,        &quot;phone&quot;: &quot;01230123123&quot;,        &quot;age&quot;: &quot;26&quot;,        &quot;addr1&quot;: [            &quot;北京市&quot;,            &quot;市辖区&quot;,            &quot;东城区&quot;        ],        &quot;addr2&quot;: &quot;东四二条社区&quot;    },    &quot;path&quot;: {        &quot;nodes&quot;: [            {                &quot;time&quot;: &quot;2020-02-19T13:09:07.893Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;东四二条社区&quot;,                    &quot;district&quot;: &quot;北京市东城区&quot;,                    &quot;adcode&quot;: &quot;110101&quot;,                    &quot;location&quot;: &quot;116.419272,39.926039&quot;,                    &quot;address&quot;: &quot;东四北大街460号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T19:12:10.726Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;国家体育场&quot;,                    &quot;district&quot;: &quot;北京市朝阳区&quot;,                    &quot;adcode&quot;: &quot;110105&quot;,                    &quot;location&quot;: &quot;116.3979,39.992197&quot;,                    &quot;address&quot;: &quot;国家体育场南路1号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                },                &quot;contacts&quot;: [&quot;蒋七&quot;],                &quot;contact_ids&quot;: [&quot;110102199804031270&quot;],                &quot;details&quot;: &quot;玩&quot;            },            {                &quot;time&quot;: &quot;2020-02-19T21:12:27.798Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;紫竹院公园&quot;,                    &quot;district&quot;: &quot;北京市海淀区&quot;,                    &quot;adcode&quot;: &quot;110108&quot;,                    &quot;location&quot;: &quot;116.318936,39.941282&quot;,                    &quot;address&quot;: &quot;中关村南大街35号&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            },            {                &quot;time&quot;: &quot;2020-02-19T22:11:38.401Z&quot;,                &quot;location&quot;: {                    &quot;id&quot;: &quot;&quot;,                    &quot;name&quot;: &quot;新发地农产品批发市场&quot;,                    &quot;district&quot;: &quot;北京市丰台区&quot;,                    &quot;adcode&quot;: &quot;110106&quot;,                    &quot;location&quot;: &quot;116.340837,39.818204&quot;,                    &quot;address&quot;: &quot;南苑西路&quot;,                    &quot;typecode&quot;: &quot;&quot;,                    &quot;city&quot;: []                }            }        ],        &quot;edges&quot;: [            {                &quot;traffic&quot;: &quot;地铁&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            {                &quot;traffic&quot;: &quot;自驾&quot;            },            null        ]    }}</td>
+            <td class="code"><pre>&#x27;&#x27;</pre></td>
+          </tr>
+        
+      </tbody>
+    </table>
+  
+  <h3 id="files-info">FILES</h3>
+  
+    <p>No FILES data</p>
+  
+
+
+  <h3 id="cookie-info">COOKIES</h3>
+  
+    <p>No cookie data</p>
+  
+
+  <h3 id="meta-info">META</h3>
+  <table class="req">
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td>CONDA_DEFAULT_ENV</td>
+          <td class="code"><pre>&#x27;base&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>CONDA_EXE</td>
+          <td class="code"><pre>&#x27;/root/miniconda3/bin/conda&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>CONDA_PREFIX</td>
+          <td class="code"><pre>&#x27;/root/miniconda3&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>CONDA_PROMPT_MODIFIER</td>
+          <td class="code"><pre>&#x27;(base) &#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>CONDA_PYTHON_EXE</td>
+          <td class="code"><pre>&#x27;/root/miniconda3/bin/python&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>CONDA_SHLVL</td>
+          <td class="code"><pre>&#x27;1&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>CONTENT_LENGTH</td>
+          <td class="code"><pre>&#x27;2596&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>CONTENT_TYPE</td>
+          <td class="code"><pre>&#x27;application/x-www-form-urlencoded&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>DJANGO_SETTINGS_MODULE</td>
+          <td class="code"><pre>&#x27;server.settings&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>GATEWAY_INTERFACE</td>
+          <td class="code"><pre>&#x27;CGI/1.1&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>HOME</td>
+          <td class="code"><pre>&#x27;/root&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>HTTP_ACCEPT</td>
+          <td class="code"><pre>&#x27;*/*&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>HTTP_EXPECT</td>
+          <td class="code"><pre>&#x27;100-continue&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>HTTP_HOST</td>
+          <td class="code"><pre>&#x27;39.105.232.15:2012&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>HTTP_USER_AGENT</td>
+          <td class="code"><pre>&#x27;curl/7.58.0&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>LANG</td>
+          <td class="code"><pre>&#x27;en_US.UTF-8&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>LESSCLOSE</td>
+          <td class="code"><pre>&#x27;/usr/bin/lesspipe %s %s&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>LESSOPEN</td>
+          <td class="code"><pre>&#x27;| /usr/bin/lesspipe %s&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>LOGNAME</td>
+          <td class="code"><pre>&#x27;root&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>LS_COLORS</td>
+          <td class="code"><pre>&#x27;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>MOTD_SHOWN</td>
+          <td class="code"><pre>&#x27;pam&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>OLDPWD</td>
+          <td class="code"><pre>&#x27;/root/workspace/kash_visualize&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>PATH</td>
+          <td class="code"><pre>&#x27;/root/miniconda3/bin:/root/miniconda3/condabin:/root/miniconda3/bin:/root/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>PATH_INFO</td>
+          <td class="code"><pre>&#x27;/upload&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>PWD</td>
+          <td class="code"><pre>&#x27;/root/workspace/kash_visualize/server&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>QUERY_STRING</td>
+          <td class="code"><pre>&#x27;&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>REMOTE_ADDR</td>
+          <td class="code"><pre>&#x27;106.39.42.157&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>REMOTE_HOST</td>
+          <td class="code"><pre>&#x27;&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>REQUEST_METHOD</td>
+          <td class="code"><pre>&#x27;POST&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>RUN_MAIN</td>
+          <td class="code"><pre>&#x27;true&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SCRIPT_NAME</td>
+          <td class="code"><pre>&#x27;&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SERVER_NAME</td>
+          <td class="code"><pre>&#x27;iZ2ze7odjufrd16vg54j2kZ&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SERVER_PORT</td>
+          <td class="code"><pre>&#x27;2012&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SERVER_PROTOCOL</td>
+          <td class="code"><pre>&#x27;HTTP/1.1&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SERVER_SOFTWARE</td>
+          <td class="code"><pre>&#x27;WSGIServer/0.2&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SHELL</td>
+          <td class="code"><pre>&#x27;/bin/bash&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SHLVL</td>
+          <td class="code"><pre>&#x27;2&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SSH_CLIENT</td>
+          <td class="code"><pre>&#x27;106.39.42.83 61261 22&#x27;</pre></td>
+        </tr>
+      
+        <tr>
+          <td>SSH_CONNECTION</td>
+          <td class="code"><pre>&#x27;106.39.42.175 12526 172.17.133.126 

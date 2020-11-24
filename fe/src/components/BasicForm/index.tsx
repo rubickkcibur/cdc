@@ -63,6 +63,14 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter}>
         <Col {...fullItemGrid}>
+          <FormItem label={"住址"} name={"addr1"} style={itemStyle} rules={[{ required: true }]}>
+            <Cascader placeholder={"省/市/区"} options={PCAData} />
+          </FormItem>
+        </Col>
+      </Row>
+
+      <Row gutter={halfGutter}>
+        <Col {...fullItemGrid}>
           <FormItem label={"身份证号"} name={"personal_id"} style={itemStyle} rules={[{ required: true }]}>
             <Input placeholder={"请输入身份证号"} />
           </FormItem>

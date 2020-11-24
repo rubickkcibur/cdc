@@ -1,6 +1,6 @@
-const Const=  {
-    
-    apihost:"http://39.105.232.15:2012"
-
+const Const = {
+    apihost: "https://kashv.cnworkshop.xyz/api",
+    boltserver: "bolt://bridge.cnworkshop.xyz:20005"
+    // boltserver: "bolt://bridge.cnworkshop.xyz/bolt"
 }
 export default Const
