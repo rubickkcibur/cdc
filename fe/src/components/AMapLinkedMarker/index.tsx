@@ -22,7 +22,6 @@ export default function AMapLinkedMarker({ __map__ }: IProps) {
 
     const generateMarker = useCallback(
         () => {
-
             const markers = vertexs.map((e, i) => new amap.Marker({ position: new amap.LngLat(e.lnglat.lng, e.lnglat.lat), extData: i }))
             setV(markers)
             curV && curV.length > 0 && __map__.remove(curV)

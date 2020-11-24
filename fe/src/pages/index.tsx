@@ -50,10 +50,12 @@ export default function index() {
       Axios.post("http://39.105.232.15:2012/upload", {
         basic,
         path: {
-          nodes: t.map(([e, v]: any) => v.node),
-          edges: t.map(([e, v]: any) => v.edge),
+          nodes: t.map(([, v]: any) => v.node),
+          edges: t.map(([, v]: any) => v.edge),
         },
-      }).then(e => message.success("提交成功")).catch(e => message.error("提交失败"))
+      })
+        .then(() => message.success("提交成功"))
+        .catch(() => message.error("提交失败"))
     } catch (e) {
       console.log(e)
       message.error("请完善信息")
@@ -62,6 +64,7 @@ export default function index() {
 
   return (
     <MainLayout>
+
       <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }} className={sty.RootRow}>
         <Col md={{ span: 7 }} >
           <div
@@ -112,13 +115,9 @@ export default function index() {
                     const AMap = (window as any).AMap
                     dispatch(ActSetState({ __map__: ins, amap: (window as any).AMap }))
                     console.log(11122)
-                    var auto
                     AMap.plugin('AMap.Autocomplete', () => {
                       try {
 
-                        auto = new AMap.Autocomplete({
-                          input: "tipinput"
-                        });
                         console.log('auto')
                       } catch (e) {
                         console.log(e)

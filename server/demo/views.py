@@ -9,18 +9,19 @@ from py2neo import Graph, Node, Relationship, NodeMatcher, RelationshipMatcher
 # Create your views here.
 
 neo4j_path = "bolt://123.57.0.181:7687"
-mongo_path = pymongo.MongoClient("mongodb://%s:%s@39.105.232.15:2005"%("admin", "123456"))
+mongo_path = pymongo.MongoClient(
+    "mongodb://%s:%s@39.105.232.15:2005" % ("admin", "123456"))
 db = mongo_path["surveys"]
 col = db["production"]
 graph = Graph(neo4j_path, user="neo4j", password="123456")
 node_matcher = NodeMatcher(graph)
 rel_matcher = RelationshipMatcher(graph)
 
+
 @api_view(["POST"])
 def upload(request):
     if request.method == "POST":
         data = request.data
-        
         col.insert_one(data)
         name = data["basic"]["name"].strip()
         gender = "男" if data["basic"]["gender"].strip() == "male" else "女"
@@ -44,7 +45,6 @@ def upload(request):
             person_node["address"] = address
             tx.create(person_node)
 
-       
         # create loc nodes
         nodes = path["nodes"]
         loc_nodes = []
@@ -102,9 +102,10 @@ def upload(request):
                         c_node = Node("Contact", name=c)
                         c_node["count"] = 1
                         tx.create(c_node)
-                    
+
                     # link to person
-                    res = rel_matcher.match(nodes=[person_node, c_node]).first()
+                    res = rel_matcher.match(
+                        nodes=[person_node, c_node]).first()
                     if res is not None:
                         rel = res
                         rel["count"] += 1
@@ -113,7 +114,7 @@ def upload(request):
                         rel = Relationship(person_node, "With", c_node)
                         rel["count"] = 1
                         tx.create(rel)
-                    
+
                     # link to location
                     res = rel_matcher.match(nodes=[c_node, loc_node]).first()
                     if res is not None:
@@ -124,7 +125,7 @@ def upload(request):
                         rel = Relationship(c_node, "Locate", loc_node)
                         rel["count"] = 1
                         tx.create(rel)
-        
+
         # create edges
         edges = path["edges"]
         edges = edges[:-1] if len(edges) == len(loc_nodes) else edges
@@ -149,54 +150,4 @@ def upload(request):
                 rel["description"] = description
                 tx.create(rel)
         tx.commit()
-        return Response({"result":"upload successfully!"}, status=status.HTTP_200_OK)
-
-
-
-
-         
-
-
-            
-
-        
-        
-               
-
-
-
-
-
-                
-
-
-                
-
-
-
-
-
-            
-            
-
-
-
-
-
-
-                
-
-
-                
-
-
-
-
-
-            
-            
-
-
-
-
-
+        return Response({"result": "upload successfully!"}, status=status.HTTP_200_OK)

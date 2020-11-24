@@ -5,10 +5,12 @@ import { Col } from "antd/lib/grid"
 import Row from "antd/lib/grid/row"
 import Input from "antd/lib/input/Input"
 import React, { useEffect } from "react"
+import { useTypedSelector } from "../../lib/store"
 import PCAData from './data.json'
 
 interface IProps {
   onChange?: (value: any, form: FormInstance) => void
+  value?: any
 }
 export default function FormBasic({ onChange }: IProps) {
   const fullItemGrid = { md: { span: 24 } }
@@ -16,6 +18,12 @@ export default function FormBasic({ onChange }: IProps) {
   const halfGutter: [number, number] = [32, 15]
   const itemStyle: React.CSSProperties = { margin: "0" }
   const [form] = useForm()
+  const loaded_form = useTypedSelector(e => e.PAGlobalReducer.loaded_form)
+
+  useEffect(() => {
+    if (loaded_form)
+      form.setFieldsValue(loaded_form.basic)
+  }, [loaded_form, form])
 
   const onValueChange = (changed: any, values: any) => {
     onChange && onChange(values, form)
@@ -55,8 +63,8 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter}>
         <Col {...fullItemGrid}>
-          <FormItem label={"住址"} name={"addr1"} style={itemStyle} rules={[{ required: true }]}>
-            <Cascader placeholder={"省/市/区"} options={PCAData} />
+          <FormItem label={"身份证号"} name={"personal_id"} style={itemStyle} rules={[{ required: true }]}>
+            <Input placeholder={"请输入身份证号"} />
           </FormItem>
         </Col>
       </Row>

@@ -1,49 +1,88 @@
 {
+    "_id": null,
     "basic": {
-        "name": "asd ",
+        "name": "陈一",
+        "person_id": "110101199008047371",
         "gender": "male",
-        "phone": "asd",
-        "age": "asd",
+        "phone": "12345678912",
+        "age": "30",
         "addr1": [
             "北京市",
             "市辖区",
             "东城区"
         ],
-        "addr2": "asd"
+        "addr2": "南门仓社区"
     },
     "path": {
         "nodes": [
             {
-                "time": "2020-11-08T19:00:00.688Z",
+            "time": "2020-11-19T13:09:07.893Z",
                 "location": {
-                    "id": "B0FFG96RO5",
-                    "name": "AS(红星美凯龙北四环店)",
-                    "district": "北京市朝阳区",
-                    "adcode": "110105",
-                    "location": "116.370056,40.003356",
-                    "address": "北沙滩桥1号B1层",
-                    "typecode": "061102",
+                    "id": "",
+                    "name": "南门仓社区",
+                    "district": "北京市东城区",
+                    "adcode": "110101",
+                    "location": "116.427604,39.928455",
+                    "address": "罗家大院1号",
+                    "typecode": "",
+                    "city": []
+                },
+                "contacts": ["赵二"],
+                "contact_ids": ["110101199608123016"],
+                "details": "吃饭"
+            },
+            {
+                "time": "2020-11-19T14:11:38.401Z",
+                "location": {
+                    "id": "",
+                    "name": "新发地农产品批发市场",
+                    "district": "北京市丰台区",
+                    "adcode": "110106",
+                    "location": "116.340837,39.818204",
+                    "address": "南苑西路",
+                    "typecode": "",
+                    "city": []
+                },
+                "contacts": ["张三"],
+                "contact_ids": ["110101199411076965"],
+                "details": "聊天"
+            },
+            {
+                "time": "2020-11-19T19:12:10.726Z",
+                "location": {
+                    "id": "",
+                    "name": "东直门医院",
+                    "district": "北京市东城区",
+                    "adcode": "110101",
+                    "location": "116.427947,39.936985",
+                    "address": "海运仓5号",
+                    "typecode": "",
                     "city": []
                 }
             },
             {
-                "time": "2020-11-08T16:02:00.008Z",
+                "time": "2020-11-19T21:12:27.798Z",
                 "location": {
-                    "id": "B02120S8VI",
-                    "name": "单县",
-                    "district": "山东省菏泽市单县",
-                    "adcode": "371722",
-                    "location": "116.107428,34.778808",
-                    "address": [],
-                    "typecode": "190105",
+                    "id": "",
+                    "name": "中央音乐学院",
+                    "district": "北京市西城区",
+                    "adcode": "110102",
+                    "location": "116.359338,39.902317",
+                    "address": "鲍家街43号",
+                    "typecode": "",
                     "city": []
                 }
             }
         ],
         "edges": [
             {
-                "traffic": "火车",
-                "description": "sdfsdfsddsds"
+                "traffic": "自驾"
+            },
+            {
+                "traffic": "步行"
+            },
+            {
+                "traffic": "自驾"
             },
             null
         ]

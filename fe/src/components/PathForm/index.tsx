@@ -3,6 +3,7 @@ import { AutoComplete, Button, Col, DatePicker, Input, message, Row, Select } fr
 import Form, { FormInstance, useForm } from "antd/lib/form/Form"
 import FormItem from "antd/lib/form/FormItem"
 import produce from "immer"
+import moment from "moment"
 import { type } from "os"
 import React, { useCallback, useEffect, useState } from "react"
 import { LngLatPos } from "react-amap"
@@ -11,6 +12,7 @@ import { dispatch } from "rxjs/internal/observable/pairs"
 import Search, { Tip } from "../../lib/search"
 import { ActAddPauses, ActRemovePauses, ActUpdateValue } from "../../lib/state/global"
 import { useTypedSelector } from "../../lib/store"
+import { BaseItem } from "../../lib/types/types"
 import sty from "./index.module.scss"
 import TrafficData from './traffic.json'
 
@@ -21,12 +23,13 @@ interface IElementProps {
     first?: boolean
     idx: number
   }
+  initValue?: any
   value?: any
   onChange?: (v?: IV, e?: any[]) => any
 }
 
 
-const ConjectionElement = ({ onChange }: IElementProps) => {
+const ConjectionElement = ({ onChange, initValue }: IElementProps) => {
   const itemGrid = { span: 12 }
   const gutterValue: { gutter: [number, number] } = { gutter: [8, 8] }
   const formItemSty = { margin: "0" }
@@ -34,6 +37,11 @@ const ConjectionElement = ({ onChange }: IElementProps) => {
   const onValuesChange = (cv: any, v: any) => {
     onChange && onChange(form.getFieldsValue(), form.getFieldsError())
   }
+  useEffect(() => {
+    if (form && initValue)
+      form.setFieldsValue(initValue.edges)
+
+  }, [initValue, form])
 
   return (
     <div className={sty.DouFormRoot}>
@@ -63,12 +71,18 @@ const ConjectionElement = ({ onChange }: IElementProps) => {
 
 interface InputIProps { value?: any, onChange?: (v: string) => void, placeholder: string }
 
-const SearchInput = ({ onChange, placeholder }: InputIProps) => {
+const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
   const [res, setRes] = useState<any>(undefined)
   const [innervalue, setV] = useState<string>("")
   function renderItems(data: any) {
     return data?.map((e: { name: React.ReactNode }) => <div>{e.name}</div>)
   }
+  useEffect(() => {
+    if (value) {
+      setV(value.name)
+      onChange && onChange(value as any)
+    }
+  }, [value])
 
   const onSearch = (t: string) => {
     Search(t, (_: any, res: any) => {
@@ -103,7 +117,7 @@ interface IV {
   node?: any
   edge?: any
 }
-const QuarterElement = ({ onChange, pos }: IElementProps) => {
+const QuarterElement = ({ onChange, pos, initValue }: IElementProps) => {
   const itemGrid = { span: 12 }
   const gutterValue: { gutter: [number, number] } = { gutter: [8, 8] }
   const formItemSty = { margin: "0" }
@@ -115,6 +129,15 @@ const QuarterElement = ({ onChange, pos }: IElementProps) => {
   interface IForm {
     location: Tip
   }
+  useEffect(() => {
+    if (initValue?.nodes && form) {
+      const t = {
+        ...initValue.nodes,
+        time: moment(initValue.nodes.time),
+      }
+      form.setFieldsValue(t)
+    }
+  }, [initValue, form])
   const onValuesChange = (cv: IForm, v: any) => {
     if (cv.location) {
       const loc = strtoll(cv.location.location)
@@ -173,6 +196,7 @@ const QuarterElement = ({ onChange, pos }: IElementProps) => {
         pos?.last ? null :
           <ConjectionElement
             onChange={(v: any) => setIV(e => ({ ...e, edge: v }))}
+            initValue={initValue}
             pos={pos}
           />
 
@@ -188,10 +212,12 @@ interface Context {
   type: "qua" | "con"
   onChange?: (v?: IV, e?: any) => void
   form?: FormInstance
+  initValue?: any
 }
 export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormInstance) => void }) {
   const [elements, setElements] = useState<Context[]>([])
   const dispatch = useDispatch()
+  const loaded_form = useTypedSelector(e => e.PAGlobalReducer.loaded_form)
   const [form] = useForm<{
     [key: number]: IV
   }>()
@@ -205,6 +231,7 @@ export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormI
             first: idx == 0,
             last: idx == elements.length - 1
           }}
+          initValue={e.initValue}
         />
       </FormItem>
     )
@@ -232,6 +259,23 @@ export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormI
       })
     )
   }
+
+  const init_pathform = (v: BaseItem) => {
+    const vv = v.path.nodes.map((e, idx) => ({
+      nodes: e,
+      edges: v.path.edges[idx]
+    }))
+
+    setElements(v.path.nodes.map((e, idx) => ({
+      type: "con",
+      initValue: vv[idx]
+    })))
+  }
+  useEffect(() => {
+    if (loaded_form)
+      init_pathform(loaded_form)
+  }, [loaded_form])
+
   const onFormValuesChange = (cv: any, v: any) => {
     onChange && onChange(v, form)
   }

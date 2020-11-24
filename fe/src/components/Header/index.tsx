@@ -8,6 +8,7 @@ import {
 
 import sty from "./index.module.scss"
 import { useRouter } from "next/dist/client/router"
+import DebouncedAutocomplete from "../AutoComplete"
 const MenuItem = [
   {
     title: "流调填报",
@@ -39,11 +40,11 @@ export default function KashHeader() {
         </div>
 
         <div className={sty.Control}>
-          <div className={sty.ico}>
-            <SearchOutlined />
+          <div className={sty.search}>
+            <DebouncedAutocomplete />
           </div>
           <div className={sty.ico}>
-            <BellOutlined />
+            <BellOutlined style={{ width: "100%", height: "100%" }} />
           </div>
           <div className={sty.ava}>
             <div className={sty.img}></div>

@@ -2,6 +2,7 @@ import { FormInstance } from "antd/lib/form"
 import { produce } from "immer"
 import { AMapLngLat, LngLat, LngLatPos } from "react-amap"
 import { Reducer } from "redux"
+import { BaseItem } from "../types/types"
 const tag = "Products"
 export const ActionsEnum = {
   SetState: "SetState",
@@ -29,6 +30,10 @@ export type TState = {
   amap?: any
   __map__?: any
   pauses: Pause[]
+  searchedResult?: BaseItem[]
+  loaded_form?: BaseItem
+  basicform?: any,
+  pathform_value?: any,
   pathform: {
     [key: number]: FormDual
   }
