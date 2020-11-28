@@ -7,7 +7,7 @@ export interface BaseItem {
 
 export interface Basic {
     name: string;
-    person_id: string;
+    personal_id: string;
     gender: string;
     phone: string;
     age: string;

@@ -4,6 +4,7 @@ import {
   BellOutlined,
   SearchOutlined,
   TeamOutlined,
+  FormOutlined
 } from "@ant-design/icons"
 
 import sty from "./index.module.scss"
@@ -20,6 +21,11 @@ const MenuItem = [
     icon: <TeamOutlined />,
     url: '/overview'
   },
+  {
+    title: "病例信息",
+    icon: <FormOutlined />,
+    url: '/patients'
+  }
 ]
 
 export default function KashHeader() {
