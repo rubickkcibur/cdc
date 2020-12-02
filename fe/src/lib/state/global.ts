@@ -31,6 +31,7 @@ export type TState = {
   __map__?: any
   pauses: Pause[]
   searchedResult?: BaseItem[]
+  personalSearchedResults?: BaseItem[]
   loaded_form?: BaseItem
   basicform?: any,
   pathform_value?: any,
