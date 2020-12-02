@@ -129,6 +129,7 @@ const QuarterElement = ({ onChange, pos, initValue }: IElementProps) => {
   interface IForm {
     location: Tip
   }
+  /*如果有initvalue,根据initvalue设置表单的值*/
   useEffect(() => {
     if (initValue?.nodes && form) {
       const t = {
@@ -138,6 +139,7 @@ const QuarterElement = ({ onChange, pos, initValue }: IElementProps) => {
       form.setFieldsValue(t)
     }
   }, [initValue, form])
+  /*添加组件时移动map并且发送ActAddPauses动作,修改iv的值为当前表单*/
   const onValuesChange = (cv: IForm, v: any) => {
     if (cv.location) {
       const loc = strtoll(cv.location.location)
@@ -221,6 +223,7 @@ export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormI
   const [form] = useForm<{
     [key: number]: IV
   }>()
+  /*渲染一个驻留表单*/ 
   const renderContext: (e: Context, idx: number) => JSX.Element = (e, idx) => {
     return (
       <FormItem noStyle={true} name={idx} rules={[{ required: true }]}>
@@ -236,13 +239,16 @@ export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormI
       </FormItem>
     )
   }
+  /*第一个路径点*/
   useEffect(() => {
     if (elements.length == 0)
       onAdd()
   }, [])
+  /*添加一个驻留点表单*/
   const onAdd = () => {
     const values = form.getFieldsValue()
     if (elements.length > 0 && !values[elements.length - 1]?.node?.location) {
+      /*todo 此处可以设置将其内容清空*/
       message.warning("请填写行程信息")
       return
     }
@@ -259,7 +265,7 @@ export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormI
       })
     )
   }
-
+  /*如果loadedform值不为空，使用loadedform的值初始化*/
   const init_pathform = (v: BaseItem) => {
     const vv = v.path.nodes.map((e, idx) => ({
       nodes: e,
@@ -279,6 +285,7 @@ export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormI
   const onFormValuesChange = (cv: any, v: any) => {
     onChange && onChange(v, form)
   }
+  /*删除一个驻留点，如果最顶端的location已经设置，发出ActRemovePauses*/
   const onDel = () => {
     setElements((ele) => produce(ele, d => {
       if (d.length == 1)
