@@ -141,16 +141,18 @@ export default function Pagepatients() {
     
     return(
       <MainLayout>
+        <div className={sty.Table}>
         <Search placeholder="输入患者姓名" onSearch={onSearch}/>
-        <Table<Basic> 
+        <Table<Basic>
           columns={patientColumns} 
           dataSource={patients} 
           //scroll={{ y: 240 }}
           pagination={{
-            pageSizeOptions:["10","20","30"],
+            pageSizeOptions:["10","10","30"],
             defaultPageSize:10,
             showSizeChanger:true
           }}/>
+        </div>
       </MainLayout>
     )
     

@@ -1,3 +1,6 @@
+import { Contacts } from "../../components/Routes";
+import { Tip } from "../search";
+import {Moment} from 'moment'
 
 export interface BaseItem {
     _id: null;
@@ -43,6 +46,35 @@ export interface Location {
     city: any[];
 }
 
+export interface PForm{
+    time:Moment|null|undefined, //time是什么类型
+    location:Tip|null|undefined,
+    contacts:Contacts[]
+}
+  
+export interface TForm{
+    trasform:string|undefined,
+    note:string|undefined
+}
+  
+export interface NForm {
+    pause?:PForm,
+    travel?:TForm
+}
+  
+export interface RForm{
+    date:string,
+    route:NForm[]
+}
+  
+export interface Routes{
+    routes:RForm[]
+}
 
+export interface PersonDocument{
+    _id:null,
+    basic:Basic,
+    routes:RForm[]
+}
 
 

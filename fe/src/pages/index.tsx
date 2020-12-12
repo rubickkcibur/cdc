@@ -14,6 +14,7 @@ import { Button, message } from "antd"
 import { FormInstance } from "antd/lib/form"
 import Axios from "axios"
 import Constant from '../lib/constant'
+import Routes, { RouteForm } from "../components/Routes"
 const Card = ({
   children,
   title,
@@ -76,7 +77,7 @@ export default function index() {
     <MainLayout>
 
       <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }} className={sty.RootRow}>
-        <Col md={{ span: 7 }} >
+        <Col md={{ span: 6 }} >
           <div
             style={{
               display: "flex",
@@ -114,12 +115,11 @@ export default function index() {
             </Col>
           </div>
         </Col>
-        <Col md={{ span: 17, }} >
+        <Col md={{ span: 12, }} >
 
           <Card title={"路径可视化"} style={{ height: "100%" }}>
             <div style={{ height: "100%" }}>
               <Map
-                version={'1.4.0'}
                 amapkey={"d5c6e14e597ee8af84b8a4fcfbb1807f"}
                 events={{
                   created: (ins: any) => {
@@ -141,6 +141,9 @@ export default function index() {
               </Map>
             </div>
           </Card>
+        </Col>
+        <Col md={{span:6}}>
+          <Routes/>
         </Col>
       </Row>
     </MainLayout>

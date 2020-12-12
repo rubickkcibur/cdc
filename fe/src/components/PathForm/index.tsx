@@ -71,7 +71,7 @@ const ConjectionElement = ({ onChange, initValue }: IElementProps) => {
 
 interface InputIProps { value?: any, onChange?: (v: string) => void, placeholder: string }
 
-const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
+export const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
   const [res, setRes] = useState<any>(undefined)
   const [innervalue, setV] = useState<string>("")
   function renderItems(data: any) {
