@@ -4,7 +4,8 @@ import {
   BellOutlined,
   SearchOutlined,
   TeamOutlined,
-  FormOutlined
+  FormOutlined,
+  HeatMapOutlined
 } from "@ant-design/icons"
 
 import sty from "./index.module.scss"
@@ -25,6 +26,11 @@ const MenuItem = [
     title: "病例信息",
     icon: <FormOutlined />,
     url: '/patients'
+  },
+  {
+    title: "疫情分布",
+    icon:  <HeatMapOutlined/>,
+    url: '/heatmap'
   }
 ]
 

@@ -53,7 +53,7 @@ export interface PForm{
 }
   
 export interface TForm{
-    trasform:string|undefined,
+    transform:string|undefined,
     note:string|undefined
 }
   

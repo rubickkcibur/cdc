@@ -143,7 +143,7 @@ export function TravelForm({value,onChange}:TFProps){
   return(
     <div>
       <Form form={form} onValuesChange={onFormChange}>
-        <FormItem name={"trasform"}>
+        <FormItem name={"transform"}>
           <Select placeholder={"出行方式"} >
             {trafficData.map(e => (<Select.Option key={e} value={e}>{e}</Select.Option>))}
           </Select>
@@ -213,7 +213,7 @@ export function RouteForm({value,onChange}:RFProps){
   const oneNode:NForm[] = [
     {
     travel:{
-      trasform:undefined,
+      transform:undefined,
       note:undefined
     },
     pause:{

@@ -2,7 +2,7 @@
     "_id": null,
     "basic": {
         "name": "陈一",
-        "person_id": "110101199008047371",
+        "personal_id": "110101199008047371",
         "gender": "male",
         "phone": "12345678912",
         "age": "30",
@@ -13,78 +13,94 @@
         ],
         "addr2": "南门仓社区"
     },
-    "path": {
-        "nodes": [
-            {
-            "time": "2020-11-19T13:09:07.893Z",
-                "location": {
-                    "id": "",
-                    "name": "南门仓社区",
-                    "district": "北京市东城区",
-                    "adcode": "110101",
-                    "location": "116.427604,39.928455",
-                    "address": "罗家大院1号",
-                    "typecode": "",
-                    "city": []
+    "routes": [
+        {
+            "date":"2020-11-19",
+            "route":[
+                {
+                    "travel":null,
+                    "pause":{
+                        "time":"13: 09",
+                        "location":{
+                            "id": "", 
+                            "name": "南门仓社区", 
+                            "district": "北京市东城区", 
+                            "adcode": "110101", 
+                            "location": "116.427604,39.928455", 
+                            "address": "罗家大院1号", 
+                            "typecode": "", 
+                            "city": []
+                        },
+                        "contacts":[
+                            {
+                                "name":"张三",
+                                "pid":"110101199608123016"
+                            }
+                        ]
+                    }
                 },
-                "contacts": ["赵二"],
-                "contact_ids": ["110101199608123016"],
-                "details": "吃饭"
-            },
-            {
-                "time": "2020-11-19T14:11:38.401Z",
-                "location": {
-                    "id": "",
-                    "name": "新发地农产品批发市场",
-                    "district": "北京市丰台区",
-                    "adcode": "110106",
-                    "location": "116.340837,39.818204",
-                    "address": "南苑西路",
-                    "typecode": "",
-                    "city": []
+                {
+                    "travel":{
+                        "transform":"自驾",
+                        "note":"备注"
+                    },
+                    "pause":{
+                        "time":"14: 09",
+                        "location":{
+                            "id": "", 
+                            "name": "东直门医院",
+                            "district": "北京市东城区",
+                            "adcode": "110101", 
+                            "location": "116.427947,39.936985", 
+                            "address": "海运仓5号", 
+                            "typecode": "", 
+                            "city": []
+                        },
+                        "contacts":[]
+                    }
+                }
+            ]
+        },
+        {
+            "date":"2020-11-20",
+            "route":[
+                {
+                    "travel":null,
+                    "pause":{
+                        "time":"14: 09",
+                        "location":{
+                            "id": "", 
+                            "name": "南门仓社区", 
+                            "district": "北京市东城区", 
+                            "adcode": "110101", 
+                            "location": "116.427604,39.928455", 
+                            "address": "罗家大院1号", 
+                            "typecode": "", 
+                            "city": []
+                        },
+                        "contacts":[]
+                    }
                 },
-                "contacts": ["张三"],
-                "contact_ids": ["110101199411076965"],
-                "details": "聊天"
-            },
-            {
-                "time": "2020-11-19T19:12:10.726Z",
-                "location": {
-                    "id": "",
-                    "name": "东直门医院",
-                    "district": "北京市东城区",
-                    "adcode": "110101",
-                    "location": "116.427947,39.936985",
-                    "address": "海运仓5号",
-                    "typecode": "",
-                    "city": []
+                {
+                    "travel":{
+                        "transform":"骑行"
+                    },
+                    "pause":{
+                        "time":"21: 09",
+                        "location":{
+                            "id": "", 
+                            "name": "中央音乐学院", 
+                            "district": "北京市西城区", 
+                            "adcode": "110102", 
+                            "location": "116.359338,39.902317", 
+                            "address": "鲍家街43号", 
+                            "typecode": "", 
+                            "city": []
+                        },
+                        "contacts":[]
+                    }
                 }
-            },
-            {
-                "time": "2020-11-19T21:12:27.798Z",
-                "location": {
-                    "id": "",
-                    "name": "中央音乐学院",
-                    "district": "北京市西城区",
-                    "adcode": "110102",
-                    "location": "116.359338,39.902317",
-                    "address": "鲍家街43号",
-                    "typecode": "",
-                    "city": []
-                }
-            }
-        ],
-        "edges": [
-            {
-                "traffic": "自驾"
-            },
-            {
-                "traffic": "步行"
-            },
-            {
-                "traffic": "自驾"
-            },
-            null
-        ]
-    }
+            ]
+        }
+    ]
 }

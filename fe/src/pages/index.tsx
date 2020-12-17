@@ -119,7 +119,7 @@ export default function index() {
 
           <Card title={"路径可视化"} style={{ height: "100%" }}>
             <div style={{ height: "100%" }}>
-              <Map
+              {/* <Map
                 amapkey={"d5c6e14e597ee8af84b8a4fcfbb1807f"}
                 events={{
                   created: (ins: any) => {
@@ -138,7 +138,7 @@ export default function index() {
                   }
                 }}>
                 <AMapLinkedMarker />
-              </Map>
+              </Map> */}
             </div>
           </Card>
         </Col>
