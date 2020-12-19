@@ -15,6 +15,7 @@ import { FormInstance } from "antd/lib/form"
 import Axios from "axios"
 import Constant from '../lib/constant'
 import Routes, { RouteForm } from "../components/Routes"
+import NewRouteForm from "../components/NewRoute"
 const Card = ({
   children,
   title,
@@ -109,7 +110,7 @@ export default function index() {
                 style={{ height: "100%", position: "absolute", width: "100%" }}
               >
                 <div className={sty.PathFormContainer}>
-                  <PathForm onChange={onPathChange} />
+                  <NewRouteForm/>
                 </div>
               </Card>
             </Col>

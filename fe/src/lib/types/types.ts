@@ -47,7 +47,7 @@ export interface Location {
 }
 
 export interface PForm{
-    time:Moment|null|undefined, //time是什么类型
+    time:string|null|undefined, //time是什么类型
     location:Tip|null|undefined,
     contacts:Contacts[]
 }

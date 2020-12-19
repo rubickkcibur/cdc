@@ -1,4 +1,4 @@
-import { AutoComplete, Button, Col, Collapse, DatePicker, Form, Input, message, Row, Select, Tag } from 'antd';
+import { AutoComplete, Button, Col, Collapse, DatePicker, Form, Input, message, Row, Select, Tag, TimePicker } from 'antd';
 import { useForm } from 'antd/lib/form/Form'
 import FormItem from 'antd/lib/form/FormItem';
 import FormList from 'antd/lib/form/FormList';
@@ -9,6 +9,7 @@ import {Moment} from 'moment'
 import { SearchInput } from '../PathForm';
 import trafficData from '../PathForm/traffic.json'
 import { NForm, PForm, RForm, TForm } from '../../lib/types/types';
+import moment from 'moment';
 
 const { Panel } = Collapse
 
@@ -83,6 +84,20 @@ interface PFProps{
   onChange?:(v:any)=>void
 }
 
+interface TProps{
+  value?:string|undefined,
+  onChange?:(v:any)=>void
+}
+
+function TimeItem({value,onChange}:TProps){
+  return(
+    <TimePicker
+      value={value?moment(value,"HH:mm:ss"):null}
+      onChange={(time:Moment|null,timeString:string)=>{onChange && onChange(timeString)}}
+    />
+  )
+}
+
 export function PauseForm({value,onChange}:PFProps){
   const [form] = useForm<PForm|undefined>();
   useEffect(()=>{
@@ -104,7 +119,7 @@ export function PauseForm({value,onChange}:PFProps){
     <div>
       <Form form={form} onValuesChange={onFormChange}>
         <FormItem name={"time"} rules={[{ required: true }]}>
-          <DatePicker showTime placeholder={"输入日期"} />
+          <TimeItem/>
         </FormItem>
         <FormItem name={"location"} style={{ margin: "0" }} rules={[{ required: true }]}>
           <SearchInput placeholder={"搜索地点"} />
@@ -204,8 +219,25 @@ interface DProps{
 }
 
 function Date({value,onChange}:DProps){
+  const [innerV,setV] = useState<Moment>()
+
+  const onPickerChange=(date:Moment|null,dateString:String)=>{
+    onChange && onChange(dateString)
+  }
+
+  useEffect(()=>{
+    if(value){
+      setV(moment(value))
+    }
+  },[value])
+
   return(
-    <h1>{value}</h1>
+    <DatePicker 
+      bordered={false} 
+      size={"large"} 
+      value={innerV}
+      onChange={onPickerChange}
+    />
   )
 }
 

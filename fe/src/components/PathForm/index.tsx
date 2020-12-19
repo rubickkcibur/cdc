@@ -80,7 +80,7 @@ export const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
   useEffect(() => {
     if (value) {
       setV(value.name)
-      onChange && onChange(value as any)
+      //onChange && onChange(value as any)
     }
   }, [value])
 
