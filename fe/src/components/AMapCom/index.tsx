@@ -2007,7 +2007,7 @@ export function Heatmap({AMap,map,container}:any){
     map.plugin(["AMap.HeatMap"], function () {
         //初始化heatmap对象
         heatmap = new AMap.HeatMap(map, {
-            radius: 25, //给定半径
+            radius: 75, //给定半径
             opacity: [0, 0.8]
         });
         //设置数据集：该数据为北京部分“公园”数据
