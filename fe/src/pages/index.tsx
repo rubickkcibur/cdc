@@ -16,6 +16,7 @@ import Axios from "axios"
 import Constant from '../lib/constant'
 import Routes, { RouteForm } from "../components/Routes"
 import NewRouteForm from "../components/NewRoute"
+import { useTypedSelector } from "../lib/store"
 const Card = ({
   children,
   title,
@@ -39,6 +40,8 @@ export default function index() {
   const dispatch = useDispatch()
   const [basicForm, setBF] = useState<FormInstance | undefined>(undefined)
   const [pathForm, setPF] = useState<FormInstance | undefined>(undefined)
+  const newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
+  const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
   const onBasicChange = (values: any, form: FormInstance | undefined) => {
     setBF(form)
   }
@@ -55,23 +58,34 @@ export default function index() {
 
   }
   const onSave = async () => {
-    try {
-      const basic = await basicForm?.validateFields()
-      const path: any = await pathForm?.validateFields()
-      const t = Object.entries(path)
-      Axios.post(`${Constant.apihost}/upload`, {
-        basic,
-        path: {
-          nodes: t.map(([, v]: any) => v.node),
-          edges: t.map(([, v]: any) => v.edge),
-        },
+    // try {
+    //   const basic = await basicForm?.validateFields()
+    //   const path: any = await pathForm?.validateFields()
+    //   const t = Object.entries(path)
+    //   Axios.post(`${Constant.apihost}/upload`, {
+    //     basic,
+    //     path: {
+    //       nodes: t.map(([, v]: any) => v.node),
+    //       edges: t.map(([, v]: any) => v.edge),
+    //     },
+    //   })
+    //     .then(() => message.success("提交成功"))
+    //     .catch(() => message.error("提交失败"))
+    // } catch (e) {
+    //   console.log(e)
+    //   message.error("请完善信息")
+    // }
+    try{
+      Axios.post(`${Constant.apihost}/insertroute`, {
+        personal_id:loadedBasic?.personal_id, //此处有问题
+        data:newRouteBuffer
       })
-        .then(() => message.success("提交成功"))
-        .catch(() => message.error("提交失败"))
-    } catch (e) {
+      .then(()=>message.success("提交成功"))
+      .catch(()=>message.error("提交失败"))
+    }catch(e){
       console.log(e)
-      message.error("请完善信息")
     }
+
   }
 
   return (

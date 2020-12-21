@@ -110,7 +110,7 @@ export default function Pagepatients() {
     }
 
     const getBasics = () => {
-      Axios.get(`${Constant.testserver}/getall`)
+      Axios.get(`${Constant.apihost}/getall`)
       .then(e=>{
         setP(e.data)
         setPB(e.data)
