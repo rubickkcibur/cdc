@@ -1,15 +1,17 @@
-import { AutoComplete, Button, Col, Collapse, DatePicker, Form, Input, message, Row, Select, Tag, TimePicker } from 'antd';
+import { AutoComplete, Button, Col, Collapse, DatePicker, Form, Input, message, Row, Select, Tag, Tooltip, Menu, Dropdown,Timeline,TimePicker } from 'antd';
 import { useForm } from 'antd/lib/form/Form'
 import FormItem from 'antd/lib/form/FormItem';
 import FormList from 'antd/lib/form/FormList';
 import React, { useEffect, useState } from 'react'
 import {Tip} from '../../lib/search'
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined,CaretRightOutlined,CloseOutlined,MoreOutlined,CarOutlined } from '@ant-design/icons';
 import {Moment} from 'moment'
 import { SearchInput } from '../PathForm';
 import trafficData from '../PathForm/traffic.json'
 import { NForm, PForm, RForm, TForm } from '../../lib/types/types';
+import sty from './index.module.scss';
 import moment from 'moment';
+import { useTypedSelector } from '../../lib/store';
 
 const { Panel } = Collapse
 
@@ -17,299 +19,370 @@ const { Panel } = Collapse
 export interface Contacts {name :string, pid:string}
 
 interface Routes{
-  routes:RForm[]
+    routes:RForm[]
 }
 
 interface ListProp {
     value?:any,
     initValue?:any,
     onChange?:(e?:any,v?:any)=>any
-  }
+}
 
 function ContactsList({value,onChange}:ListProp){
-  const [contacts,setCon] = useState<Contacts[]>([]);
-  const [visible,setVisible] = useState<boolean>(false);
-  const [input,setInput] = useState<string>();
-  const inputConfirm = ()=>{
-    var npid = input?.split(" ")
-    if (npid){
-      let tmp = contacts.slice()
-      tmp.push({name:npid[0], pid:npid[1]})
-      onChange && onChange(tmp)
-      setCon(tmp)
-    }
-    setVisible(false)
-  }
-
-  useEffect(()=>{
-    if (value){
-      setCon(value)
-    }
-  },[value])
-
-  return(
-    <>
-      {
-        contacts?.map((e,idx)=>{
-          return(
-          <Tag closable 
-            style={{ width: 78 }}
-            key={idx}
-            onClose={()=>{
-            let tmp = contacts.slice();
-            tmp.splice(idx,1);
-            setCon(tmp);
+    const [contacts,setCon] = useState<Contacts[]>([]);
+    const [visible,setVisible] = useState<boolean>(false);
+    const [input,setInput] = useState<string>();
+    const inputConfirm = ()=>{
+        var npid = input?.split(" ")
+        if (npid){
+            let tmp = contacts.slice()
+            tmp.push({name:npid[0], pid:npid[1]})
             onChange && onChange(tmp)
-          }}>
-            {e.name+"(" + e.pid.substr(12,6) + ")"}
-          </Tag>)
-        })
-      }
-      {
-        visible && 
-        <Input type="text" onChange={(e)=>{setInput(e.target.value)}} onPressEnter={inputConfirm}/>
-      }
-      {
-        !visible &&
-        <Tag onClick={()=>{setVisible(true)}}>
-          <PlusOutlined/>使用空格将姓名和身份证号隔开
-        </Tag>
-      }
-    </>
-  )
+            setCon(tmp)
+        }
+        setVisible(false)
+        setInput("")
+    }
+
+    useEffect(()=>{
+        if (value){
+            setCon(value)
+        }
+    },[value])
+
+    return(
+        <>
+            <div className={sty.CloseContact}>
+                <div className={sty.inputDiv}>
+                    {
+                        contacts?.map((e,idx)=>{
+                            return(
+                                <div className={sty.block}>
+                                    <Row><Col>
+                                        <Row style={{height:2}}></Row>
+                                        &nbsp;{e.name+"(" + e.pid.substr(12,6) + ")"}
+                                    </Col>
+                                        <Col className={sty.deleteIcon}>
+                                            <Tooltip title="删除">
+                                                <Button size="small"
+                                                        onClick={()=>{
+                                                            let tmp = contacts.slice();
+                                                            tmp.splice(idx,1);
+                                                            setCon(tmp);
+                                                            onChange && onChange(tmp)
+                                                        }}
+                                                        shape="circle" icon={<CloseOutlined />} />
+                                            </Tooltip>
+                                        </Col>
+                                    </Row>
+                                </div>)
+                        })
+                    }
+                    {
+                        //visible&&
+                        <div  className={sty.input}>
+                            <Input onChange={(e)=>{setInput(e.target.value)}} value={input}
+                                   onPressEnter={inputConfirm} placeholder="使用空格将姓名和身份证号隔开" bordered={false}/>
+                        </div>
+                         //<Input type="text" onChange={(e)=>{setInput(e.target.value)}} onPressEnter={inputConfirm}/>
+                    }
+                    {/*{*/}
+                    {/*  !visible &&*/}
+                    {/*  <Tag onClick={()=>{setVisible(true)}}>*/}
+                    {/*    <PlusOutlined/>使用空格将姓名和身份证号隔开*/}
+                    {/*  </Tag>*/}
+                    {/*}*/}
+                </div>
+            </div>
+        </>
+    )
 }
 
 interface PFProps{
-  value?:PForm|undefined,
-  onChange?:(v:any)=>void
+    value?:PForm|undefined,
+    onChange?:(v:any)=>void
 }
 
 interface TProps{
-  value?:string|undefined,
-  onChange?:(v:any)=>void
+    value?:string|undefined,
+    onChange?:(v:any)=>void
 }
 
 function TimeItem({value,onChange}:TProps){
-  return(
-    <TimePicker
-      value={value?moment(value,"HH:mm:ss"):null}
-      onChange={(time:Moment|null,timeString:string)=>{onChange && onChange(timeString)}}
-    />
-  )
+    return(
+        <TimePicker
+            value={value?moment(value,"HH:mm:ss"):null}
+            onChange={(time:Moment|null,timeString:string)=>{onChange && onChange(timeString)}}
+        />
+    )
 }
 
 export function PauseForm({value,onChange}:PFProps){
-  const [form] = useForm<PForm|undefined>();
-  useEffect(()=>{
-    if(value && form){
-      console.log("pf init")
-      console.log(value)
-      form.setFieldsValue(value)
+    const [form] = useForm<PForm|undefined>();
+    useEffect(()=>{
+        if(value && form){
+            console.log("pf init")
+            console.log(value)
+            form.setFieldsValue(value)
+        }
+    },[value])
+
+    const onFormChange=()=>{
+        console.log("pf change")
+        console.log(form.getFieldsValue())
+        onChange && onChange(form.getFieldsValue())
+        console.log(form.getFieldsValue())
     }
-  },[value])
 
-  const onFormChange=()=>{
-    console.log("pf change")
-    console.log(form.getFieldsValue())
-    onChange && onChange(form.getFieldsValue())
-    console.log(form.getFieldsValue())
-  }
-
-  return(
-    <div>
-      <Form form={form} onValuesChange={onFormChange}>
-        <FormItem name={"time"} rules={[{ required: true }]}>
-          <TimeItem/>
-        </FormItem>
-        <FormItem name={"location"} style={{ margin: "0" }} rules={[{ required: true }]}>
-          <SearchInput placeholder={"搜索地点"} />
-        </FormItem>
-        <FormItem name={"contacts"}>
-          <ContactsList/>
-        </FormItem>
-      </Form>
-    </div>
-  )
+    return(
+        <div>
+            <Form form={form} onValuesChange={onFormChange}>
+                <Row gutter={16}>
+                    <Col className="gutter-row" span={12}>
+                        <FormItem name={"time"} rules={[{ required: true }]} style={{padding:'8px 0'}}>
+                            <TimeItem></TimeItem>
+                        </FormItem>
+                    </Col>
+                    <Col className="gutter-row" span={12}>
+                        <FormItem name={"location"} style={{ margin: "0",padding:'8px 0' }} rules={[{ required: true }]}>
+                            <SearchInput placeholder={"搜索地点"} />
+                        </FormItem>
+                    </Col>
+                </Row>
+                <FormItem name={"contacts"} style={{marginTop:'0px'}}>
+                    <ContactsList/>
+                </FormItem>
+            </Form>
+        </div>
+    )
 }
 
 interface TFProps{
-  value?:TForm|undefined,
-  onChange?:(v:any)=>void
+    value?:TForm|undefined,
+    onChange?:(v:any)=>void
 }
 
 export function TravelForm({value,onChange}:TFProps){
-  const [form] = useForm<TForm>()
+    const [form] = useForm<TForm>()
 
-  useEffect(()=>{
-    if (value && form){
-      console.log("tf init")
-      console.log(value)
-      form.setFieldsValue(value)
+    useEffect(()=>{
+        if (value && form){
+            console.log("tf init")
+            console.log(value)
+            form.setFieldsValue(value)
+        }
+    },[value])
+
+    const onFormChange = ()=>{
+        console.log("tf change")
+        console.log(form.getFieldsValue())
+        onChange && onChange(form.getFieldsValue())
     }
-  },[value])
 
-  const onFormChange = ()=>{
-    console.log("tf change")
-    console.log(form.getFieldsValue())
-    onChange && onChange(form.getFieldsValue())
-    console.log(form.getFieldsValue())
-  }
-
-  return(
-    <div>
-      <Form form={form} onValuesChange={onFormChange}>
-        <FormItem name={"transform"}>
-          <Select placeholder={"出行方式"} >
-            {trafficData.map(e => (<Select.Option key={e} value={e}>{e}</Select.Option>))}
-          </Select>
-        </FormItem>
-        <FormItem name={"note"}>
-          <Input placeholder={"补充说明"} />
-        </FormItem>
-      </Form>
-    </div>
-  )
+    return(
+        <div>
+            <Form form={form} onValuesChange={onFormChange}>
+                <Row>
+                    <Col span={5} style={{textAlign:'right'}}>
+                        <CarOutlined style={{fontSize:'20px',marginTop:'5px',marginRight:'5px'}}/>
+                    </Col>
+                    <Col span={9}>
+                        <FormItem name={"transform"}>
+                            <Select placeholder={"出行方式"} >
+                                {trafficData.map(e => (<Select.Option key={e} value={e}>{e}</Select.Option>))}
+                            </Select>
+                        </FormItem>
+                    </Col>
+                    <Col span={1}></Col>
+                    <Col span={9}>
+                        <FormItem name={"note"}>
+                            <Input placeholder={"补充说明"} />
+                        </FormItem>
+                    </Col>
+                </Row>
+            </Form>
+        </div>
+    )
 }
 
 interface NFProps{
-  idx?:number
-  value?:NForm|undefined,
-  onChange?:(v:any)=>void
+    idx?:number
+    value?:NForm|undefined,
+    onChange?:(v:any)=>void
 }
 
 export function NodeForm({idx,value,onChange}:NFProps){
-  const [form] = useForm<NForm>();
-  useEffect(()=>{
-    if (value && form){
-      console.log("nf init")
-      console.log(value)
-      form.setFieldsValue(value)
-    }
-  },[value])
-
-  const onFormChange = ()=>{
-    console.log("nf change")
-    console.log(form.getFieldsValue())
-    onChange && onChange(form.getFieldsValue())
-    console.log(form.getFieldsValue())
-  }
-
-  return(
-    <Form form={form} onValuesChange={onFormChange}>
-      <FormItem name={"travel"}>
-        {
-          idx?<TravelForm/>:null
+    const [form] = useForm<NForm>();
+    useEffect(()=>{
+        if (value && form){
+            console.log("nf init")
+            console.log(value)
+            form.setFieldsValue(value)
         }
-      </FormItem>
-      <FormItem name={"pause"}>
-        <PauseForm/>
-      </FormItem>
-    </Form>
-  )
+    },[value])
+
+    const onFormChange = ()=>{
+        console.log("nf change")
+        console.log(form.getFieldsValue())
+        onChange && onChange(form.getFieldsValue())
+        console.log(form.getFieldsValue())
+    }
+
+    return(
+        <Form form={form} onValuesChange={onFormChange}>
+            <FormItem name={"travel"} style={{marginTop:'-60px'}}>
+                {
+                    idx?<TravelForm/>:<div style={{height:'55px'}}> </div>
+                }
+            </FormItem>
+            <FormItem name={"pause"} style={{marginTop:'-30px'}}>
+                <PauseForm/>
+            </FormItem>
+        </Form>
+    )
 }
 
 interface RFProps{
-  value?:RForm|undefined,
-  onChange?:(v:any)=>void
+    value?:RForm|undefined,
+    onChange?:(v:any)=>void
 }
 
 interface DProps{
-  value?:string|undefined,
-  onChange?:(v:any)=>void
+    value?:string|undefined,
+    onChange?:(v:any)=>void
 }
 
 function Date({value,onChange}:DProps){
-  const [innerV,setV] = useState<Moment>()
+    const [innerV,setV] = useState<Moment>()
 
-  const onPickerChange=(date:Moment|null,dateString:String)=>{
-    onChange && onChange(dateString)
-  }
-
-  useEffect(()=>{
-    if(value){
-      setV(moment(value))
+    const onPickerChange=(date:Moment|null,dateString:String)=>{
+        onChange && onChange(dateString)
     }
-  },[value])
 
-  return(
-    <DatePicker 
-      bordered={false} 
-      size={"large"} 
-      value={innerV}
-      onChange={onPickerChange}
-    />
-  )
+    useEffect(()=>{
+        if(value){
+            setV(moment(value))
+        }
+    },[value])
+
+    return(
+        <DatePicker className={sty.dateStyle}
+                    bordered={false}
+                    size={"large"}
+                    value={innerV}
+                    onChange={onPickerChange}
+        />
+    )
 }
 
 export function RouteForm({value,onChange}:RFProps){
-  const oneNode:NForm[] = [
-    {
-    travel:{
-      transform:undefined,
-      note:undefined
-    },
-    pause:{
-      time:undefined,
-      location:undefined,
-      contacts:[]
-    }}
-  ]
-  const [form] = useForm<RForm>();
-  useEffect(()=>{
-    if (value && form){
-      form.setFieldsValue(value)
-    }
-  },[value])
+    const oneNode:NForm[] = [
+        {
+            travel:{
+                transform:undefined,
+                note:undefined
+            },
+            pause:{
+                time:undefined,
+                location:undefined,
+                contacts:[]
+            }}
+    ]
 
-  useEffect(()=>{
-    if (!form.getFieldValue("route") || form.getFieldValue("route").length === 0){
-      form.setFieldsValue({date:"12-6-2020",route:oneNode.slice()})
-    }
-  },[form])
+    const [form] = useForm<RForm>();
+    useEffect(()=>{
+        if (value && form){
+            form.setFieldsValue(value)
+        }
+    },[value])
 
-  return(
-    <Form form={form} onValuesChange={()=>{onChange && onChange(form.getFieldsValue())}}>
-      <Collapse>
-      <Panel key="1" header={
-        <FormItem name={"date"} noStyle>
-          <Date/>
-        </FormItem>
-      }>
-      <Form.List
-        name="route"
-        >
-          {(fields, { add, remove }, { errors }) => (
-            <>
-              {fields.map((field, index) => (
-                <>
-                  <Button onClick={()=>add(Object.create(oneNode[0]),index)}>
-                    <PlusOutlined/>
-                  </Button>
-                  <FormItem key={field.key}>
-                    <FormItem {...field} noStyle>
-                      <NodeForm idx={index}/>
+    useEffect(()=>{
+        if (!form.getFieldValue("route") || form.getFieldValue("route").length === 0){
+            form.setFieldsValue({date:"12-6-2020",route:oneNode.slice()})
+        }
+    },[form])
+
+    return(
+        <Form form={form} onValuesChange={()=>{onChange && onChange(form.getFieldsValue())}}>
+            <Collapse expandIcon={({ isActive }) => <CaretRightOutlined style={{fontSize:20}} rotate={isActive ? 90 : 0} />}>
+                <Panel key="1" header={
+                    <FormItem name={"date"} noStyle>
+                        <Date/>
                     </FormItem>
-                    <Button
-                    disabled={!form.getFieldValue("route") || form.getFieldValue("route").length <= 1} 
-                    onClick={()=>remove(field.name)}
-                    >
-                      <MinusCircleOutlined/>
-                    </Button>
-                  </FormItem>
-                  {index === form.getFieldValue("route").length-1?
-                  <Button onClick={()=>add(Object.create(oneNode[0]))}>
-                    <PlusOutlined/>
-                  </Button>
-                  :null}
-                </>
-              ))}
-            </>
-          )}
-      </Form.List>
-      </Panel>
-      </Collapse>
-    </Form>
-  )
+                    //<Date/>
+                }>
+                    <Timeline>
+                        <Form.List
+                            name="route"
+                        >
+                            {(fields, { add, remove }, { errors }) => (
+                                <>
+                                    {fields.map((field, index) => (
+                                        <>
+                                            {/*<Button onClick={()=>add(Object.create(oneNode[0]),index)}>*/}
+                                            {/*  <PlusOutlined/>*/}
+                                            {/*</Button>*/}
+
+                                                <Row>
+                                                <Col span={23}>
+                                                    <Timeline.Item>
+                                                <FormItem key={field.key}>
+                                                    <FormItem {...field} noStyle>
+                                                         <NodeForm idx={index}/>
+                                                    </FormItem>
+                                                    {/*<Button*/}
+                                                    {/*disabled={!form.getFieldValue("route") || form.getFieldValue("route").length <= 1}*/}
+                                                    {/*onClick={()=>remove(field.name)}*/}
+                                                    {/*>*/}
+                                                    {/*  <MinusCircleOutlined/>*/}
+                                                    {/*</Button>*/}
+                                                </FormItem>
+                                                    </Timeline.Item>
+                                                </Col>
+                                                <Col span={1}>
+                                                        <div style={{marginTop:'20px'}}>
+                                                            <Dropdown
+                                                                arrow overlay={<Menu>
+                                                                <Menu.Item>
+                                                                    <Button onClick={()=>add(Object.create(oneNode[0]),index)} type="link">
+                                                                        在上方增加项
+                                                                    </Button>
+                                                                </Menu.Item>
+                                                                <Menu.Item>
+                                                                    <Button onClick={()=>add(Object.create(oneNode[0]))} type="link">
+                                                                        在下方增加项
+                                                                    </Button>
+                                                                </Menu.Item>
+                                                                <Menu.Item danger>
+                                                                    <Button disabled={!form.getFieldValue("route") || form.getFieldValue("route").length <= 1}
+                                                                            onClick={()=>remove(field.name)} type="link">
+                                                                        删除该项
+                                                                    </Button>
+                                                                </Menu.Item>
+                                                            </Menu>}>
+                                                                <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                                                                    <MoreOutlined style={{fontSize:'20px'}}/>
+                                                                </a>
+                                                            </Dropdown>
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+
+                                            {index === form.getFieldValue("route").length-1?
+                                                <Button onClick={()=>add(Object.create(oneNode[0]))}>
+                                                    <PlusOutlined/>
+                                                </Button>
+                                                :null}
+                                        </>
+                                    ))}
+                                </>
+                            )}
+                        </Form.List>
+                    </Timeline>
+                </Panel>
+            </Collapse>
+        </Form>
+    )
 }
 
 const oneRoute:RForm={
@@ -319,25 +392,33 @@ const oneRoute:RForm={
 
 export default function Routes(){
     const [form] = useForm<Routes>()
+    const loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
 
     useEffect(()=>{
-        if (!form.getFieldValue("routes") || form.getFieldValue("routes").length===0){
-            form.setFieldsValue({routes:[oneRoute]})
+        if(loadedRoutes){
+            form.setFieldsValue({routes:loadedRoutes})
+            console.log(loadedRoutes)
         }
-    })
+    },[loadedRoutes,form])
+
+    // useEffect(()=>{
+    //     if (!form.getFieldValue("routes") || form.getFieldValue("routes").length===0){
+    //         form.setFieldsValue({routes:[oneRoute]})
+    //     }
+    // })
 
     return(
         <Form form={form} onValuesChange={()=>console.log(form.getFieldsValue())}>
             <FormList name="routes">
-            {(fields, { add, remove }, { errors }) => (
-                <>
-                    {fields.map((field, index) => (
-                        <FormItem {...field} noStyle>
-                            <RouteForm/>
-                        </FormItem>
-                    ))}
-                </>
-            )}
+                {(fields, { add, remove }, { errors }) => (
+                    <>
+                        {fields.map((field, index) => (
+                            <FormItem {...field} noStyle>
+                                <RouteForm/>
+                            </FormItem>
+                        ))}
+                    </>
+                )}
             </FormList>
         </Form>
     )

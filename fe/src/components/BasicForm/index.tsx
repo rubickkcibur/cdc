@@ -19,11 +19,12 @@ export default function FormBasic({ onChange }: IProps) {
   const itemStyle: React.CSSProperties = { margin: "0" }
   const [form] = useForm()
   const loaded_form = useTypedSelector(e => e.PAGlobalReducer.loaded_form)
+  const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
 
   useEffect(() => {
-    if (loaded_form)
-      form.setFieldsValue(loaded_form.basic)
-  }, [loaded_form, form])
+    if (loadedBasic)
+      form.setFieldsValue(loadedBasic)
+  }, [loadedBasic, form])
 
   const onValueChange = (changed: any, values: any) => {
     onChange && onChange(values, form)

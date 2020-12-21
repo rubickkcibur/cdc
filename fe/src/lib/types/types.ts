@@ -72,7 +72,7 @@ export interface Routes{
 }
 
 export interface PersonDocument{
-    _id:null,
+    _id?:null|undefined,
     basic:Basic,
     routes:RForm[]
 }

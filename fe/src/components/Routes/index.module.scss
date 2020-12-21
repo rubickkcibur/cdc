@@ -1,0 +1,45 @@
+.dateStyle{
+  font-size: 20px;
+  margin-top: -5px;
+}
+
+.CloseContact{
+  margin-top: -55px;
+}
+
+.inputDiv{
+  width:100%;
+  margin-top: 30px;
+  min-height: 40px;
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.input{
+  margin-top: 5px;
+  width:250px;
+  margin-left: -2px;
+  vertical-align: top;
+  display:inline-block;
+}
+
+.block{
+  background: aquamarine;
+  margin-left: 5px;
+  margin-top:5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: solid 1px #e9e9e9;
+  height: 30px;
+  vertical-align: top;
+  display:inline-block;
+}
+
+.deleteIcon{
+  margin-left: 5px;
+  font-size: 10px;
+  margin-top: 1px;
+}
