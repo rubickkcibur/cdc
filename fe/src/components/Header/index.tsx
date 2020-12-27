@@ -15,7 +15,7 @@ const MenuItem = [
   {
     title: "流调填报",
     icon: <BarChartOutlined />,
-    url: '/'
+    url: '/addroute'
   },
   {
     title: "流调总览",
@@ -25,13 +25,13 @@ const MenuItem = [
   {
     title: "病例信息",
     icon: <FormOutlined />,
-    url: '/patients'
+    url: '/'
   },
-  {
-    title: "疫情分布",
-    icon:  <HeatMapOutlined/>,
-    url: '/heatmap'
-  }
+  // {
+  //   title: "疫情分布",
+  //   icon:  <HeatMapOutlined/>,
+  //   url: '/heatmap'
+  // }
 ]
 
 export default function KashHeader() {

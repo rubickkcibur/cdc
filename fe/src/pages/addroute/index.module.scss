@@ -1,0 +1,53 @@
+.KashCard {
+    background-color: white;
+    display: flex;
+    flex-flow: column;
+
+    .Title {
+        font-size: 18px;
+        text-align: left;
+        padding-left: 14px;
+        font-family: SourceHanSansSC-regular;
+        border-bottom: #E9E9E9 solid;
+    }
+    .Content{
+        height: 100%;
+        flex-grow: 1;
+    }
+}
+
+.FormContainer {
+    margin: 14px 24px 56px 27px;
+}
+
+.PathContainer {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+    height: initial;
+    margin-top: 12px;
+    padding: 0;
+    background-color: white;
+}
+
+
+
+.RootRow{
+    height: calc( 100vh - 65px - 16px );
+
+}
+
+.PathFormContainer {
+    margin: 12px 8px;
+    overflow-y: hidden;
+    position: absolute;
+    overflow-x: hidden;
+}
+.UploadButton{
+    position: absolute;
+    right:  0px;
+    top: 2px;
+    z-index: 10;
+    
+
+}

@@ -1,3 +1,6 @@
+import { useTypedSelector } from "../../lib/store";
+import { extracLocation } from "../../lib/utils";
+
 var heatmapData = [{
 	"lng": 116.191031,
 	"lat": 39.988585,
@@ -2007,7 +2010,7 @@ export function Heatmap({AMap,map,container}:any){
     map.plugin(["AMap.HeatMap"], function () {
         //初始化heatmap对象
         heatmap = new AMap.HeatMap(map, {
-            radius: 75, //给定半径
+            radius: 50, //给定半径
             opacity: [0, 0.8]
         });
         //设置数据集：该数据为北京部分“公园”数据
@@ -2019,16 +2022,48 @@ export function Heatmap({AMap,map,container}:any){
     return (null)
   }
   
-  export function Cluster({AMap,map,container}:any){
-    var cluster:any
-    map.plugin(["AMap.MarkerClusterer"],function() {
-      cluster = new AMap.MarkerClusterer(
-        map,     // 地图实例
-        points, // 海量点数据，数据中需包含经纬度信息字段 lnglat
-        {
-          gridSize:60,
-          maxZom:24
-        });
-    });
-    return (null)
-  }
+export function Cluster({AMap,map,container}:any){
+	var cluster:any
+	map.plugin(["AMap.MarkerClusterer"],function() {
+		cluster = new AMap.MarkerClusterer(
+		map,     // 地图实例
+		points, // 海量点数据，数据中需包含经纬度信息字段 lnglat
+		{
+			gridSize:60,
+			maxZom:24
+		});
+	});
+	return (null)
+}
+
+export function Markers({AMap,map,container}:any){
+	var loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
+	var newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
+	if (loadedRoutes){
+		let tmp = []
+		for(let r of loadedRoutes){
+			for (let n of r.route){
+				map.add(new AMap.Marker({position:extracLocation(n.pause?.location?.location)}))
+				tmp.push(extracLocation(n.pause?.location?.location))
+			}
+			map.add(new AMap.Polyline({
+				path:tmp,
+				strokeColor:"yellow"
+			}))
+		}
+		//map.add(new AMap.Marker({position:[116.405285,39.904989]}))
+	}
+	// if (newRouteBuffer){
+	// 	let tmp = []
+	// 	for (let i = 0;i < newRouteBuffer.route.length;i++){
+	// 		newRouteBuffer.route[i].pause?.location?.location &&
+	// 		map.add(new AMap.Marker({position:extracLocation(newRouteBuffer.route[i].pause?.location?.location)}))
+	// 		tmp.push(extracLocation(newRouteBuffer.route[i].pause?.location?.location))
+	// 	}
+	// 	map.add(new AMap.Polyline({
+	// 		path:tmp,
+	// 		strokeColor:"red"
+	// 	}))
+	// }
+	return (null)
+}

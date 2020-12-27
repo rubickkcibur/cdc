@@ -4,7 +4,7 @@
     "@types/react-redux": "^7.1.11",
     "@types/redux-logger": "^3.0.8",
     "@types/styled-components": "^5.1.4",
-    "@uiw/react-amap": "^1.7.6",
+    "@uiw/react-amap": "1.7.8",
     "amap": "^1.0.7",
     "antd": "^4.8.0",
     "axios": "^0.21.0",

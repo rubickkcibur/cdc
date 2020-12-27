@@ -2,6 +2,8 @@ import React from "react";
 import {APILoader,Map} from "@uiw/react-amap"
 import { Cluster, Heatmap } from "../../components/AMapCom";
 import MainLayout from "../../components/MainLayoout/PageLayout";
+import { Row, Col } from "antd";
+import sty from "./index.module.scss"
 
 export default function HeatMap(){
     return(

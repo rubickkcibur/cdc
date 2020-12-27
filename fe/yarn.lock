@@ -1288,10 +1288,10 @@
   dependencies:
     moment ">=2.13.0"
 
-"@uiw/react-amap@^1.7.6":
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/@uiw/react-amap/-/react-amap-1.7.6.tgz#b40f10fb2478f33120233f9d7de4bcc0bccf2dd8"
-  integrity sha512-G53bCwnqWgY+m/8798Z7wc+GWvQYJjOTutKH3KxfbOZjByLA7zCextOGaNV4LzBh134/fCFRE/t17nQmNmBh4Q==
+"@uiw/react-amap@1.7.8":
+  version "1.7.8"
+  resolved "https://registry.yarnpkg.com/@uiw/react-amap/-/react-amap-1.7.8.tgz#6c2c92031aeb5b8c72f2319588e2f4323725461a"
+  integrity sha512-cD71IlFGK8dvG4AZ43IUcs+ODy5YI5fzunftfaIzSn6I9xm3+tQayLMKTNKwIHV1/0AuwfMFNe2y1AjmM2GNOw==
   dependencies:
     "@babel/runtime" "7.12.5"
 
@@ -5311,8 +5311,8 @@ regenerator-runtime@^0.11.0:
 
 regenerator-runtime@^0.13.4:
   version "0.13.7"
-  resolved "https://registry.npm.taobao.org/regenerator-runtime/download/regenerator-runtime-0.13.7.tgz?cache=0&sync_timestamp=1595456511811&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fregenerator-runtime%2Fdownload%2Fregenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
-  integrity sha1-ysLazIoepnX+qrrriugziYrkb1U=
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
+  integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
 
 regenerator-transform@^0.14.2:
   version "0.14.5"
