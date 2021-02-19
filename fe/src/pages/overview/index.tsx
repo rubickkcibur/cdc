@@ -11,9 +11,9 @@ export default function PageOverview() {
     setByWhat(e);
     if (e == "location") {
       config = {
-        encryption: "ENCRYPTION_ON",
-        encripted: "ENCRYPTION_ON",
-        encrypted: "ENCRYPTION_ON",
+        encryption: "ENCRYPTION_OFF",
+        encripted: "ENCRYPTION_OFF",
+        encrypted: "ENCRYPTION_OFF",
         trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
         container_id: "viz",
         server_url: Const.boltserver,
@@ -38,9 +38,9 @@ export default function PageOverview() {
     }
     else {
       config = {
-        encryption: "ENCRYPTION_ON",
-        encripted: "ENCRYPTION_ON",
-        encrypted: "ENCRYPTION_ON",
+        encryption: "ENCRYPTION_OFF",
+        encripted: "ENCRYPTION_OFF",
+        encrypted: "ENCRYPTION_OFF",
         trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
         container_id: "viz",
         server_url: Const.boltserver,
@@ -50,6 +50,11 @@ export default function PageOverview() {
           "Patient": {
             "size": "count",
             "caption": "name",
+            "color": "red"
+          },
+          "Location": {
+            "caption": "name",
+            "size": "count"
           },
           "Contact": {
             "size": "count",
@@ -60,9 +65,21 @@ export default function PageOverview() {
           "contact": {
             "caption": true,
             "thickness": "count"
+          },
+          "To": {
+            "caption": "traffic",
+            "thickness": "count",
+            "color": "pink"
+          },
+          "TravelTo": {
+            "caption": "到访",
+            "thickness": "count",
+            "color": "blue"
           }
         },
-        initial_cypher: "MATCH p=()-[r:With]->() RETURN p LIMIT 25"
+        initial_cypher: "MATCH p=()-[r:TravelTo]->() RETURN p"
+        // initial_cypher: "MATCH p=()-[r:With]->() RETURN p"
+        // initial_cypher: "MATCH p=()-[]->() RETURN p"
       };
     }
 

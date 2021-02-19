@@ -106,7 +106,7 @@ export const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
   </AutoComplete>
 }
 
-const strtoll: (st: string) => LngLatPos = (st: string) => {
+export const strtoll: (st: string) => LngLatPos = (st: string) => {
   const a = st?.split(',') ?? ""
   return {
     lng: parseFloat(a[0]) ?? 0,

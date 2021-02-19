@@ -2,6 +2,7 @@ import { FormInstance } from "antd/lib/form"
 import { produce } from "immer"
 import { AMapLngLat, LngLat, LngLatPos } from "react-amap"
 import { Reducer } from "redux"
+import { Action } from "rxjs/internal/scheduler/Action"
 import { BaseItem, Basic, RForm } from "../types/types"
 const tag = "Products"
 export const ActionsEnum = {
@@ -9,6 +10,7 @@ export const ActionsEnum = {
   AddPause: "ActAddPause",
   RemovePause: "ActRemovePause",
   UpdateFormValue: "UpdatingFormValue",
+  SetShowedRoutes: "SetShowedRoutes"
 }
 
 export interface Pause {
@@ -41,10 +43,12 @@ export type TState = {
   newRouteBuffer?: RForm
   loadedBasic?:Basic
   loadedRoutes?:RForm[]
+  showedRoutes:Number[]
 }
 const initState: TState = {
   pauses: [],
   pathform: {},
+  showedRoutes:[]
 }
 
 export const ActSetState = (data: Partial<TState>) => ({
@@ -68,10 +72,16 @@ export const ActUpdateValue = (formdual: FormDual, idx: number) => ({
   idx,
 })
 
+export const ActSetShowedRoutes = (idx:number) =>({
+  type: ActionsEnum.SetShowedRoutes,
+  idx
+})
+
 export type TAction = ReturnType<typeof ActSetState> &
   ReturnType<typeof ActAddPauses> &
   ReturnType<typeof ActRemovePauses> &
-  ReturnType<typeof ActUpdateValue>
+  ReturnType<typeof ActUpdateValue> &
+  ReturnType<typeof ActSetShowedRoutes>
 
 export const PAGlobalReducer: Reducer<TState, TAction> = (
   state = initState,
@@ -91,6 +101,9 @@ export const PAGlobalReducer: Reducer<TState, TAction> = (
         return draft
       case ActionsEnum.UpdateFormValue:
         draft.pathform[action.idx] = action.formdual
+        return draft
+      case ActionsEnum.SetShowedRoutes:
+        draft.showedRoutes[action.idx] = draft.showedRoutes[action.idx]?0:1
         return draft
       default:
         return draft

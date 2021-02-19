@@ -6,12 +6,14 @@ import React, { useEffect, useState } from 'react'
 import {Tip} from '../../lib/search'
 import { MinusCircleOutlined, PlusOutlined,CaretRightOutlined,CloseOutlined,MoreOutlined,CarOutlined } from '@ant-design/icons';
 import {Moment} from 'moment'
-import { SearchInput } from '../PathForm';
+import { SearchInput, strtoll } from '../PathForm';
 import trafficData from '../PathForm/traffic.json'
 import { NForm, PForm, RForm, TForm } from '../../lib/types/types';
 import sty from './index.module.scss';
 import moment from 'moment';
 import { useTypedSelector } from '../../lib/store';
+import { useDispatch } from 'react-redux';
+import { ActAddPauses, ActSetShowedRoutes, ActSetState } from '../../lib/state/global';
 
 const { Panel } = Collapse
 
@@ -213,6 +215,7 @@ interface NFProps{
 
 export function NodeForm({idx,value,onChange}:NFProps){
     const [form] = useForm<NForm>();
+    const dispatch = useDispatch();
     useEffect(()=>{
         if (value && form){
             console.log("nf init")
@@ -224,6 +227,13 @@ export function NodeForm({idx,value,onChange}:NFProps){
     const onFormChange = ()=>{
         console.log("nf change")
         console.log(form.getFieldsValue())
+        if (form.getFieldsValue().pause?.location){
+            console.log("dispatch")
+            dispatch(ActAddPauses(idx??0,{
+                name:form.getFieldsValue().pause?.location?.name ?? "",
+                lnglat:strtoll(form.getFieldsValue().pause?.location?.location ?? "")
+            }))
+        }
         onChange && onChange(form.getFieldsValue())
         console.log(form.getFieldsValue())
     }
@@ -244,16 +254,20 @@ export function NodeForm({idx,value,onChange}:NFProps){
 
 interface RFProps{
     value?:RForm|undefined,
-    onChange?:(v:any)=>void
+    onChange?:(v:any)=>void,
+    idx?:number
 }
 
 interface DProps{
     value?:string|undefined,
-    onChange?:(v:any)=>void
+    onChange?:(v:any)=>void,
+    idx?:number
 }
 
-function Date({value,onChange}:DProps){
+function Date({value,onChange,idx}:DProps){
     const [innerV,setV] = useState<Moment>()
+    const dispatch = useDispatch()
+    const [show,setS] = useState<boolean>(false)
 
     const onPickerChange=(date:Moment|null,dateString:String)=>{
         onChange && onChange(dateString)
@@ -266,16 +280,22 @@ function Date({value,onChange}:DProps){
     },[value])
 
     return(
+        <>
         <DatePicker className={sty.dateStyle}
                     bordered={false}
                     size={"large"}
                     value={innerV}
                     onChange={onPickerChange}
         />
+        {
+            idx && 
+            <Button onClick={()=>{setS(!show),dispatch(ActSetShowedRoutes(idx-1))}}>{show?"hide":"show"}</Button>
+        }
+        </>
     )
 }
 
-export function RouteForm({value,onChange}:RFProps){
+export function RouteForm({value,onChange,idx}:RFProps){
     const oneNode:NForm[] = [
         {
             travel:{
@@ -307,7 +327,7 @@ export function RouteForm({value,onChange}:RFProps){
             <Collapse expandIcon={({ isActive }) => <CaretRightOutlined style={{fontSize:20}} rotate={isActive ? 90 : 0} />}>
                 <Panel key="1" header={
                     <FormItem name={"date"} noStyle>
-                        <Date/>
+                        <Date idx={idx}/>
                     </FormItem>
                     //<Date/>
                 }>
@@ -414,7 +434,7 @@ export default function Routes(){
                     <>
                         {fields.map((field, index) => (
                             <FormItem {...field} noStyle>
-                                <RouteForm/>
+                                <RouteForm idx={index+1}/>
                             </FormItem>
                         ))}
                     </>

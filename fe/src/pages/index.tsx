@@ -33,7 +33,8 @@ export default function Pagepatients() {
       .then(e=>{
         dispatch(ActSetState({
           loadedBasic:e.data.basic,
-          loadedRoutes:e.data.routes
+          loadedRoutes:e.data.routes,
+          showedRoutes:Array(e.data.routes.length).fill(0)
         }))
       })
       .then(e=>{

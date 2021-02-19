@@ -16,9 +16,11 @@ import Constant from '../../lib/constant'
 import Routes, { RouteForm } from "../../components/Routes"
 import NewRouteForm from "../../components/NewRoute"
 import { useTypedSelector } from "../../lib/store"
-import { APILoader,Map,Marker, Polyline } from "@uiw/react-amap"
+//import { APILoader,Map,Marker, Polyline } from "@uiw/react-amap"
+import {Map} from "react-amap"
 import { extracLocation } from "../../lib/utils"
 import { Markers } from "../../components/AMapCom"
+import dynamic from "next/dynamic"
 const Card = ({
   children,
   title,
@@ -146,13 +148,21 @@ export default function index() {
           </div>
         </Col>
         <Col md={{ span: 12, }} >
-          <div style={{ height: "950px" }}>
-            <APILoader akay="c640403f7b166ffb3490f7d2d4ab954c">
-                <Map center={[116.397428, 39.90923]} zoom={13}>
-                  <Markers/>
-                </Map>
-            </APILoader>
-          </div>
+          <Card title={"路径可视化"} style={{ height: "100%" }}>
+            <div style={{ height: "100%" }}>
+              <Map
+                amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}
+                events={{
+                  created: (ins: any) => {
+                    const AMap = (window as any).AMap
+                    dispatch(ActSetState({ __map__: ins, amap: (window as any).AMap }))
+                    console.log(11122)
+                  }
+                }}>
+                  <AMapLinkedMarker />
+              </Map>
+            </div>
+          </Card>
         </Col>
         <Col md={{span:6}}>
           <Routes/>

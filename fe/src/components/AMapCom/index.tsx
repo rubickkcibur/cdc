@@ -1,3 +1,6 @@
+import { APILoader,Map } from "@uiw/react-amap";
+import React from "react";
+import { MergeMapSubscriber } from "rxjs/internal/operators/mergeMap";
 import { useTypedSelector } from "../../lib/store";
 import { extracLocation } from "../../lib/utils";
 
@@ -2039,17 +2042,23 @@ export function Cluster({AMap,map,container}:any){
 export function Markers({AMap,map,container}:any){
 	var loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
 	var newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
+	var showedRoutes = useTypedSelector(e=>e.PAGlobalReducer.showedRoutes)
 	if (loadedRoutes){
-		let tmp = []
-		for(let r of loadedRoutes){
-			for (let n of r.route){
-				map.add(new AMap.Marker({position:extracLocation(n.pause?.location?.location)}))
-				tmp.push(extracLocation(n.pause?.location?.location))
+		for(let i = 0;i< loadedRoutes.length;i++){
+			let r = loadedRoutes[i]
+			let tmp = []
+			if(showedRoutes[i]){
+				for (let n of r.route){
+					map.add(new AMap.Marker({position:extracLocation(n?.pause?.location?.location)}))
+					n && tmp.push(extracLocation(n.pause?.location?.location))
+				}
+				if (tmp && tmp.length > 0){
+					map.add(new AMap.Polyline({
+						path:tmp,
+						strokeColor:"bule"
+					}))
+				}
 			}
-			map.add(new AMap.Polyline({
-				path:tmp,
-				strokeColor:"yellow"
-			}))
 		}
 		//map.add(new AMap.Marker({position:[116.405285,39.904989]}))
 	}
@@ -2066,4 +2075,16 @@ export function Markers({AMap,map,container}:any){
 	// 	}))
 	// }
 	return (null)
+}
+
+export function MMap(){
+	return(
+		<div style={{ height: "950px" }}>
+            <APILoader akay="c640403f7b166ffb3490f7d2d4ab954c">
+                <Map center={[116.397428, 39.90923]} zoom={13}>
+                  <Markers/>
+                </Map>
+            </APILoader>
+        </div>
+	)
 }
