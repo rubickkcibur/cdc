@@ -107,7 +107,7 @@ export default function AMapLinkedMarker({ __map__ }: IProps) {
 
     useEffect(() => {
         if (!amap || !__map__) return
-
+        console.log(vertexs)
         generateMarker()
         generateEdge()
     }, [vertexs])

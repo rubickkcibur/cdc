@@ -1,0 +1,27 @@
+.personCol{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: white;
+}
+.personHeader{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+}
+.click{
+    width: 40px;
+    height: 35px;
+    //background: red;
+    margin-top: 60px;
+    margin-left: 72%;
+    cursor: pointer;
+}
+.picture{
+    background: url("../../assets/images/static_map.png") no-repeat;
+    height: 420px;
+    width: 90%;
+    margin-left: 7%;
+    margin-top: 16px;
+}

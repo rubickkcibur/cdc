@@ -74,6 +74,24 @@ interface InputIProps { value?: any, onChange?: (v: string) => void, placeholder
 export const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
   const [res, setRes] = useState<any>(undefined)
   const [innervalue, setV] = useState<string>("")
+  const hardRes=[
+    {
+      id:"hardcode1",
+      name:"顺义华联超市地下二层猪肉摊（病例3，20m）"
+    },
+    {
+      id:"hardcode2",
+      name:"顺义华联超市运动服饰专卖店（病例7，30m）"
+    },
+    {
+      id:"hardcode3",
+      name:"顺义华联超市东门（病例4，50m）"
+    },
+    {
+      id:"hardcode4",
+      name:"顺义地铁站（病例5，550m）"
+    }
+  ]
   function renderItems(data: any) {
     return data?.map((e: { name: React.ReactNode }) => <div>{e.name}</div>)
   }
@@ -85,6 +103,10 @@ export const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
   }, [value])
 
   const onSearch = (t: string) => {
+    if (t == "顺义华联超市"){
+      setRes(hardRes)
+      return
+    }
     Search(t, (_: any, res: any) => {
       setRes(res.tips.filter((e: { location: string | any[] }) => e.location?.length > 0))
     })
@@ -292,7 +314,7 @@ export default function PathForm({ onChange }: { onChange?: (v: IV, form?: FormI
         return
       const values = form.getFieldsValue()
       if (elements.length > 0 && values[elements.length - 1]?.node?.location) {
-        dispatch(ActRemovePauses())
+        dispatch(ActRemovePauses(0))
       }
       d.pop()
     })

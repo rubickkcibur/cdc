@@ -1,0 +1,62 @@
+.Table {
+    padding: 16px 16px;
+}
+.picture00{
+    background: url("../../assets/images/areaPic.jpg") no-repeat;
+    height: 575px;
+    width: 90%;
+    margin-left: 7%;
+    margin-top: 16px;
+}
+.picture001{
+    background: url("../../assets/images/areaPic.jpg") no-repeat;
+    height: 375px;
+    width: 90%;
+    margin-left: 7%;
+    margin-top: 16px;
+}
+.picture002{
+    background: url("../../assets/images/areaPic.jpg") no-repeat;
+    height: 475px;
+    width: 90%;
+    margin-left: 7%;
+    margin-top: 16px;
+}
+.click{
+    width: 40px;
+    height: 35px;
+    //background: red;
+    margin-top: 270px;
+    margin-left: 14%;
+    cursor: pointer;
+}
+.picture01{
+    background: url("../../assets/images/mapPic.jpg");
+    //background-attachment: fixed;
+    //background-size: cover;
+    height: 100%;
+    width: 100%;
+    margin-left: 5%;
+    margin-top: 16px;
+}
+.picture02{
+    background: url("../../assets/images/areaPic01.jpg") no-repeat;
+    height: 100%;
+    width: 100%;
+    margin-right: 5%;
+    margin-top: 16px;
+}
+.click01{
+    width: 120px;
+    height: 120px;
+    //background: red;
+    margin-top: 125px;
+    margin-left: 25%;
+    cursor: pointer;
+}
+.hidden{
+    display: none;
+}
+.show{
+    margin-top: 0px;
+}

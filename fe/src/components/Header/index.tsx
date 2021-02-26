@@ -4,6 +4,7 @@ import {
   BellOutlined,
   SearchOutlined,
   TeamOutlined,
+  NodeIndexOutlined,
   FormOutlined,
   HeatMapOutlined
 } from "@ant-design/icons"
@@ -23,9 +24,19 @@ const MenuItem = [
     url: '/overview'
   },
   {
+    title:"传播分析",
+    icon:<NodeIndexOutlined />,
+    url:'/analyse'
+  },
+  {
     title: "病例信息",
     icon: <FormOutlined />,
     url: '/'
+  },
+  {
+    title: "案例分析",
+    icon: <FormOutlined />,
+    url: '/patientAnalyze'
   },
   // {
   //   title: "疫情分布",

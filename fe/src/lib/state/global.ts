@@ -62,8 +62,9 @@ export const ActAddPauses = (idx: number, pau: Pause) => ({
   pau,
 })
 
-export const ActRemovePauses = () => ({
+export const ActRemovePauses = (idx:number) => ({
   type: ActionsEnum.RemovePause,
+  idx,
 })
 
 export const ActUpdateValue = (formdual: FormDual, idx: number) => ({
@@ -97,7 +98,8 @@ export const PAGlobalReducer: Reducer<TState, TAction> = (
         else draft.pauses.splice(action.idx, 1, action.pau)
         return draft
       case ActionsEnum.RemovePause:
-        draft.pauses.pop()
+        //draft.pauses.pop()
+        draft.pauses.splice(action.idx,1)
         return draft
       case ActionsEnum.UpdateFormValue:
         draft.pathform[action.idx] = action.formdual

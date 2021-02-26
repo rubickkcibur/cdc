@@ -16,8 +16,25 @@
     }
 }
 
+.CdcHeader{
+    background-color: white;
+    display: flex;
+    flex-flow: row;
+    height: 100px;
+}
+
+.ReadOutline{
+    height: 100px;
+    width: 100px;
+}
+
 .FormContainer {
     margin: 14px 24px 56px 27px;
+    
+}
+
+.PanelContainer {
+    background-color: white;
 }
 
 .PathContainer {

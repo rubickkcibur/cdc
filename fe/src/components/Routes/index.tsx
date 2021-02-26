@@ -13,7 +13,7 @@ import sty from './index.module.scss';
 import moment from 'moment';
 import { useTypedSelector } from '../../lib/store';
 import { useDispatch } from 'react-redux';
-import { ActAddPauses, ActSetShowedRoutes, ActSetState } from '../../lib/state/global';
+import { ActAddPauses, ActRemovePauses, ActSetShowedRoutes, ActSetState } from '../../lib/state/global';
 
 const { Panel } = Collapse
 
@@ -34,6 +34,11 @@ function ContactsList({value,onChange}:ListProp){
     const [contacts,setCon] = useState<Contacts[]>([]);
     const [visible,setVisible] = useState<boolean>(false);
     const [input,setInput] = useState<string>();
+    const options=[
+        {value:"病例1-周某某-16:00-直线距离0km"},
+        {value:"病例7-李某某-18:00-直线距离100m"},
+        {value:"病例15-王某-12:00-直线距离1km"}
+    ]
     const inputConfirm = ()=>{
         var npid = input?.split(" ")
         if (npid){
@@ -83,17 +88,13 @@ function ContactsList({value,onChange}:ListProp){
                     {
                         //visible&&
                         <div  className={sty.input}>
-                            <Input onChange={(e)=>{setInput(e.target.value)}} value={input}
-                                   onPressEnter={inputConfirm} placeholder="使用空格将姓名和身份证号隔开" bordered={false}/>
+                            {/* <Input onChange={(e)=>{setInput(e.target.value)}} value={input}
+                                   onPressEnter={inputConfirm} placeholder="使用空格将姓名和身份证号隔开" bordered={false}/> */}
+                            <AutoComplete options={options} onChange={(e)=>{setInput(e)}} value={input}
+                                placeholder="使用空格将姓名和身份证号隔开" bordered={false}/>
                         </div>
                          //<Input type="text" onChange={(e)=>{setInput(e.target.value)}} onPressEnter={inputConfirm}/>
                     }
-                    {/*{*/}
-                    {/*  !visible &&*/}
-                    {/*  <Tag onClick={()=>{setVisible(true)}}>*/}
-                    {/*    <PlusOutlined/>使用空格将姓名和身份证号隔开*/}
-                    {/*  </Tag>*/}
-                    {/*}*/}
                 </div>
             </div>
         </>
@@ -310,6 +311,7 @@ export function RouteForm({value,onChange,idx}:RFProps){
     ]
 
     const [form] = useForm<RForm>();
+    const dispatch = useDispatch()
     useEffect(()=>{
         if (value && form){
             form.setFieldsValue(value)
@@ -375,7 +377,7 @@ export function RouteForm({value,onChange,idx}:RFProps){
                                                                 </Menu.Item>
                                                                 <Menu.Item danger>
                                                                     <Button disabled={!form.getFieldValue("route") || form.getFieldValue("route").length <= 1}
-                                                                            onClick={()=>remove(field.name)} type="link">
+                                                                            onClick={()=>{remove(field.name),dispatch(ActRemovePauses(index))}} type="link">
                                                                         删除该项
                                                                     </Button>
                                                                 </Menu.Item>
