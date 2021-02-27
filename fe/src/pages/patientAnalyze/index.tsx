@@ -1,13 +1,103 @@
 import { Col, Divider, Popover, Row, Select, Slider, Table } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout";
 import Routes from "../../components/Routes";
 import sty from './index.module.scss'
 import { Card } from "../addroute";
 import { UserOutlined } from "@ant-design/icons";
+import { useTypedSelector } from "../../lib/store";
+import Const from "../../lib/constant";
+import { setServers } from "dns";
 const { Option } = Select;
 
 export default function PatientAnalyze(){
+    const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
+    const [sliderValue,setSV] = useState<Number>(100)
+    function draw(e: string) {
+        var config;
+        if (e == "location") {
+          config = {
+            encryption: "ENCRYPTION_OFF",
+            encripted: "ENCRYPTION_OFF",
+            encrypted: "ENCRYPTION_OFF",
+            trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
+            container_id: "viz",
+            server_url: Const.boltserver,
+            server_user: "neo4j",
+            server_password: "123456",
+            labels: {
+              "Location": {
+                "caption": "name",
+                "size": "count",
+                "color": "red"
+              }
+            },
+            relationships: {
+              "To": {
+                "caption": "traffic",
+                "thickness": "count",
+                "color": "pink"
+              }
+            },
+            initial_cypher: "MATCH p=()-[r:To]->() RETURN p "
+          };
+        }
+        else {
+          config = {
+            encryption: "ENCRYPTION_OFF",
+            encripted: "ENCRYPTION_OFF",
+            encrypted: "ENCRYPTION_OFF",
+            trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
+            container_id: "viz",
+            server_url: Const.boltserver,
+            server_user: "neo4j",
+            server_password: "123456",
+            labels: {
+              "Patient": {
+                "size": "count",
+                "caption": "name",
+                "color": "red"
+              },
+              "Location": {
+                "caption": "name",
+                "size": "count"
+              },
+              "Contact": {
+                "size": "count",
+                "caption": "name"
+              }
+            },
+            relationships: {
+              "contact": {
+                "caption": true,
+                "thickness": "count"
+              },
+              "To": {
+                "caption": "traffic",
+                "thickness": "count",
+                "color": "pink"
+              },
+              "TravelTo": {
+                "caption": "到访",
+                "thickness": "count",
+                "color": "blue"
+              }
+            },
+            initial_cypher: "MATCH p=()-[r:TravelTo]->() RETURN p"
+            // initial_cypher: "MATCH p=()-[r:With]->() RETURN p"
+            // initial_cypher: "MATCH p=()-[]->() RETURN p"
+          };
+        }
+    
+        const NeoVis = require('neovis.js/dist/neovis')
+        const viz = new NeoVis.default(config)
+        viz.render();
+    }
+    useEffect(() => {
+        if (process.browser)
+            draw("people")
+    }, [])
+
     const columns = [
         {
           title: '时间',
@@ -77,9 +167,6 @@ export default function PatientAnalyze(){
             dist: '1.2km'
           },
     ];
-    const state={
-        bottom: "None"
-    }
     return(
         <MainLayout>
             <Row>
@@ -87,7 +174,7 @@ export default function PatientAnalyze(){
                     <div className={sty.personHeader}>
                         <UserOutlined/>
                         <div>
-                            徐某某
+                            {loadedBasic?.name}
                         </div>
                     </div>
                     <Divider/>
@@ -145,7 +232,7 @@ export default function PatientAnalyze(){
                                                 </Select>
                                             </Col>
                                             <Col span={3}>
-                                                <Slider defaultValue={100}/>
+                                                <Slider onChange={(v:any)=>{setSV(v)}}defaultValue={100}/>
                                             </Col>
                                             <Col span={3}>
                                             <Select defaultValue="01" style={{ width: 70 }}>
@@ -173,13 +260,15 @@ export default function PatientAnalyze(){
                                                 </Select>
                                             </Col>
                                         </Row>
-                                        <Table pagination={false} dataSource={dataSource} columns={columns} />
+                                        <Table pagination={false} dataSource={sliderValue>50?dataSource:dataSource.slice(1)} columns={columns} />
                                     </div>
                                 </Card>
                             </Col>
                             <Col span={8}>
                                 <Card title={"人物关系图"}>
-                                    <div style={{height:"100%",width:"30%"}}>hhh</div>
+                                    <div style={{height:"100%",width:"30%"}}>
+                                        <div id={'viz'} className={sty.neovis} style={{ width: "100%", height: "100%" }}></div>
+                                    </div>
                                 </Card>
                             </Col>
                         </Row>

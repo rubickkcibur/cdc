@@ -6,6 +6,7 @@ import Row from "antd/lib/grid/row"
 import Input from "antd/lib/input/Input"
 import React, { useEffect } from "react"
 import { useTypedSelector } from "../../lib/store"
+import { TimeItem } from "../Routes"
 import PCAData from './data.json'
 
 interface IProps {
@@ -14,7 +15,7 @@ interface IProps {
 }
 export default function FormBasic({ onChange }: IProps) {
   const fullItemGrid = { md: { span: 24 } }
-  const halfItemGrid = { md: { span: 12 } }
+  const halfItemGrid = { md: { span: 24 } }
   const halfGutter: [number, number] = [32, 15]
   const itemStyle: React.CSSProperties = { margin: "0" }
   const [form] = useForm()
@@ -40,6 +41,8 @@ export default function FormBasic({ onChange }: IProps) {
             <Input placeholder={"请输入姓名"} />
           </FormItem>
         </Col>
+      </Row>
+      <Row gutter={halfGutter}>
         <Col {...halfItemGrid}>
           <FormItem label={"性别"} name={"gender"} initialValue={"male"} style={itemStyle} rules={[{ required: true }]}>
             <Select>
@@ -55,13 +58,14 @@ export default function FormBasic({ onChange }: IProps) {
             <Input placeholder={"请输入电话"} />
           </FormItem>
         </Col>
+      </Row>
+      <Row gutter={halfGutter}>
         <Col {...halfItemGrid}>
           <FormItem label={"年龄"} name={"age"} style={itemStyle} rules={[{ required: true }]}>
             <Input placeholder={"请输入年龄"} />
           </FormItem>
         </Col>
       </Row>
-
       <Row gutter={halfGutter}>
         <Col {...fullItemGrid}>
           <FormItem label={"住址"} name={"addr1"} style={itemStyle} rules={[{ required: true }]}>
@@ -72,7 +76,15 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter}>
         <Col {...fullItemGrid}>
-          <FormItem label={"身份证号"} name={"personal_id"} style={itemStyle} rules={[{ required: true }]}>
+          <FormItem label={"地址"} colon={false} name={"addr2"} style={itemStyle} rules={[{ required: true }]}>
+            <Input placeholder={"县/街道"} />
+          </FormItem>
+        </Col>
+      </Row>
+      
+      <Row gutter={halfGutter}>
+        <Col {...fullItemGrid}>
+          <FormItem label={"身份证"} name={"personal_id"} style={itemStyle} rules={[{ required: true }]}>
             <Input placeholder={"请输入身份证号"} />
           </FormItem>
         </Col>
@@ -80,10 +92,17 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter}>
         <Col {...fullItemGrid}>
-          <FormItem label={""} colon={false} name={"addr2"} style={itemStyle} rules={[{ required: true }]}>
-            <Input placeholder={"县/街道"} />
+          <FormItem label={"职业"} name={"vocation"} style={itemStyle} rules={[{ required: false }]}>
+            <Input placeholder={"请输入职业"} />
           </FormItem>
         </Col>
+      </Row>
+      <Row gutter={halfGutter}>
+        <Col {...fullItemGrid}>
+            <FormItem label={"确诊时间"} name={"time"} rules={[{ required: false }]} style={{padding:'8px 0'}}>
+              <TimeItem></TimeItem>
+            </FormItem>
+          </Col>
       </Row>
     </Form>
   )

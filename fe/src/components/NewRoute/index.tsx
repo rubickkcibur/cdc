@@ -18,7 +18,7 @@ export default function NewRouteForm(){
     },[buffer])
 
     return(
-        <Col style={{width:330}}>
+        <Col style={{width:'100%',padding:'0px'}}>
             <RouteForm onChange={onChange}/>
         </Col>
     )

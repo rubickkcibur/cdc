@@ -19,9 +19,19 @@ const MenuItem = [
     url: '/addroute'
   },
   {
-    title: "流调总览",
+    title: "病例信息",
+    icon: <FormOutlined />,
+    url: '/'
+  },
+  {
+    title: "流调分析",
     icon: <TeamOutlined />,
     url: '/overview'
+  },
+  {
+    title: "案例对比",
+    icon: <FormOutlined />,
+    url: '/patientAnalyze'
   },
   {
     title:"传播分析",
@@ -29,14 +39,9 @@ const MenuItem = [
     url:'/analyse'
   },
   {
-    title: "病例信息",
+    title: "疫情对比",
     icon: <FormOutlined />,
-    url: '/'
-  },
-  {
-    title: "案例分析",
-    icon: <FormOutlined />,
-    url: '/patientAnalyze'
+    url: '/history'
   },
   // {
   //   title: "疫情分布",

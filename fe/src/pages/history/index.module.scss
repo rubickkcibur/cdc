@@ -1,0 +1,27 @@
+.FrameContainer{
+    width: 100%;
+    display: flex;
+    height: calc( 100vh );
+    align-items: stretch;
+    position: relative;
+
+}
+.picture01{
+    background: url("../../assets/images/globalmap.PNG") no-repeat;
+    height: 95%;
+    width: 100%;
+    margin-top: 5px;
+}
+.picture02{
+    background: url("../../assets/images/London.PNG") no-repeat;
+    height: 100%;
+    width: 100%;
+    margin-right: 15px;
+    margin-top: 520px;
+}
+.statistic{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: 100%;
+}

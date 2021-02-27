@@ -111,7 +111,7 @@ interface TProps{
     onChange?:(v:any)=>void
 }
 
-function TimeItem({value,onChange}:TProps){
+export function TimeItem({value,onChange}:TProps){
     return(
         <TimePicker
             value={value?moment(value,"HH:mm:ss"):null}

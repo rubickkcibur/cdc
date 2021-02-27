@@ -8,6 +8,8 @@
     "amap": "^1.0.7",
     "antd": "^4.8.0",
     "axios": "^0.21.0",
+    "echarts": "^5.0.2",
+    "echarts-for-react": "^3.0.1",
     "immer": "^7.0.14",
     "neovis-ts": "^1.0.8",
     "neovis.js": "^1.5.0",

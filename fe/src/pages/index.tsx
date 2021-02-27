@@ -1,4 +1,4 @@
-import { Button, Card, Descriptions, Select, Table, Timeline } from "antd";
+import { Button, Card, Col, Descriptions, Dropdown, Row, Select, Table, Timeline } from "antd";
 import DescriptionsItem from "antd/lib/descriptions/Item";
 import React, { useDebugValue, useEffect, useState } from "react";
 import DebouncedAutocomplete from "../components/AutoComplete";
@@ -14,6 +14,8 @@ import Axios from "axios";
 import Constant from '../lib/constant'
 import Search from "antd/lib/input/Search";
 import { useRouter } from "next/dist/client/router";
+import { DownOutlined } from "@ant-design/icons";
+import EpidChoose from "../components/EpidChoose";
 //import Search from "../../lib/search";
 
 
@@ -39,6 +41,23 @@ export default function Pagepatients() {
       })
       .then(e=>{
         router.push("./addroute")
+      })
+    }
+    function analyze(e:any){
+      Axios.get(`${Constant.apihost}/queryperson`,{
+        params:{
+          personal_id:e.personal_id
+        }
+      })
+      .then(e=>{
+        dispatch(ActSetState({
+          loadedBasic:e.data.basic,
+          loadedRoutes:e.data.routes,
+          showedRoutes:Array(e.data.routes.length).fill(0)
+        }))
+      })
+      .then(e=>{
+        router.push("./patientAnalyze")
       })
     }
 
@@ -93,7 +112,13 @@ export default function Pagepatients() {
       },
       {
         title: "操作",
-        render: (e) => (<a onClick={()=>{showOnMap(e)}}>在地图上显示</a>),
+        render: (e) => (
+          <>
+            <a onClick={()=>{showOnMap(e)}}>在地图上显示</a>
+            &nbsp;&nbsp;
+            <a onClick={()=>{analyze(e)}}>案例分析</a>
+          </>
+        ),
         width:150
       }
     ]
@@ -127,7 +152,14 @@ export default function Pagepatients() {
     return(
       <MainLayout>
         <div className={sty.Table}>
-        <Search placeholder="输入患者姓名" onSearch={onSearch}/>
+        <Row>
+          <Col span={12}>
+            <Search placeholder="输入患者姓名" onSearch={onSearch}/>
+          </Col>
+          <Col span={12}>
+            <EpidChoose size="small"/>
+          </Col>
+        </Row>  
         <Table<Basic>
           columns={patientColumns} 
           dataSource={patients} 

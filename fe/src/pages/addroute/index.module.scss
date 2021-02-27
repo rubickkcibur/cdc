@@ -20,7 +20,8 @@
     background-color: white;
     display: flex;
     flex-flow: row;
-    height: 100px;
+    height: 120px;
+    margin-top: 5px;
 }
 
 .ReadOutline{
@@ -34,7 +35,11 @@
 }
 
 .PanelContainer {
+    overflow-x: auto;
+    margin-top: -8px;
     background-color: white;
+    max-height: 473px;
+    padding: 1px;
 }
 
 .PathContainer {
@@ -43,7 +48,7 @@
     flex: 1 1 auto;
     height: initial;
     margin-top: 12px;
-    padding: 0;
+    padding: 1px;
     background-color: white;
 }
 
@@ -67,4 +72,11 @@
     z-index: 10;
     
 
+}
+.show{
+    margin-top: 3px;
+    margin-right: 8px;
+}
+.hidden{
+    display: none;
 }
