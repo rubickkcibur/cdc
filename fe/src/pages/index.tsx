@@ -111,6 +111,13 @@ export default function Pagepatients() {
         width:150
       },
       {
+        title: "完成度",
+        render: (e) =>(
+          <div style={{color:"red"}}>{e.name=="李某某"?"80%":"100%"}</div>
+        ),
+        width:150
+      },
+      {
         title: "操作",
         render: (e) => (
           <>

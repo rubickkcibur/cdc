@@ -1,4 +1,4 @@
-import { Cascader, Select } from "antd"
+import { Cascader, DatePicker, Select, TimePicker } from "antd"
 import Form, { FormInstance, useForm } from "antd/lib/form/Form"
 import FormItem from "antd/lib/form/FormItem"
 import { Col } from "antd/lib/grid"
@@ -8,6 +8,7 @@ import React, { useEffect } from "react"
 import { useTypedSelector } from "../../lib/store"
 import { TimeItem } from "../Routes"
 import PCAData from './data.json'
+import moment from 'moment';
 
 interface IProps {
   onChange?: (value: any, form: FormInstance) => void
@@ -100,7 +101,9 @@ export default function FormBasic({ onChange }: IProps) {
       <Row gutter={halfGutter}>
         <Col {...fullItemGrid}>
             <FormItem label={"确诊时间"} name={"time"} rules={[{ required: false }]} style={{padding:'8px 0'}}>
-              <TimeItem></TimeItem>
+              <DatePicker
+              format="YYYY-MM-DD"
+              />
             </FormItem>
           </Col>
       </Row>

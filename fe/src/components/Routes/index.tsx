@@ -60,42 +60,50 @@ function ContactsList({value,onChange}:ListProp){
     return(
         <>
             <div className={sty.CloseContact}>
-                <div className={sty.inputDiv}>
-                    {
-                        contacts?.map((e,idx)=>{
-                            return(
-                                <div className={sty.block}>
-                                    <Row><Col>
-                                        <Row style={{height:2}}></Row>
-                                        &nbsp;{e.name+"(" + e.pid.substr(12,6) + ")"}
-                                    </Col>
-                                        <Col className={sty.deleteIcon}>
-                                            <Tooltip title="删除">
-                                                <Button size="small"
-                                                        onClick={()=>{
-                                                            let tmp = contacts.slice();
-                                                            tmp.splice(idx,1);
-                                                            setCon(tmp);
-                                                            onChange && onChange(tmp)
-                                                        }}
-                                                        shape="circle" icon={<CloseOutlined />} />
-                                            </Tooltip>
-                                        </Col>
-                                    </Row>
-                                </div>)
-                        })
-                    }
-                    {
-                        //visible&&
-                        <div  className={sty.input}>
-                            {/* <Input onChange={(e)=>{setInput(e.target.value)}} value={input}
+                <Row>
+                    <Col style={{marginTop:'38px'}} span={4}>
+                        密接者:&nbsp;&nbsp;
+                    </Col>
+                    <Col span={20}>
+                        <div className={sty.inputDiv}>
+                            {
+                                contacts?.map((e,idx)=>{
+                                    return(
+                                        <div className={sty.block}>
+                                            <Row><Col>
+                                                <Row style={{height:2}}></Row>
+                                                &nbsp;{e.name+"(" + e.pid.substr(12,6) + ")"}
+                                            </Col>
+                                                <Col className={sty.deleteIcon}>
+                                                    <Tooltip title="删除">
+                                                        <Button size="small"
+                                                                onClick={()=>{
+                                                                    let tmp = contacts.slice();
+                                                                    tmp.splice(idx,1);
+                                                                    setCon(tmp);
+                                                                    onChange && onChange(tmp)
+                                                                }}
+                                                                shape="circle" icon={<CloseOutlined />} />
+                                                    </Tooltip>
+                                                </Col>
+                                            </Row>
+                                        </div>)
+                                })
+                            }
+                            {
+                                //visible&&
+                                <div  className={sty.input}>
+                                    {/* <Input onChange={(e)=>{setInput(e.target.value)}} value={input}
                                    onPressEnter={inputConfirm} placeholder="使用空格将姓名和身份证号隔开" bordered={false}/> */}
-                            <AutoComplete options={options} onChange={(e)=>{setInput(e)}} value={input}
-                                placeholder="使用空格将姓名和身份证号隔开" bordered={false}/>
+                                    <AutoComplete options={options} onChange={(e)=>{setInput(e)}} value={input}
+                                                  placeholder="使用空格将姓名和身份证号隔开" bordered={false}/>
+                                </div>
+                                //<Input type="text" onChange={(e)=>{setInput(e.target.value)}} onPressEnter={inputConfirm}/>
+                            }
                         </div>
-                         //<Input type="text" onChange={(e)=>{setInput(e.target.value)}} onPressEnter={inputConfirm}/>
-                    }
-                </div>
+                    </Col>
+                </Row>
+
             </div>
         </>
     )
@@ -140,19 +148,21 @@ export function PauseForm({value,onChange}:PFProps){
     return(
         <div>
             <Form form={form} onValuesChange={onFormChange}>
-                <Row gutter={16}>
-                    <Col className="gutter-row" span={12}>
-                        <FormItem name={"time"} rules={[{ required: true }]} style={{padding:'8px 0'}}>
+                <Row>
+                    <Col span={24}>
+                        <FormItem label={"时间:"} name={"time"} rules={[{ required: true }]} style={{padding:'8px 0'}}>
                             <TimeItem></TimeItem>
                         </FormItem>
                     </Col>
-                    <Col className="gutter-row" span={12}>
-                        <FormItem name={"location"} style={{ margin: "0",padding:'8px 0' }} rules={[{ required: true }]}>
+                </Row>
+                <Row style={{marginTop:'-30px'}}>
+                    <Col span={24}>
+                        <FormItem label={"地点:"} name={"location"} style={{ margin: "0",padding:'8px 0' }} rules={[{ required: true }]}>
                             <SearchInput placeholder={"搜索地点"} />
                         </FormItem>
                     </Col>
                 </Row>
-                <FormItem name={"contacts"} style={{marginTop:'0px'}}>
+                <FormItem name={"contacts"} style={{marginTop:'20px'}}>
                     <ContactsList/>
                 </FormItem>
             </Form>
@@ -362,7 +372,7 @@ export function RouteForm({value,onChange,idx}:RFProps){
                                                     </Timeline.Item>
                                                 </Col>
                                                 <Col span={1}>
-                                                        <div style={{marginTop:'20px'}}>
+                                                        <div style={{marginTop:'38px'}}>
                                                             <Dropdown
                                                                 arrow overlay={<Menu>
                                                                 <Menu.Item>

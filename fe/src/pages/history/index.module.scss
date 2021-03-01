@@ -1,27 +1,28 @@
 .FrameContainer{
     width: 100%;
-    display: flex;
-    height: calc( 100vh );
-    align-items: stretch;
-    position: relative;
-
+    //display: flex;
+    height: 100%;
+    //align-items: stretch;
+    //position: relative;
 }
 .picture01{
     background: url("../../assets/images/globalmap.PNG") no-repeat;
-    height: 95%;
+    height: 100%;
     width: 100%;
     margin-top: 5px;
+    margin-left: 2px;
 }
 .picture02{
     background: url("../../assets/images/London.PNG") no-repeat;
     height: 100%;
     width: 100%;
-    margin-right: 15px;
-    margin-top: 520px;
+    margin-top: -422px;
+    margin-left: 2px;
 }
 .statistic{
     display: flex;
     flex-direction: column;
     background-color: white;
     height: 100%;
+    margin-top: 5px;
 }

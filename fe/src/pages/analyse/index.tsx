@@ -112,7 +112,7 @@ export default function Pageanalyse() {
       }
       else{
           setPict(
-              <div style={{marginTop:'15px',height:'577px',width:'100%'}}>
+              <div style={{marginTop:'15px',height:'591px',width:'100%'}}>
                   <Row>
                       <Col span={2}></Col>
                       <Col span={6}>

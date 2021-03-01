@@ -77,7 +77,8 @@ export const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
   const hardRes=[
     {
       id:"hardcode1",
-      name:"顺义华联超市地下二层猪肉摊（病例3，20m）"
+      name:"顺义华联超市地下二层猪肉摊（病例3，20m）",
+      location: "116.553379,40.172384"
     },
     {
       id:"hardcode2",

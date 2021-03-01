@@ -22,6 +22,8 @@
     flex-flow: row;
     height: 120px;
     margin-top: 5px;
+    margin-left: 14px;
+    margin-right: 15px;
 }
 
 .ReadOutline{
@@ -30,7 +32,7 @@
 }
 
 .FormContainer {
-    margin: 14px 24px 56px 27px;
+    margin: 14px 24px 0px 27px;
     
 }
 
@@ -39,7 +41,7 @@
     margin-top: -8px;
     background-color: white;
     max-height: 473px;
-    padding: 1px;
+    padding: 0px;
 }
 
 .PathContainer {
@@ -48,7 +50,7 @@
     flex: 1 1 auto;
     height: initial;
     margin-top: 12px;
-    padding: 1px;
+    padding: 0px;
     background-color: white;
 }
 
@@ -68,10 +70,8 @@
 .UploadButton{
     position: absolute;
     right:  0px;
-    top: 2px;
+    top: 15px;
     z-index: 10;
-    
-
 }
 .show{
     margin-top: 3px;

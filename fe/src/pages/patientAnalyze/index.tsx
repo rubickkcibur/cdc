@@ -12,7 +12,8 @@ const { Option } = Select;
 
 export default function PatientAnalyze(){
     const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
-    const [sliderValue,setSV] = useState<Number>(100)
+    const [sliderValue,setSV] = useState<Number>(60)
+    const [sliderValue2,setSV2] = useState<Number>(100)
     function draw(e: string) {
         var config;
         if (e == "location") {
@@ -83,7 +84,7 @@ export default function PatientAnalyze(){
                 "color": "blue"
               }
             },
-            initial_cypher: "MATCH p=()-[r:TravelTo]->() RETURN p"
+            initial_cypher: "MATCH p=()-[r:TravelTo]->() RETURN p LIMIT 25"
             // initial_cypher: "MATCH p=()-[r:With]->() RETURN p"
             // initial_cypher: "MATCH p=()-[]->() RETURN p"
           };
@@ -172,8 +173,8 @@ export default function PatientAnalyze(){
             <Row>
                 <Col span={6} className={sty.personCol}>
                     <div className={sty.personHeader}>
-                        <UserOutlined/>
-                        <div>
+                        <UserOutlined style={{marginTop:'10px',marginLeft:'5px',marginRight:'5px',fontSize:'18px'}}/>
+                        <div style={{marginTop:'2px',fontSize:'20px'}}>
                             {loadedBasic?.name}
                         </div>
                     </div>
@@ -182,7 +183,9 @@ export default function PatientAnalyze(){
                 </Col>
                 <Col span={18}>
                     <Col span={24}>
-                        <div style={{height:"450px",width:"100%",backgroundColor:"white"}}>
+                        <Row> </Row>
+                        <div style={{height:"450px",width:"95%",marginLeft:'5%',backgroundColor:"white"}}>
+                            <Row></Row>
                             <div className={sty.picture}>
                                 <Row></Row>
                                 <Popover 
@@ -218,12 +221,12 @@ export default function PatientAnalyze(){
                     </Col>
                     <Divider/>
                     <Col span={24}>
-                        <Row>
-                            <Col span={16}>
+                        <Row style={{marginLeft:'5%'}}>
+                            <Col span={14}>
                                 <Card title={"确诊患者关联地点查询"}>
-                                    <div style={{height:"100%",width:"70%"}}>
-                                        <Row>
-                                            <Col span={3}>时间差:</Col>
+                                    <div style={{height:"100%"}}>
+                                        <Row style={{marginTop:'10px',marginLeft:'15px'}}>
+                                            <Col span={2} style={{marginTop:'5px'}}>时间差:</Col>
                                             <Col span={3}>
                                                 <Select defaultValue="01" style={{ width: 70 }}>
                                                     <Option value="01">小于</Option>
@@ -232,17 +235,17 @@ export default function PatientAnalyze(){
                                                 </Select>
                                             </Col>
                                             <Col span={3}>
-                                                <Slider onChange={(v:any)=>{setSV(v)}}defaultValue={100}/>
+                                                <Slider max={60} onChange={(v:any)=>{setSV(v)}}defaultValue={100}/>
                                             </Col>
                                             <Col span={3}>
-                                            <Select defaultValue="01" style={{ width: 70 }}>
+                                            <Select defaultValue="01" style={{ width: 70,marginLeft:'10px' }}>
                                                     <Option value="01">分钟</Option>
                                                     <Option value="02">小时</Option>
                                                 </Select>
                                             </Col>
                                         </Row>
-                                        <Row>
-                                            <Col span={3}>距离差:</Col>
+                                        <Row style={{marginTop:'10px',marginLeft:'15px'}}>
+                                            <Col span={2} style={{marginTop:'5px'}}>距离差:</Col>
                                             <Col span={3}>
                                                 <Select defaultValue="01" style={{ width: 70 }}>
                                                     <Option value="01">小于</Option>
@@ -251,22 +254,25 @@ export default function PatientAnalyze(){
                                                 </Select>
                                             </Col>
                                             <Col span={3}>
-                                                <Slider defaultValue={100}/>
+                                                <Slider max={1000} defaultValue={100} onChange={(v:any)=>{setSV2(v)}}/>
                                             </Col>
                                             <Col span={3}>
-                                            <Select defaultValue="01" style={{ width: 70 }}>
+                                            <Select defaultValue="01" style={{ width: 70 ,marginLeft:'10px'}}>
                                                     <Option value="01">米</Option>
                                                     <Option value="02">千米</Option>
                                                 </Select>
                                             </Col>
                                         </Row>
-                                        <Table pagination={false} dataSource={sliderValue>50?dataSource:dataSource.slice(1)} columns={columns} />
+                                        <Table pagination={false} dataSource={
+                                            (sliderValue<30 && sliderValue2<500)?dataSource.slice(2):
+                                            (sliderValue<30 || sliderValue2<500)?dataSource.slice(1):dataSource
+                                        } columns={columns} />
                                     </div>
                                 </Card>
                             </Col>
-                            <Col span={8}>
-                                <Card title={"人物关系图"}>
-                                    <div style={{height:"100%",width:"30%"}}>
+                            <Col span={10}>
+                                <Card title={"人物关系图"} style={{marginLeft:'15px'}}>
+                                    <div style={{height:"400px"}}>
                                         <div id={'viz'} className={sty.neovis} style={{ width: "100%", height: "100%" }}></div>
                                     </div>
                                 </Card>
