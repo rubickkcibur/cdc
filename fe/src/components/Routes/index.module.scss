@@ -4,14 +4,11 @@
 }
 
 .CloseContact{
-  margin-top: -55px;
+  margin-top: 0px;
 }
 
 .inputDiv{
   width:100%;
-  margin-top: 30px;
-  min-height: 40px;
-  height: 60%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   white-space: nowrap;
   overflow-x: auto;
@@ -19,7 +16,7 @@
 }
 
 .input{
-  margin-top: 5px;
+  margin-top: 0px;
   width:250px;
   margin-left: -2px;
   vertical-align: top;
@@ -42,4 +39,9 @@
   margin-left: 5px;
   font-size: 10px;
   margin-top: 1px;
+}
+
+.stop{
+  display: flex;
+  flex-direction: row;
 }

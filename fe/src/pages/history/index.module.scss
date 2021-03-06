@@ -1,23 +1,52 @@
 .FrameContainer{
     width: 100%;
-    //display: flex;
+    display: flex;
     height: 100%;
-    //align-items: stretch;
-    //position: relative;
+    // padding-left: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
 }
-.picture01{
-    background: url("../../assets/images/globalmap.PNG") no-repeat;
+.global01{
+    background: url("../../assets/images/global01.jpg") no-repeat;
+    background-size: contain;
     height: 100%;
-    width: 100%;
+    width: 78%;
     margin-top: 5px;
-    margin-left: 2px;
+    margin-left: 50px;
+}
+.global02{
+    background: url("../../assets/images/global02.jpg") no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 78%;
+    margin-top: 5px;
+    margin-left: 50px;
+}
+.global03{
+    background: url("../../assets/images/global03.jpg") no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 78%;
+    margin-top: 5px;
+    margin-left: 50px;
+}
+.global04{
+    background: url("../../assets/images/global04.jpg") no-repeat;
+    background-size: contain;
+    height: 100%;
+    width: 78%;
+    margin-top: 5px;
+    margin-left: 50px;
 }
 .picture02{
-    background: url("../../assets/images/London.PNG") no-repeat;
-    height: 100%;
+    background: url("../../assets/images/virtus.png") no-repeat;
+    background-size: contain;
+    height: 40%;
     width: 100%;
-    margin-top: -422px;
-    margin-left: 2px;
+    padding-top: 10px;
+    margin-left: 350px;
 }
 .statistic{
     display: flex;

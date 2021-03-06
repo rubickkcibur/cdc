@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import MainLayout from "../../components/MainLayoout/PageLayout"
 import sty from "./index.module.scss"
 import Col, { ColProps } from "antd/lib/grid/col"
@@ -47,19 +47,15 @@ export default function index() {
   const [basicForm, setBF] = useState<FormInstance | undefined>(undefined)
   const [pathForm, setPF] = useState<FormInstance | undefined>(undefined)
   const [mapShow, setMS] = useState<boolean>(true)
-  const [epidemic, setE] = useState<string>("待选择")
+  const [epidemic, setE] = useState<string>("北京顺义疫情")
   const [buttonEnable, setBE] = useState(sty.show)
   const newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
   const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
   const loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
   const onBasicChange = (values: any, form: FormInstance | undefined) => {
     setBF(form)
-    console.log(basicForm?.getFieldsValue())
+    console.log(basicForm?.validateFields())
   }
-  useEffect(()=>{
-    console.log("NRB!!!")
-    console.log(newRouteBuffer)
-  },[newRouteBuffer])
   const onPathChange = (values: any, form: FormInstance | undefined) => {
     setPF(form)
   }
@@ -160,7 +156,7 @@ export default function index() {
         </h3>
         <br/>
         <h3>
-          {newRouteBuffer?.route.map(
+          {newRouteBuffer?.route?.map(
             (n)=>{
               let contacts = n?.pause?.contacts?.map((c)=>(c.name+"("+c.pid.substr(12,6)+")")).join(",")
               return (n?.travel?.transform?
@@ -168,21 +164,6 @@ export default function index() {
                 (n?.pause?.time+"时,"+"抵达"+n.pause?.location?.name+"。"+(contacts?("接触"+contacts+"。"):"")))
             }).map((s)=>(<>{s}<br/></>))}
         </h3>
-        {
-          // loadedRoutes?.map((e)=>(
-          //   <>
-          //     <h3>
-          //       {e.date}，{e.route.map((n)=>{
-          //         let contacts = n.pause?.contacts.map((c)=>(c.name+"("+c.pid.substr(12,6)+")")).join(",")
-          //         return (n.travel?
-          //           n.pause?.time+"时,经"+n.travel.transform+"抵达"+n.pause?.location?.name+"。接触"+contacts+"。":
-          //           n.pause?.time+"时,"+"抵达"+n.pause?.location?.name+"。接触"+contacts+"。")
-          //       }).join()}
-          //     </h3>
-          //     <br/>
-          //   </>
-          // ))
-        }
       </>
     )
   }
@@ -190,8 +171,8 @@ export default function index() {
   return (
     <MainLayout>
 
-      <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch" }} className={sty.RootRow}>
-        <Col md={{span:12}}>
+      <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch",height:'initial' }} className={sty.RootRow}>
+        <Col md={{span:12}} style={{height:'100%'}}>
           <Col md={{span:24}} className={sty.CdcHeader}>
             <Row></Row>
             <ReadOutlined style={{fontSize:'20px',marginRight:'10px',marginLeft:'5px',marginTop:'12px'}}/>
@@ -207,20 +188,8 @@ export default function index() {
               <Dropdown overlay={menu} trigger={['click']}>
                 <h1>{epidemic}<DownOutlined/></h1>
               </Dropdown>
-              <h3 style={{color: "red",marginTop:'-6px'}}>已确诊{
-                  epidemic=="待选择"?0:
-                  epidemic=="北京顺义疫情"?21:
-                  epidemic=="北京大兴疫情"?23:
-                  epidemic=="北京新发地疫情"?335:
-                  epidemic=="河北石家庄疫情"?463:0
-                }例</h3>
-              <h4>首例确诊时间: {
-                  epidemic=="北京顺义疫情"?"2020年12月28日":
-                  epidemic=="待选择"?"2021年1月1日":
-                  epidemic=="北京大兴疫情"?"2021年1月17日":
-                  epidemic=="北京新发地疫情"?"2020年6月11日":
-                  epidemic=="河北石家庄疫情"?"2021年1月2日":"2021年1月1日"
-                }</h4>
+              <h3 style={{color: "red",marginTop:'-6px'}}>已确诊{epidemic=="待选择"?0:epidemic=="北京顺义疫情"?21:17}例</h3>
+              <h4>首例确诊时间: {epidemic=="北京顺义疫情"?"2020年12月28日":"2021年1月1日"}</h4>
             </div>
 
           </Col>
@@ -241,7 +210,7 @@ export default function index() {
                     </Card>
               </Col>
 
-              <Col md={{span:14}}>
+              <Col md={{span:14}} style={{height:'100%'}}>
                 <Tabs 
                   type={"card"}
                   tabBarExtraContent={

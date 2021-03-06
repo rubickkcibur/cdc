@@ -33,15 +33,15 @@
 
 .FormContainer {
     margin: 14px 24px 0px 27px;
-    
+    height: initial;
 }
 
 .PanelContainer {
-    overflow-x: auto;
     margin-top: -8px;
     background-color: white;
-    max-height: 473px;
     padding: 0px;
+    height: 755px;
+    overflow-x: auto;
 }
 
 .PathContainer {
@@ -58,7 +58,6 @@
 
 .RootRow{
     height: calc( 100vh - 65px - 16px );
-
 }
 
 .PathFormContainer {
@@ -74,7 +73,7 @@
     z-index: 10;
 }
 .show{
-    margin-top: 3px;
+    margin-top: -5px;
     margin-right: 8px;
 }
 .hidden{

@@ -3,10 +3,10 @@
 }
 .picture00{
     background: url("../../assets/images/areaPic.jpg") no-repeat;
-    height: 591px;
-    width: 90%;
+    height: 660px;
+    width: 100%;
     margin-left: 7%;
-    margin-top: 16px;
+    margin-top: 26px;
 }
 .picture001{
     background: url("../../assets/images/areaPic.jpg") no-repeat;
@@ -26,23 +26,30 @@
     width: 40px;
     height: 35px;
     //background: red;
-    margin-top: 270px;
-    margin-left: 14%;
+    margin-top: 18.5%;
+    margin-left: 13%;
     cursor: pointer;
 }
 .picture01{
     background: url("../../assets/images/mapPic.jpg");
     //background-attachment: fixed;
     //background-size: cover;
-    height: 100%;
+    height: 505px;
     width: 100%;
     margin-left: 5%;
     margin-top: 16px;
 }
 .picture02{
     background: url("../../assets/images/areaPic01.jpg") no-repeat;
-    height: 100%;
-    width: 100%;
+    height: 404px;
+    width: 327px;
+    margin-right: 5%;
+    margin-top: 16px;
+}
+.picture021{
+    background: url("../../assets/images/changePic.png") no-repeat;
+    height: 478px;
+    width: 493px;
     margin-right: 5%;
     margin-top: 16px;
 }
@@ -50,8 +57,16 @@
     width: 120px;
     height: 120px;
     //background: red;
-    margin-top: 125px;
+    margin-top: 29%;
     margin-left: 25%;
+    cursor: pointer;
+}
+.click02{
+    width: 65px;
+    height: 65px;
+    //background: red;
+    margin-top: 45%;
+    margin-left: 39%;
     cursor: pointer;
 }
 .hidden{
@@ -59,4 +74,43 @@
 }
 .show{
     margin-top: 0px;
+}
+.export{
+    position: fixed;
+    top: 160px;
+    right: 50px;
+    height: 50px;
+    width: 100px;
+}
+.cluster1{
+    background: url("../../assets/images/cluster1.PNG") no-repeat;
+    background-size: contain;
+    height: 80vh;
+    width: 90vw;
+    margin-right: 5%;
+    margin-top: 16px;
+}
+.cluster2{
+    background: url("../../assets/images/cluster2.PNG") no-repeat;
+    background-size: contain;
+    height: 80vh;
+    width: 90vw;
+    margin-right: 5%;
+    margin-top: 16px;
+}
+.cluster3{
+    background: url("../../assets/images/cluster3.PNG") no-repeat;
+    background-size: contain;
+    height: 80vh;
+    width: 90vw;
+    margin-right: 5%;
+    margin-top: 16px;
+}
+.cluster4{
+    background: url("../../assets/images/cluster4.PNG") no-repeat;
+    background-size: contain;
+    height: 80vh;
+    width: 90vw;
+    margin-right: 5%;
+    margin-top: 16px;
 }

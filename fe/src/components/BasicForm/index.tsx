@@ -35,7 +35,7 @@ export default function FormBasic({ onChange }: IProps) {
 
 
   return (
-    <Form onValuesChange={onValueChange} form={form}>
+    <Form style={{height:'750px'}} onValuesChange={onValueChange} form={form}>
       <Row gutter={halfGutter}>
         <Col {...halfItemGrid}>
           <FormItem label={"姓名"} name={"name"} style={itemStyle} rules={[{ required: true }]}>
@@ -95,6 +95,13 @@ export default function FormBasic({ onChange }: IProps) {
         <Col {...fullItemGrid}>
           <FormItem label={"职业"} name={"vocation"} style={itemStyle} rules={[{ required: false }]}>
             <Input placeholder={"请输入职业"} />
+          </FormItem>
+        </Col>
+      </Row>
+      <Row gutter={halfGutter}>
+        <Col {...fullItemGrid}>
+          <FormItem label={"工作地点"} name={"vocaloca"} style={itemStyle} rules={[{ required: false }]}>
+            <Input placeholder={"请输入工作地址"} />
           </FormItem>
         </Col>
       </Row>

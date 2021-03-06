@@ -1,4 +1,4 @@
-import { Col, Divider, Popover, Row, Select, Slider, Table } from "antd";
+import { Button, Col, Divider, Popover, Row, Select, Slider, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout";
 import Routes from "../../components/Routes";
@@ -8,12 +8,21 @@ import { UserOutlined } from "@ant-design/icons";
 import { useTypedSelector } from "../../lib/store";
 import Const from "../../lib/constant";
 import { setServers } from "dns";
+import ReactFlow, {
+  removeElements,
+  addEdge,
+  MiniMap,
+  Controls,
+  Background,
+} from 'react-flow-renderer';
+import initialElements from '../../components/drawboard/initial-elements';
+import { isNoSubstitutionTemplateLiteral } from "typescript";
 const { Option } = Select;
 
 export default function PatientAnalyze(){
     const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
-    const [sliderValue,setSV] = useState<Number>(60)
-    const [sliderValue2,setSV2] = useState<Number>(100)
+    const [sliderValue,setSV] = useState<Number>(1)
+    const [sliderValue2,setSV2] = useState<Number>(1)
     function draw(e: string) {
         var config;
         if (e == "location") {
@@ -54,19 +63,21 @@ export default function PatientAnalyze(){
             server_user: "neo4j",
             server_password: "123456",
             labels: {
-              "Patient": {
-                "size": "count",
-                "caption": "name",
-                "color": "red"
-              },
               "Location": {
                 "caption": "name",
-                "size": "count"
+                "size": "count",
+                "color": "#FFFFFF"
               },
               "Contact": {
                 "size": "count",
-                "caption": "name"
-              }
+                "caption": "name",
+                "color": "#FFFFFF"
+              },
+              "Patient": {
+                "size": "count",
+                "caption": "name",
+                "color": "#FFFFFF"
+              },
             },
             relationships: {
               "contact": {
@@ -84,7 +95,7 @@ export default function PatientAnalyze(){
                 "color": "blue"
               }
             },
-            initial_cypher: "MATCH p=()-[r:TravelTo]->() RETURN p LIMIT 25"
+            initial_cypher: "MATCH p=(a:Patient)-[r:TravelTo]-()-[]-() WHERE a.name=\"" + loadedBasic?.name+"\" RETURN p"
             // initial_cypher: "MATCH p=()-[r:With]->() RETURN p"
             // initial_cypher: "MATCH p=()-[]->() RETURN p"
           };
@@ -97,7 +108,7 @@ export default function PatientAnalyze(){
     useEffect(() => {
         if (process.browser)
             draw("people")
-    }, [])
+    }, [loadedBasic])
 
     const columns = [
         {
@@ -140,33 +151,33 @@ export default function PatientAnalyze(){
         {
           key: '1',
           name: '刘某',
-          time:'2021-01-01-12:00:00',
+          time:'2020-12-23-11:00:00',
           loca: '顺义华联超市',
           no: '病例1',
-          asso_time:'2021-01-01-12:20:00',
+          asso_time:'2020-12-23-11:20:00',
           asso_loca:'顺义华联超市',
           dist: '100m'
         },
         {
             key: '2',
             name: '杨某某',
-            time:'2021-01-04-08:00:00',
+            time:'2020-12-21-08:50:00',
             loca: '顺义金马工业园',
             no: '病例10',
-            asso_time:'2021-01-01-09:20:00',
+            asso_time:'2020-12-21-09:20:00',
             asso_loca:'金马工业园B区',
             dist: '450m'
         },
         {
-            key: '3',
-            name: '王某某',
-            time:'2021-01-08-16:00:00',
-            loca: '清华大学',
-            no: '病例17',
-            asso_time:'2021-01-01-16:30:00',
-            asso_loca:'五道口地铁站',
-            dist: '1.2km'
-          },
+          key: '3',
+          name: '王某某',
+          time:'2020-12-22-16:00:00',
+          loca: '清华大学',
+          no: '病例17',
+          asso_time:'2020-12-22-16:40:00',
+          asso_loca:'五道口地铁站',
+          dist: '800m'
+        },
     ];
     return(
         <MainLayout>
@@ -179,7 +190,9 @@ export default function PatientAnalyze(){
                         </div>
                     </div>
                     <Divider/>
-                    <Routes/>
+                    <div style={{height: "86vh"}}>
+                      <Routes/>
+                    </div>
                 </Col>
                 <Col span={18}>
                     <Col span={24}>
@@ -190,23 +203,21 @@ export default function PatientAnalyze(){
                                 <Row></Row>
                                 <Popover 
                                     content={
-                                        <>
-                                        <h5>风险系数评估:90</h5>
-                                        <h5>到达时间：2021-01-01,12:00:00</h5>
-                                        <br/>
-                                        <h5>经停时间:60min</h5>
-                                        <br/>
-                                        <h5>确诊患者经停人次:5</h5>
-                                        <br/>
-                                        <h5>该时段人流量:大</h5>
-                                        <br/>
-                                        <h5>行为相似患者:</h5>
-                                        <br/>
-                                        <h5>病例2-乘坐电梯感染</h5>
-                                        <br/>
-                                        <h5>病例8-现金交易感染</h5>
-                                        <br/>
-                                        </>
+                                      <div>
+                                        <div style={{display:"flex",flexDirection: "row",alignItems:"center"}}>
+                                          <div><span style={{fontWeight:'bold'}}>风险系数评估:</span></div>
+                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          <div style={{fontSize: "27px",color: "red"}}>90</div>
+                                        </div>
+                                        <div><span style={{fontWeight:'bold'}}>到&nbsp;&nbsp;达&nbsp;&nbsp;时&nbsp;&nbsp;间： 2021-01-01,12:00:00</span></div>
+                                        <div><span style={{fontWeight:'bold'}}>经&nbsp;&nbsp;停&nbsp;&nbsp;时&nbsp;&nbsp;间： 60min</span></div>
+                                        <div><span style={{fontWeight:'bold'}}>该时段人流量： 大</span></div>
+                                        <div><span style={{fontWeight:'bold'}}>行为相似患者：</span>
+                                            <a style={{textDecoration:"underline",color:"blue"}}>病例2-乘坐电梯感染</a>
+                                            ，
+                                            <a style={{textDecoration:"underline",color:"blue"}}>病例8-现金交易感染</a>
+                                        </div>
+                                      </div>
                                     } 
                                     title={
                                         <h3 style={{color:"red"}}>顺义华联超市</h3>
@@ -224,7 +235,7 @@ export default function PatientAnalyze(){
                         <Row style={{marginLeft:'5%'}}>
                             <Col span={14}>
                                 <Card title={"确诊患者关联地点查询"}>
-                                    <div style={{height:"100%"}}>
+                                    <div style={{height:"400px"}}>
                                         <Row style={{marginTop:'10px',marginLeft:'15px'}}>
                                             <Col span={2} style={{marginTop:'5px'}}>时间差:</Col>
                                             <Col span={3}>
@@ -235,7 +246,7 @@ export default function PatientAnalyze(){
                                                 </Select>
                                             </Col>
                                             <Col span={3}>
-                                                <Slider max={60} onChange={(v:any)=>{setSV(v)}}defaultValue={100}/>
+                                                <Slider max={60} onChange={(v:any)=>{setSV(v)}} defaultValue={1}/>
                                             </Col>
                                             <Col span={3}>
                                             <Select defaultValue="01" style={{ width: 70,marginLeft:'10px' }}>
@@ -254,7 +265,7 @@ export default function PatientAnalyze(){
                                                 </Select>
                                             </Col>
                                             <Col span={3}>
-                                                <Slider max={1000} defaultValue={100} onChange={(v:any)=>{setSV2(v)}}/>
+                                                <Slider max={1000} defaultValue={1} onChange={(v:any)=>{setSV2(v)}}/>
                                             </Col>
                                             <Col span={3}>
                                             <Select defaultValue="01" style={{ width: 70 ,marginLeft:'10px'}}>
@@ -264,8 +275,9 @@ export default function PatientAnalyze(){
                                             </Col>
                                         </Row>
                                         <Table pagination={false} dataSource={
-                                            (sliderValue<30 && sliderValue2<500)?dataSource.slice(2):
-                                            (sliderValue<30 || sliderValue2<500)?dataSource.slice(1):dataSource
+                                            (sliderValue > 40 && sliderValue2 > 800)?dataSource:
+                                            (sliderValue > 30 && sliderValue2 > 450)?dataSource.slice(0,2):
+                                            (sliderValue > 20 && sliderValue2 > 100)?dataSource.slice(0,1):[]
                                         } columns={columns} />
                                     </div>
                                 </Card>

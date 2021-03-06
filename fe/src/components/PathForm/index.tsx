@@ -82,15 +82,18 @@ export const SearchInput = ({ onChange, placeholder, value }: InputIProps) => {
     },
     {
       id:"hardcode2",
-      name:"顺义华联超市运动服饰专卖店（病例7，30m）"
+      name:"顺义华联超市运动服饰专卖店（病例7，30m）",
+      location: "116.553379,40.172384"
     },
     {
       id:"hardcode3",
-      name:"顺义华联超市东门（病例4，50m）"
+      name:"顺义华联超市东门（病例4，50m）",
+      location: "116.553379,40.172384"
     },
     {
       id:"hardcode4",
-      name:"顺义地铁站（病例5，550m）"
+      name:"顺义地铁站（病例5，550m）",
+      location: "116.553379,40.172384"
     }
   ]
   function renderItems(data: any) {

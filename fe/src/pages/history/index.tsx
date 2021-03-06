@@ -1,11 +1,15 @@
-import { Card, Checkbox, Col, Divider, Row } from "antd"
+import { Card, Checkbox, Col, Divider, Dropdown, Menu, Row } from "antd"
 import React, { useEffect, useState } from "react"
 import MainLayout from "../../components/MainLayoout/PageLayout"
 import sty from './index.module.scss'
 import ReactECharts from 'echarts-for-react';
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
+import { DownOutlined } from "@ant-design/icons";
 
 export default function Pagehistory() {
+    const globalPic = [sty.global01,sty.global02,sty.global03,sty.global04]
+    const [pic,setP] = useState<any>(0)
+
     const allTempSeties = [
         {
             name:"北京新发地",
@@ -280,7 +284,32 @@ export default function Pagehistory() {
                 </Col>
                 <Col span={14}>
                     <div className={sty.FrameContainer}>
-                        <div className={sty.picture01}></div>
+                        <div style={{display:"flex",flexDirection:"row",alignItems:"start",height:"55%",width:"90%"}}>
+                            <div>
+                                <Dropdown overlay={(
+                                <Menu onClick={(e)=>{setP(e.key)}}> 
+                                    <Menu.Item key={0}>
+                                        北京顺义区疫情
+                                    </Menu.Item>
+                                    <Menu.Item key={1}>
+                                        北京大兴区疫情
+                                    </Menu.Item>
+                                    <Menu.Item key={2}>
+                                        北京新发地疫情
+                                    </Menu.Item>
+                                    <Menu.Item key={3}>
+                                        河北石家庄疫情
+                                    </Menu.Item>
+                                </Menu>
+                            )} trigger={['click']}>
+                                <h2>{pic==0?"北京顺义区":pic==1?"北京大兴区":pic==2?"北京新发地":"河北石家庄"}<DownOutlined/></h2>
+                            </Dropdown>
+                            </div>
+                            <div className={globalPic[pic]}/>
+                        </div>
+                        <Divider orientation="left" plain>
+                            <h2>病毒基因型对比</h2>
+                        </Divider>
                         <div className={sty.picture02}></div>
                     </div>
                 </Col>
