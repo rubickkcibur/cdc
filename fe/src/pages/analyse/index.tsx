@@ -16,7 +16,7 @@ import { useRouter } from "next/dist/client/router";
 import NewRouteForm from "../../components/NewRoute";
 import Routes from "../../components/Routes";
 import initialElements from '../../components/drawboard/initial-elements';
-import App from "../../components/drawboard/App"
+import SaveRestore from "../../components/drawboard"
 
 
 export default function Pageanalyse() {
@@ -108,7 +108,7 @@ export default function Pageanalyse() {
                     <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
                 </div>
                 <div style={{width: "90vw",height: "90vh"}}>
-                    <App/>
+                    <SaveRestore/>
                 </div>
                 </>
             )

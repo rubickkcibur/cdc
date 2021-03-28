@@ -71,7 +71,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/drawboard/index.js"  ],
   "exclude": [
     "node_modules"
   ]

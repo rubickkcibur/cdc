@@ -1,9 +1,11 @@
 import { FormInstance } from "antd/lib/form"
+import Axios from "axios"
 import { produce } from "immer"
 import { AMapLngLat, LngLat, LngLatPos } from "react-amap"
 import { Reducer } from "redux"
 import { Action } from "rxjs/internal/scheduler/Action"
-import { BaseItem, Basic, RForm } from "../types/types"
+import { BaseItem, Basic, Epidemic, RForm } from "../types/types"
+import Constant from '../../lib/constant'
 const tag = "Products"
 export const ActionsEnum = {
   SetState: "SetState",
@@ -43,12 +45,26 @@ export type TState = {
   newRouteBuffer?: RForm
   loadedBasic?:Basic
   loadedRoutes?:RForm[]
+  loadedEpiKey?:any
   showedRoutes:Number[]
+  rfIns?:any
+  epidemics?:any
 }
+
+const getEpi=()=>{
+  let re
+  Axios.get(`${Constant.apihost}/getAllEpidemics`)
+    .then(e=>{
+      re = e
+    })
+  return re
+}
+
 const initState: TState = {
   pauses: [],
   pathform: {},
-  showedRoutes:[]
+  showedRoutes:[],
+  // epidemics:getEpi()
 }
 
 export const ActSetState = (data: Partial<TState>) => ({

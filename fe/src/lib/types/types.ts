@@ -8,14 +8,29 @@ export interface BaseItem {
     path: Path;
 }
 
+export interface Overseas {
+    traveled_country: string[];
+    passing_country: string[];
+    nation: string;
+    passport_id: string;
+    arrival_port: string[];
+    arrival_date: string;
+    arrival_transport: string[];
+}
 export interface Basic {
-    name: string;
-    personal_id: string;
-    gender: string;
-    phone: string;
-    age: string;
-    addr1: string[];
-    addr2: string;
+    name: string; //姓名
+    personal_id: string; //身份证号
+    gender: string; //性别
+    phone: string; //电话号码
+    age: string; //年龄
+    addr1: string[]; //居住地（行政区）
+    addr2: string; //居住地（详细）
+    vocation: string; //职业
+    working_place: string; //工作地点
+    confirmed_time: string; //确诊时间
+    height: string; //身高
+    weight: string; //体重
+    overseas: Overseas | null; //境外输入信息
 }
 
 export interface Path {
@@ -48,13 +63,18 @@ export interface Location {
 
 export interface PForm{
     time:string|null|undefined, //time是什么类型
+    stay:string[],
     location:Tip|null|undefined,
+    detail_location?:string,
+    protection:string,
     contacts:Contacts[]
 }
   
 export interface TForm{
     transform:string|undefined,
-    note:string|undefined
+    note:string|undefined,
+    protection:string,
+    contacts:Contacts[]
 }
   
 export interface NForm {
@@ -64,7 +84,8 @@ export interface NForm {
   
 export interface RForm{
     date:string,
-    route:NForm[]
+    route:NForm[],
+    remarks?:string
 }
   
 export interface Routes{
@@ -75,6 +96,15 @@ export interface PersonDocument{
     _id?:null|undefined,
     basic:Basic,
     routes:RForm[]
+}
+
+export interface Epidemic{
+    name:string,
+    patients:Number,
+    first_time:string,
+    gene?:string,
+    temprature:Number[],
+    humidity:Number[]
 }
 
 

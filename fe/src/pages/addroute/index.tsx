@@ -1,13 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import MainLayout from "../../components/MainLayoout/PageLayout"
 import sty from "./index.module.scss"
 import Col, { ColProps } from "antd/lib/grid/col"
 import Row from "antd/lib/grid/row"
 import FormBasic from "../../components/BasicForm"
 import PathForm from "../../components/PathForm"
-import AMapLinkedMarker from "../../components/AMapLinkedMarker"
 import { useDispatch } from "react-redux"
-import { ActSetState } from "../../lib/state/global"
+import { ActSetState, PAGlobalReducer } from "../../lib/state/global"
 import { DownOutlined, ReadOutlined, SaveOutlined, UploadOutlined } from "@ant-design/icons"
 import { Button, Dropdown, Menu, message, Switch, Tabs } from "antd"
 import { FormInstance } from "antd/lib/form"
@@ -19,8 +18,8 @@ import { useTypedSelector } from "../../lib/store"
 //import { APILoader,Map,Marker, Polyline } from "@uiw/react-amap"
 import {Map} from "react-amap"
 import { extracLocation } from "../../lib/utils"
-import { Markers } from "../../components/AMapCom"
 import dynamic from "next/dynamic"
+import { AMapInsertMarker } from "../../components/AMapMarker"
 const { TabPane } = Tabs
 export const Card = ({
   children,
@@ -45,85 +44,68 @@ export const Card = ({
 export default function index() {
   const dispatch = useDispatch()
   const [basicForm, setBF] = useState<FormInstance | undefined>(undefined)
-  const [pathForm, setPF] = useState<FormInstance | undefined>(undefined)
   const [mapShow, setMS] = useState<boolean>(true)
-  const [epidemic, setE] = useState<string>("北京顺义疫情")
-  const [buttonEnable, setBE] = useState(sty.show)
+  const [epidemic, setE] = useState<string>("待选择")
+  const [buttonEnable, setBE] = useState(sty.hidden)
   const newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
-  const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
   const loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
+  const loadedEpiKey = useTypedSelector(e=>e.PAGlobalReducer.loadedEpiKey)
+  const epidemics = useTypedSelector(e=>e.PAGlobalReducer.epidemics)
+  const amap = useTypedSelector(e=>e.PAGlobalReducer.amap)
   const onBasicChange = (values: any, form: FormInstance | undefined) => {
     setBF(form)
-    console.log(basicForm?.validateFields())
+    //console.log(basicForm?.validateFields())
   }
-  const onPathChange = (values: any, form: FormInstance | undefined) => {
-    setPF(form)
-  }
-  const onSubmit = async () => {
 
-    try{
-      Axios.post(`${Constant.apihost}/insertroute`, {
-        personal_id:(await basicForm?.validateFields())?.personal_id, //此处有问题
-        data:newRouteBuffer
-      })
-      .then(()=>message.success("提交成功"))
-      .catch(()=>message.error("提交失败"))
-    }catch(e){
-      console.log(e)
-    }
+  const onSubmit = async () => {
+    // try{
+    //   Axios.post(`${Constant.apihost}/insertroute`, {
+    //     personal_id:(await basicForm?.validateFields())?.personal_id,
+    //     data:newRouteBuffer
+    //   })
+    //   .then(()=>message.success("提交成功"))
+    //   .catch(()=>message.error("提交失败"))
+    // }catch(e){
+    //   console.log(e)
+    // }
+    console.log("for check")
+    console.log(basicForm?.getFieldsValue())
+    console.log(newRouteBuffer)
   }
   const onSave = async () => {
-    try{
-      Axios.post(`${Constant.apihost}/newupload`, {
-        basic:await basicForm?.validateFields(), //此处有问题
-        routes:[newRouteBuffer]
-      })
-      .then(()=>message.success("提交成功"))
-      .catch(()=>message.error("提交失败"))
-    }catch(e){
-      console.log(e)
-    }
+    // try{
+    //   Axios.post(`${Constant.apihost}/newupload`, {
+    //     basic:await basicForm?.validateFields(), //此处有问题
+    //     routes:[newRouteBuffer]
+    //   })
+    //   .then(()=>message.success("提交成功"))
+    //   .catch(()=>message.error("提交失败"))
+    // }catch(e){
+    //   console.log(e)
+    // }
+    console.log("for check")
+    console.log(basicForm?.getFieldsValue())
+    console.log(newRouteBuffer)
   }
+
   const menuClick = (e:any) => {
-    if (e.key == "0"){
-      setE("待选择")
-      console.log("待选择")
-    }
-    if (e.key == "1"){
-      setE("北京新发地疫情")
-      console.log("北京新发地疫情")
-    }
-    if (e.key == "2"){
-      setE("北京大兴疫情")
-      console.log("北京大兴疫情")
-    }
-    if (e.key == "3"){
-      setE("河北石家庄疫情")
-      console.log("河北石家庄疫情")
-    }
-    if (e.key == "4"){
-      setE("北京顺义疫情")
-      console.log("北京顺义疫情")
-    }
+    dispatch(ActSetState({loadedEpiKey:e.key}))
   }
+
+  useEffect(()=>{
+    if (epidemics && loadedEpiKey)
+      setE(epidemics[loadedEpiKey].name)
+    else
+      setE("待选择")
+  },[loadedEpiKey])
 
   const menu = (
     <Menu onClick={menuClick}>
-      <Menu.Item key="0">
-        待选择
-      </Menu.Item>
-      <Menu.Item key="1">
-        北京新发地疫情
-      </Menu.Item>
-      <Menu.Item key="2">
-        北京大兴疫情
-      </Menu.Item>
-      <Menu.Item key="3">
-        河北石家庄疫情
-      </Menu.Item>
-      <Menu.Item key="4">
-        北京顺义疫情
-      </Menu.Item>
+      {epidemics?.map((e:any,idx:any)=>(
+        <Menu.Item key={idx}>
+          {e.name}
+        </Menu.Item>
+      ))}
     </Menu>
   )
 
@@ -188,8 +170,8 @@ export default function index() {
               <Dropdown overlay={menu} trigger={['click']}>
                 <h1>{epidemic}<DownOutlined/></h1>
               </Dropdown>
-              <h3 style={{color: "red",marginTop:'-6px'}}>已确诊{epidemic=="待选择"?0:epidemic=="北京顺义疫情"?21:17}例</h3>
-              <h4>首例确诊时间: {epidemic=="北京顺义疫情"?"2020年12月28日":"2021年1月1日"}</h4>
+              <h3 style={{color: "red",marginTop:'-6px'}}>已确诊{epidemics?epidemics[loadedEpiKey]?.patients:0}例</h3>
+              <h4>首例确诊时间: {epidemics?epidemics[loadedEpiKey]?.first_time:"2021-01-01"}</h4>
             </div>
 
           </Col>
@@ -202,15 +184,7 @@ export default function index() {
                 height: "100%",
               }}
             >
-              <Col md={{ span: 10 }} >
-                    <Card title={"基本信息"}>
-                      <div className={sty.FormContainer}>
-                        <FormBasic onChange={onBasicChange} />
-                      </div>
-                    </Card>
-              </Col>
-
-              <Col md={{span:14}} style={{height:'100%'}}>
+              <Col md={{span:24}} style={{height:'100%'}}>
                 <Tabs 
                   type={"card"}
                   tabBarExtraContent={
@@ -220,7 +194,7 @@ export default function index() {
                     </div>
                   }
                   onChange={(actKey)=>{
-                    if(actKey=="2"){
+                    if(actKey=="1"){
                       setBE(sty.hidden)
                     }
                     else{
@@ -228,14 +202,14 @@ export default function index() {
                     }
                   }}
                 >
-                  <TabPane tab="新增路径" key="1">
+                  <TabPane tab="基本信息" key="1">
                     <div className={sty.PanelContainer}>
-                      <NewRouteForm/>
+                      <FormBasic onChange={onBasicChange} />
                     </div>
                   </TabPane>
-                  <TabPane tab="已记录路径" key="2">
+                  <TabPane tab="新增路径" key="2">
                     <div className={sty.PanelContainer}>
-                      <Routes/>
+                      <NewRouteForm/>
                     </div>
                   </TabPane>
                 </Tabs>
@@ -255,12 +229,12 @@ export default function index() {
                   amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}
                   events={{
                     created: (ins: any) => {
-                      const AMap = (window as any).AMap
-                      dispatch(ActSetState({ __map__: ins, amap: (window as any).AMap }))
+                      if(!amap)
+                        dispatch(ActSetState({amap: (window as any).AMap }))
                       console.log(11122)
                     }
                   }}>
-                    <AMapLinkedMarker />
+                    <AMapInsertMarker />
                 </Map>:
                 <PatientText/>
               }

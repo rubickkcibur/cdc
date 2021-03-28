@@ -1,10 +1,6 @@
-import { APILoader,Map } from "@uiw/react-amap";
-import React from "react";
-import { MergeMapSubscriber } from "rxjs/internal/operators/mergeMap";
-import { useTypedSelector } from "../../lib/store";
-import { extracLocation } from "../../lib/utils";
 
-var heatmapData = [{
+
+export var heatmapData = [{
 	"lng": 116.191031,
 	"lat": 39.988585,
 	"count": 10
@@ -2002,89 +1998,89 @@ var heatmapData = [{
 	"count": 15
 }];
 
-var points = heatmapData.map((e)=>{
-    var weight=e.count
-    var lnglat=[e.lng.toString(),e.lat.toString()]
-    return {weight:weight,lnglat:lnglat}
-})
+// var points = heatmapData.map((e)=>{
+//     var weight=e.count
+//     var lnglat=[e.lng.toString(),e.lat.toString()]
+//     return {weight:weight,lnglat:lnglat}
+// })
 
-export function Heatmap({AMap,map,container}:any){
-    var heatmap:any;
-    map.plugin(["AMap.HeatMap"], function () {
-        //初始化heatmap对象
-        heatmap = new AMap.HeatMap(map, {
-            radius: 50, //给定半径
-            opacity: [0, 0.8]
-        });
-        //设置数据集：该数据为北京部分“公园”数据
-        heatmap.setDataSet({
-            data: heatmapData,
-            max: 100
-        });
-    });
-    return (null)
-  }
+// export function Heatmap({AMap,map,container}:any){
+//     var heatmap:any;
+//     map.plugin(["AMap.HeatMap"], function () {
+//         //初始化heatmap对象
+//         heatmap = new AMap.HeatMap(map, {
+//             radius: 50, //给定半径
+//             opacity: [0, 0.8]
+//         });
+//         //设置数据集：该数据为北京部分“公园”数据
+//         heatmap.setDataSet({
+//             data: heatmapData,
+//             max: 100
+//         });
+//     });
+//     return (null)
+//   }
   
-export function Cluster({AMap,map,container}:any){
-	var cluster:any
-	map.plugin(["AMap.MarkerClusterer"],function() {
-		cluster = new AMap.MarkerClusterer(
-		map,     // 地图实例
-		points, // 海量点数据，数据中需包含经纬度信息字段 lnglat
-		{
-			gridSize:60,
-			maxZom:24
-		});
-	});
-	return (null)
-}
+// export function Cluster({AMap,map,container}:any){
+// 	var cluster:any
+// 	map.plugin(["AMap.MarkerClusterer"],function() {
+// 		cluster = new AMap.MarkerClusterer(
+// 		map,     // 地图实例
+// 		points, // 海量点数据，数据中需包含经纬度信息字段 lnglat
+// 		{
+// 			gridSize:60,
+// 			maxZom:24
+// 		});
+// 	});
+// 	return (null)
+// }
 
-export function Markers({AMap,map,container}:any){
-	var loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
-	var newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
-	var showedRoutes = useTypedSelector(e=>e.PAGlobalReducer.showedRoutes)
-	if (loadedRoutes){
-		for(let i = 0;i< loadedRoutes.length;i++){
-			let r = loadedRoutes[i]
-			let tmp = []
-			if(showedRoutes[i]){
-				for (let n of r.route){
-					map.add(new AMap.Marker({position:extracLocation(n?.pause?.location?.location)}))
-					n && tmp.push(extracLocation(n.pause?.location?.location))
-				}
-				if (tmp && tmp.length > 0){
-					map.add(new AMap.Polyline({
-						path:tmp,
-						strokeColor:"bule"
-					}))
-				}
-			}
-		}
-		//map.add(new AMap.Marker({position:[116.405285,39.904989]}))
-	}
-	// if (newRouteBuffer){
-	// 	let tmp = []
-	// 	for (let i = 0;i < newRouteBuffer.route.length;i++){
-	// 		newRouteBuffer.route[i].pause?.location?.location &&
-	// 		map.add(new AMap.Marker({position:extracLocation(newRouteBuffer.route[i].pause?.location?.location)}))
-	// 		tmp.push(extracLocation(newRouteBuffer.route[i].pause?.location?.location))
-	// 	}
-	// 	map.add(new AMap.Polyline({
-	// 		path:tmp,
-	// 		strokeColor:"red"
-	// 	}))
-	// }
-	return (null)
-}
+// export function Markers({AMap,map,container}:any){
+// 	var loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
+// 	var newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
+// 	var showedRoutes = useTypedSelector(e=>e.PAGlobalReducer.showedRoutes)
+// 	if (loadedRoutes){
+// 		for(let i = 0;i< loadedRoutes.length;i++){
+// 			let r = loadedRoutes[i]
+// 			let tmp = []
+// 			if(showedRoutes[i]){
+// 				for (let n of r.route){
+// 					map.add(new AMap.Marker({position:extracLocation(n?.pause?.location?.location)}))
+// 					n && tmp.push(extracLocation(n.pause?.location?.location))
+// 				}
+// 				if (tmp && tmp.length > 0){
+// 					map.add(new AMap.Polyline({
+// 						path:tmp,
+// 						strokeColor:"bule"
+// 					}))
+// 				}
+// 			}
+// 		}
+// 		//map.add(new AMap.Marker({position:[116.405285,39.904989]}))
+// 	}
+// 	// if (newRouteBuffer){
+// 	// 	let tmp = []
+// 	// 	for (let i = 0;i < newRouteBuffer.route.length;i++){
+// 	// 		newRouteBuffer.route[i].pause?.location?.location &&
+// 	// 		map.add(new AMap.Marker({position:extracLocation(newRouteBuffer.route[i].pause?.location?.location)}))
+// 	// 		tmp.push(extracLocation(newRouteBuffer.route[i].pause?.location?.location))
+// 	// 	}
+// 	// 	map.add(new AMap.Polyline({
+// 	// 		path:tmp,
+// 	// 		strokeColor:"red"
+// 	// 	}))
+// 	// }
+// 	return (null)
+// }
 
-export function MMap(){
-	return(
-		<div style={{ height: "950px" }}>
-            <APILoader akay="c640403f7b166ffb3490f7d2d4ab954c">
-                <Map center={[116.397428, 39.90923]} zoom={13}>
-                  <Markers/>
-                </Map>
-            </APILoader>
-        </div>
-	)
-}
+// export function MMap(){
+// 	return(
+// 		<div style={{ height: "950px" }}>
+//             <APILoader akay="c640403f7b166ffb3490f7d2d4ab954c">
+//                 <Map center={[116.397428, 39.90923]} zoom={13}>
+//                   <Markers/>
+//                 </Map>
+//             </APILoader>
+//         </div>
+// 	)
+// }

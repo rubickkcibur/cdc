@@ -14,6 +14,8 @@ import moment from 'moment';
 import { useTypedSelector } from '../../lib/store';
 import { useDispatch } from 'react-redux';
 import { ActAddPauses, ActRemovePauses, ActSetShowedRoutes, ActSetState } from '../../lib/state/global';
+import TextArea from 'antd/lib/input/TextArea';
+import { ST } from 'next/dist/next-server/lib/utils';
 
 const { Panel } = Collapse
 const { Option } = Select;
@@ -112,6 +114,33 @@ function ContactsList({ value, onChange }: ListProp) {
     )
 }
 
+function Stay({value,onChange}:ListProp){
+    const [innerValue,setIV] = useState<number>(30)
+    const [unit,setU] = useState<string>("min")
+
+    useEffect(()=>{
+        if (value && value.length == 2){
+            setIV(parseInt(value[0]))
+            setU(value[1])
+        }
+    },[value])
+    return(
+        <div>
+            <Row>
+                <Col span={14}>
+                    <InputNumber value={innerValue} min={0} onChange={(v)=>{setIV(v as number),onChange && onChange([String(v),unit])}}/>
+                </Col>
+                <Col span={10}>
+                    <Select value={unit} onChange={(value)=>{setU(value),onChange && onChange([String(innerValue),value as string])}}>
+                        <Select.Option value={"min"}>分钟</Select.Option>
+                        <Select.Option value={"hour"}>小时</Select.Option>
+                    </Select>
+                </Col>
+            </Row>
+        </div>
+    )
+}
+
 interface PFProps {
     value?: PForm | undefined,
     onChange?: (v: any) => void
@@ -152,31 +181,35 @@ export function PauseForm({ value, onChange }: PFProps) {
         <div>
             <Form form={form} onValuesChange={onFormChange}>
                 <Row>
-                    <Col span={12}>
+                    <Col span={8}>
                         <FormItem label={"时间:"} name={"time"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
                             <TimeItem></TimeItem>
                         </FormItem>
                     </Col>
-                    <Col span={12}>
-                        <FormItem label={"停留:"} rules={[{ required: false }]} style={{ padding: '8px 0' }}>
-                            <div className={sty.stop}>
-                                <InputNumber
-                                    defaultValue={60}
-                                    min={0}
-                                    max={1440}
-                                    style={{width: "80px"}}
-                                />
-                                <Select defaultValue="01" style={{ width: "100px",paddingLeft: "15px"}}>
-                                    <Option value="01">分钟</Option>
-                                    <Option value="02">小时</Option>
-                                </Select>
-                            </div>
+                    <Col span={8}>
+                        <FormItem label={"停留:"} name={"stay"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
+                            <Stay/>
+                        </FormItem>
+                    </Col>
+                    <Col span={8}>
+                        <FormItem label={"保护措施:"} name={"protection"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
+                            <Input/>
                         </FormItem>
                     </Col>
                 </Row>
-                <FormItem style={{ marginTop: '-20px' }} label={"地点:"} name={"location"} rules={[{ required: true }]}>
-                    <SearchInput placeholder={"搜索地点"} />
-                </FormItem>
+                <Row>
+                    <Col span={11}>
+                        <FormItem style={{ marginTop: '-20px' }} label={"地点:"} name={"location"} rules={[{ required: true }]}>
+                            <SearchInput placeholder={"搜索地点"} />
+                        </FormItem>
+                    </Col>
+                    <Col span={2}/>
+                    <Col span={11}>
+                        <FormItem style={{ marginTop: '-20px' }} label={"详细地点:"} name={"detail_location"}>
+                            <Input/>
+                        </FormItem>
+                    </Col>
+                </Row>
                 <FormItem name={"contacts"} style={{ marginTop: '-12px' }}>
                     <ContactsList />
                 </FormItem>
@@ -214,17 +247,31 @@ export function TravelForm({ value, onChange }: TFProps) {
                     <Col span={5} style={{ textAlign: 'right' }}>
                         <CarOutlined style={{ fontSize: '20px', marginTop: '5px', marginRight: '5px' }} />
                     </Col>
-                    <Col span={9}>
+                    <Col span={5}>
                         <FormItem name={"transform"}>
                             <Select placeholder={"出行方式"} >
                                 {trafficData.map(e => (<Select.Option key={e} value={e}>{e}</Select.Option>))}
                             </Select>
                         </FormItem>
                     </Col>
-                    <Col span={1}></Col>
-                    <Col span={9}>
+                    <Col span={2}></Col>
+                    <Col span={5}>
                         <FormItem name={"note"}>
                             <Input placeholder={"补充说明"} />
+                        </FormItem>
+                    </Col>
+                    <Col span={2}></Col>
+                    <Col span={5}>
+                        <FormItem name={"protection"}>
+                            <Input placeholder={"防护措施"}/>
+                        </FormItem>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={3}></Col>
+                    <Col span={21}>
+                        <FormItem name={"contacts"}>
+                            <ContactsList/>
                         </FormItem>
                     </Col>
                 </Row>
@@ -334,12 +381,17 @@ export function RouteForm({ value, onChange, idx }: RFProps) {
         {
             travel: {
                 transform: undefined,
-                note: undefined
+                note: undefined,
+                protection:"",
+                contacts:[]
             },
             pause: {
                 time: undefined,
+                stay:[],
                 location: undefined,
-                contacts: []
+                contacts: [],
+                detail_location:"",
+                protection:""
             }
         }
     ]

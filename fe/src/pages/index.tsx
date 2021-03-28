@@ -8,7 +8,7 @@ import sty from './index.module.scss'
 import { BaseItem, Node, Basic } from '../lib/types/types'
 import { ColumnsType } from "antd/lib/table";
 import { extracDate } from "../lib/utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ActSetState } from "../lib/state/global";
 import Axios from "axios";
 import Constant from '../lib/constant'
@@ -23,9 +23,20 @@ export default function Pagepatients() {
 
     const dispatch = useDispatch()
     const router = useRouter()
-    const [showData,setSD] = useState<boolean>()
+    const [chosenKey,setCK] = useState<any>()
     const [patients, setP] = useState<Basic[]>();
     const [patientBuffer, setPB] = useState<Basic[]>();
+    const epidemics=useTypedSelector(e => e.PAGlobalReducer.epidemics);
+
+    useEffect(()=>{
+      if(!epidemics){
+        console.log("void")
+        Axios.get(`${Constant.apihost}/getAllEpidemics`)
+        .then(e=>{
+          dispatch(ActSetState({epidemics:e.data as any}))
+        })
+      }
+    })
 
     function showOnMap(e:any){
       Axios.get(`${Constant.apihost}/queryperson`,{
@@ -37,6 +48,7 @@ export default function Pagepatients() {
         dispatch(ActSetState({
           loadedBasic:e.data.basic,
           loadedRoutes:e.data.routes,
+          loadedEpiKey:chosenKey,
           showedRoutes:Array(e.data.routes.length).fill(0)
         }))
       })
@@ -44,6 +56,7 @@ export default function Pagepatients() {
         router.push("./addroute")
       })
     }
+
     function analyze(e:any){
       Axios.get(`${Constant.apihost}/queryperson`,{
         params:{
@@ -54,6 +67,7 @@ export default function Pagepatients() {
         dispatch(ActSetState({
           loadedBasic:e.data.basic,
           loadedRoutes:e.data.routes,
+          loadedEpiKey:chosenKey,
           showedRoutes:Array(e.data.routes.length).fill(0)
         }))
       })
@@ -137,7 +151,7 @@ export default function Pagepatients() {
         title: "操作",
         render: (e) => (
           <>
-            <a onClick={()=>{showOnMap(e)}}>在地图上显示</a>
+            <a onClick={()=>{showOnMap(e)}}>继续完善</a>
             &nbsp;&nbsp;
             <a onClick={()=>{analyze(e)}}>案例分析</a>
           </>
@@ -145,10 +159,6 @@ export default function Pagepatients() {
         width:150
       }
     ]
-    // const dispatch = useDispatch();
-    // const loaded_form = useTypedSelector(e => e.PAGlobalReducer.loaded_form);
-    // const all_form = useTypedSelector(e=>e.PAGlobalReducer.personalSearchedResults);
-    //console.log(loaded_form?.basic.personal_id);
     
     const onSearch = (value:string) => {
       if (value == ""){
@@ -158,20 +168,16 @@ export default function Pagepatients() {
       }
     }
 
-    const getBasics = () => {
-      Axios.get(`${Constant.apihost}/getall`)
+    const getBasics = (name:any) => {
+      Axios.post(`${Constant.apihost}/queryEpidemicPerson`,{
+        name:name
+      })
       .then(e=>{
-        setP(e.data)
-        setPB(e.data)
+        setP(e.data.map((e:any)=>e.basic))
+        setPB(e.data.map((e:any)=>e.basic))
       })
     } 
 
-    useEffect(()=>{
-      if(!patients){
-        getBasics()
-      }
-    })
-    
     return(
       <MainLayout>
         <div className={sty.Table}>
@@ -180,12 +186,12 @@ export default function Pagepatients() {
             <Search placeholder="输入患者姓名" onSearch={onSearch}/>
           </Col>
           <Col span={12}>
-            <EpidChoose size="small" change={setSD}/>
+            <EpidChoose size="small" change={e=>{setCK(e),getBasics(epidemics[e].name)}}/>
           </Col>
         </Row>  
         <Table<Basic>
           columns={patientColumns} 
-          dataSource={showData?patients:[]} 
+          dataSource={patients} 
           //scroll={{ y: 240 }}
           pagination={{
             pageSizeOptions:["10","10","30"],

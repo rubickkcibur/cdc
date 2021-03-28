@@ -1,54 +1,25 @@
 import React, { useState } from "react";
 import { Button, Dropdown, Menu, message, Switch, Tabs } from "antd"
 import { DownOutlined, ReadOutlined, SaveOutlined, UploadOutlined } from "@ant-design/icons"
+import { useTypedSelector } from "../../lib/store";
 
 export default function EpidChoose({size,change}:{size:string,change:(e:any)=>void}){
     const [epidemic, setE] = useState<string>("待选择")
+    const epidemics=useTypedSelector(e => e.PAGlobalReducer.epidemics);
     const menuClick = (e:any) => {
-        if (e.key == "0"){
-          setE("待选择")
-          change(false)
-          console.log("待选择")
-        }
-        if (e.key == "1"){
-          setE("北京新发地疫情")
-          change(true)
-          console.log("北京新发地疫情")
-        }
-        if (e.key == "2"){
-          setE("北京大兴疫情")
-          change(true)
-          console.log("北京大兴疫情")
-        }
-        if (e.key == "3"){
-          setE("河北石家庄疫情")
-          change(true)
-          console.log("河北石家庄疫情")
-        }
-        if (e.key == "4"){
-          setE("北京顺义疫情")
-          change(true)
-          console.log("北京顺义疫情")
-        }
+        setE(epidemics?epidemics[e.key].name:"待选择")
+        change(e.key)
       }
     
     const menu = (
         <Menu onClick={menuClick}>
-          <Menu.Item key="0">
-            待选择
-          </Menu.Item>
-          <Menu.Item key="1">
-            北京新发地疫情
-          </Menu.Item>
-          <Menu.Item key="2">
-            北京大兴疫情
-          </Menu.Item>
-          <Menu.Item key="3">
-            河北石家庄疫情
-          </Menu.Item>
-          <Menu.Item key="4">
-            北京顺义疫情
-          </Menu.Item>
+          {epidemics?.map(
+            (e:any,idx:any)=>(
+              <Menu.Item key={idx}>
+                {e.name}
+              </Menu.Item>
+            )
+          )}
         </Menu>
     )
     return(

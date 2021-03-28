@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@ant-design/icons": "^4.2.2",
+    "@ant-design/icons": "^4.6.2",
     "@types/react-redux": "^7.1.11",
     "@types/redux-logger": "^3.0.8",
     "@types/styled-components": "^5.1.4",
@@ -11,12 +11,14 @@
     "echarts": "^5.0.2",
     "echarts-for-react": "^3.0.1",
     "immer": "^7.0.14",
+    "localforage": "^1.9.0",
     "neovis-ts": "^1.0.8",
     "neovis.js": "^1.5.0",
     "next": "^10.0.1",
     "querystring": "^0.2.0",
     "react": "^17.0.1",
     "react-amap": "^1.2.8",
+    "react-amap-plugin-heatmap": "0.0.7",
     "react-dom": "^17.0.1",
     "react-flow": "^1.0.3",
     "react-flow-renderer": "^9.1.0",

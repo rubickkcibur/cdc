@@ -418,3 +418,13 @@ export default [
   //   labelStyle: { fill: '#f6ab6c', fontWeight: 700 },
   // },
 ];
+// export default [
+//   { id: '1', data: { label: (<><strong>病例1（男）</strong><p>28岁，长期在印度尼西亚生活，12月10日到达北京，在京居住地为顺义区，12月28日诊断为阳性。</p></>) }, position: { x: 100, y: 100 },style:
+//   {
+//     width:400,
+//     background:"#108738",
+//     color:"#FFF"
+//   } },
+//   { id: '2', data: { label: 'Node 2' }, position: { x: 100, y: 200 } },
+//   { id: 'e1-2', source: '1', target: '2' },
+// ];

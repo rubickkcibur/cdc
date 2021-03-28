@@ -7,22 +7,18 @@ import { Card } from "../addroute";
 import { UserOutlined } from "@ant-design/icons";
 import { useTypedSelector } from "../../lib/store";
 import Const from "../../lib/constant";
-import { setServers } from "dns";
-import ReactFlow, {
-  removeElements,
-  addEdge,
-  MiniMap,
-  Controls,
-  Background,
-} from 'react-flow-renderer';
-import initialElements from '../../components/drawboard/initial-elements';
-import { isNoSubstitutionTemplateLiteral } from "typescript";
+import {Map} from "react-amap"
+import { AMapShowedMarker } from "../../components/AMapMarker";
+import { ActSetState } from "../../lib/state/global";
+import { useDispatch } from "react-redux";
 const { Option } = Select;
 
 export default function PatientAnalyze(){
     const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
     const [sliderValue,setSV] = useState<Number>(1)
     const [sliderValue2,setSV2] = useState<Number>(1)
+    const amap = useTypedSelector(e=>e.PAGlobalReducer.amap)
+    const dispatch = useDispatch()
     function draw(e: string) {
         var config;
         if (e == "location") {
@@ -199,7 +195,18 @@ export default function PatientAnalyze(){
                         <Row> </Row>
                         <div style={{height:"450px",width:"95%",marginLeft:'5%',backgroundColor:"white"}}>
                             <Row></Row>
-                            <div className={sty.picture}>
+                            <Map 
+                              amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}
+                              events={{
+                                created: (ins: any) => {
+                                  if(!amap)
+                                    dispatch(ActSetState({amap: (window as any).AMap }))
+                                  console.log(11122)
+                                }
+                              }}>
+                              <AMapShowedMarker/>
+                            </Map>
+                            {/* <div className={sty.picture}>
                                 <Row></Row>
                                 <Popover 
                                     content={
@@ -227,7 +234,7 @@ export default function PatientAnalyze(){
                                 >
                                     <div className={sty.click}></div>
                                 </Popover>
-                            </div>
+                            </div> */}
                         </div>
                     </Col>
                     <Divider/>
