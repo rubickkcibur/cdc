@@ -58,34 +58,34 @@ export default function index() {
   }
 
   const onSubmit = async () => {
-    // try{
-    //   Axios.post(`${Constant.apihost}/insertroute`, {
-    //     personal_id:(await basicForm?.validateFields())?.personal_id,
-    //     data:newRouteBuffer
-    //   })
-    //   .then(()=>message.success("提交成功"))
-    //   .catch(()=>message.error("提交失败"))
-    // }catch(e){
-    //   console.log(e)
-    // }
-    console.log("for check")
-    console.log(basicForm?.getFieldsValue())
-    console.log(newRouteBuffer)
+    try{
+      Axios.post(`${Constant.apihost}/insertroute`, {
+        personal_id:(await basicForm?.validateFields())?.personal_id,
+        data:newRouteBuffer
+      })
+      .then(()=>message.success("提交成功"))
+      .catch(()=>message.error("提交失败"))
+    }catch(e){
+      console.log(e)
+    }
+    // console.log("for check")
+    // console.log(basicForm?.getFieldsValue())
+    // console.log(newRouteBuffer)
   }
   const onSave = async () => {
-    // try{
-    //   Axios.post(`${Constant.apihost}/newupload`, {
-    //     basic:await basicForm?.validateFields(), //此处有问题
-    //     routes:[newRouteBuffer]
-    //   })
-    //   .then(()=>message.success("提交成功"))
-    //   .catch(()=>message.error("提交失败"))
-    // }catch(e){
-    //   console.log(e)
-    // }
-    console.log("for check")
-    console.log(basicForm?.getFieldsValue())
-    console.log(newRouteBuffer)
+    try{
+      Axios.post(`${Constant.apihost}/newupload`, {
+        basic:await basicForm?.validateFields(), //此处有问题
+        routes:[newRouteBuffer]
+      })
+      .then(()=>message.success("提交成功"))
+      .catch(()=>message.error("提交失败"))
+    }catch(e){
+      console.log(e)
+    }
+    // console.log("for check")
+    // console.log(basicForm?.getFieldsValue())
+    // console.log(newRouteBuffer)
   }
 
   const menuClick = (e:any) => {

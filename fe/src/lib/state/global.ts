@@ -49,6 +49,7 @@ export type TState = {
   showedRoutes:Number[]
   rfIns?:any
   epidemics?:any
+  loadedRelatedInfo?:any
 }
 
 const getEpi=()=>{

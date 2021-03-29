@@ -24,8 +24,8 @@ export default function Pagepatients() {
     const dispatch = useDispatch()
     const router = useRouter()
     const [chosenKey,setCK] = useState<any>()
-    const [patients, setP] = useState<Basic[]>();
-    const [patientBuffer, setPB] = useState<Basic[]>();
+    const [patients, setP] = useState<any[]>();
+    const [patientBuffer, setPB] = useState<any[]>();
     const epidemics=useTypedSelector(e => e.PAGlobalReducer.epidemics);
 
     useEffect(()=>{
@@ -58,6 +58,14 @@ export default function Pagepatients() {
     }
 
     function analyze(e:any){
+      Axios.post(`${Constant.apihost}/queryRelatedInfo`,{
+        personal_id:e.personal_id,
+        hour:8,
+        distance:5
+      }).then(e=>{
+        dispatch(ActSetState({loadedRelatedInfo:e.data}))
+      }).catch(e=>console.log(e))
+
       Axios.get(`${Constant.apihost}/queryperson`,{
         params:{
           personal_id:e.personal_id
@@ -127,10 +135,28 @@ export default function Pagepatients() {
       },
       {
         title: "完成度",
-        render: (e) =>(
+        // render: (e) =>(
+        //   <div style={{color:"red"}}>{
+        //     e.name!="李某某"?"14/14":
+        //     <div>{"4/14"}
+        //       <Popover 
+        //         placement="rightBottom"
+        //         content={<>
+        //           <h5>1、工作地点未填写</h5>
+        //           <br/>
+        //           <h5>2、职业未填写</h5>
+        //         </>}
+        //         title={<h4 style={{color:"red"}}>以下内容未完成</h4>}
+        //         trigger="click">
+        //           &nbsp;&nbsp;<QuestionCircleOutlined />
+        //       </Popover>
+        //     </div>
+        //   }</div>
+        // ),
+        render:(e)=>(
           <div style={{color:"red"}}>{
-            e.name!="李某某"?"14/14":
-            <div>{"4/14"}
+            e.done>=14?"14/14":
+            <div>{String(e.done) + "/14"}
               <Popover 
                 placement="rightBottom"
                 content={<>
@@ -142,9 +168,9 @@ export default function Pagepatients() {
                 trigger="click">
                   &nbsp;&nbsp;<QuestionCircleOutlined />
               </Popover>
-            </div>
-          }</div>
-        ),
+            </div>}
+          </div>
+            ),
         width:150
       },
       {
@@ -173,8 +199,8 @@ export default function Pagepatients() {
         name:name
       })
       .then(e=>{
-        setP(e.data.map((e:any)=>e.basic))
-        setPB(e.data.map((e:any)=>e.basic))
+        setP(e.data.map((e:any)=>({...e.basic,done:e.routes.length})))
+        setPB(e.data.map((e:any)=>({...e.basic,done:e.routes.length})))
       })
     } 
 
