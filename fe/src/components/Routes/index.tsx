@@ -3,7 +3,7 @@ import { useForm } from 'antd/lib/form/Form'
 import FormItem from 'antd/lib/form/FormItem';
 import FormList from 'antd/lib/form/FormList';
 import React, { useEffect, useState } from 'react'
-import { Tip } from '../../lib/search'
+import Constant from '../../lib/constant'
 import { MinusCircleOutlined, PlusOutlined, CaretRightOutlined, CloseOutlined, MoreOutlined, CarOutlined } from '@ant-design/icons';
 import { Moment } from 'moment'
 import { SearchInput, strtoll } from '../PathForm';
@@ -14,8 +14,7 @@ import moment from 'moment';
 import { useTypedSelector } from '../../lib/store';
 import { useDispatch } from 'react-redux';
 import { ActAddPauses, ActRemovePauses, ActSetShowedRoutes, ActSetState } from '../../lib/state/global';
-import TextArea from 'antd/lib/input/TextArea';
-import { ST } from 'next/dist/next-server/lib/utils';
+import Axios from 'axios';
 
 const { Panel } = Collapse
 const { Option } = Select;
@@ -162,6 +161,9 @@ export function TimeItem({ value, onChange }: TProps) {
 
 export function PauseForm({ value, onChange }: PFProps) {
     const [form] = useForm<PForm | undefined>();
+    const [options,setOptions] = useState<any[]>([])
+    const loadedEpiKey = useTypedSelector(e=>e.PAGlobalReducer.loadedEpiKey)
+    const epidemics = useTypedSelector(e=>e.PAGlobalReducer.epidemics)
     useEffect(() => {
         if (value && form) {
             console.log("pf init")
@@ -175,6 +177,22 @@ export function PauseForm({ value, onChange }: PFProps) {
         console.log(form.getFieldsValue())
         onChange && onChange(form.getFieldsValue())
         console.log(form.getFieldsValue())
+    }
+
+    const onSearch = () => {
+        let location = form.getFieldValue("location")
+        if (location){
+            Axios.post(`${Constant.apihost}/queryDetailLocation`,{
+                location:location.location,
+                epidemic:epidemics[loadedEpiKey].name,
+                //date:"2020-12-11"
+            }).then(e=>{
+                console.log(e.data)
+                setOptions(e.data)
+            })
+        }else{
+            setOptions([])
+        }
     }
 
     return (
@@ -206,7 +224,11 @@ export function PauseForm({ value, onChange }: PFProps) {
                     <Col span={2}/>
                     <Col span={11}>
                         <FormItem style={{ marginTop: '-20px' }} label={"详细地点:"} name={"detail_location"}>
-                            <Input/>
+                            {/* <Input/> */}
+                            <AutoComplete placeholder={"详细地址"} onSearch={onSearch} options={options.map((e)=>({
+                                label:e.detail_location + "-" + e.relate_basic.name + "(" + e.relate_basic.personal_id + ")",
+                                value:e.detail_location
+                            }))}/>
                         </FormItem>
                     </Col>
                 </Row>
