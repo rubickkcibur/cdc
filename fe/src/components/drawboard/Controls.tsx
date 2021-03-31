@@ -1,17 +1,10 @@
 import React, { memo, useCallback, Dispatch, FC, useEffect } from 'react';
 import { useZoomPanHelper, OnLoadParams, Elements, FlowExportObject } from 'react-flow-renderer';
-import localforage from 'localforage';
 import { Button, Col, Row } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../lib/store';
 import { ActSetState } from '../../lib/state/global';
 
-localforage.config({
-  name: 'cdc',
-  storeName: 'panel',
-});
-
-const flowKey = 'flow3';
 
 const getNodeId = () => `randomnode_${+new Date()}`;
 
@@ -35,35 +28,50 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements }) => {
     }
   }, [rfInstance]);
 
-  const onRestore = useCallback(() => {
-    const restoreFlow = async () => {
-      // const flow: FlowExportObject | null = await localforage.getItem(flowKey);
-
-      if (rf) {
-        const [x = 0, y = 0] = rf.position;
-        setElements(rf.elements || []);
-        transform({ x, y, zoom: rf.zoom || 0 });
-      }else{
-        console.log("nothing on restore")
-      }
-    };
-
-    restoreFlow();
-  }, [setElements, transform]);
-
   useEffect(()=>{
-    const restoreFlow = async () => {
-      // const flow: FlowExportObject | null = await localforage.getItem(flowKey);
+    console.log("global rf")
+    console.log(rf)
+  },[rf])
 
-      if (rf) {
-        const [x = 0, y = 0] = rf.position;
-        setElements(rf.elements || []);
-        transform({ x, y, zoom: rf.zoom || 0 });
-      }
-    };
+  // const onRestore = useCallback(() => {
+  //   const restoreFlow = async () => {
+  //     // const flow: FlowExportObject | null = await localforage.getItem(flowKey);
 
-    restoreFlow();
-  },[rfInstance])
+  //     if (rf) {
+  //       const [x = 0, y = 0] = rf.position;
+  //       setElements(rf.elements || []);
+  //       transform({ x, y, zoom: rf.zoom || 0 });
+  //     }else{
+  //       console.log(rf)
+  //       console.log("nothing on restore")
+  //     }
+  //   };
+  //   restoreFlow();
+  // }, [setElements, transform]);
+  const onRestore=()=>{
+    if (rf) {
+      const [x = 0, y = 0] = rf.position;
+      setElements(rf.elements || []);
+      transform({ x, y, zoom: rf.zoom || 0 });
+    }else{
+      console.log(rf)
+      console.log("nothing on restore")
+    }
+  }
+
+  // useEffect(()=>{
+  //   const restoreFlow = async () => {
+  //     // const flow: FlowExportObject | null = await localforage.getItem(flowKey);
+
+  //     if (rf) {
+  //       const [x = 0, y = 0] = rf.position;
+  //       setElements(rf.elements || []);
+  //       transform({ x, y, zoom: rf.zoom || 0 });
+  //     }
+  //   };
+
+  //   restoreFlow();
+  // },[rfInstance])
 
   const onAdd = useCallback(() => {
     const newNode = {
@@ -80,7 +88,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements }) => {
   }, [setElements]);
 
   return (
-    <div>
+    <div >
       <Row>
         <Col span={24}>
         <Button onClick={onSave}>保存</Button>

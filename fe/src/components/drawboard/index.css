@@ -131,3 +131,11 @@ header select {
 .save__controls button {
   margin-left: 5px;
 }
+
+.control_list {
+  position: fixed;
+  top: 160px;
+  left: 50px;
+  height: 50px;
+  width: 400px;
+}
