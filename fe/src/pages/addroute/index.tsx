@@ -229,8 +229,9 @@ export default function index() {
                   amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}
                   events={{
                     created: (ins: any) => {
-                      if(!amap)
+                      if(!amap){
                         dispatch(ActSetState({amap: (window as any).AMap }))
+                      }
                       console.log(11122)
                     }
                   }}>

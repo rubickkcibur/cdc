@@ -43,6 +43,11 @@ const MenuItem = [
     icon: <FormOutlined />,
     url: '/history'
   },
+  {
+    title: "疫情总览",
+    icon: <FormOutlined />,
+    url: '/statistic'
+  },
   // {
   //   title: "疫情分布",
   //   icon:  <HeatMapOutlined/>,
