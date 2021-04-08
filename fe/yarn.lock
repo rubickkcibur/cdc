@@ -4028,6 +4028,11 @@ json5@^2.1.0, json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
+jtopo-in-node@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/jtopo-in-node/-/jtopo-in-node-1.0.2.tgz#02b1091822166ee765459baaaaecb8e35833c912"
+  integrity sha512-M7FN1Dn2E43AY8DMOWR8J3vA3nZ4pCe4fCTMMUnGRS6xAYnC1kq1GMlE/+69Low7IQvzKpNlZnLvpUcwiqeHGw==
+
 keycharm@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npm.taobao.org/keycharm/download/keycharm-0.2.0.tgz#fa6ea2e43b90a68028843d27f2075d35a8c3e6f9"
@@ -4142,6 +4147,11 @@ locate-path@^5.0.0:
   integrity sha1-Gvujlq/WdqbUJQTQpno6frn2KqA=
   dependencies:
     p-locate "^4.1.0"
+
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
 lodash.sortby@^4.7.0:
   version "4.7.0"

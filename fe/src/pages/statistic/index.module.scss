@@ -1,0 +1,57 @@
+.statistic{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 100%;
+  margin-top: 5px;
+}
+.heatMap{
+  border: 2px dashed black;
+  width: 100%;
+  height: 60vh;
+  background-color: white;
+  margin-left: 5px;
+}
+.leftBar{
+  border: 2px solid black;
+  width: 100%;
+  height: 45vh;
+  background-color: white;
+}
+.rightBar{
+  border: 2px solid black;
+  width: 100%;
+  height: 45vh;
+  background-color: white;
+  margin-left: 10px;
+}
+.bottomRight{
+  border: 2px solid black;
+  width: 100%;
+  height: 45vh;
+  background-color: white;
+  margin-left: 10px;
+  margin-top: -15vh;
+}
+.bottomMid{
+  border: 2px solid black;
+  width: 100%;
+  height: 30vh;
+  background-color: white;
+  margin-left: 5px;
+}
+.bottomLeft{
+  border: 2px solid black;
+  width: 100%;
+  height: 45vh;
+  background-color: white;
+  margin-top: -15vh;
+}
+.play{
+  background-color: white;
+}
+.bottomPie{
+  border-top:1px solid black;
+  width: 100%;
+  height: 22vh;
+}

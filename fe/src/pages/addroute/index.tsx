@@ -8,7 +8,7 @@ import PathForm from "../../components/PathForm"
 import { useDispatch } from "react-redux"
 import { ActSetState, PAGlobalReducer } from "../../lib/state/global"
 import { DownOutlined, ReadOutlined, SaveOutlined, UploadOutlined } from "@ant-design/icons"
-import { Button, Dropdown, Menu, message, Switch, Tabs } from "antd"
+import { Button, Dropdown, Menu, message, Radio, Switch, Tabs } from "antd"
 import { FormInstance } from "antd/lib/form"
 import Axios from "axios"
 import Constant from '../../lib/constant'
@@ -220,10 +220,18 @@ export default function index() {
 
         <Col md={{ span: 12, }} className={sty.PathContainer}>
           <div className={sty.UploadButton}>
-            <Switch defaultChecked onChange={(e)=>{setMS(e)}} />
+            <Radio.Group 
+              defaultValue={true} 
+              onChange={(e)=>setMS(e.target.value)}
+              optionType="button"
+              buttonStyle="solid"
+            >
+              <Radio.Button value={true}>地图</Radio.Button>
+              <Radio.Button value={false}>简报</Radio.Button>
+            </Radio.Group>
           </div>
           <Card title={mapShow?"路径可视化":"流调报告(摘要版)"} style={{ height: "100%" }}>
-            <div style={{ height: "100%" }}>
+            <div style={{ height: "85vh" ,overflowX:"auto",overflowY:"auto"}}>
               {mapShow?
                 <Map
                   amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}

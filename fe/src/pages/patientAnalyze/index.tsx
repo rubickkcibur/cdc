@@ -1,4 +1,4 @@
-import { Button, Col, Divider, Popover, Row, Select, Slider, Table } from "antd";
+import { Button, Col, Divider, Input, InputNumber, Popover, Row, Select, Slider, Statistic, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout";
 import Routes from "../../components/Routes";
@@ -214,42 +214,47 @@ export default function PatientAnalyze(){
                             <Col span={14}>
                                 <Card title={"确诊患者关联地点查询"}>
                                     <div className={sty.tableContainer}>
-                                        <Row style={{marginTop:'10px',marginLeft:'15px'}}>
-                                            <Col span={2} style={{marginTop:'5px'}}>时间差:</Col>
-                                            <Col span={3}>
+                                        <Row style={{marginTop:'10px',marginLeft:'15px'}} gutter={4}>
+                                            <Col span={1.5} style={{marginTop:'5px'}}>时间差:</Col>
+                                            <Col span={2.5}>
                                                 <Select defaultValue="01" style={{ width: 70 }} onSelect={(value)=>setTO(value)}>
                                                     <Option value="01">小于</Option>
                                                     <Option value="02">大于</Option>
                                                     <Option value="03">等于</Option>
                                                 </Select>
                                             </Col>
-                                            <Col span={3}>
-                                                <Slider max={60} onChange={(v:any)=>{setTV(v)}} defaultValue={1}/>
+                                            <Col span={2}>
+                                                <Slider max={60} value={timeValue} onChange={(v:any)=>{setTV(v)}} defaultValue={1} />
+                                            </Col>
+                                            <Col span={2}>
+                                              <InputNumber value={timeValue} style={{ width:60 }} onChange={(e)=>setTV(e as number)}/>
                                             </Col>
                                             <Col span={3}>
-                                            <Select defaultValue={1} style={{ width: 70,marginLeft:'10px' }} onSelect={(value)=>setTU(value)}>
+                                              <Select defaultValue={1} style={{ width: 70,marginLeft:'10px' }} onSelect={(value)=>setTU(value)}>
                                                     <Option value={1}>分钟</Option>
                                                     <Option value={60}>小时</Option>
-                                                </Select>
+                                              </Select>
                                             </Col>
-                                        </Row>
-                                        <Row style={{marginTop:'10px',marginLeft:'15px'}}>
-                                            <Col span={2} style={{marginTop:'5px'}}>距离差:</Col>
-                                            <Col span={3}>
+                                            <Col span={1}></Col>
+                                            <Col span={1.5} style={{marginTop:'5px'}}>距离差:</Col>
+                                            <Col span={2.5}>
                                                 <Select defaultValue="01" style={{ width: 70 }} onSelect={(value)=>setDO(value)}>
                                                     <Option value="01">小于</Option>
                                                     <Option value="02">大于</Option>
                                                     <Option value="03">等于</Option>
                                                 </Select>
                                             </Col>
-                                            <Col span={3}>
-                                                <Slider max={1000} defaultValue={1} onChange={(v:any)=>{setDV(v)}}/>
+                                            <Col span={2}>
+                                                <Slider max={1000} value={distanceValue} defaultValue={1} onChange={(v:any)=>{setDV(v)}} />
+                                            </Col>
+                                            <Col span={2}>
+                                              <InputNumber value={distanceValue} style={{ width:60}} onChange={(v)=>setDV(v as number)}/>
                                             </Col>
                                             <Col span={3}>
-                                            <Select defaultValue={1} style={{ width: 70 ,marginLeft:'10px'}} onSelect={(value)=>setDU(value)}>
+                                              <Select defaultValue={1} style={{ width: 70 ,marginLeft:'10px'}} onSelect={(value)=>setDU(value)}>
                                                     <Option value={1}>米</Option>
                                                     <Option value={1000}>千米</Option>
-                                                </Select>
+                                              </Select>
                                             </Col>
                                         </Row>
                                         <Table pagination={false} dataSource={dataSource} columns={columns} />

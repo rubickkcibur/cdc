@@ -392,7 +392,7 @@ function Date({ value, onChange, idx }: DProps) {
                 <Button onClick={(e) => {
                     e.stopPropagation()
                     onButtonClick(idx)
-                 }}>{show ? "hide" : "show"}</Button>
+                 }}>{show ? "隐藏" : "展示"}</Button>
             }
         </>
     )

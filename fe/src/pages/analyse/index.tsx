@@ -17,6 +17,7 @@ import NewRouteForm from "../../components/NewRoute";
 import Routes from "../../components/Routes";
 import initialElements from '../../components/drawboard/initial-elements';
 import SaveRestore from "../../components/drawboard"
+import DeviceGraph from "../../components/JtopoNodes"
 
 
 export default function Pageanalyse() {
@@ -101,6 +102,7 @@ export default function Pageanalyse() {
     const { TabPane } = Tabs;
     const onChange = (e:any) => {
         //   setType(e.target.value);
+        //画板
         if (e.target.value=="3"){
             setPict(
                 <>
@@ -114,6 +116,7 @@ export default function Pageanalyse() {
             )
             setIsHidden(sty.hidden)
         }
+        //人群聚合
         else if(e.target.value=="1"){
             console.log(cluster_background)
             setPict(
@@ -125,9 +128,11 @@ export default function Pageanalyse() {
                         </Popover>
                     </div>
                 </div>
+                // <DeviceGraph/>
             )
             setIsHidden(sty.show)
         }
+        //时间聚合
         else{
             setPict(
                 <div style={{marginTop:'15px',height:'100%',width:'100%'}}>

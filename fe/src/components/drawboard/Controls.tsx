@@ -28,11 +28,6 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements }) => {
     }
   }, [rfInstance]);
 
-  useEffect(()=>{
-    console.log("global rf")
-    console.log(rf)
-  },[rf])
-
   // const onRestore = useCallback(() => {
   //   const restoreFlow = async () => {
   //     // const flow: FlowExportObject | null = await localforage.getItem(flowKey);
@@ -59,19 +54,19 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements }) => {
     }
   }
 
-  // useEffect(()=>{
-  //   const restoreFlow = async () => {
-  //     // const flow: FlowExportObject | null = await localforage.getItem(flowKey);
+  useEffect(()=>{
+    const restoreFlow = async () => {
+      // const flow: FlowExportObject | null = await localforage.getItem(flowKey);
 
-  //     if (rf) {
-  //       const [x = 0, y = 0] = rf.position;
-  //       setElements(rf.elements || []);
-  //       transform({ x, y, zoom: rf.zoom || 0 });
-  //     }
-  //   };
+      if (rf) {
+        const [x = 0, y = 0] = rf.position;
+        setElements(rf.elements || []);
+        transform({ x, y, zoom: rf.zoom || 0 });
+      }
+    };
 
-  //   restoreFlow();
-  // },[rfInstance])
+    restoreFlow();
+  },[rfInstance])
 
   const onAdd = useCallback(() => {
     const newNode = {
@@ -91,9 +86,9 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements }) => {
     <div >
       <Row>
         <Col span={24}>
-        <Button onClick={onSave}>保存</Button>
-        <Button onClick={onRestore}>撤销</Button>
-        <Button onClick={onAdd}>添加患者</Button>
+          <Button onClick={onSave}>保存</Button>
+          <Button onClick={onRestore}>撤销</Button>
+          <Button onClick={onAdd}>添加患者</Button>
         </Col>
       </Row>
     </div>

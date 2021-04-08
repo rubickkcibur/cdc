@@ -8,10 +8,11 @@ import ReactFlow, {
   Edge,
   OnLoadParams,
   MiniMap,
-  Background
+  Background,
 } from 'react-flow-renderer';
 import { useDispatch } from 'react-redux';
 import { ActSetState } from '../../lib/state/global';
+import { useTypedSelector } from '../../lib/store';
 
 import Controls from './Controls';
 import initialElements from './initial-elements';
@@ -24,9 +25,10 @@ const SaveRestore = () => {
   const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
   const dispatch = useDispatch()
+  const rf = useTypedSelector(e=>e.PAGlobalReducer.rfIns)
   const onLoad = (reactFlowInstance:any) => {
     setRfInstance(reactFlowInstance)
-    dispatch(ActSetState({rfIns:reactFlowInstance?.toObject()}))
+    if(!rf){dispatch(ActSetState({rfIns:reactFlowInstance?.toObject()}))}
     reactFlowInstance.fitView();
   };
 
