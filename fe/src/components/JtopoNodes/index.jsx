@@ -1,137 +1,102 @@
-import React, { PureComponent } from 'react'
+import React, { createRef, PureComponent, useEffect, useRef } from 'react'
+import ReactDOM from 'react-dom';
 import {Row, Col, Card} from 'antd';
 import dynamic from "next/dynamic";
+import JTopo from "jtopo-in-node";
 
 
-const JTopo = dynamic(
-  () => {
-    return import("jtopo-in-node");
-  },
-  { ssr: false }
-);
+// const JTopo = dynamic(
+//   () => {
+//     return import("jtopo-in-node");
+//   },
+//   { ssr: false }
+// );
 
-class DeviceGraph extends React.Component{
-  state = {
-    canvasWidth: '300',
-    position: [],
-    allSensors: []
-  };
-  componentDidMount() {
-    var canvas = this.refs.test;
-    canvas.width = window.innerWidth * 0.95;
-    this.setState({
-      canvasWidth: window.innerWidth * 0.95
-    });
-  }
-
-  node = (scene, x, y, img) => {
-    var node = new JTopo.Node();
-    node.setImage('http://www.jtopo.com/demo/img/statistics/' + img, true);
-    node.setLocation(x, y);
-    node.dragable = false;
-    node.fontColor = '0,0,0';
-    scene.add(node);
-    return node;
-  };
-
-  linkNode = (scene,nodeA, nodeZ, f) => {
-    var link;
-    if(f){
-      link = new JTopo.FoldLink(nodeA, nodeZ, "test");
-    }else{
-      link = new JTopo.Link(nodeA, nodeZ);
-    }
-    link.direction = 'vertical';
-    scene.add(link);
-    return link;
-  };
-
-  hostLink = (scene, nodeA, nodeZ) => {
-    var link = new JTopo.FlexionalLink(nodeA, nodeZ);
-    link.shadow = false;
-    link.offsetGap = 44;
-    scene.add(link);
-    return link;
-  };
-
-  render(){
+function DeviceGraph(){
+  const test = useRef(null);
+  useEffect(()=>{
     console.log('JTopo', JTopo);
 
     // canvas元素存在之后再进行操作
-    if(this.refs.test){
-      var stage = new JTopo.Stage(this.refs.test);
-      stage.eagleEye.visible = null;
-      stage.wheelZoom = 0.95;
+    if(test.current){
+      console.log("test",test.current);
+      var stage = new JTopo.Stage(test.current);
       var scene = new JTopo.Scene(stage);
       scene.background = 'http://www.jtopo.com/demo/img/bg.jpg';
+      stage.add(scene);
 
-      var s1 = this.node(scene,305, 43, 'server.png');
-      s1.alarm = '2 W';
-      var s2 = this.node(scene,365, 43, 'server.png');
-      var s3 = this.node(scene,425, 43, 'server.png');
+      var container1 = new JTopo.Container('聚合1');
+      scene.add(container1);
+      var node11 = new JTopo.Node("病例1");                            
+      node11.setLocation(409, 269);
+      var node12 = new JTopo.Node("病例2");
+      node12.setLocation(450,219);
+      scene.add(node11);
+      scene.add(node12);
+      container1.add(node11);
+      container1.add(node12);
 
-      var g1 = this.node(scene,366, 125, 'gather.png');
-      this.linkNode(scene,s1, g1, true);
-      this.linkNode(scene,s2, g1, true);
-      this.linkNode(scene,s3, g1, true);
+      var container2 = new JTopo.Container('聚合2');
+      scene.add(container2);
+      var node21 = new JTopo.Node("病例1");
+      node21.setLocation(269,409);
+      var node22 = new JTopo.Node("病例3");
+      node22.setLocation(219,450);
+      scene.add(node21);
+      scene.add(node22);
+      container2.add(node21);
+      container2.add(node22);
 
-      var w1 = this.node(scene,324, 167, 'wanjet.png');
-      this.linkNode(scene,g1, w1);
-
-      var c1 = this.node(scene,364, 214, 'center.png');
-      this.linkNode(scene,w1, c1);
-
-      var cloud = this.node(scene,344, 259, 'cloud.png');
-      this.linkNode(scene,c1, cloud);
-
-      var c2 = this.node(scene,364, 328, 'center.png');
-      this.linkNode(scene,cloud, c2);
-
-      var w2 = this.node(scene,324, 377, 'wanjet.png');
-      this.linkNode(scene,c2, w2);
-
-      var g2 = this.node(scene,366, 411, 'gather.png');
-      this.linkNode(scene,w2, g2);
-
-      var h1 = this.node(scene,218, 520, 'host.png');
-      h1.alarm = '';
-      this.hostLink(scene,g2, h1);
-      var h2 = this.node(scene,292, 520, 'host.png');
-      this.hostLink(scene,g2, h2);
-      var h3 = this.node(scene,366, 520, 'host.png');
-      h3.alarm = '二级告警';
-      h3.text = 'h3';
-      this.hostLink(scene,g2, h3);
-      var h4 = this.node(scene,447, 520, 'host.png');
-      this.hostLink(scene,g2, h4);
-      var h5 = this.node(scene,515, 520, 'host.png');
-      h5.alarm = '1M';
-      this.hostLink(scene,g2, h5);
-
-      stage.setCenter(515, 520)
-
-      setInterval(function(){
-        if(h3.alarm == '二级告警'){
-          h3.alarm = null;
-          h3.text = 'h3'+ Math.random()
-        }else{
-          h3.alarm = '二级告警'
-        }
-      }, 600);
-
+      scene.add(new JTopo.Link(node11,node21));
     }
+  },[test])
 
-    return(
-      <Row>
-        <Col className="gutter-row" xs={24} sm={24} md={24} lg={24} xl={24} >
-          <Card  style={{textAlign: "center" ,width:"100%", height: '650px', marginBottom: '20px'}}>
-            <canvas ref="test" width= {'300px'}  height={'600px'} />
-          </Card>
-        </Col>
-      </Row>
-    )
-  }
-
+  return(
+    <Row>
+      <Col className="gutter-row" xs={24} sm={24} md={24} lg={24} xl={24} >
+        <Card  style={{textAlign: "center" ,width:"100%", height: '650px', marginBottom: '20px'}}>
+          <canvas ref={test} width= {'800px'}  height={'700px'} />
+        </Card>
+      </Col>
+    </Row>
+  )
 }
+
+
+// class DeviceGraph extends React.Component{
+//   constructor(){
+//     super();
+//     this.test = useRef(null);
+//   }
+
+//   render(){
+//     console.log('JTopo', JTopo);
+
+//     // canvas元素存在之后再进行操作
+//     if(this.test.current){
+//       console.log("test",this.test.current)
+//       var stage = new JTopo.Stage(this.test);
+//       stage.eagleEye.visible = null;
+//       stage.wheelZoom = 0.95;
+//       var scene = new JTopo.Scene(stage);
+//       scene.background = 'http://www.jtopo.com/demo/img/bg.jpg';
+
+//       var node = new JTopo.Node("Hello");                            
+//       node.setLocation(409, 269);
+//       scene.add(node);
+//     }
+
+//     return(
+//       <Row>
+//         <Col className="gutter-row" xs={24} sm={24} md={24} lg={24} xl={24} >
+//           <Card  style={{textAlign: "center" ,width:"100%", height: '650px', marginBottom: '20px'}}>
+//             <canvas ref={this.test} width= {'300px'}  height={'600px'} />
+//           </Card>
+//         </Col>
+//       </Row>
+//     )
+//   }
+
+// }
 
 export default DeviceGraph;

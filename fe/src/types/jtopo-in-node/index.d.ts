@@ -1,1 +1,1 @@
-declare module "jtopo-in-node"
+// declare module "jtopo-in-node"

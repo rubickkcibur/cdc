@@ -17,7 +17,10 @@ import NewRouteForm from "../../components/NewRoute";
 import Routes from "../../components/Routes";
 import initialElements from '../../components/drawboard/initial-elements';
 import SaveRestore from "../../components/drawboard"
-import DeviceGraph from "../../components/JtopoNodes"
+// import DeviceGraph from "../../components/JtopoNodes"
+import dynamic from "next/dynamic";
+
+const DeviceGraph = dynamic(()=>import("../../components/JtopoNodes"),{ssr:false})
 
 
 export default function Pageanalyse() {
@@ -120,15 +123,15 @@ export default function Pageanalyse() {
         else if(e.target.value=="1"){
             console.log(cluster_background)
             setPict(
-                <div>
-                    <div className={cluster_background}>
-                        <Row></Row>
-                        <Popover content={content} title="病例信息" trigger="click">
-                            <div className={sty.click}></div>
-                        </Popover>
-                    </div>
-                </div>
-                // <DeviceGraph/>
+                // <div>
+                //     <div className={cluster_background}>
+                //         <Row></Row>
+                //         <Popover content={content} title="病例信息" trigger="click">
+                //             <div className={sty.click}></div>
+                //         </Popover>
+                //     </div>
+                // </div>
+                <DeviceGraph/>
             )
             setIsHidden(sty.show)
         }
