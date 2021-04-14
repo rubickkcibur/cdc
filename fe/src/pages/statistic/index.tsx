@@ -1,4 +1,4 @@
-import { Card, Checkbox, Col, Divider, Row,Carousel, List, Avatar } from "antd"
+import { Card, Checkbox, Col, Divider, Row,Carousel,Progress, List, Avatar,Select } from "antd"
 import React, { useEffect, useState } from "react"
 import MainLayout from "../../components/MainLayoout/PageLayout"
 import sty from './index.module.scss'
@@ -7,10 +7,15 @@ import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import cloneDeep from 'lodash.clonedeep';
 import {Map} from "react-amap"
 import { useTypedSelector } from '../../lib/store'
-import { heatmapData } from "../../components/AMapCom";
+import { Cluster, heatmapData } from "../../components/AMapCom";
 import HeatMap from "../../components/Heatmap/heat";
+import { DownOutlined } from "@ant-design/icons"
+import dataFilter from "echarts/types/src/processor/dataFilter";
+import { ActSetState } from "../../lib/state/global";
+import { useDispatch } from "react-redux";
 
 export default function Statistic() {
+    const dispatch = useDispatch()
     //热力图
     const amap = useTypedSelector(e => e.PAGlobalReducer.amap)
     const visible = true;
@@ -52,7 +57,7 @@ export default function Statistic() {
         {
             name:"北京顺义",
             type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-            data:[1.8,-1,-1.9,-2.4,-1.3,-1.3,-10.2,-10.1,-5.4,-6.2,-5.4,-5.9,-5.4,-7.5],
+            data:[2,1,2,2,1,1,10,10,5,6,5,6,5,8],
             itemStyle : {
                 normal : {
                     color:'#91cc75',
@@ -65,7 +70,7 @@ export default function Statistic() {
         {
             name:"北京大兴",
             type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
-            data:[-3,-2.5,-6.6,-4.7,-2.3,-1.5,-3.1,-1.8,-1,-3.1,-1,-3.8,-5.7,-2.5],
+            data:[3,3,7,5,2,2,3,2,1,3,1,4,6,3],
             itemStyle : {
                 normal : {
                     color:'#fac858',
@@ -100,23 +105,77 @@ export default function Statistic() {
     }
 
     //柱状图
-    const BarOption = {
+    const BarOption01 = {
         title: {
-            text: '柱状图'
+            text: '具体位置TOP5',
+            subtext: ''
         },
-        tooltip: {},
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
         legend: {
-            data:['销量']
+            data: ['病例人数']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
         },
         xAxis: {
-            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+            type: 'value',
+            boundaryGap: [0, 0.01]
         },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
+        yAxis: {
+            type: 'category',
+            data: ['**餐厅', '**公园', '**医院', '**小区', '**工厂']
+        },
+        series: [
+            {
+                name: '病例人数',
+                type: 'bar',
+                data: [3, 4, 7, 10, 11]
+            }
+        ]
+    };
+    const BarOption02 = {
+        title: {
+            text: '交通工具TOP5',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: ['使用人数']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+            type: 'category',
+            data: ['出租车', '轮船', '飞机', '地铁', '公交车']
+        },
+        series: [
+            {
+                name: '使用人数',
+                type: 'bar',
+                data: [2,5,9,10,13]
+            }
+        ]
     };
 
     //雷达图
@@ -165,6 +224,12 @@ export default function Statistic() {
     };
 
     //饼图
+    const { Option } = Select;
+    const [whichType,setWhichType]=useState<string>("1")
+    function handleChange(value:string) {
+        console.log(`selected ${value}`);
+        setWhichType(value);
+    }
     const PieOption = {
         title : {
             text: '各年龄段占比',
@@ -175,11 +240,11 @@ export default function Statistic() {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
-        /*legend: {
+        legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-        },*/
+            data: ['0-14岁','15-35岁','35-50岁','50-65岁','65+岁']
+        },
         series : [
             {
                 name: '年龄段',
@@ -205,6 +270,82 @@ export default function Statistic() {
     };
     const PieOption01 = {
         title : {
+            text: '各职业病例占比',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['司机','工厂员工','餐厅员工','物流员工','外贸人员']
+        },
+        series : [
+            {
+                name: '各职业',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:15, name:'司机'},
+                    {value:10, name:'工厂员工'},
+                    {value:5, name:'餐厅员工'},
+                    {value:10, name:'物流员工'},
+                    {value:60, name:'外贸人员'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    const PieOption02 = {
+        title : {
+            text: '各类地点病患出现',
+            subtext: '',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['超市','宾馆','医院','公园','餐厅']
+        },
+        series : [
+            {
+                name: '地点',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:335, name:'超市'},
+                    {value:310, name:'宾馆'},
+                    {value:234, name:'医院'},
+                    {value:135, name:'公园'},
+                    {value:1548, name:'餐厅'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    const PieOption03 = {
+        title : {
             text: '北京各区病例占比',
             subtext: '',
             x:'center'
@@ -213,11 +354,11 @@ export default function Statistic() {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
-        /*legend: {
+        legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-        },*/
+            data: ['海淀区','大兴区','东城区','西城区','顺义区']
+        },
         series : [
             {
                 name: '各区',
@@ -397,123 +538,116 @@ export default function Statistic() {
     //走马灯
     const listData1 = [
         {
-            title: 'Ant Design Title 1',
-            description:'1111111111111111',
+            title: '病例1',
+            description:'',
             url:'https://ant.design',
         },
         {
-            title: 'Ant Design Title 2',
-            description:'222222222222222222',
+            title: '病例2',
+            description:'',
             url:'https://ant.design',
         },
         {
-            title: 'Ant Design Title 3',
-            description:'3333333333333333333',
+            title: '病例3',
+            description:'',
             url:'https://ant.design',
         },
         {
-            title: 'Ant Design Title 4',
-            description:'4444444444444444444',
+            title: '病例4',
+            description:'',
             url:'https://ant.design',
         },
     ];
     const listData2 = [
         {
-            title: 'Ant Design Title 11',
-            description:'1111111111111111',
+            title: '病例11',
+            description:'',
             url:'https://www.baidu.com/',
         },
         {
-            title: 'Ant Design Title 22',
-            description:'222222222222222222',
+            title: '病例22',
+            description:'',
             url:'https://www.baidu.com/',
         },
         {
-            title: 'Ant Design Title 33',
-            description:'3333333333333333333',
+            title: '病例33',
+            description:'',
             url:'https://www.baidu.com/',
         },
         {
-            title: 'Ant Design Title 44',
-            description:'4444444444444444444',
+            title: '病例44',
+            description:'',
             url:'https://www.baidu.com/',
         },
     ];
     const listData3 = [
         {
-            title: 'Ant Design Title 13',
-            description:'1111111111111111',
+            title: '病例13',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
         {
-            title: 'Ant Design Title 23',
-            description:'222222222222222222',
+            title: '病例23',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
         {
-            title: 'Ant Design Title 33',
-            description:'3333333333333333333',
+            title: '病例31',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
         {
-            title: 'Ant Design Title 43',
-            description:'4444444444444444444',
+            title: '病例43',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
     ];
     const listData4 = [
         {
-            title: 'Ant Design Title 14',
-            description:'1111111111111111',
+            title: '病例14',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
         {
-            title: 'Ant Design Title 24',
-            description:'222222222222222222',
+            title: '病例24',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
         {
-            title: 'Ant Design Title 34',
-            description:'3333333333333333333',
+            title: '病例34',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
         {
-            title: 'Ant Design Title 44',
-            description:'4444444444444444444',
+            title: '病例44',
+            description:'',
             url:'http://localhost:3000/statistic',
         },
     ];
+
+    //时间天气
+    function formateDate() {
+        var a=new Date();
+        var b=a.toLocaleDateString();
+        var c=a.toLocaleTimeString();
+        return(
+            <div>
+                <h3>{c}</h3>
+            </div>
+        );
+    }
+    useEffect(()=>{
+        const timer01=setInterval(()=>{
+            formateDate();
+        },1000);
+        return () => clearInterval(timer01);
+    });
 
     return (
         <MainLayout>
             <Row style={{marginRight:'15px',marginLeft:'15px'}}>
                 <Col span={6}>
                     <div className={sty.leftBar}>
-                        <ReactECharts
-                            option={PieOption}
-                            style={{ height: '50%' }}
-                        />
-                        <div className={sty.bottomPie}>
-                            <ReactECharts
-                                option={PieOption01}
-                                style={{ height: '100%' }}
-                            />
-                        </div>
-                    </div>
-                </Col>
-                <Col span={12}>
-                    <div className={sty.heatMap}>
-                        {/*<ReactECharts
-                            option={option}
-                            style={{ height: '100%' }}
-                        />*/}
-                        <Map amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}>
-                            <HeatMap {...pluginProps}/>
-                        </Map>
-                    </div>
-                </Col>
-                <Col span={6}>
-                    <div className={sty.rightBar}>
                         <Carousel dotPosition={'right'} autoplay>
                             <div className={sty.play}>
                                 <List
@@ -574,20 +708,122 @@ export default function Statistic() {
                         </Carousel>
                     </div>
                 </Col>
+                <Col span={12}>
+                    <div className={sty.mid}>
+                        {/*<Row>
+                            <Col span={8} style={{marginLeft:'40px'}}>
+                                {formateDate()}
+                            </Col>
+                            <Col span={16}>
+                                <iframe name="weather_inc"
+                                        src="http://i.tianqi.com/index.php?c=code&id=7"
+                                        className={sty.weather}>
+                                </iframe>
+                            </Col>
+                        </Row>*/}
+                        <Row>
+                            <Col span={10}>
+                                <div style={{marginTop:'5px'}}>
+                                    患者活动指数:<Progress percent={50} size="small" status="active"/>
+                                </div>
+                                <div style={{marginTop:'15px'}}>
+                                    传播范围指数:<Progress percent={46} size="small" status="active"/>
+                                </div>
+                                <div style={{marginTop:'15px'}}>
+                                    疫情趋势指数:<Progress percent={38} size="small" status="active"/>
+                                </div>
+                            </Col>
+                            <Col span={14}>
+                                <Row style={{marginTop:'25px'}}>
+                                    <Col span={12} style={{textAlign:'center'}}>
+                                        <Row className={sty.process}>
+                                            <Progress type="circle" percent={75} width={100} />
+                                        </Row>
+                                        <Row style={{marginLeft:'10%'}}>
+                                            <div>疑似病例调查完成度</div>
+                                        </Row>
+                                    </Col>
+                                    <Col span={12}>
+                                        <Row className={sty.process}>
+                                            <Progress strokeColor={{
+                                                '0%': '#108ee9',
+                                                '100%': '#87d068',
+                                            }} type="circle" percent={70} width={100}/>
+                                        </Row>
+                                        <Row>
+                                            <div style={{marginLeft:'10%'}}>病例信息填报完成度</div>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                                {/*<ReactECharts
+                                    option={option}
+                                    style={{ height: '100%' }}
+                                />*/}
+                            </Col>
+                        </Row>
+                    </div>
+                </Col>
+                <Col span={6}>
+                    <div className={sty.rightBar}>
+                        <Select defaultValue="1" style={{ width: 200 }} onChange={handleChange}>
+                            <Option value="1">患者各年龄段占比</Option>
+                            <Option value="3">各类地点病患出现人数</Option>
+                            <Option value="4">各职业病例占比</Option>
+                            <Option value="2">具体位置TOP5</Option>
+                            <Option value="5">交通工具TOP5</Option>
+                        </Select>
+                        {whichType==="1"?
+                            <ReactECharts
+                                option={PieOption}
+                                style={{ height: '100%' }}/>:<div/>
+                        }
+                        {whichType==="2"?
+                            <ReactECharts
+                                option={BarOption01}
+                                style={{ height: '100%' }}/>:<div/>
+                        }
+                        {whichType==="3"?
+                            <ReactECharts
+                                option={PieOption02}
+                                style={{ height: '100%' }}/>:<div/>
+                        }
+                        {whichType==="4"?
+                            <ReactECharts
+                                option={PieOption01}
+                                style={{ height: '100%' }}/>:<div/>
+                        }
+                        {whichType==="5"?
+                            <ReactECharts
+                                option={BarOption02}
+                                style={{ height: '100%' }}/>:<div/>
+                        }
+                    </div>
+                </Col>
             </Row>
 
             <Row style={{marginTop:'5px',marginRight:'15px',marginLeft:'15px'}}>
                 <Col span={6}>
                     <div className={sty.bottomLeft}>
-                        <ReactECharts option={getTempOption()} style={{ height: '100%' }}/>
+                        <ReactECharts
+                            option={RadarOption}
+                            style={{ height: '100%' }}
+                        />
                     </div>
                 </Col>
                 <Col span={12}>
                     <div className={sty.bottomMid}>
-                        <ReactECharts
-                            option={option}
-                            style={{ height: '100%' }}
-                        />
+                        <Map amapkey={"c640403f7b166ffb3490f7d2d4ab954c"} 
+                        events={{
+                            created: (ins: any) => {
+                            if(!amap){
+                                dispatch(ActSetState({amap: (window as any).AMap }))
+                            }
+                            console.log(11122)
+                            }
+                        }}>
+                            <HeatMap {...pluginProps}/>
+                            <Cluster/>
+                        </Map>
                     </div>
                 </Col>
                 <Col span={6}>
@@ -597,10 +833,7 @@ export default function Statistic() {
                             style={{ height: '100%' }}
                             opts={{ renderer: 'svg' }}
                         />*/}
-                        <ReactECharts
-                            option={RadarOption}
-                            style={{ height: '100%' }}
-                        />
+                        <ReactECharts option={getTempOption()} style={{ height: '100%' }}/>
                     </div>
                 </Col>
             </Row>

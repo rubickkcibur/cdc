@@ -31,7 +31,7 @@ export default function Pagehistory() {
     const allHumidSeties = epidemics?.map((e:any,idx:any)=>({
         name:e.name,
         type:'line',
-        data:e.humidity,
+        data:e.humidity?.map((a:any)=>(e*100)),
         emphasis: {focus: 'series'},
         itemStyle:{
             normal:{

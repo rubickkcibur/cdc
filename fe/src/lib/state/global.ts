@@ -50,6 +50,7 @@ export type TState = {
   rfIns?:any
   epidemics?:any
   loadedRelatedInfo?:any
+  aggrGraph?:any
 }
 
 const getEpi=()=>{

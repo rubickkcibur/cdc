@@ -1,3 +1,4 @@
+import { useTypedSelector } from "../../lib/store";
 
 
 export var heatmapData = [{
@@ -1998,12 +1999,6 @@ export var heatmapData = [{
 	"count": 15
 }];
 
-// var points = heatmapData.map((e)=>{
-//     var weight=e.count
-//     var lnglat=[e.lng.toString(),e.lat.toString()]
-//     return {weight:weight,lnglat:lnglat}
-// })
-
 // export function Heatmap({AMap,map,container}:any){
 //     var heatmap:any;
 //     map.plugin(["AMap.HeatMap"], function () {
@@ -2021,19 +2016,27 @@ export var heatmapData = [{
 //     return (null)
 //   }
   
-// export function Cluster({AMap,map,container}:any){
-// 	var cluster:any
-// 	map.plugin(["AMap.MarkerClusterer"],function() {
-// 		cluster = new AMap.MarkerClusterer(
-// 		map,     // 地图实例
-// 		points, // 海量点数据，数据中需包含经纬度信息字段 lnglat
-// 		{
-// 			gridSize:60,
-// 			maxZom:24
-// 		});
-// 	});
-// 	return (null)
-// }
+export function Cluster({ __map__ }:{__map__?:any}){
+	const amap = useTypedSelector(e=>e.PAGlobalReducer.amap)
+	var points = heatmapData.map((e)=>{
+		var weight=e.count
+		var lnglat=[e.lng.toString(),e.lat.toString()]
+		// return {weight:weight,lnglat:lnglat}
+		return new amap.Marker({ position: new amap.LngLat(e.lng, e.lat)})
+	})
+
+	new Promise((resolve)=>{__map__.plugin(["AMap.MarkerClusterer"],function() {
+		var cluster = new (window as any).AMap.MarkerClusterer(
+		__map__,     // 地图实例
+		points, // 海量点数据，数据中需包含经纬度信息字段 lnglat
+		{
+			gridSize:60,
+			maxZom:24
+		});
+		resolve(cluster)
+	})}).then(()=>{console.log("build")});
+	return (null)
+}
 
 // export function Markers({AMap,map,container}:any){
 // 	var loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
