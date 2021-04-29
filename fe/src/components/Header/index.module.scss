@@ -12,7 +12,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        font-size: 18px;
+        font-size: 24px;
         text-align: left;
         background-color: black;
     }
@@ -29,7 +29,7 @@
 
             .Item {
                 cursor: pointer;
-                
+                font-size:20px;
                 height: 100%;
                 width: 146px;
                 display: flex;

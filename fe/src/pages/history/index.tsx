@@ -31,7 +31,7 @@ export default function Pagehistory() {
     const allHumidSeties = epidemics?.map((e:any,idx:any)=>({
         name:e.name,
         type:'line',
-        data:e.humidity?.map((a:any)=>(e*100)),
+        data:e.humidity?.map((e:any)=>(e*100)),
         emphasis: {focus: 'series'},
         itemStyle:{
             normal:{
@@ -85,7 +85,7 @@ export default function Pagehistory() {
         <MainLayout>
             <Row style={{height:'925px'}}>
                 <Col span={10} className={sty.statistic}>
-                    <Card title={"温度变化图"}>
+                    <Card title={<div><span className={sty.iconfont}>&#xe6de;</span>&nbsp;<span style={{fontSize:"20px"}}>温度走势图</span></div>}>
                         <Row>
                             <Col span={24}>
                                 <ReactECharts option={getTempOption()}/>
@@ -93,7 +93,7 @@ export default function Pagehistory() {
                         </Row>
                     </Card>
                     <Divider/>
-                    <Card title={"湿度变化图"}>
+                    <Card title={<div><span className={sty.iconfont}>&#xe918;</span>&nbsp;<span style={{fontSize:"20px"}}>湿度走势图</span></div>}>
                         <Row>
                             <Col span={24}>
                                 <ReactECharts option={getHumidOption()}/>

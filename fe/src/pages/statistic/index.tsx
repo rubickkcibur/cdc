@@ -7,15 +7,12 @@ import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import cloneDeep from 'lodash.clonedeep';
 import {Map} from "react-amap"
 import { useTypedSelector } from '../../lib/store'
-import { Cluster, heatmapData } from "../../components/AMapCom";
+import { heatmapData } from "../../components/AMapCom";
 import HeatMap from "../../components/Heatmap/heat";
 import { DownOutlined } from "@ant-design/icons"
 import dataFilter from "echarts/types/src/processor/dataFilter";
-import { ActSetState } from "../../lib/state/global";
-import { useDispatch } from "react-redux";
 
 export default function Statistic() {
-    const dispatch = useDispatch()
     //热力图
     const amap = useTypedSelector(e => e.PAGlobalReducer.amap)
     const visible = true;
@@ -80,6 +77,84 @@ export default function Statistic() {
                 }
             },
         },
+        /*{
+            name:"W1",
+            type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
+            data:[43,42,32,38,27,65,58,34,55],
+            itemStyle : {
+                normal : {
+                    color:'#5470c6',
+                    lineStyle:{
+                        color:'#5470c6'
+                    }
+                }
+            },
+        },
+        {
+            name:"W2",
+            type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
+            data:[46,38,28,40,33,62,63,32,44],
+            itemStyle : {
+                normal : {
+                    color:'#91cc75',
+                    lineStyle:{
+                        color:'#91cc75'
+                    }
+                }
+            },
+        },
+        {
+            name:"W3",
+            type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
+            data:[51,42,34,40,35,66,63,33,40],
+            itemStyle : {
+                normal : {
+                    color:'#fac858',
+                    lineStyle:{
+                        color:'#fac858'
+                    }
+                }
+            },
+        },
+        {
+            name:"W4",
+            type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
+            data:[41,46,33,48,32,67,63,33,40],
+            itemStyle : {
+                normal : {
+                    color:'#ee6666',
+                    lineStyle:{
+                        color:'#ee6666'
+                    }
+                }
+            },
+        },
+        {
+            name:"首次交付时间",
+            type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
+            data:[190,98,56,47,31,33,27,32,24],
+            itemStyle : {
+                normal : {
+                    color:'#1E1F04',
+                    lineStyle:{
+                        color:'#1E1F04'
+                    }
+                }
+            },
+        },
+        {
+            name:"项目验收时间",
+            type:'line',   //这块要定义type类型，柱形图是bar,饼图是pie
+            data:[190,121,82,85,59,95,85,61,63],
+            itemStyle : {
+                normal : {
+                    color:'#E31FE2',
+                    lineStyle:{
+                        color:'#E31FE2'
+                    }
+                }
+            },
+        }*/
     ]
     const getTempOption =()=> {
         let option = {
@@ -101,6 +176,25 @@ export default function Statistic() {
             },
             series: allTempSeties
         }
+        /*let option = {
+            title:{
+                text:'各轮次工作情况分析'
+            },
+            legend: {
+                top:"20px",
+                data: ['W1', 'W2', 'W3','W4','首次交付时间','项目验收时间']
+            },
+            xAxis:{
+                data:['2','3','4','5','6','7','8','9','11']
+            },
+            yAxis:{
+                type:'value',
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            series: allTempSeties
+        }*/
         return option
     }
 
@@ -538,46 +632,66 @@ export default function Statistic() {
     //走马灯
     const listData1 = [
         {
-            title: '病例1',
+            title: '·北京4月13日无新增新冠肺炎确诊病例 2021-04-14',
             description:'',
-            url:'https://ant.design',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/wnxw/202104/t20210414_2354783.html',
         },
         {
-            title: '病例2',
+            title: '·市卫生健康委召开儿童口腔保健服务工作会议 2021-04-13',
             description:'',
-            url:'https://ant.design',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/wnxw/202104/t20210413_2353391.html',
         },
         {
-            title: '病例3',
+            title: '·北京4月12日无新增新冠肺炎确诊病例 2021-04-13',
             description:'',
-            url:'https://ant.design',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/wnxw/202104/t20210413_2353260.html',
         },
         {
-            title: '病例4',
+            title: '·北京4月11日新增1例境外输入确诊病例 2021-04-12',
             description:'',
-            url:'https://ant.design',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/wnxw/202104/t20210412_2351703.html',
+        },
+        {
+            title: '·北京4月10日新增1例境外输入确诊病例 2021-04-11',
+            description:'',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/wnxw/202104/t20210411_2351624.html',
+        },
+        {
+            title: '·北京4月9日新增1例境外输入确诊病例2021-04-10',
+            description:'',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/wnxw/202104/t20210410_2351523.html',
         },
     ];
     const listData2 = [
         {
-            title: '病例11',
+            title: '·重温党史，回望过往的奋斗路眺望前方的奋进路',
             description:'',
-            url:'https://www.baidu.com/',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/jcdt/202104/t20210414_2355743.html',
         },
         {
-            title: '病例22',
+            title: '·优化流程，佑安医院满足群众对新冠核酸检测的多种需求',
             description:'',
-            url:'https://www.baidu.com/',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/jcdt/202104/t20210414_2355726.html',
         },
         {
-            title: '病例33',
+            title: '·真情讲述，那一年我在抗击“非典”一线入党',
             description:'',
-            url:'https://www.baidu.com/',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/jcdt/202104/t20210414_2355712.html',
         },
         {
-            title: '病例44',
+            title: '·北京妇产医院保健党支部开展学习党史活动',
             description:'',
-            url:'https://www.baidu.com/',
+            url:'http://wjw.beijing.gov.cn/xwzx_20031/jcdt/202104/t20210414_2355661.html',
+        },
+        {
+            title: '·北京市首家互联网医院正式获批',
+            description:'',
+            url:'http://www.stdaily.com/index/kejixinwen/2021-03/26/content_1097143.shtml',
+        },
+        {
+            title: '·北京已安全有序实施1000多万人次新冠疫苗接种',
+            description:'',
+            url:'https://proapi.jingjiribao.cn/detail.html?id=331486&user_id=e6b7d9ee1ae649f0b10111c2cbd8f2f8&source=wechat_friend',
         },
     ];
     const listData3 = [
@@ -677,7 +791,7 @@ export default function Statistic() {
                                     )}
                                 />
                             </div>
-                            <div className={sty.play}>
+                            {/*<div className={sty.play}>
                                 <List
                                     itemLayout="horizontal"
                                     dataSource={listData3}
@@ -704,7 +818,7 @@ export default function Statistic() {
                                         </List.Item>
                                     )}
                                 />
-                            </div>
+                            </div>*/}
                         </Carousel>
                     </div>
                 </Col>
@@ -723,15 +837,33 @@ export default function Statistic() {
                         </Row>*/}
                         <Row>
                             <Col span={10}>
-                                <div style={{marginTop:'5px'}}>
-                                    患者活动指数:<Progress percent={50} size="small" status="active"/>
-                                </div>
-                                <div style={{marginTop:'15px'}}>
-                                    传播范围指数:<Progress percent={46} size="small" status="active"/>
-                                </div>
-                                <div style={{marginTop:'15px'}}>
-                                    疫情趋势指数:<Progress percent={38} size="small" status="active"/>
-                                </div>
+                                <Row style={{marginTop:'10px'}}>
+                                    <Col span={12}>
+                                        <div className={sty.box1}>
+                                            <div className={sty.number}>52</div>
+                                            <div className={sty.name}>患者活动指数</div>
+                                        </div>
+                                    </Col>
+                                    <Col span={12}><div className={sty.box2}>
+                                        <div className={sty.number}>70</div>
+                                        <div className={sty.name}>传播范围指数</div>
+                                    </div></Col>
+                                </Row>
+                                <Row style={{marginTop:'15px'}}>
+                                    <Col span={12}>
+                                        <div className={sty.box3}>
+                                            <div className={sty.number}>42</div>
+                                            <div className={sty.name}>疫情趋势指数</div>
+                                        </div>
+                                    </Col>
+                                    <Col span={12}>
+                                        <div className={sty.box4}>
+                                            <div className={sty.number}>66</div>
+                                            <div className={sty.name}>疫苗普及指数</div>
+                                        </div>
+                                    </Col>
+
+                                </Row>
                             </Col>
                             <Col span={14}>
                                 <Row style={{marginTop:'25px'}}>
@@ -812,17 +944,8 @@ export default function Statistic() {
                 </Col>
                 <Col span={12}>
                     <div className={sty.bottomMid}>
-                        <Map amapkey={"c640403f7b166ffb3490f7d2d4ab954c"} 
-                        events={{
-                            created: (ins: any) => {
-                            if(!amap){
-                                dispatch(ActSetState({amap: (window as any).AMap }))
-                            }
-                            console.log(11122)
-                            }
-                        }}>
+                        <Map amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}>
                             <HeatMap {...pluginProps}/>
-                            <Cluster/>
                         </Map>
                     </div>
                 </Col>
@@ -838,5 +961,6 @@ export default function Statistic() {
                 </Col>
             </Row>
         </MainLayout>
+
     )
 }

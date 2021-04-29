@@ -178,7 +178,7 @@ export default function PatientAnalyze(){
     return(
         <MainLayout>
             <Row>
-                <Col span={6} className={sty.personCol}>
+                <Col span={8} className={sty.personCol}>
                     <div className={sty.personHeader}>
                         <UserOutlined style={{marginTop:'10px',marginLeft:'5px',marginRight:'5px',fontSize:'18px'}}/>
                         <div style={{marginTop:'2px',fontSize:'20px'}}>
@@ -190,10 +190,10 @@ export default function PatientAnalyze(){
                       <Routes/>
                     </div>
                 </Col>
-                <Col span={18}>
+                <Col span={16}>
                     <Col span={24}>
                         <Row> </Row>
-                        <div style={{height:"450px",width:"95%",marginLeft:'5%',backgroundColor:"white"}}>
+                        <div style={{height:"450px",width:"100%",marginLeft:'1%',backgroundColor:"white"}}>
                             <Row></Row>
                             <Map 
                               amapkey={"c640403f7b166ffb3490f7d2d4ab954c"}
@@ -210,7 +210,7 @@ export default function PatientAnalyze(){
                     </Col>
                     <Divider/>
                     <Col span={24}>
-                        <Row style={{marginLeft:'5%'}}>
+                        <Row style={{marginLeft:'1%'}}>
                             <Col span={14}>
                                 <Card title={"确诊患者关联地点查询"}>
                                     <div className={sty.tableContainer}>

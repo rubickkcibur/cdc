@@ -1,4 +1,4 @@
-import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs, Switch} from "antd";
+import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs} from "antd";
 import { DownOutlined } from '@ant-design/icons';
 import DescriptionsItem from "antd/lib/descriptions/Item";
 import React, { useDebugValue, useEffect, useState } from "react";
@@ -17,33 +17,13 @@ import NewRouteForm from "../../components/NewRoute";
 import Routes from "../../components/Routes";
 import initialElements from '../../components/drawboard/initial-elements';
 import SaveRestore from "../../components/drawboard"
-// import DeviceGraph from "../../components/JtopoNodes"
-import dynamic from "next/dynamic";
-
-const DeviceGraph = dynamic(()=>import("../../components/JtopoNodes"),{ssr:false})
+import DeviceGraph from "../../components/JtopoNodes"
 
 
 export default function Pageanalyse() {
     const { Option } = Select;
     const [isHidden,setIsHidden]=useState(sty.show);
-    const [cl,setC] = useState<boolean>(false);
-    const [pict,setPict] = useState<string>("1");
     const router = useRouter()
-    const dispatch = useDispatch()
-
-    useEffect(()=>{
-        dispatch(ActSetState({aggrGraph:{
-            n:5,
-            cliques:[
-                [1,2,3],
-                [3,4,5]
-            ]
-        }}))
-    })
-
-    useEffect(()=>{
-        console.log(cl)
-    },[cl])
 
     const content = (
         <div>
@@ -73,33 +53,33 @@ export default function Pageanalyse() {
     // const [changePic,setChangePic]=useState(sty.picture00);
     const [areaSlider,setAS] = useState<Number>(1000)
     const [timeSlider,setTS] = useState<Number>(60)
-    // const [cluster_background,setCB] = useState<string>(sty.cluster4)
-    // useEffect(()=>{
-    //     setCB(
-    //         (areaSlider>750 && timeSlider>50)?sty.cluster4:
-    //         (areaSlider>500 && timeSlider>45)?sty.cluster3:
-    //         (areaSlider>250 && timeSlider>35)?sty.cluster2:sty.cluster1)
-    // },[areaSlider,timeSlider])
+    const [cluster_background,setCB] = useState<string>(sty.cluster4)
+    useEffect(()=>{
+        setCB(
+            (areaSlider>750 && timeSlider>50)?sty.cluster4:
+            (areaSlider>500 && timeSlider>45)?sty.cluster3:
+            (areaSlider>250 && timeSlider>35)?sty.cluster2:sty.cluster1)
+    },[areaSlider,timeSlider])
 
-    // useEffect(()=>{
-    //     setPict(<div>
-    //         <div className={cluster_background}>
-    //             <Row></Row>
-    //             <Popover content={content} title="病例信息" trigger="click">
-    //                 <div className={sty.click}></div>
-    //             </Popover>
-    //         </div>
-    //     </div>)
-    // },[cluster_background])
+    useEffect(()=>{
+        setPict(<div>
+            <div className={cluster_background}>
+                <Row></Row>
+                <Popover content={content} title="病例信息" trigger="click">
+                    <div className={sty.click}></div>
+                </Popover>
+            </div>
+        </div>)
+    },[cluster_background])
     
-    // const[pict,setPict]=useState(<div>
-    //     <div className={cluster_background}>
-    //         <Row></Row>
-    //         <Popover content={content} title="病例信息" trigger="click">
-    //             <div className={sty.click}></div>
-    //         </Popover>
-    //     </div>
-    // </div>);
+    const[pict,setPict]=useState(<div>
+        <div className={cluster_background}>
+            <Row></Row>
+            <Popover content={content} title="病例信息" trigger="click">
+                <div className={sty.click}></div>
+            </Popover>
+        </div>
+    </div>);
     const options = [
             { value: '病例1——周某某' },
             { value: '病例7——李某某' },
@@ -121,18 +101,99 @@ export default function Pageanalyse() {
     };
     const { TabPane } = Tabs;
     const onChange = (e:any) => {
+        //   setType(e.target.value);
+        //画板
         if (e.target.value=="3"){
-            setPict("3")
+            setPict(
+                <>
+                <div className={sty.export}>
+                    <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
+                </div>
+                <div style={{width: "90vw",height: "90vh"}}>
+                    <SaveRestore/>
+                </div>
+                </>
+            )
             setIsHidden(sty.hidden)
         }
         //人群聚合
         else if(e.target.value=="1"){
-            setPict("1")
+            console.log(cluster_background)
+            setPict(
+                <div>
+                    <div className={cluster_background}>
+                        <Row></Row>
+                        <Popover content={content} title="病例信息" trigger="click">
+                            <div className={sty.click}></div>
+                        </Popover>
+                    </div>
+                </div>
+                // <DeviceGraph/>
+            )
             setIsHidden(sty.show)
         }
         //时间聚合
         else{
-            setPict("2")
+            setPict(
+                <div style={{marginTop:'15px',height:'100%',width:'100%'}}>
+                    <Row>
+                        <Col span={2}></Col>
+                        <Col span={6}>
+                            <div style={{fontSize:'20px'}}>患者轨迹空间分析</div>
+                            <div style={{marginLeft:'25px',marginTop:'10px'}}>
+                                请输入患者姓名&nbsp;&nbsp;
+                                <Complete/>
+                            </div>
+                            <div style={{marginTop:'20px',marginLeft:'30px'}}>
+                                已选择密接者&nbsp;&nbsp;&nbsp;
+                                <Button type="primary" style={{color:'black'}}>周某某</Button>
+                                <Button type="primary" danger style={{color:'black',marginLeft:'10px'}}>王某某</Button>
+                            </div>
+                        </Col>
+                        <Col span={6}></Col>
+                        <Col span={7}>
+                            <div style={{fontSize:'20px'}}>患者轨迹时间分析</div>
+                            <div style={{marginLeft:'25px',marginTop:'10px'}}>
+                                <Row>
+                                    <Col span={6} style={{marginTop:'5px'}}>请选择时间点&nbsp;&nbsp;</Col>
+                                    <Col span={18}><Slider marks={marks} defaultValue={100} /></Col>
+                                </Row>
+                            </div>
+                        </Col>
+                        <Col span={3}></Col>
+                    </Row>
+                    <div style={{marginTop:'10px',height:'100%'}}>
+                        <Row style={{height:'100%'}}>
+                            <Col span={1}></Col>
+                            <Col span={11}>
+                                <div className={sty.picture01}></div>
+                            </Col>
+                            <Col span={3}></Col>
+                            <Col span={8} style={{marginTop:'0px'}}>
+                                <Tabs type={"card"}>
+                                    <TabPane tab="地点聚合" key="1">
+                                        <div className={sty.picture02}>
+                                            <Row></Row>
+                                            <Popover content={content1} title="金马工业区" trigger="click">
+                                                <div className={sty.click01}></div>
+                                            </Popover>
+                                        </div>
+                                    </TabPane>
+                                    <TabPane tab="患者轨迹" key="2">
+                                        <div className={sty.picture021}>
+                                            <Row></Row>
+                                            <Popover content={content1} title="金马工业区" trigger="click">
+                                                <div className={sty.click02}></div>
+                                            </Popover>
+                                        </div>
+                                    </TabPane>
+                                </Tabs>
+                            </Col>
+                            <Col span={1}></Col>
+                        </Row>
+                    </div>
+                </div>
+            )
             setIsHidden(sty.hidden)
         }
     };
@@ -150,7 +211,7 @@ export default function Pageanalyse() {
                 </Col>
                 <Col style={{marginTop:'1px'}} span={6}>
                     <Row className={isHidden}>
-                        <Col span={5} style={{marginTop:'4px'}}>聚合距离差:</Col>
+                        <Col span={5} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合距离差:</span></Col>
 
                         <Col span={4}>
                             <Select defaultValue="01" style={{ width: 70 }}>
@@ -179,7 +240,7 @@ export default function Pageanalyse() {
                 </Col>
                 <Col style={{marginTop:'1px'}} span={6}>
                     <Row className={isHidden}>
-                        <Col span={5} style={{marginTop:'4px'}}>聚合时间差:</Col>
+                        <Col span={5} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合时间差:</span></Col>
 
                         <Col span={4}>
                             <Select defaultValue="01" style={{ width: 70 }}>
@@ -218,81 +279,7 @@ export default function Pageanalyse() {
             </Row>
 
             <div style={{height:'100%'}}>
-                {
-                    pict == "1"?
-                    <>
-                        <Switch onChange={setC}/>
-                        <DeviceGraph cl={cl}/>
-                    </>:
-                    pict == "2"?
-                    <div style={{marginTop:'15px',height:'100%',width:'100%'}}>
-                        <Row>
-                            <Col span={2}></Col>
-                            <Col span={6}>
-                                <div style={{fontSize:'20px'}}>患者轨迹空间分析</div>
-                                <div style={{marginLeft:'25px',marginTop:'10px'}}>
-                                    请输入患者姓名&nbsp;&nbsp;
-                                    <Complete/>
-                                </div>
-                                <div style={{marginTop:'20px',marginLeft:'30px'}}>
-                                    已选择密接者&nbsp;&nbsp;&nbsp;
-                                    <Button type="primary" style={{color:'black'}}>周某某</Button>
-                                    <Button type="primary" danger style={{color:'black',marginLeft:'10px'}}>王某某</Button>
-                                </div>
-                            </Col>
-                            <Col span={6}></Col>
-                            <Col span={7}>
-                                <div style={{fontSize:'20px'}}>患者轨迹时间分析</div>
-                                <div style={{marginLeft:'25px',marginTop:'10px'}}>
-                                    <Row>
-                                        <Col span={6} style={{marginTop:'5px'}}>请选择时间点&nbsp;&nbsp;</Col>
-                                        <Col span={18}><Slider marks={marks} defaultValue={100} /></Col>
-                                    </Row>
-                                </div>
-                            </Col>
-                            <Col span={3}></Col>
-                        </Row>
-                        <div style={{marginTop:'10px',height:'100%'}}>
-                            <Row style={{height:'100%'}}>
-                                <Col span={1}></Col>
-                                <Col span={11}>
-                                    <div className={sty.picture01}></div>
-                                </Col>
-                                <Col span={3}></Col>
-                                <Col span={8} style={{marginTop:'0px'}}>
-                                    <Tabs type={"card"}>
-                                        <TabPane tab="地点聚合" key="1">
-                                            <div className={sty.picture02}>
-                                                <Row></Row>
-                                                <Popover content={content1} title="金马工业区" trigger="click">
-                                                    <div className={sty.click01}></div>
-                                                </Popover>
-                                            </div>
-                                        </TabPane>
-                                        <TabPane tab="患者轨迹" key="2">
-                                            <div className={sty.picture021}>
-                                                <Row></Row>
-                                                <Popover content={content1} title="金马工业区" trigger="click">
-                                                    <div className={sty.click02}></div>
-                                                </Popover>
-                                            </div>
-                                        </TabPane>
-                                    </Tabs>
-                                </Col>
-                                <Col span={1}></Col>
-                            </Row>
-                        </div>
-                    </div>
-                    :
-                    <>
-                        <div className={sty.export}>
-                            <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
-                        </div>
-                        <div style={{width: "90vw",height: "90vh"}}>
-                            <SaveRestore/>
-                        </div>
-                    </>
-                }
+                {pict}
             </div>
 
             </div>

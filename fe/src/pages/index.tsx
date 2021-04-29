@@ -18,6 +18,8 @@ import { DownOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import EpidChoose from "../components/EpidChoose";
 //import Search from "../../lib/search";
 
+const Big = ({str}:{str:string})=><span style={{fontSize:"18px"}}>{str}</span>
+
 
 export default function Pagepatients() {
 
@@ -86,17 +88,19 @@ export default function Pagepatients() {
 
     const patientColumns:ColumnsType<Basic> = [
       {
-        title: "姓名",
+        title: <Big str="姓名"/>,
         dataIndex: "name",
-        width:150
+        width:150,
+        render: (txt)=> <span style={{fontSize:"18px"}}>{txt}</span>
       },
       {
-        title: "身份证号",
+        title: <Big str="身份证号"/>,
         dataIndex: "personal_id",
-        width:150
+        width:150,
+        render: (txt)=> <span style={{fontSize:"18px"}}>{txt}</span>
       },
       {
-        title: "性别",
+        title: <Big str="性别"/>,
         dataIndex: "gender",
         width:150,
         filters:[
@@ -110,31 +114,35 @@ export default function Pagepatients() {
           }
         ],
         onFilter:(value,record)=>{return record.gender == value;},
-        render:text=>(text=="male"?"男":"女")
+        render:text=>(<span style={{fontSize:"18px"}}>{text=="male"?"男":"女"}</span>)
       },
       {
-        title: "电话",
+        title: <Big str="电话"/>,
         dataIndex: "phone",
-        width:150
+        width:150,
+        render: (txt)=> <span style={{fontSize:"18px"}}>{txt}</span>
       },
       {
-        title: "年龄",
+        title: <Big str="年龄"/>,
         dataIndex: "age",
         width:150,
+        render: (txt)=> <span style={{fontSize:"18px"}}>{txt}</span>,
         sorter:(a,b)=>(Number(a.age)-Number(b.age))
       },
       {
-        title: "所在地",
+        title: <Big str="所在地"/>,
         dataIndex: "addr1",
-        width:150
+        width:150,
+        render: (txt)=> <span style={{fontSize:"18px"}}>{txt}</span>
       },
       {
-        title: "详细地址",
+        title: <Big str="详细地址"/>,
         dataIndex: "addr2",
-        width:150
+        width:150,
+        render: (txt)=> <span style={{fontSize:"18px"}}>{txt}</span>
       },
       {
-        title: "完成度",
+        title: <Big str="完成度"/>,
         // render: (e) =>(
         //   <div style={{color:"red"}}>{
         //     e.name!="李某某"?"14/14":
@@ -156,7 +164,8 @@ export default function Pagepatients() {
         render:(e)=>(
           <div style={{color:"red"}}>{
             e.done>=14?"14/14":
-            <div>{String(e.done) + "/14"}
+            <div>
+              <span style={{fontSize:"18px"}}>{String(e.done) + "/14"}</span>
               <Popover 
                 placement="rightBottom"
                 content={<>
@@ -174,12 +183,12 @@ export default function Pagepatients() {
         width:150
       },
       {
-        title: "操作",
+        title: <Big str="操作"/>,
         render: (e) => (
           <>
-            <a onClick={()=>{showOnMap(e)}}>继续完善</a>
+            <span style={{fontSize:"18px"}}><a onClick={()=>{showOnMap(e)}}>继续完善</a></span>
             &nbsp;&nbsp;
-            <a onClick={()=>{analyze(e)}}>案例分析</a>
+            <span style={{fontSize:"18px"}}><a onClick={()=>{analyze(e)}}>案例分析</a></span>
           </>
         ),
         width:150
@@ -209,10 +218,10 @@ export default function Pagepatients() {
         <div className={sty.Table}>
         <Row>
           <Col span={12}>
-            <Search placeholder="输入患者姓名" onSearch={onSearch}/>
+            <Search size={"large"} placeholder="输入患者姓名" onSearch={onSearch}/>
           </Col>
           <Col span={12}>
-            <EpidChoose size="small" change={e=>{setCK(e),getBasics(epidemics[e].name)}}/>
+            <EpidChoose size="middle" change={e=>{setCK(e),getBasics(epidemics[e].name)}}/>
           </Col>
         </Row>  
         <Table<Basic>

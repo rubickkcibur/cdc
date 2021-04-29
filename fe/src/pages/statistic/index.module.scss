@@ -65,3 +65,44 @@
 .process{
   margin-left:20%;
 }
+.box1{
+  width:80%;
+  height: 10vh;
+  border:2px solid  rgba(24,255,42,1);
+  margin-left: 10%;
+  text-align: center;
+  background-color: rgba(24,255,42,0.3);
+}
+.box2{
+  width:80%;
+  height: 10vh;
+  border:2px solid rgba(255,190,0,1);
+  margin-left: 10%;
+  text-align: center;
+  background-color: rgba(255,190,0,0.3);
+}
+.box3{
+  width:80%;
+  height: 10vh;
+  border:2px solid rgba(255,0,0,1);
+  margin-left: 10%;
+  text-align: center;
+  background-color: rgba(255,0,0,0.3);
+}
+.box4{
+  width:80%;
+  height: 10vh;
+  border:2px solid rgba(3,237,255,1);
+  margin-left: 10%;
+  text-align: center;
+  background-color: rgba(3,237,255,0.3);
+}
+.number{
+  margin-top: 5px;
+  font-size: 24px;
+  font-weight: 900;
+}
+.name{
+  font-size: 18px;
+  font-weight: 400;
+}

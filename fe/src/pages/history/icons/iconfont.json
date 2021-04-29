@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "16562592",
+      "name": "温度计",
+      "font_class": "wenduji",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
+      "icon_id": "18169496",
+      "name": "血,血液,水,水滴",
+      "font_class": "blood-full",
+      "unicode": "e918",
+      "unicode_decimal": 59672
+    }
+  ]
+}

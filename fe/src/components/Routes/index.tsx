@@ -25,6 +25,8 @@ interface Routes {
     routes: RForm[]
 }
 
+const Big = ({str}:any)=><span style={{fontSize:"18px"}}>{str}</span>
+    
 interface ListProp {
     value?: any,
     initValue?: any,
@@ -66,7 +68,7 @@ function ContactsList({ value, onChange }: ListProp) {
             <div className={sty.CloseContact}>
                 <Row>
                     <Col style={{ marginTop: '5px' }} span={4}>
-                        密接者:
+                        <Big str="密接者："/>
                     </Col>
                     <Col span={20}>
                         <div className={sty.inputDiv}>
@@ -200,30 +202,30 @@ export function PauseForm({ value, onChange }: PFProps) {
             <Form form={form} onValuesChange={onFormChange}>
                 <Row>
                     <Col span={8}>
-                        <FormItem label={"时间:"} name={"time"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
+                        <FormItem label={<Big str="时间"/>} name={"time"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
                             <TimeItem></TimeItem>
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label={"停留:"} name={"stay"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
+                        <FormItem label={<Big str="停留"/>} name={"stay"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
                             <Stay/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
-                        <FormItem label={"保护措施:"} name={"protection"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
+                        <FormItem label={<Big str="保护措施"/>} name={"protection"} rules={[{ required: true }]} style={{ padding: '8px 0' }}>
                             <Input/>
                         </FormItem>
                     </Col>
                 </Row>
                 <Row>
                     <Col span={11}>
-                        <FormItem style={{ marginTop: '-20px' }} label={"地点:"} name={"location"} rules={[{ required: true }]}>
+                        <FormItem style={{ marginTop: '-20px' }} label={<Big str="地点"/>} name={"location"} rules={[{ required: true }]}>
                             <SearchInput placeholder={"搜索地点"} />
                         </FormItem>
                     </Col>
                     <Col span={2}/>
                     <Col span={11}>
-                        <FormItem style={{ marginTop: '-20px' }} label={"详细地点:"} name={"detail_location"}>
+                        <FormItem style={{ marginTop: '-20px' }} label={<Big str="详细地点"/>} name={"detail_location"} >
                             {/* <Input/> */}
                             <AutoComplete placeholder={"详细地址"} onSearch={onSearch} options={options.map((e)=>({
                                 label:e.detail_location + "-" + e.relate_basic.name + "(" + e.relate_basic.personal_id + ")",
@@ -365,6 +367,7 @@ function Date({ value, onChange, idx }: DProps) {
     const [show, setS] = useState<boolean>(false)
 
     const onPickerChange = (date: Moment | null, dateString: String) => {
+        console.log("Date",dateString)
         onChange && onChange(dateString)
     }
 
@@ -379,7 +382,12 @@ function Date({ value, onChange, idx }: DProps) {
     }
 
     return (
-        <>
+        // <div style={{
+        //     "display":"flex",
+        //     "flexDirection":"row",
+        //     "justifyContent":"space-between"
+        // }}>
+        <div>
             <DatePicker className={sty.dateStyle}
                 bordered={false}
                 size={"large"}
@@ -394,7 +402,7 @@ function Date({ value, onChange, idx }: DProps) {
                     onButtonClick(idx)
                  }}>{show ? "隐藏" : "展示"}</Button>
             }
-        </>
+        </div>
     )
 }
 

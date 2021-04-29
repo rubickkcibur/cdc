@@ -22,6 +22,9 @@ interface ATProps {
     initValue?:any,
     onChange?:(e?:any,v?:any)=>any
 }
+
+const Big = ({str}:{str:string})=><span style={{fontSize:"18px"}}>{str}</span>
+
 export function ArrivalTransport({value,onChange}:ATProps){
     const halfItemGrid = { md: { span: 12 } };
     const fullItemGrid = { md: { span: 24 } };
@@ -36,7 +39,7 @@ export function ArrivalTransport({value,onChange}:ATProps){
     return(
         <Row gutter={halfGutter}>
             <Col {...halfItemGrid}>
-                <FormItem label={"交通方式"} style={itemStyle} rules={[{ required: true }]}>
+                <FormItem label={<Big str="交通方式"/>} style={itemStyle} rules={[{ required: true }]}>
                 <Select onChange={(e)=>{
                     let temp = arrival_transport?.slice()
                     if (temp){
@@ -52,7 +55,7 @@ export function ArrivalTransport({value,onChange}:ATProps){
                 </FormItem>
             </Col>
             <Col {...halfItemGrid}>
-                <FormItem label={"车/船/机次"} style={itemStyle} rules={[{ required: true }]}>
+                <FormItem label={<Big str="车/船/机次"/>} style={itemStyle} rules={[{ required: true }]}>
                 <Input onChange={(e)=>{
                     let temp = arrival_transport?.slice()
                     if (temp){
@@ -122,14 +125,14 @@ export function OutSea({value,onChange}:OVProps) {
         <Form form={form} onValuesChange={onFormChange}>
             <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}}>
                 <Col {...halfItemGrid}>
-                    <FormItem label={"旅行国家"} name={"traveled_country"} style={itemStyle} rules={[{ required: true }]}>
+                    <FormItem label={<Big str="旅行国家"/>} name={"traveled_country"} style={itemStyle} rules={[{ required: true }]}>
                         <Select mode="multiple" style={{width:'100%',overflowY:'auto',overflowX:'hidden'}} placeholder="请输入前往过的国家">
                             {country}
                         </Select>
                     </FormItem>
                 </Col>
                 <Col {...halfItemGrid}>
-                    <FormItem label={"经停国家"} name={"passing_country"} style={itemStyle} rules={[{ required: true }]}>
+                    <FormItem label={<Big str="经停国家"/>} name={"passing_country"} style={itemStyle} rules={[{ required: true }]}>
                         <Select mode="multiple" style={{width:'100%',overflowY:'auto',overflowX:'hidden'}} placeholder="请输入经停国家">
                             {country}
                         </Select>
@@ -139,7 +142,7 @@ export function OutSea({value,onChange}:OVProps) {
 
             <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}}>
                 <Col {...halfItemGrid}>
-                    <FormItem label={"国籍"} name={"nation"} style={itemStyle} rules={[{ required: true }]}>
+                    <FormItem label={<Big str="国籍"/>} name={"nation"} style={itemStyle} rules={[{ required: true }]}>
 
                         <AutoComplete options={countryData} placeholder={"请选择国籍"} filterOption={(inputValue, option) =>
                             option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
@@ -147,7 +150,7 @@ export function OutSea({value,onChange}:OVProps) {
                     </FormItem>
                 </Col>
                 <Col {...halfItemGrid}>
-                    <FormItem label={"护照ID"} name={"passport_id"} style={itemStyle} rules={[{ required: true }]}>
+                    <FormItem label={<Big str="护照ID"/>} name={"passport_id"} style={itemStyle} rules={[{ required: true }]}>
                         <Input placeholder={"请输入护照ID"} />
                     </FormItem>
                 </Col>
@@ -155,12 +158,12 @@ export function OutSea({value,onChange}:OVProps) {
 
             <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}}>
                 <Col {...halfItemGrid}>
-                    <FormItem label={"抵达位置"} name={"arrival_port"} style={itemStyle} rules={[{ required: true }]}>
+                    <FormItem label={<Big str="抵达位置"/>} name={"arrival_port"} style={itemStyle} rules={[{ required: true }]}>
                         <Cascader placeholder={"省/机场或车站"} options={APData} />
                     </FormItem>
                 </Col>
                 <Col {...halfItemGrid}>
-                    <FormItem label={"抵达时间"} name={"arrival_date"} style={itemStyle} rules={[{ required: true }]}>
+                    <FormItem label={<Big str="抵达时间"/>} name={"arrival_date"} style={itemStyle} rules={[{ required: true }]}>
                         {/* <DatePicker style={{width:'100%'}}
                             format="YYYY-MM-DD"
                         /> */}
@@ -219,12 +222,12 @@ export default function FormBasic({ onChange }: IProps) {
     <Form style={{height:'750px',overflowX:'hidden',overflowY:'auto'}} onValuesChange={onValueChange} form={form}>
       <Row gutter={halfGutter} style={{marginTop:'10px',marginRight:'12px',marginLeft:'8px'}}>
           <Col {...threeItemGrid}>
-            <FormItem label={"姓名"} name={"name"} style={itemStyle} rules={[{ required: true }]}>
+            <FormItem label={<Big str="姓名"/>} name={"name"} style={itemStyle} rules={[{ required: true }]}>
               <Input placeholder={"请输入姓名"} />
             </FormItem>
           </Col>
           <Col {...threeItemGrid}>
-              <FormItem label={"性别"} name={"gender"} initialValue={"male"} style={itemStyle} rules={[{ required: true }]}>
+              <FormItem label={<Big str="性别"/>} name={"gender"} initialValue={"male"} style={itemStyle} rules={[{ required: true }]}>
                   <Select>
                       <Select.Option value={"male"}> 男</Select.Option>
                       <Select.Option value={"female"}>女</Select.Option>
@@ -232,7 +235,7 @@ export default function FormBasic({ onChange }: IProps) {
               </FormItem>
           </Col>
           <Col {...threeItemGrid}>
-              <FormItem label={"年龄"} name={"age"} style={itemStyle} rules={[{ required: true }]}>
+              <FormItem label={<Big str="年龄"/>} name={"age"} style={itemStyle} rules={[{ required: true }]}>
                   <Input placeholder={"请输入年龄"} />
               </FormItem>
           </Col>
@@ -240,19 +243,19 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}}>
             <Col {...threeItemGrid}>
-                <FormItem label={"身高"} name={"height"} style={itemStyle} rules={[{ required: false }]}>
+                <FormItem label={<Big str="身高"/>} name={"height"} style={itemStyle} rules={[{ required: false }]}>
                     <InputNumber style={{width:'100%'}} formatter={value => `${value}cm`}
                         parser={value => value?value.replace('cm', ''):'0'} placeholder={"请输入身高(cm)"} />
                 </FormItem>
             </Col>
             <Col {...threeItemGrid}>
-                <FormItem label={"体重"} name={"weight"} style={itemStyle} rules={[{ required: false }]}>
+                <FormItem label={<Big str="体重"/>} name={"weight"} style={itemStyle} rules={[{ required: false }]}>
                     <InputNumber style={{width:'100%'}} formatter={value => `${value}kg`}
                         parser={value => value?value.replace('kg', ''):'0'} placeholder={"请输入体重(kg)"} />
                 </FormItem>
             </Col>
           <Col {...threeItemGrid}>
-              <FormItem label={"确诊时间"} name={"time"} style={itemStyle} rules={[{ required: false }]}>
+              <FormItem label={<Big str="确诊时间"/>} name={"time"} style={itemStyle} rules={[{ required: false }]}>
                   {/* <DatePicker
                       format="YYYY-MM-DD"
                   /> */}
@@ -263,12 +266,12 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}} >
           <Col {...halfItemGrid}>
-            <FormItem label={"电话"} name={"phone"} style={itemStyle} rules={[{ required: true }]}>
+            <FormItem label={<Big str="电话"/>} name={"phone"} style={itemStyle} rules={[{ required: true }]}>
               <Input placeholder={"请输入电话"} />
             </FormItem>
           </Col>
           <Col {...halfItemGrid}>
-              <FormItem label={"身份证"} name={"personal_id"} style={itemStyle} rules={[{ required: true }]}>
+              <FormItem label={<Big str="身份证"/>} name={"personal_id"} style={itemStyle} rules={[{ required: true }]}>
                   <Input placeholder={"请输入身份证号"} />
               </FormItem>
           </Col>
@@ -276,12 +279,12 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}}>
           <Col {...halfItemGrid}>
-            <FormItem label={"住址"} name={"addr1"} style={itemStyle} rules={[{ required: true }]}>
+            <FormItem label={<Big str="住址"/>} name={"addr1"} style={itemStyle} rules={[{ required: true }]}>
               <Cascader placeholder={"省/市/区"} options={PCAData} />
             </FormItem>
           </Col>
           <Col {...halfItemGrid}>
-              <FormItem label={"地址"} name={"addr2"} style={itemStyle} rules={[{ required: true }]}>
+              <FormItem label={<Big str="地址"/>} name={"addr2"} style={itemStyle} rules={[{ required: true }]}>
                   <Input placeholder={"县/街道"} />
               </FormItem>
           </Col>
@@ -289,12 +292,12 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}}>
         <Col {...halfItemGrid}>
-          <FormItem label={"职业"} name={"vocation"} style={itemStyle} rules={[{ required: false }]}>
+          <FormItem label={<Big str="职业"/>} name={"vocation"} style={itemStyle} rules={[{ required: false }]}>
             <Input placeholder={"请输入职业"} />
           </FormItem>
         </Col>
           <Col {...halfItemGrid}>
-              <FormItem label={"工作地点"} name={"working_place"} style={itemStyle} rules={[{ required: false }]}>
+              <FormItem label={<Big str="工作地点"/>} name={"working_place"} style={itemStyle} rules={[{ required: false }]}>
                   <Input placeholder={"请输入工作地点"} />
               </FormItem>
           </Col>
@@ -302,7 +305,7 @@ export default function FormBasic({ onChange }: IProps) {
 
       <Row gutter={halfGutter} style={{marginRight:'12px',marginLeft:'8px'}}>
           <Col {...halfItemGrid}>
-              <FormItem label={"是否为境外输入"} name={"isOut"}  initialValue={"no"} style={itemStyle} rules={[{ required: true }]}>
+              <FormItem label={<Big str="是否境外输入"/>} name={"isOut"}  initialValue={"no"} style={itemStyle} rules={[{ required: true }]}>
                   <Select onChange={isOutPatient}>
                       <Option value="yes">是</Option>
                       <Option value="no">否</Option>

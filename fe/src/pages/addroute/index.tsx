@@ -60,7 +60,7 @@ export default function index() {
   const onSubmit = async () => {
     try{
       Axios.post(`${Constant.apihost}/insertroute`, {
-        personal_id:(await basicForm?.validateFields())?.personal_id,
+        personal_id:basicForm?.getFieldsValue()?.personal_id,
         data:newRouteBuffer
       })
       .then(()=>message.success("提交成功"))
@@ -68,14 +68,14 @@ export default function index() {
     }catch(e){
       console.log(e)
     }
-    // console.log("for check")
-    // console.log(basicForm?.getFieldsValue())
-    // console.log(newRouteBuffer)
+    console.log("for 更新 check")
+    console.log(basicForm?.getFieldsValue())
+    console.log(newRouteBuffer)
   }
   const onSave = async () => {
     try{
       Axios.post(`${Constant.apihost}/newupload`, {
-        basic:await basicForm?.validateFields(), //此处有问题
+        basic:basicForm?.getFieldsValue(), //此处有问题
         routes:[newRouteBuffer]
       })
       .then(()=>message.success("提交成功"))
@@ -83,9 +83,9 @@ export default function index() {
     }catch(e){
       console.log(e)
     }
-    // console.log("for check")
-    // console.log(basicForm?.getFieldsValue())
-    // console.log(newRouteBuffer)
+    console.log("for 新增 check")
+    console.log(basicForm?.getFieldsValue())
+    console.log(newRouteBuffer)
   }
 
   const menuClick = (e:any) => {
@@ -114,10 +114,10 @@ export default function index() {
     let info = basicForm?.getFieldsValue()
     return(
       <>
-        <h3>
+        <span style={{fontSize:"18px"}}>
           {info?.name}，{info?.gender=="male"?"男":"女"}，身份证号{info?.personal_id}，{info?.age}岁，电话{info?.phone}。
           家住{info?.addr1[0] + info?.addr1[1] +info?.addr1[2] + info?.addr2}
-        </h3>
+        </span>
         <h3>
           {loadedRoutes?.map((e)=>(
             <>
@@ -129,7 +129,6 @@ export default function index() {
                     (n?.pause?.time+"时,"+"抵达"+n.pause?.location?.name+"。"+(contacts?("接触"+contacts+"。"):"")))
                 }).join(" ")}
               </h3>
-              <br/>
            </>
           ))}
         </h3>
@@ -189,8 +188,8 @@ export default function index() {
                   type={"card"}
                   tabBarExtraContent={
                     <div className={sty.UploadButton}>
-                      <Button icon={<SaveOutlined />} type={'primary'} onClick={onSave} className={buttonEnable}>新增</Button>
-                      <Button  icon={<UploadOutlined />} type={'primary'} onClick={onSubmit} className={buttonEnable}>更新</Button>
+                      <Button icon={<SaveOutlined />} size={"large"} type={'primary'} onClick={onSave} className={buttonEnable}>新增</Button>
+                      <Button  icon={<UploadOutlined />} size={"large"} type={'primary'} onClick={onSubmit} className={buttonEnable}>更新</Button>
                     </div>
                   }
                   onChange={(actKey)=>{
@@ -202,12 +201,12 @@ export default function index() {
                     }
                   }}
                 >
-                  <TabPane tab="基本信息" key="1">
+                  <TabPane tab={<span style={{fontSize:"18px"}}>基本信息</span>} key="1">
                     <div className={sty.PanelContainer}>
                       <FormBasic onChange={onBasicChange} />
                     </div>
                   </TabPane>
-                  <TabPane tab="新增路径" key="2">
+                  <TabPane tab={<span style={{fontSize:"18px"}}>新增路径</span>} key="2">
                     <div className={sty.PanelContainer}>
                       <NewRouteForm/>
                     </div>
