@@ -20,6 +20,7 @@ import {Map} from "react-amap"
 import { extracLocation } from "../../lib/utils"
 import dynamic from "next/dynamic"
 import { AMapInsertMarker } from "../../components/AMapMarker"
+import BasicQues from "../../components/BasicQues"
 const { TabPane } = Tabs
 export const Card = ({
   children,
@@ -47,6 +48,7 @@ export default function index() {
   const [mapShow, setMS] = useState<boolean>(true)
   const [epidemic, setE] = useState<string>("待选择")
   const [buttonEnable, setBE] = useState(sty.hidden)
+  const [version,setVer] = useState<string>("2021年04月21日12:30 - 张三")
   const newRouteBuffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
   const loadedRoutes = useTypedSelector(e=>e.PAGlobalReducer.loadedRoutes)
   const loadedEpiKey = useTypedSelector(e=>e.PAGlobalReducer.loadedEpiKey)
@@ -114,29 +116,29 @@ export default function index() {
     let info = basicForm?.getFieldsValue()
     return(
       <>
-        <span style={{fontSize:"18px"}}>
+        <span style={{fontSize:"18px",fontFamily:"cursive"}}>
           {info?.name}，{info?.gender=="male"?"男":"女"}，身份证号{info?.personal_id}，{info?.age}岁，电话{info?.phone}。
           家住{info?.addr1[0] + info?.addr1[1] +info?.addr1[2] + info?.addr2}
         </span>
-        <h3>
+        <span style={{fontSize:"18px",fontFamily:"cursive"}}>
           {loadedRoutes?.map((e)=>(
             <>
-              <h3>
+              <span style={{fontSize:"18px",fontFamily:"cursive"}}>
                 {e.date}，{e.route.map((n)=>{
                   let contacts = n?.pause?.contacts?.map((c)=>(c.name+"("+c.pid.substr(12,6)+")")).join(",")
                   return (n?.travel?.transform?
                     (n?.pause?.time+"时,经"+n.travel.transform+"抵达"+n.pause?.location?.name+"。"+(contacts?("接触"+contacts+"。"):"")):
                     (n?.pause?.time+"时,"+"抵达"+n.pause?.location?.name+"。"+(contacts?("接触"+contacts+"。"):"")))
                 }).join(" ")}
-              </h3>
+              </span>
            </>
           ))}
-        </h3>
-        <h3>
+        </span>
+        <span style={{fontSize:"18px",fontFamily:"cursive"}}>
           {newRouteBuffer?.date}
-        </h3>
+        </span>
         <br/>
-        <h3>
+        <span style={{fontSize:"18px",fontFamily:"cursive"}}>
           {newRouteBuffer?.route?.map(
             (n)=>{
               let contacts = n?.pause?.contacts?.map((c)=>(c.name+"("+c.pid.substr(12,6)+")")).join(",")
@@ -144,7 +146,7 @@ export default function index() {
                 (n?.pause?.time+"时,经"+n.travel.transform+"抵达"+n.pause?.location?.name+"。"+(contacts?("接触"+contacts+"。"):"")):
                 (n?.pause?.time+"时,"+"抵达"+n.pause?.location?.name+"。"+(contacts?("接触"+contacts+"。"):"")))
             }).map((s)=>(<>{s}<br/></>))}
-        </h3>
+        </span>
       </>
     )
   }
@@ -160,17 +162,43 @@ export default function index() {
             <div
               style={{
                 display:"flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-start",
-                marginTop:'3px'
-              }}
-            >
-              <Dropdown overlay={menu} trigger={['click']}>
-                <h1>{epidemic}<DownOutlined/></h1>
+                flexDirection:"row",
+                justifyContent:"space-between",
+                alignItems: "center",
+                width:"90%"
+              }}>
+              <div
+                style={{
+                  display:"flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  marginTop:'3px'
+                }}
+              >
+                <Dropdown overlay={menu} trigger={['click']}>
+                  <h1>{epidemic}<DownOutlined/></h1>
+                </Dropdown>
+                <h3 style={{color: "red",marginTop:'-6px'}}>已确诊{epidemics?epidemics[loadedEpiKey]?.patients:0}例</h3>
+                <h4>首例确诊时间: {epidemics?epidemics[loadedEpiKey]?.first_time:"2021-01-01"}</h4>
+              </div>
+              <div style={{width:"38%"}}>
+              <Dropdown overlay={
+                <Menu onClick={(e:any)=>setVer(e.key as string)}>
+                  <Menu.Item key={"2021年04月21日12:30 - 张三"}>
+                    2021年04月21日12:30 - 张三
+                  </Menu.Item>
+                  <Menu.Item key={"2021年04月22日11:30 - 李四"}>
+                    2021年04月22日11:30 - 李四
+                  </Menu.Item>
+                  <Menu.Item key={"2021年04月20日13:30 - 王五"}>
+                    2021年04月20日13:30 - 王五
+                  </Menu.Item>
+                </Menu>
+              } trigger={['click']}>
+                <h2>{version}<DownOutlined/></h2>
               </Dropdown>
-              <h3 style={{color: "red",marginTop:'-6px'}}>已确诊{epidemics?epidemics[loadedEpiKey]?.patients:0}例</h3>
-              <h4>首例确诊时间: {epidemics?epidemics[loadedEpiKey]?.first_time:"2021-01-01"}</h4>
+              </div>
             </div>
 
           </Col>
@@ -206,7 +234,25 @@ export default function index() {
                       <FormBasic onChange={onBasicChange} />
                     </div>
                   </TabPane>
-                  <TabPane tab={<span style={{fontSize:"18px"}}>新增路径</span>} key="2">
+                  <TabPane tab={<span style={{fontSize:"18px"}}>流调信息</span>} key="3">
+                    <div className={sty.PanelContainer}>
+                      <Tabs>
+                          <TabPane tab="基本版" key="1">
+                              <BasicQues/>
+                          </TabPane>
+                          <TabPane tab="北京版" key="2">
+                              <BasicQues/>
+                          </TabPane>
+                          <TabPane tab="黑龙江版" key="3">
+                              <BasicQues/>
+                          </TabPane>
+                          <TabPane tab="河北版" key="4">
+                              <BasicQues/>
+                          </TabPane>
+                      </Tabs>
+                    </div>
+                  </TabPane>
+                  <TabPane tab={<span style={{fontSize:"18px"}}>出行轨迹</span>} key="2">
                     <div className={sty.PanelContainer}>
                       <NewRouteForm/>
                     </div>

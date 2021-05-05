@@ -13,10 +13,15 @@ import sty from "./index.module.scss"
 import { useRouter } from "next/dist/client/router"
 import DebouncedAutocomplete from "../AutoComplete"
 const MenuItem = [
+  // {
+  //   title: "流调填报",
+  //   icon: <BarChartOutlined />,
+  //   url: '/addroute'
+  // },
   {
-    title: "流调填报",
-    icon: <BarChartOutlined />,
-    url: '/addroute'
+    title: "问卷管理",
+    icon: <FormOutlined />,
+    url: '/question'
   },
   {
     title: "病例信息",
@@ -28,11 +33,11 @@ const MenuItem = [
     icon: <TeamOutlined />,
     url: '/overview'
   },
-  {
-    title: "案例对比",
-    icon: <FormOutlined />,
-    url: '/patientAnalyze'
-  },
+  // {
+  //   title: "案例对比",
+  //   icon: <FormOutlined />,
+  //   url: '/patientAnalyze'
+  // },
   {
     title:"传播分析",
     icon:<NodeIndexOutlined />,

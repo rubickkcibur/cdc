@@ -16,6 +16,7 @@ import Search from "antd/lib/input/Search";
 import { useRouter } from "next/dist/client/router";
 import { DownOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import EpidChoose from "../components/EpidChoose";
+import PopOver from "../components/PopOver";
 //import Search from "../../lib/search";
 
 const Big = ({str}:{str:string})=><span style={{fontSize:"18px"}}>{str}</span>
@@ -180,18 +181,24 @@ export default function Pagepatients() {
             </div>}
           </div>
             ),
-        width:150
+        width:100
       },
       {
         title: <Big str="操作"/>,
         render: (e) => (
-          <>
-            <span style={{fontSize:"18px"}}><a onClick={()=>{showOnMap(e)}}>继续完善</a></span>
-            &nbsp;&nbsp;
+          <div style={{
+            display:"flex",
+            flexDirection:"row",
+            justifyContent:"space-between"
+          }}>
+            <span style={{fontSize:"18px"}}><a onClick={()=>{showOnMap(e)}}>流调管理</a></span>
+            {/* &nbsp;&nbsp; */}
+            <PopOver str="报告管理"/>
             <span style={{fontSize:"18px"}}><a onClick={()=>{analyze(e)}}>案例分析</a></span>
-          </>
+            {/* &nbsp;&nbsp; */}
+          </div>
         ),
-        width:150
+        width:225
       }
     ]
     

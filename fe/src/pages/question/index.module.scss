@@ -1,0 +1,17 @@
+.RootRow{
+    height: calc( 100vh - 65px - 16px );
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+.BasicPanel{
+    overflow-y: auto;
+    overflow-x: auto;
+}
+.Save{
+    position: fixed;
+    top: 120px;
+    right: 100px;
+    height: 50px;
+    width: 100px;
+}

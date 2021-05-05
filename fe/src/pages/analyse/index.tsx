@@ -272,7 +272,7 @@ export default function Pageanalyse() {
                 <Col span={5}>
                     <Radio.Group defaultValue="1" onChange={(e)=>onChange(e)}>
                         <Radio.Button value="1">聚合传播关系图</Radio.Button>
-                        <Radio.Button value="2">时空传播关系图</Radio.Button>
+                        {/* <Radio.Button value="2">时空传播关系图</Radio.Button> */}
                         <Radio.Button value="3">手绘画板</Radio.Button>
                     </Radio.Group>
                 </Col>
