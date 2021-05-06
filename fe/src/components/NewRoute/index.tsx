@@ -17,6 +17,8 @@ export default function NewRouteForm(){
         onMessage: (e) => console.log("asr msg", e),
     })
 
+    console.log({start,stop})
+
     const sampleNode: NForm[] = [
         {
             travel: {

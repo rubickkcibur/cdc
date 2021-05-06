@@ -5,6 +5,8 @@ import 'antd/dist/antd.css';
 import { initializeStore } from '../lib/store';
 import { Provider } from 'react-redux';
 import zhCN from 'antd/lib/locale/zh_CN';
+import 'react-quill/dist/quill.snow.css';
+
 import { ConfigProvider } from 'antd';
 // import "./global.less"
 import "./global.scss"

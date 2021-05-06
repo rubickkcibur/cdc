@@ -48,7 +48,7 @@ export default class ASRRecorder {
 
     async start() {
         this.stop()
-        if (navigator.getUserMedia && AudioContext) {
+        if ((navigator.getUserMedia || navigator.mediaDevices)&& AudioContext) {
             this.state = 'ing'
             if (!this.recorder) {
                 var context = new AudioContext()
@@ -67,7 +67,7 @@ export default class ASRRecorder {
                     this.recorder = null
                     this.mediaStream = null
                     this.context = null
-                    console.log('请求麦克风失败')
+                    console.log('请求麦克风失败',e)
                 }
                 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                     navigator.mediaDevices.getUserMedia({
