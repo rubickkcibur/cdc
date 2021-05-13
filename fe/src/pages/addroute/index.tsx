@@ -21,6 +21,7 @@ import { extracLocation } from "../../lib/utils"
 import dynamic from "next/dynamic"
 import { AMapInsertMarker } from "../../components/AMapMarker"
 import BasicQues from "../../components/BasicQues"
+import { useRouter } from "next/dist/client/router"
 const { TabPane } = Tabs
 export const Card = ({
   children,
@@ -54,40 +55,43 @@ export default function index() {
   const loadedEpiKey = useTypedSelector(e=>e.PAGlobalReducer.loadedEpiKey)
   const epidemics = useTypedSelector(e=>e.PAGlobalReducer.epidemics)
   const amap = useTypedSelector(e=>e.PAGlobalReducer.amap)
+  const router = useRouter()
   const onBasicChange = (values: any, form: FormInstance | undefined) => {
     setBF(form)
     //console.log(basicForm?.validateFields())
   }
 
   const onSubmit = async () => {
-    try{
-      Axios.post(`${Constant.apihost}/insertroute`, {
-        personal_id:basicForm?.getFieldsValue()?.personal_id,
-        data:newRouteBuffer
-      })
-      .then(()=>message.success("提交成功"))
-      .catch(()=>message.error("提交失败"))
-    }catch(e){
-      console.log(e)
-    }
+    // try{
+    //   Axios.post(`${Constant.apihost}/insertroute`, {
+    //     personal_id:basicForm?.getFieldsValue()?.personal_id,
+    //     data:newRouteBuffer
+    //   })
+    //   .then(()=>message.success("提交成功"))
+    //   .catch(()=>message.error("提交失败"))
+    // }catch(e){
+    //   console.log(e)
+    // }
     console.log("for 更新 check")
     console.log(basicForm?.getFieldsValue())
     console.log(newRouteBuffer)
+    message.success("提交成功")
   }
   const onSave = async () => {
-    try{
-      Axios.post(`${Constant.apihost}/newupload`, {
-        basic:basicForm?.getFieldsValue(), //此处有问题
-        routes:[newRouteBuffer]
-      })
-      .then(()=>message.success("提交成功"))
-      .catch(()=>message.error("提交失败"))
-    }catch(e){
-      console.log(e)
-    }
+    // try{
+    //   Axios.post(`${Constant.apihost}/newupload`, {
+    //     basic:basicForm?.getFieldsValue(), //此处有问题
+    //     routes:[newRouteBuffer]
+    //   })
+    //   .then(()=>message.success("提交成功"))
+    //   .catch(()=>message.error("提交失败"))
+    // }catch(e){
+    //   console.log(e)
+    // }
     console.log("for 新增 check")
     console.log(basicForm?.getFieldsValue())
     console.log(newRouteBuffer)
+    message.success("提交成功")
   }
 
   const menuClick = (e:any) => {
@@ -153,7 +157,6 @@ export default function index() {
 
   return (
     <MainLayout>
-
       <Row gutter={[14, 14]} style={{ display: "flex", alignItems: "stretch",height:'initial' }} className={sty.RootRow}>
         <Col md={{span:12}} style={{height:'100%'}}>
           <Col md={{span:24}} className={sty.CdcHeader}>
@@ -215,9 +218,11 @@ export default function index() {
                 <Tabs 
                   type={"card"}
                   tabBarExtraContent={
+                    
                     <div className={sty.UploadButton}>
                       <Button icon={<SaveOutlined />} size={"large"} type={'primary'} onClick={onSave} className={buttonEnable}>新增</Button>
                       <Button  icon={<UploadOutlined />} size={"large"} type={'primary'} onClick={onSubmit} className={buttonEnable}>更新</Button>
+                      <Button icon={<SaveOutlined />} size={"large"} type={'primary'} onClick={()=>{router.push('/report')}} className={sty.generate}>生成流调报告</Button>
                     </div>
                   }
                   onChange={(actKey)=>{
@@ -237,18 +242,18 @@ export default function index() {
                   <TabPane tab={<span style={{fontSize:"18px"}}>流调信息</span>} key="3">
                     <div className={sty.PanelContainer}>
                       <Tabs>
-                          <TabPane tab="基本版" key="1">
+                          {/* <TabPane tab="基本版" key="1">
                               <BasicQues/>
-                          </TabPane>
+                          </TabPane> */}
                           <TabPane tab="北京版" key="2">
                               <BasicQues/>
                           </TabPane>
-                          <TabPane tab="黑龙江版" key="3">
+                          {/* <TabPane tab="黑龙江版" key="3">
                               <BasicQues/>
                           </TabPane>
                           <TabPane tab="河北版" key="4">
                               <BasicQues/>
-                          </TabPane>
+                          </TabPane> */}
                       </Tabs>
                     </div>
                   </TabPane>
@@ -264,7 +269,7 @@ export default function index() {
         </Col>
 
         <Col md={{ span: 12, }} className={sty.PathContainer}>
-          <div className={sty.UploadButton}>
+          {/* <div className={sty.UploadButton}>
             <Radio.Group 
               defaultValue={true} 
               onChange={(e)=>setMS(e.target.value)}
@@ -274,7 +279,7 @@ export default function index() {
               <Radio.Button value={true}>地图</Radio.Button>
               <Radio.Button value={false}>简报</Radio.Button>
             </Radio.Group>
-          </div>
+          </div> */}
           <Card title={mapShow?"路径可视化":"流调报告(摘要版)"} style={{ height: "100%" }}>
             <div style={{ height: "85vh" ,overflowX:"auto",overflowY:"auto"}}>
               {mapShow?

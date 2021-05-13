@@ -442,7 +442,7 @@ export function RouteForm({ value, onChange, idx }: RFProps) {
 
     return (
         <Form form={form} onValuesChange={() => { onChange && onChange(form.getFieldsValue()) }}>
-            <Collapse expandIcon={({ isActive }) => <CaretRightOutlined style={{ fontSize: 20 }} rotate={isActive ? 90 : 0} />}>
+            <Collapse defaultActiveKey={idx?["0"]:["1"]} expandIcon={({ isActive }) => <CaretRightOutlined style={{ fontSize: 20 }} rotate={isActive ? 90 : 0} />}>
                 <Panel key="1" header={
                     <FormItem name={"date"} noStyle>
                         <Date idx={idx} />

@@ -11,9 +11,7 @@ export default function PageOverview() {
     setByWhat(e);
     if (e == "location") {
       config = {
-        encryption: "ENCRYPTION_OFF",
-        encripted: "ENCRYPTION_OFF",
-        encrypted: "ENCRYPTION_OFF",
+        encrypted: "ENCRYPTION_ON",
         trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
         container_id: "viz",
         server_url: Const.boltserver,
@@ -38,9 +36,7 @@ export default function PageOverview() {
     }
     else {
       config = {
-        encryption: "ENCRYPTION_OFF",
-        encripted: "ENCRYPTION_OFF",
-        encrypted: "ENCRYPTION_OFF",
+        encrypted: "ENCRYPTION_ON",
         trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
         container_id: "viz",
         server_url: Const.boltserver,

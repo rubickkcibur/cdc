@@ -33,7 +33,7 @@ const formats = [
 ]
 
 
-export default function index() {
+export default function ReportCom() {
     const audioRef = useRef<HTMLAudioElement>()
     const [html, setHTML] = useState(text)
     // audioRef.current.

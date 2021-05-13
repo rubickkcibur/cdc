@@ -30,9 +30,7 @@ export default function PatientAnalyze(){
         var config;
         if (e == "location") {
           config = {
-            encryption: "ENCRYPTION_OFF",
-            encripted: "ENCRYPTION_OFF",
-            encrypted: "ENCRYPTION_OFF",
+            encrypted: "ENCRYPTION_ON",
             trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
             container_id: "viz",
             server_url: Const.boltserver,
@@ -57,9 +55,7 @@ export default function PatientAnalyze(){
         }
         else {
           config = {
-            encryption: "ENCRYPTION_OFF",
-            encripted: "ENCRYPTION_OFF",
-            encrypted: "ENCRYPTION_OFF",
+            encrypted: "ENCRYPTION_ON",
             trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
             container_id: "viz",
             server_url: Const.boltserver,

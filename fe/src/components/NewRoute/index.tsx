@@ -1,4 +1,4 @@
-import { Button, Col } from "antd";
+import { Button, Col, notification } from "antd";
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -13,8 +13,16 @@ export default function NewRouteForm(){
     const dispatch = useDispatch()
     const buffer = useTypedSelector(e=>e.PAGlobalReducer.newRouteBuffer)
     const [iniValue,setIV] = useState<any>()
+    const openNotification = (str:string) => {
+        const args = {
+            message: '识别结果',
+            description:str,
+            duration: 0,
+        };
+        notification.open(args);
+    };
     const { start, stop } = useASR({
-        onMessage: (e) => console.log("asr msg", e),
+        onMessage: (e) => {openNotification(e),getFormat(e)},
     })
 
     console.log({start,stop})
@@ -50,9 +58,10 @@ export default function NewRouteForm(){
 
     const getFormat=(s)=>{
         Axios.post(`${Constant.apihost}/text2Info`,{
-            str:s
+            text:s
         }).then(e=>{
-            setIV(e.data)
+            console.log("set",e.data)
+            setIV(e.data.routes[0])
         }).catch(e=>console.log(e))
     }
     // useEffect(()=>{

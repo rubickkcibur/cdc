@@ -47,7 +47,7 @@ export default function PopOver({str}:{str:string}) {
             dataIndex: 'version',
             key: 'version',
             render:(text:any)=>(
-                <a href={`${Constant.apihost}/download`}>{text}</a>
+                <a href={`${Constant.apihost}/downloadDocx`}>{text}</a>
             )
         },
         {
