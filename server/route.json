@@ -1,0 +1,20 @@
+{
+    "travel":null,
+    "pause":{
+        "time":"",
+        "stay":null,
+        "location":{
+            "id": "",
+            "name": "",
+            "district": "",
+            "adcode": "",
+            "location": "0,0",
+            "address": "",
+            "typecode": "",
+            "city": null
+        },
+        "detail_location":"",
+        "protection":"",
+        "contacts":null
+    }
+}

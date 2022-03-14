@@ -48,7 +48,7 @@ export default class ASRRecorder {
 
     async start() {
         this.stop()
-        if ((navigator.getUserMedia || navigator.mediaDevices)&& AudioContext) {
+        if (((navigator as any).getUserMedia || (navigator as any).mediaDevices)&& AudioContext) {
             this.state = 'ing'
             if (!this.recorder) {
                 var context = new AudioContext()
@@ -69,8 +69,8 @@ export default class ASRRecorder {
                     this.context = null
                     console.log('请求麦克风失败',e)
                 }
-                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({
+                if ((navigator as any).mediaDevices && (navigator as any).mediaDevices.getUserMedia) {
+                    (navigator as any).mediaDevices.getUserMedia({
                         audio: true,
                         video: false
                     }).then((stream) => {
@@ -79,7 +79,7 @@ export default class ASRRecorder {
                         getMediaFail(e)
                     })
                 } else {
-                    navigator.getUserMedia({
+                    (navigator as any).getUserMedia({
                         audio: true,
                         video: false
                     }, (stream) => {
@@ -93,8 +93,8 @@ export default class ASRRecorder {
             }
 
         } else {
-            var isChrome = navigator.userAgent.toLowerCase().match(/chrome/)
-            console.log(navigator.getUserMedia)
+            var isChrome = (navigator as any).userAgent.toLowerCase().match(/chrome/)
+            console.log((navigator as any).getUserMedia)
             alert("not suuport")
         }
     }

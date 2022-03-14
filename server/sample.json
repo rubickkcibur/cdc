@@ -1,0 +1,19 @@
+{
+    "epidemic":"",
+    "basic": {
+        "name": "",
+        "personal_id": "",
+        "gender": "",
+        "phone": "",
+        "age": "",
+        "addr1": [],
+        "addr2": "",
+        "vocation": "",
+        "working_place":"",
+        "confirmed_time":"",
+        "height":"",
+        "weight":"",
+        "overseas":null
+    },
+    "routes": null
+}
