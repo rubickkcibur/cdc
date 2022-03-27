@@ -4,7 +4,7 @@ import math
 import re
 
 import dill
-import spacy
+# import spacy
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -20,9 +20,9 @@ from pathlib import Path
 import os
 # Create your views here.
 
-neo4j_path = "http://192.168.1.194:7474/"
+neo4j_path = "http://neo4j:7474/"
 mongo_path = pymongo.MongoClient(
-    "mongodb://%s:%s@192.168.1.194:27017" % ("admin", "123456"))
+    "mongodb://%s:%s@my-mongo:27017" % ("admin", "123456"))
 db = mongo_path["surveys"]
 col = db["production"] #患者表
 col_contacts = db["contacts"] #密接者表
@@ -36,8 +36,7 @@ rel_matcher = RelationshipMatcher(graph)
 def upload(request):
     if request.method == "POST":
         data = request.data
-        #col.insert_one(data)
-        #name = data["basic"]["name"].strip()
+        print(request.data)
         pname = data["basic"]["name"].strip()##
         gender = "男" if data["basic"]["gender"].strip() == "male" else "女"
         phone = data["basic"]["phone"].strip()
