@@ -1,0 +1,84 @@
+.edgeTooltips {
+    position: absolute;
+    left: -300px;
+    top: -100px;
+  }
+  .edgeTitle {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 70px;
+    background: #fff;
+    border: 1px solid #40a9ff;
+  }
+  .edgeDetail {
+    position: relative;
+    top: 0;
+    left: 0;
+    background: #bae7ff;
+    width: 200px;
+  }
+  .tooltipsCommon {
+    font-size: 16px;
+    margin: 0;
+    padding-left: 10px;
+  }
+  .tooltipsMoney {
+    padding-bottom: 5px;
+  }
+  .tooltipsDate {
+    font-size: 12px;
+    color: #ccc;
+  }
+  .detailContent {
+    margin-bottom: 10px;
+  }
+  .edgeCode {
+    margin: 0;
+    padding-left: 10px;
+    font-size: 12px;
+  }
+  .edgeValue {
+    padding-left: 10px;
+  }
+  .nodeTooltips {
+    position: absolute;
+    left: -300px;
+    top: -100px;
+    /* width: 150px; */
+    height: 160px;
+    padding: 10px;
+    border: 1px solid #36cfc9;
+    background: #e6fffb;
+  }
+
+  .g6-component-contextmenu {
+    position: absolute;
+    z-index: 2;
+    list-style-type: none;
+    background-color: #363b40;
+    border-radius: 6px;
+    font-size: 14px;
+    color: hsla(0,0%,100%,.85);
+    width: fit-content;
+    transition: opacity .2s;
+    text-align: center;
+    padding: 0px 20px 0px 20px;
+		box-shadow: 0 5px 18px 0 rgba(0, 0, 0, 0.6);
+		border: 0px;
+  }
+  .g6-component-contextmenu ul {
+		padding-left: 0px;
+		margin: 0;
+  }
+  .g6-component-contextmenu li {
+    cursor: pointer;
+    list-style-type: none;
+    list-style: none;
+    margin-left: 0;
+    line-height: 38px;
+  }
+  .g6-component-contextmenu li:hover {
+    color: #aaaaaa;
+	}

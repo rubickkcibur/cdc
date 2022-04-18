@@ -18,6 +18,7 @@ import Routes from "../../components/Routes";
 import initialElements from '../../components/drawboard/initial-elements';
 import SaveRestore from "../../components/drawboard"
 import DeviceGraph from "../../components/JtopoNodes"
+import ClusterGraph from "../../components/ClusterGraph";
 
 
 export default function Pageanalyse() {
@@ -278,9 +279,10 @@ export default function Pageanalyse() {
                 </Col>
             </Row>
 
-            <div style={{height:'100%'}}>
+            {/* <div style={{height:'100%'}}>
                 {pict}
-            </div>
+            </div> */}
+            <ClusterGraph/>
 
             </div>
         </MainLayout>
