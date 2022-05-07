@@ -5,7 +5,8 @@ const Const = {
     //boltserver: "bolt://bridge.cnworkshop.xyz:20005",
     // boltserver:"bolt://192.168.1.194:7687",
     boltserver: "bolt://82.157.153.27:5307",
-    testserver: "http://82.157.153.27:5306/api"
+    testserver: "http://localhost:8000"
+
     // boltserver: "bolt://bridge.cnworkshop.xyz/bolt"
 }
 export default Const

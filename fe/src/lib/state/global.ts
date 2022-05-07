@@ -56,6 +56,7 @@ export type TState = {
   chain?:any
   distance?:number
   time?:number
+  all_patients?:any
 }
 
 const getEpi=()=>{
