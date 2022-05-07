@@ -71,7 +71,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/drawboard/index.js", "src/components/ClusterGraph/index.jsx"  ],
+, "src/components/drawboard/index.jsx", "src/components/ClusterGraph/index.jsx"  ],
   "exclude": [
     "node_modules"
   ]

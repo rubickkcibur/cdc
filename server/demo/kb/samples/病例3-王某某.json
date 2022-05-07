@@ -1,0 +1,644 @@
+{
+    "epidemic": "北京顺义",
+    "basic": {
+        "name": "王某某",
+        "personal_id": "100100123401010003",
+        "gender": "female",
+        "phone": "12345678912",
+        "age": "31",
+        "addr1": [
+            "北京市",
+            "市辖区",
+            "顺义区"
+        ],
+        "addr2": "南法信镇西杜兰村",
+        "vocation": "",
+        "working_place": "",
+        "confirmed_time": "",
+        "height": "",
+        "weight": "",
+        "overseas": {
+            "traveled_country": [],
+            "passing_country": [],
+            "nation": "",
+            "passport_id": "",
+            "arrival_port": [],
+            "arrival_date": "",
+            "arrival_transport": []
+        }
+    },
+    "routes": [
+        {
+            "date": "2020-12-11",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.621232,40.141342",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-12",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.621232,40.141342",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-13",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.621232,40.141342",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-14",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.621232,40.141342",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:44:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "新顺南大街18号新世界百货B1层",
+                            "district": "北京市顺义区",
+                            "location": "116.652177,40.126723",
+                            "name": "永辉超市(新世界百货)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-15",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.621232,40.141342",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-16",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "19:14:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110111",
+                            "address": [],
+                            "district": "北京市房山区",
+                            "location": "116.080484,39.715817",
+                            "name": "爱尚鲜生超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-17",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.621232,40.141342",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-18",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-19",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:45:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.621232,40.141342",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-20",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": [
+                            {
+                                "name": "张某某",
+                                "pid": "110101199003072877"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "19:14:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110111",
+                            "address": [],
+                            "district": "北京市房山区",
+                            "location": "116.080484,39.715817",
+                            "name": "爱尚鲜生超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": [
+                            {
+                                "name": "李某某",
+                                "pid": "110101199901010003"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-21",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-22",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "19:14:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110111",
+                            "address": [],
+                            "district": "北京市房山区",
+                            "location": "116.080484,39.715817",
+                            "name": "爱尚鲜生超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-23",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "19:14:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110111",
+                            "address": [],
+                            "district": "北京市房山区",
+                            "location": "116.080484,39.715817",
+                            "name": "爱尚鲜生超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-24",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "后沙峪京顺车管所东侧",
+                            "district": "北京市顺义区",
+                            "location": "116.477878,40.095389",
+                            "name": "新月驾校",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "公交",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "10:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "安富街与火寺路交叉口东北角",
+                            "district": "北京市顺义区",
+                            "location": "116.556596,40.113294",
+                            "name": "京顺车管所(暂停营业)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        }
+    ]
+}

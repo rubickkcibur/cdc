@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import {
   BarChartOutlined,
   BellOutlined,
@@ -62,6 +62,9 @@ const MenuItem = [
 
 export default function KashHeader() {
   const router = useRouter()
+  useEffect(()=>{
+    console.log("render!")
+  },[])
   return (
     <div className={sty.Header}>
       <div className={sty.Icon}>数字化智慧流调系统</div>

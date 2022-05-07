@@ -4,16 +4,29 @@ import G6 from '@antv/g6';
 import { isNumber, isArray } from '@antv/util'
 import { Timeline } from 'antd';
 import styles from './index.module.scss'
-import data from "./data.json"
+//import data from "./data.json"
+import data from "../../../../format_sample/cluster_fomat.json"
 import { useTypedSelector } from "../../lib/store"
+
+//完成待渲染数据格式的转换
+function convertJSON(){[]
+    for(var n of data.nodes){
+      n.id = n.name;
+    }
+    // for(var e in data.edges){
+    //   e.label = e.relation + "(" + e.notes + ")";
+    // }
+    // for(var c in data.clusters){
+    //   e.label = e.name;
+    // }
+    // for(var c in data.clusterEdges){
+    //   c.label = c.relation + "(" + c.notes + ")";
+    // }
+}
 
 export default function ClusterGraph() {
     const ref = React.useRef(null);
-    const [showNodeTooltip, setShowNodeTooltip] = useState(false);
-    const [nodeTooltipX, setNodeToolTipX] = useState(0);
-    const [nodeTooltipY, setNodeToolTipY] = useState(0);
     const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
-
     const { labelPropagation, louvain, findShortestPath } = G6.Algorithm;
     const { uniqueId } = G6.Util;
     const NODESIZEMAPPING = 'degree';
@@ -1166,7 +1179,6 @@ export default function ClusterGraph() {
         },
         'aggregated-node',
       ); // 这样可以继承 aggregated-node 的 setState
-      
       // Custom the quadratic edge for multiple edges between one node pair
       G6.registerEdge(
         'custom-quadratic',
@@ -1269,7 +1281,6 @@ export default function ClusterGraph() {
         },
         'quadratic',
       );
-      
       // Custom the line edge for single edge between one node pair
       G6.registerEdge(
         'custom-line',
@@ -1371,51 +1382,85 @@ export default function ClusterGraph() {
         },
         'single-edge',
       );
-
       const container = document.getElementById('container');
-      // const descriptionDiv = document.createElement('div');
-      // descriptionDiv.innerHTML = `<a href='/en/largegraph' target='_blanck'>Click【HERE】To Full Demo</a>
-      //   <br/>
-      //   <a href='/zh/largegraph' target='_blanck'>点击【这里】进入完整 Demo</a>`;
-      // descriptionDiv.style.textAlign = 'right';
-      // descriptionDiv.style.color = '#fff';
-      // descriptionDiv.style.position = 'absolute';
-      // descriptionDiv.style.right = '32px';
-      // descriptionDiv.style.marginTop = '8px';
-      // container.appendChild(descriptionDiv);
       container.style.backgroundColor = '#2b2f33';
       CANVAS_WIDTH = container.scrollWidth;
       CANVAS_HEIGHT = (container.scrollHeight || 500) - 30;
 
       nodeMap = {};
-      const clusteredData = louvain(data, false, 'weight'); //todo: change cluster algorithm to ours
+     // const clusteredData = louvain(data, false, 'weight'); //todo: change cluster algorithm to ours
+      const clusteredData = data;
       console.log(clusteredData)
       const aggregatedData = { nodes: [], edges: [] };
+      // clusteredData.clusters.forEach((cluster, i) => {
+      //   cluster.nodes.forEach((node) => {
+      //     node.level = 0;
+      //     //node.label = node.id;
+      //     node.label = `${node.name}`;
+      //     node.type = '';
+      //     node.colorSet = colorSets[i];
+      //     nodeMap[node.id] = node;
+      //   });
+      //   const cnode = {
+      //     id: cluster.id,
+      //     type: 'aggregated-node',
+      //     count: cluster.nodes.length,
+      //     level: 1,
+      //     //label:cluster.id,
+      //     label: cluster.name,
+      //     colorSet: colorSets[i],
+      //     idx: i,
+      //   };
+      //   aggregatedNodeMap[cluster.id] = cnode;
+      //   aggregatedData.nodes.push(cnode);
+      // });
+
       clusteredData.clusters.forEach((cluster, i) => {
-        cluster.nodes.forEach((node) => {
+        for(const n of cluster.nodes){
+          var node = clusteredData.nodes[n];
           node.level = 0;
-          node.label = node.id;
+          //node.label = node.id;
+          node.label = `${node.name}`;
           node.type = '';
           node.colorSet = colorSets[i];
-          nodeMap[node.id] = node;
-        });
+          nodeMap[n] = node;
+        }
+     
         const cnode = {
           id: cluster.id,
           type: 'aggregated-node',
           count: cluster.nodes.length,
           level: 1,
-          label: cluster.id,
+          //label:cluster.id,
+          label: `${cluster.name}`,
           colorSet: colorSets[i],
           idx: i,
         };
         aggregatedNodeMap[cluster.id] = cnode;
         aggregatedData.nodes.push(cnode);
       });
+      // clusteredData.clusterEdges.forEach((clusterEdge) => {
+      //   const cedge = {
+      //     ...clusterEdge,
+      //     size: Math.log(clusterEdge.count),
+      //     //label:'',
+      //     label: `${clusterEdge.relation}(${clusterEdge.notes})`,
+      //     id: `edge-${uniqueId()}`,
+      //   };
+      //   if (cedge.source === cedge.target) {
+      //     cedge.type = 'loop';
+      //     cedge.loopCfg = {
+      //       dist: 20,
+      //     };
+      //   } else cedge.type = 'line';
+      //   aggregatedData.edges.push(cedge);
+      // });
       clusteredData.clusterEdges.forEach((clusterEdge) => {
         const cedge = {
           ...clusterEdge,
           size: Math.log(clusterEdge.count),
-          label: '',
+          //label:'',
+          label: `${clusterEdge.relation}(${clusterEdge.notes})`,
           id: `edge-${uniqueId()}`,
         };
         if (cedge.source === cedge.target) {
@@ -1427,7 +1472,8 @@ export default function ClusterGraph() {
         aggregatedData.edges.push(cedge);
       });
       data.edges.forEach((edge) => {
-        edge.label = `${edge.source}-${edge.target}`;
+        //edge.label = `${edge.source}-${edge.target}`;
+        edge.label = `${edge.relation}(${edge.notes})`;
         edge.id = `edge-${uniqueId()}`;
       });
       currentUnproccessedData = aggregatedData;
@@ -1637,6 +1683,67 @@ export default function ClusterGraph() {
       graph.render();
     },[])
     
-    useEffect(()=>{},[aggrGraph])
+    // useEffect(()=>{
+    //   if(!aggrGraph || !graph) return;
+    //   nodeMap = {};
+    //   aggregatedNodeMap.clear()
+    //   currentUnproccessedData.clear()
+    //   hiddenItemIds.clear()
+    //   //todo:是否还有需要clear的数据
+    //   const clusteredData = {clusterEdges:aggrGraph.clusterEdges,clusters:aggrGraph.clusters}
+    //   const aggregatedData = { nodes: [], edges: [] };
+    //   clusteredData.clusters.forEach((cluster, i) => {
+    //     cluster.nodes.forEach((node) => {
+    //       node.level = 0;
+    //       node.label = node.id;
+    //       node.type = '';
+    //       node.colorSet = colorSets[i];
+    //       nodeMap[node.id] = node;
+    //     });
+    //     const cnode = {
+    //       id: cluster.id,
+    //       type: 'aggregated-node',
+    //       count: cluster.nodes.length,
+    //       level: 1,
+    //       label: cluster.id,
+    //       colorSet: colorSets[i],
+    //       idx: i,
+    //     };
+    //     aggregatedNodeMap[cluster.id] = cnode;
+    //     aggregatedData.nodes.push(cnode);
+    //   });
+    //   clusteredData.clusterEdges.forEach((clusterEdge) => {
+    //     const cedge = {
+    //       ...clusterEdge,
+    //       size: Math.log(clusterEdge.count),
+    //       label: '',
+    //       id: `edge-${uniqueId()}`,
+    //     };
+    //     if (cedge.source === cedge.target) {
+    //       cedge.type = 'loop';
+    //       cedge.loopCfg = {
+    //         dist: 20,
+    //       };
+    //     } else cedge.type = 'line';
+    //     aggregatedData.edges.push(cedge);
+    //   });
+    //   data.edges.forEach((edge) => {
+    //     edge.label = `${edge.source}-${edge.target}`;
+    //     edge.id = `edge-${uniqueId()}`;
+    //   });
+    //   currentUnproccessedData = aggregatedData;
+    //   const { edges: processedEdges } = processNodesEdges(
+    //     currentUnproccessedData.nodes,
+    //     currentUnproccessedData.edges,
+    //     CANVAS_WIDTH,
+    //     CANVAS_HEIGHT,
+    //     largeGraphMode,
+    //     true,
+    //     true,
+    //   );
+    //   graph.clear()
+    //   graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
+    //   graph.render();
+    // },[aggrGraph])
     return <div id="container" ref={ref} style={{width:"100%",height:"85vh"}}></div>;
   }

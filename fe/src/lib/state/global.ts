@@ -12,7 +12,9 @@ export const ActionsEnum = {
   AddPause: "ActAddPause",
   RemovePause: "ActRemovePause",
   UpdateFormValue: "UpdatingFormValue",
-  SetShowedRoutes: "SetShowedRoutes"
+  SetShowedRoutes: "SetShowedRoutes",
+  SendData2Store: "SendData2Store",
+  ActSetAggr: "ActSetAggr"
 }
 
 export interface Pause {
@@ -51,11 +53,23 @@ export type TState = {
   epidemics?:any
   loadedRelatedInfo?:any
   aggrGraph?:any
+  chain?:any
+  distance?:number
+  time?:number
 }
 
 const getEpi=()=>{
   let re
   Axios.get(`${Constant.apihost}/getAllEpidemics`)
+    .then(e=>{
+      re = e
+    })
+  return re
+}
+
+const getAggr=()=>{
+  let re
+  Axios.post(`${Constant.apihost}/getAggr`)
     .then(e=>{
       re = e
     })
@@ -96,11 +110,24 @@ export const ActSetShowedRoutes = (idx:number) =>({
   idx
 })
 
+export const SendData2Store = (dis:number,time:number) =>({
+  type: ActionsEnum.SendData2Store,
+  dis,
+  time
+})
+
+export const ActSetAggr = (aggr:any) =>({
+  type: ActionsEnum.ActSetAggr,
+  aggr
+})
+
 export type TAction = ReturnType<typeof ActSetState> &
   ReturnType<typeof ActAddPauses> &
   ReturnType<typeof ActRemovePauses> &
   ReturnType<typeof ActUpdateValue> &
-  ReturnType<typeof ActSetShowedRoutes>
+  ReturnType<typeof ActSetShowedRoutes> &
+  ReturnType<typeof SendData2Store> &
+  ReturnType<typeof ActSetAggr>
 
 export const PAGlobalReducer: Reducer<TState, TAction> = (
   state = initState,
@@ -124,6 +151,13 @@ export const PAGlobalReducer: Reducer<TState, TAction> = (
         return draft
       case ActionsEnum.SetShowedRoutes:
         draft.showedRoutes[action.idx] = draft.showedRoutes[action.idx]?0:1
+        return draft
+      case ActionsEnum.SendData2Store:
+        draft.distance=action.dis
+        draft.time=action.time
+        return draft
+      case ActionsEnum.ActSetAggr:
+        draft.aggrGraph=action.aggr
         return draft
       default:
         return draft

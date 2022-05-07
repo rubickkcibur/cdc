@@ -1,0 +1,455 @@
+{
+    "epidemic": "北京顺义",
+    "basic": {
+        "name": "张某某",
+        "personal_id": "110101199003072877",
+        "gender": "male",
+        "phone": "12345678912",
+        "age": "31",
+        "addr1": [
+            "北京市",
+            "市辖区",
+            "顺义区"
+        ],
+        "addr2": "高丽营镇张喜庄村",
+        "vocation": "",
+        "working_place": "",
+        "confirmed_time": "",
+        "height": "",
+        "weight": "",
+        "overseas": {
+            "traveled_country": [],
+            "passing_country": [],
+            "nation": "",
+            "passport_id": "",
+            "arrival_port": [],
+            "arrival_date": "",
+            "arrival_transport": []
+        }
+    },
+    "routes": [
+        {
+            "date": "2020-12-10",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司顺义区货运北路一店",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.590323,40.106207",
+                            "address": "货运北路",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-11",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司顺义区货运北路一店",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.590323,40.106207",
+                            "address": "货运北路",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-12",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "家",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.564819,40.156852",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "",
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "17:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "隆华购物中心",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.568111,40.152849",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-13",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "家",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.564819,40.156852",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "",
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "10:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "永盛嘉禾购物中心",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.568579,40.154019",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-14",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司顺义区货运北路一店",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.590323,40.106207",
+                            "address": "货运北路",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-19",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "家",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.564819,40.156852",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "",
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "14:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "永盛嘉禾购物中心",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.568579,40.154019",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-20",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "家",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.564819,40.156852",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "",
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "14:30:00",
+                        "location": {
+                            "id": "",
+                            "name": "西杜兰村",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.601301,40.151745",
+                            "address": "南法信(地区)镇",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": [
+                            {
+                                "name": "王某某",
+                                "pid": "100100123401010003"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "",
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "15:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "物美超市",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.561319,40.117977",
+                            "address": "后沙峪镇",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": [
+                            {
+                                "name": "李某某",
+                                "pid": "110101199901010003"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-21",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司顺义区货运北路一店",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.590323,40.106207",
+                            "address": "货运北路",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-22",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司顺义区货运北路一店",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.590323,40.106207",
+                            "address": "货运北路",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-23",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司顺义区货运北路一店",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.590323,40.106207",
+                            "address": "货运北路",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "",
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "21:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "莹新堂大药房",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.568819,40.156224",
+                            "address": "中心街中心区4号",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-24",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "08:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司顺义区货运北路一店",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.590323,40.106207",
+                            "address": "货运北路",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "15号线、8号线",
+                        "transform": "地铁"
+                    },
+                    "pause": {
+                        "time": "13:30:00",
+                        "location": {
+                            "id": "",
+                            "name": "顶全便利店有限公司东城王府井大街一店",
+                            "district": "北京市东城区",
+                            "adcode": "110101",
+                            "location": "116.417611,39.926844",
+                            "address": "王府井大街32号",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "note": "",
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "18:20:00",
+                        "location": {
+                            "id": "",
+                            "name": "永盛嘉禾购物中心",
+                            "district": "北京市顺义区",
+                            "adcode": "110113",
+                            "location": "116.568579,40.154019",
+                            "address": "高丽营镇张喜庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        }
+    ]
+}

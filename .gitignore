@@ -102,3 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+format_sample
+back
+lc
+new_fe

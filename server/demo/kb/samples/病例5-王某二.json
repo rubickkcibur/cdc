@@ -1,0 +1,757 @@
+{
+    "epidemic": "北京顺义",
+    "basic": {
+        "name": "王某二",
+        "personal_id": "100100123401010005",
+        "gender": "male",
+        "phone": "12345678912",
+        "age": "31",
+        "addr1": [
+            "北京市",
+            "市辖区",
+            "顺义区"
+        ],
+        "addr2": "南法信镇西杜兰村",
+        "vocation": "",
+        "working_place": "",
+        "confirmed_time": "",
+        "height": "",
+        "weight": "",
+        "overseas": {
+            "traveled_country": [],
+            "passing_country": [],
+            "nation": "",
+            "passport_id": "",
+            "arrival_port": [],
+            "arrival_date": "",
+            "arrival_transport": []
+        }
+    },
+    "routes": [
+        {
+            "date": "2020-12-12",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-13",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-14",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "步行",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "18:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "西杜兰村",
+                            "district": "北京市顺义区",
+                            "location": "116.596371,40.148572",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-15",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-16",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-17",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "步行",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "18:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "西杜兰村",
+                            "district": "北京市顺义区",
+                            "location": "116.596371,40.148572",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-18",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-19",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "11:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "顺西路233号",
+                            "district": "北京市顺义区",
+                            "location": "116.640623,40.121598",
+                            "name": "中图加油站",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "步行",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "14:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "西杜兰村",
+                            "district": "北京市顺义区",
+                            "location": "116.596371,40.148572",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-20",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-21",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-22",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "步行",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "20:30:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "西杜兰村",
+                            "district": "北京市顺义区",
+                            "location": "116.596371,40.148572",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-23",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "17:30:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "西辛南区66号楼(卧龙环岛东南侧)",
+                            "district": "北京市顺义区",
+                            "location": "116.640399,40.136123",
+                            "name": "全聚德烤鸭店(顺义店)(暂停营业)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "20:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-24",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:15:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-25",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "步行",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "16:30:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "西杜兰村",
+                            "district": "北京市顺义区",
+                            "location": "116.596371,40.148572",
+                            "name": "世纪华联超市",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-26",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.594839,40.145929",
+                            "name": "西杜兰村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        }
+    ]
+}

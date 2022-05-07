@@ -1,0 +1,666 @@
+{
+    "epidemic": "北京顺义",
+    "basic": {
+        "name": "伊某某",
+        "personal_id": "110101198808047371",
+        "gender": "male",
+        "phone": "12345678912",
+        "age": "30",
+        "addr1": [
+            "北京市",
+            "市辖区",
+            "顺义区"
+        ],
+        "addr2": "北石槽镇西赵各庄村",
+        "vocation": "",
+        "working_place": "",
+        "confirmed_time": "",
+        "height": "",
+        "weight": "",
+        "overseas": {
+            "traveled_country": [],
+            "passing_country": [],
+            "nation": "",
+            "passport_id": "",
+            "arrival_port": [],
+            "arrival_date": "",
+            "arrival_transport": []
+        }
+    },
+    "routes": [
+        {
+            "date": "2020-12-13",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "12:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-14",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-15",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "18:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "西辛南区66号楼(卧龙环岛东南侧)",
+                            "district": "北京市顺义区",
+                            "location": "116.640399,40.136123",
+                            "name": "全聚德烤鸭店(顺义店)(暂停营业)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-16",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-17",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-18",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-19",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "11:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110117",
+                            "address": [],
+                            "district": "北京市平谷区",
+                            "location": "117.123945,40.205715",
+                            "name": "北上营村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-20",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-21",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-22",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-23",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": [
+                            {
+                                "name": "伍某某",
+                                "pid": "370306199901010000"
+                            },
+                            {
+                                "name": "尔某某",
+                                "pid": "110101199208047371"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-24",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "08:40:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": "金马工业区中路南100米",
+                            "district": "北京市顺义区",
+                            "location": "116.577702,40.133473",
+                            "name": "戴姆勒东北亚零部件贸易服务有限公司(北京配送中心)",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-25",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "11:30:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110114",
+                            "address": "龙域中街1号",
+                            "district": "北京市昌平区",
+                            "location": "116.315877,40.06623",
+                            "name": "昌发展·万科广场",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "18:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.565271,40.135632",
+                            "name": "东马各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-26",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-27",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "adcode": "110113",
+                            "address": [],
+                            "district": "北京市顺义区",
+                            "location": "116.489733,40.242646",
+                            "name": "西赵各庄村",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        }
+    ]
+}

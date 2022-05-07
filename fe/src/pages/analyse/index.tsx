@@ -4,11 +4,11 @@ import DescriptionsItem from "antd/lib/descriptions/Item";
 import React, { useDebugValue, useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout"
 import { useTypedSelector } from "../../lib/store";
-import sty from './index.module.scss'
+import sty from "./index.module.scss"
 import { ColumnsType } from "antd/lib/table";
 import { extracDate } from "../../lib/utils";
 import { useDispatch } from "react-redux";
-import {ActRemovePauses, ActSetState} from "../../lib/state/global";
+import {ActRemovePauses, ActSetAggr, ActSetState, SendData2Store} from "../../lib/state/global";
 import Axios from "axios";
 import Constant from '../../lib/constant'
 import Search from "antd/lib/input/Search";
@@ -19,6 +19,7 @@ import initialElements from '../../components/drawboard/initial-elements';
 import SaveRestore from "../../components/drawboard"
 import DeviceGraph from "../../components/JtopoNodes"
 import ClusterGraph from "../../components/ClusterGraph";
+import { dispatch } from "rxjs/internal/observable/pairs";
 
 
 export default function Pageanalyse() {
@@ -63,24 +64,12 @@ export default function Pageanalyse() {
     },[areaSlider,timeSlider])
 
     useEffect(()=>{
-        setPict(<div>
-            <div className={cluster_background}>
-                <Row></Row>
-                <Popover content={content} title="病例信息" trigger="click">
-                    <div className={sty.click}></div>
-                </Popover>
-            </div>
-        </div>)
+        setPict(<ClusterGraph/>)
     },[cluster_background])
     
-    const[pict,setPict]=useState(<div>
-        <div className={cluster_background}>
-            <Row></Row>
-            <Popover content={content} title="病例信息" trigger="click">
-                <div className={sty.click}></div>
-            </Popover>
-        </div>
-    </div>);
+    const[pict,setPict]=useState(
+        <ClusterGraph/>
+    );
     const options = [
             { value: '病例1——周某某' },
             { value: '病例7——李某某' },
@@ -101,6 +90,15 @@ export default function Pageanalyse() {
             100: '1月19日',
     };
     const { TabPane } = Tabs;
+    // const dispatch = useDispatch()
+    // const clickSlider =()=>{
+    //     dispatch(SendData2Store(areaSlider[0],timeSlider[0]))
+    //     Axios.post(`${Constant.apihost}/getAggr`,{area:areaSlider[0],time:timeSlider[0]})
+    //     .then(e=>{
+    //       dispatch(ActSetAggr({e}))
+    //     })
+    // }
+
     const onChange = (e:any) => {
         //   setType(e.target.value);
         //画板
@@ -121,20 +119,23 @@ export default function Pageanalyse() {
         else if(e.target.value=="1"){
             console.log(cluster_background)
             setPict(
-                <div>
-                    <div className={cluster_background}>
-                        <Row></Row>
-                        <Popover content={content} title="病例信息" trigger="click">
-                            <div className={sty.click}></div>
-                        </Popover>
-                    </div>
-                </div>
+                // <div>
+                //     <div className={cluster_background}>
+                //         <Row></Row>
+                //         <Popover content={content} title="病例信息" trigger="click">
+                //             <div className={sty.click}></div>
+                //         </Popover>
+                //     </div>
+                // </div>
                 // <DeviceGraph/>
+                <ClusterGraph/>
             )
             setIsHidden(sty.show)
         }
         //时间聚合
+ 
         else{
+           
             setPict(
                 <div style={{marginTop:'15px',height:'100%',width:'100%'}}>
                     <Row>
@@ -202,18 +203,19 @@ export default function Pageanalyse() {
         <MainLayout>
             <div className={sty.Table}>
             <Row>
-                <Col span={4}>
+                {/* <Col span={4}>
                     <Select defaultValue="1" style={{ width: 180,fontSize:'22px' }} bordered={false}>
                     <Option value="1">北京顺义疫情</Option>
                     <Option value="2">北京大兴疫情</Option>
                     <Option value="3">河北石家庄疫情</Option>
                     <Option value="4">北京新发地疫情</Option>
                     </Select>
-                </Col>
+                </Col> */}
+                <Col span={2}></Col>
                 <Col style={{marginTop:'1px'}} span={6}>
                     <Row className={isHidden}>
-                        <Col span={5} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合距离差:</span></Col>
-
+                        <Col span={7} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合距离差:</span></Col>
+                 
                         <Col span={4}>
                             <Select defaultValue="01" style={{ width: 70 }}>
                                 <Option value="01">小于</Option>
@@ -241,8 +243,8 @@ export default function Pageanalyse() {
                 </Col>
                 <Col style={{marginTop:'1px'}} span={6}>
                     <Row className={isHidden}>
-                        <Col span={5} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合时间差:</span></Col>
-
+                        <Col span={7} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合时间差:</span></Col>
+                 
                         <Col span={4}>
                             <Select defaultValue="01" style={{ width: 70 }}>
                                 <Option value="01">小于</Option>
@@ -269,7 +271,11 @@ export default function Pageanalyse() {
                         <Col span={3}></Col>
                     </Row>
                 </Col>
-                <Col span={3}></Col>
+           
+                <Col span={1}></Col>
+                <Button type="primary" onClick={()=>{console.log("待实现")}}>获取数据</Button>
+                <Col span={1}></Col>
+           
                 <Col span={5}>
                     <Radio.Group defaultValue="1" onChange={(e)=>onChange(e)}>
                         <Radio.Button value="1">聚合传播关系图</Radio.Button>
@@ -279,12 +285,11 @@ export default function Pageanalyse() {
                 </Col>
             </Row>
 
-            {/* <div style={{height:'100%'}}>
+            <div style={{height:'100%'}}>
                 {pict}
-            </div> */}
-            <ClusterGraph/>
-
+                {/* <ClusterGraph/> */}
             </div>
+        </div>
         </MainLayout>
     )
 }

@@ -1,0 +1,225 @@
+{
+    "epidemic": "北京顺义",
+    "basic": {
+        "name": "李某某",
+        "personal_id": "110101199901010003",
+        "gender": "male",
+        "phone": "12345678912",
+        "age": "40",
+        "addr1": [
+            "北京市",
+            "市辖区",
+            "东城区"
+        ],
+        "addr2": "南法信镇东海洪村",
+        "vocation": "",
+        "working_place": "",
+        "confirmed_time": "",
+        "height": "",
+        "weight": "",
+        "overseas": {
+            "traveled_country": [],
+            "passing_country": [],
+            "nation": "",
+            "passport_id": "",
+            "arrival_port": [],
+            "arrival_date": "",
+            "arrival_transport": []
+        }
+    },
+    "routes": [
+        {
+            "date": "2020-12-14",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "06:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "南法信镇东海洪村",
+                            "district": "北京市顺义区",
+                            "adcode": "110101",
+                            "location": "116.620428,40.140501",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾",
+                        "note": "备注"
+                    },
+                    "pause": {
+                        "time": "19:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "河北省张家口市沙城高速公路服务区",
+                            "district": "北京市顺义区",
+                            "adcode": "110101",
+                            "location": "115.654652,40.388896",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-20",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "06:23:00",
+                        "location": {
+                            "id": "",
+                            "name": "南法信镇东海洪村",
+                            "district": "北京市顺义区",
+                            "adcode": "110101",
+                            "location": "116.620428,40.140501",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "15:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "沙峪镇物美超市",
+                            "district": "北京市西城区",
+                            "adcode": "110102",
+                            "location": "116.554576,40.112017",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-24",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "06:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "南法信镇东海洪村",
+                            "district": "北京市顺义区",
+                            "adcode": "110101",
+                            "location": "116.620428,40.140501",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "19:30:00",
+                        "location": {
+                            "id": "",
+                            "name": "仁和镇河南村阜林牛肉面餐馆",
+                            "district": "北京市西城区",
+                            "adcode": "110102",
+                            "location": "116.700988,40.102007",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": [
+                            {
+                                "name": "陈某某",
+                                "pid": "110101199003072551"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "reamarks": ""
+        },
+        {
+            "date": "2020-12-25",
+            "route": [
+                {
+                    "travel": null,
+                    "pause": {
+                        "time": "06:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "南法信镇东海洪村",
+                            "district": "北京市顺义区",
+                            "adcode": "110101",
+                            "location": "116.620428,40.140501",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "07:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "仁和镇河南村阜林牛肉面餐馆",
+                            "district": "北京市西城区",
+                            "adcode": "110102",
+                            "location": "116.700988,40.102007",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                },
+                {
+                    "travel": {
+                        "transform": "自驾"
+                    },
+                    "pause": {
+                        "time": "14:00:00",
+                        "location": {
+                            "id": "",
+                            "name": "南法信镇北法信村西口左侧板面馆",
+                            "district": "北京市西城区",
+                            "adcode": "110102",
+                            "location": "116.611562,40.137837",
+                            "address": "",
+                            "typecode": "",
+                            "city": []
+                        },
+                        "contacts": []
+                    }
+                }
+            ],
+            "reamarks": ""
+        }
+    ]
+}
