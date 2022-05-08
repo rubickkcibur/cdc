@@ -4,14 +4,17 @@ import G6 from '@antv/g6';
 import { isNumber, isArray } from '@antv/util'
 import { Timeline } from 'antd';
 import styles from './index.module.scss'
-//import data from "./data.json"
-import data from "../../../../format_sample/cluster_fomat.json"
+// import data from "./data.json"
+import my_data from "../../../../format_sample/cluster_fomat.json"
 import { useTypedSelector } from "../../lib/store"
+import MyApp from '../../pages/_app';
+import { Cluster } from '../AMapCom';
 
 //完成待渲染数据格式的转换
-function convertJSON(){[]
+function convertJSON(){
+    const cnt = 0;
     for(var n of data.nodes){
-      n.id = n.name;
+      n.id = cnt++;
     }
     // for(var e in data.edges){
     //   e.label = e.relation + "(" + e.notes + ")";
@@ -61,6 +64,56 @@ export default function ClusterGraph() {
     const darkBackColor = 'rgb(43, 47, 51)';
     const disableColor = '#777';
     const theme = 'dark';
+
+    const formClusterData=(my_data)=>{
+      let ce = []
+      my_data.clusterEdges.forEach((e)=>{
+        ce.push({
+          source:e.source,
+          target:e.target,
+          weight:e.count,
+          count:e.count,
+          id:`edge-${uniqueId()}`,
+          note:e.note,
+          label:e.label,
+          relation:e.relation,
+          note:e.note
+        })
+      })
+      let cn = []
+      my_data.clusters.forEach((v,i)=>{
+        cn.push({
+          id:v.id,
+          name:v.name,
+          note:v.note,
+          gps:v.gps,
+          nodes:v.nodes.map((nid)=>({
+            id:`pnode-${nid}`,
+            phone:my_data.nodes[nid].phone,
+            ptype:my_data.nodes[nid].type,
+            gender:my_data.nodes[nid].gender,
+            time:my_data.nodes[nid].diagnosedTime
+          }))
+        })
+      })
+      return {clusterEdges:ce,clusters:cn}
+    }
+
+    const formOriginData=(my_data)=>{
+      let nodes = my_data.nodes.map((v,i)=>({
+        ...v,
+        id:`pnode-${i}`
+      }))
+      let edges = my_data.edges.map((v,i)=>({
+        source:`pnode-${v.source}`,
+        target:`pnode-${v.target}`,
+        relation:v.relation,
+        note:v.note,
+        value:0
+      }))
+      return {nodes:nodes,edges:edges}
+    }
+
     const subjectColors = [
       '#5F95FF', // blue
       '#61DDAA',
@@ -157,6 +210,7 @@ export default function ClusterGraph() {
       if (text && text.split('').length > minLength) return `${text.substr(0, minLength)}...`;
       return text;
     };
+    //为nodes和edges添加样式布局
     const processNodesEdges = (
       nodes,
       edges,
@@ -183,7 +237,7 @@ export default function ClusterGraph() {
         node.inDegree = 0;
         node.outDegree = 0;
         if (currentNodeMap[node.id]) {
-          console.warn('node exists already!', node.id);
+          console.warn('in processNodesEdges! node exists already!', node.id);
           node.id = `${node.id}${Math.random()}`;
         }
         currentNodeMap[node.id] = node;
@@ -555,8 +609,11 @@ export default function ClusterGraph() {
         }
       });
       originData.edges.forEach((edge) => {
+        console.log(edge)
         const isSourceInExpandArray = expandMap[nodeMap[edge.source].clusterId];
         const isTargetInExpandArray = expandMap[nodeMap[edge.target].clusterId];
+        console.log(nodeMap[edge.source])
+        console.log(nodeMap[edge.target])
         if (isSourceInExpandArray && isTargetInExpandArray) {
           edges.push(edge);
         } else if (isSourceInExpandArray) {
@@ -583,6 +640,8 @@ export default function ClusterGraph() {
         if (expandMap[edge.source] || expandMap[edge.target]) return;
         else edges.push(edge);
       });
+      console.log(nodes)
+      console.log(edges)
       return { nodes, edges };
     };
     const getNeighborMixedGraph = (
@@ -766,7 +825,7 @@ export default function ClusterGraph() {
           collapseArray.push(collapseNode);
         }
       }
-    
+
       const currentNode = {
         id: model.id,
         level: model.level,
@@ -1387,74 +1446,35 @@ export default function ClusterGraph() {
       CANVAS_WIDTH = container.scrollWidth;
       CANVAS_HEIGHT = (container.scrollHeight || 500) - 30;
 
-      nodeMap = {};
-     // const clusteredData = louvain(data, false, 'weight'); //todo: change cluster algorithm to ours
-      const clusteredData = data;
-      console.log(clusteredData)
+      nodeMap = {}; //node.id 2 node
+      // const clusteredData = louvain(data, false, 'weight'); //todo: change cluster algorithm to ours
+      const clusteredData = formClusterData(my_data);
+      const data = formOriginData(my_data)
       const aggregatedData = { nodes: [], edges: [] };
-      // clusteredData.clusters.forEach((cluster, i) => {
-      //   cluster.nodes.forEach((node) => {
-      //     node.level = 0;
-      //     //node.label = node.id;
-      //     node.label = `${node.name}`;
-      //     node.type = '';
-      //     node.colorSet = colorSets[i];
-      //     nodeMap[node.id] = node;
-      //   });
-      //   const cnode = {
-      //     id: cluster.id,
-      //     type: 'aggregated-node',
-      //     count: cluster.nodes.length,
-      //     level: 1,
-      //     //label:cluster.id,
-      //     label: cluster.name,
-      //     colorSet: colorSets[i],
-      //     idx: i,
-      //   };
-      //   aggregatedNodeMap[cluster.id] = cnode;
-      //   aggregatedData.nodes.push(cnode);
-      // });
-
       clusteredData.clusters.forEach((cluster, i) => {
-        for(const n of cluster.nodes){
-          var node = clusteredData.nodes[n];
+        cluster.nodes.forEach((node) => {
           node.level = 0;
           //node.label = node.id;
+          node.clusterId = cluster.id
           node.label = `${node.name}`;
           node.type = '';
           node.colorSet = colorSets[i];
-          nodeMap[n] = node;
-        }
-     
+          nodeMap[node.id] = node;
+        });
         const cnode = {
           id: cluster.id,
           type: 'aggregated-node',
           count: cluster.nodes.length,
           level: 1,
           //label:cluster.id,
-          label: `${cluster.name}`,
+          label: cluster.name,
           colorSet: colorSets[i],
           idx: i,
         };
         aggregatedNodeMap[cluster.id] = cnode;
         aggregatedData.nodes.push(cnode);
       });
-      // clusteredData.clusterEdges.forEach((clusterEdge) => {
-      //   const cedge = {
-      //     ...clusterEdge,
-      //     size: Math.log(clusterEdge.count),
-      //     //label:'',
-      //     label: `${clusterEdge.relation}(${clusterEdge.notes})`,
-      //     id: `edge-${uniqueId()}`,
-      //   };
-      //   if (cedge.source === cedge.target) {
-      //     cedge.type = 'loop';
-      //     cedge.loopCfg = {
-      //       dist: 20,
-      //     };
-      //   } else cedge.type = 'line';
-      //   aggregatedData.edges.push(cedge);
-      // });
+
       clusteredData.clusterEdges.forEach((clusterEdge) => {
         const cedge = {
           ...clusterEdge,
@@ -1471,11 +1491,13 @@ export default function ClusterGraph() {
         } else cedge.type = 'line';
         aggregatedData.edges.push(cedge);
       });
+
       data.edges.forEach((edge) => {
-        //edge.label = `${edge.source}-${edge.target}`;
-        edge.label = `${edge.relation}(${edge.notes})`;
+        // edge.label = `${edge.source}-${edge.target}`;
+        // edge.label = `${edge.relation}(${edge.notes})`;
         edge.id = `edge-${uniqueId()}`;
       });
+
       currentUnproccessedData = aggregatedData;
       const { edges: processedEdges } = processNodesEdges(
         currentUnproccessedData.nodes,
@@ -1526,6 +1548,7 @@ export default function ClusterGraph() {
           }
         },
         handleMenuClick: (target, item) => {
+          console.log(item.getModel())
           const model = item && item.getModel();
           const liIdStrs = target.id.split('-');
           let mixedGraphData;
@@ -1677,8 +1700,6 @@ export default function ClusterGraph() {
       layout.instance.execute();
 
       bindListener(graph);
-      console.log(aggregatedData.nodes)
-      console.log(processedEdges)
       graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
       graph.render();
     },[])
