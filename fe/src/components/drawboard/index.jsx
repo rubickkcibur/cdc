@@ -16,7 +16,7 @@ import { useTypedSelector } from '../../lib/store';
 // import chain_data from "./initial-elements"
 import chain_data from "../../../../format_sample/chain_format.json";
 import sty from './index.module.scss';
-import {Modal,Select} from 'antd'
+import {Modal,Select,AutoComplete} from 'antd'
 import Const from '../../lib/constant';
 const { Option } = Select;
 
@@ -31,8 +31,26 @@ const SaveRestore = () => {
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
   const [isModalVisible,setIMV] = useState(false)
   const [newNode,setNewNode] = useState(null)
+  const [Modalvs,setModalvs] = useState(false);
+  const [edge,setEdge] = useState(null);
+  const [relation,setRelation] = useState(null);
   var num = 0;
-
+  const onEdgeClick = useCallback((event,edge)=>{
+    setEdge(edge);
+    setModalvs(true);
+  },[edge]);
+  const setEdgeDetail=useCallback(()=>{
+    if(relation != null) {
+          setModalvs(false);
+          setEdges((els)=>
+          els.map((eg)=>{
+            if(eg.id === edge.id) {
+              edge.label=relation;
+              return edge;
+            }else return eg;
+          }))
+        }
+  },[relation]);
   const onAddNode=()=>{
     axios.get(`${Const.testserver}/get_all_patients`)
     .then(e=>{
@@ -128,6 +146,7 @@ const SaveRestore = () => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       onInit={setRfInstance}
+      // onEdgeClick={onEdgeClick}
     >
       <div style={{"position": "absolute","right": "50px","top": "10px","z-index": "4","font-size": "12px"}}>
         <button className={sty.Btn}>save</button>
@@ -153,6 +172,16 @@ const SaveRestore = () => {
         }
       </Select>
     </Modal>
+    <Modal title="更改关系" >
+      <input/>
+    </Modal>
+    {/* <Modal title="更改关系" visible={Modalvs} onOk={setEdgeDetail} onCancel={setModalvs(false)}>
+      <AutoComplete
+        style={{width: 200}}
+        placeholder="input here"
+        // onChange={(value)=>setRelation(value)}
+      />
+    </Modal> */}
     </>
   );
 };

@@ -27,7 +27,7 @@ function convertJSON(){
     // }
 }
 
-export default function ClusterGraph() {
+export default function ClusterGraph({handleReason}) {
     const ref = React.useRef(null);
     const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
     const { labelPropagation, louvain, findShortestPath } = G6.Algorithm;
@@ -89,10 +89,11 @@ export default function ClusterGraph() {
           gps:v.gps,
           nodes:v.nodes.map((nid)=>({
             id:`pnode-${nid}`,
-            phone:my_data.nodes[nid].phone,
-            ptype:my_data.nodes[nid].type,
-            gender:my_data.nodes[nid].gender,
-            time:my_data.nodes[nid].diagnosedTime
+            // phone:my_data.nodes[nid].phone,
+            // ptype:my_data.nodes[nid].type,
+            // gender:my_data.nodes[nid].gender,
+            // time:my_data.nodes[nid].diagnosedTime
+            ...my_data.nodes[nid]
           }))
         })
       })
@@ -1480,7 +1481,7 @@ export default function ClusterGraph() {
           ...clusterEdge,
           size: Math.log(clusterEdge.count),
           //label:'',
-          label: `${clusterEdge.relation}(${clusterEdge.notes})`,
+          label: `${clusterEdge.relation}(${clusterEdge.note})`,
           id: `edge-${uniqueId()}`,
         };
         if (cedge.source === cedge.target) {
@@ -1494,7 +1495,7 @@ export default function ClusterGraph() {
 
       data.edges.forEach((edge) => {
         // edge.label = `${edge.source}-${edge.target}`;
-        // edge.label = `${edge.relation}(${edge.notes})`;
+        edge.label = `${edge.relation}(${edge.note})`;
         edge.id = `edge-${uniqueId()}`;
       });
 
@@ -1508,6 +1509,7 @@ export default function ClusterGraph() {
         true,
         true,
       );
+      // console.log(processedEdges)
       const contextMenu = new G6.Menu({
         shouldBegin(evt) {
           if (evt.target && evt.target.isCanvas && evt.target.isCanvas()) return true;
@@ -1534,9 +1536,7 @@ export default function ClusterGraph() {
               } else {
                 return `<ul>
                 <li id='collapse'>Collapse the Cluster</li>
-                <li id='neighbor-1'>Find 1-degree Neighbors</li>
-                <li id='neighbor-2'>Find 2-degree Neighbors</li>
-                <li id='neighbor-3'>Find 3-degree Neighbors</li>
+                <li id='reason'>Reason</li>
                 <li id='hide'>Hide the Node</li>
               </ul>`;
               }
@@ -1553,6 +1553,9 @@ export default function ClusterGraph() {
           const liIdStrs = target.id.split('-');
           let mixedGraphData;
           switch (liIdStrs[0]) {
+            case 'reason':
+              handleReason(model.pid)
+              break
             case 'hide':
               graph.hideItem(item);
               hiddenItemIds.push(model.id);
