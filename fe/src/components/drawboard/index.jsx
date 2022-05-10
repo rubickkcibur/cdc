@@ -46,9 +46,11 @@ const SaveRestore = () => {
           els.map((eg)=>{
             if(eg.id === edge.id) {
               edge.label=relation;
+              edge.labelShowBg = false;
               return edge;
             }else return eg;
           }))
+          setRelation(null);
         }
   },[relation]);
   const onAddNode=()=>{
@@ -105,7 +107,7 @@ const SaveRestore = () => {
           label: 
           <div>
             <span style={{fontWeight:'bolder',fontSize:'25px',color:(person.type == "确诊")? 'white':'black'}}>{person.name}</span><br/>
-            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>{person.gender}</span>
+            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>{person.gender==1?"男":"女"}</span>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>  {person.type}</span><br/>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>确诊日期: {person.diagnosedTime}</span><br/>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>电话: {person.phone}</span>
@@ -146,7 +148,7 @@ const SaveRestore = () => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       onInit={setRfInstance}
-      // onEdgeClick={onEdgeClick}
+      onEdgeClick={onEdgeClick}
     >
       <div style={{"position": "absolute","right": "50px","top": "10px","z-index": "4","font-size": "12px"}}>
         <button className={sty.Btn}>save</button>
@@ -172,16 +174,15 @@ const SaveRestore = () => {
         }
       </Select>
     </Modal>
-    <Modal title="更改关系" >
-      <input/>
-    </Modal>
-    {/* <Modal title="更改关系" visible={Modalvs} onOk={setEdgeDetail} onCancel={setModalvs(false)}>
+    <Modal title="添加关系" visible={Modalvs} onOk={setEdgeDetail} onCancel={()=>{setRelation(null),setModalvs(false)}}>
       <AutoComplete
         style={{width: 200}}
         placeholder="input here"
-        // onChange={(value)=>setRelation(value)}
+        allowClear="true"
+        value={relation}
+        onChange={(value)=>setRelation(value)}
       />
-    </Modal> */}
+    </Modal>
     </>
   );
 };

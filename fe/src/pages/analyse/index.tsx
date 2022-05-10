@@ -19,7 +19,7 @@ import initialElements from '../../components/drawboard/initial-elements';
 import SaveRestore from "../../components/drawboard"
 import DeviceGraph from "../../components/JtopoNodes"
 import ClusterGraph from "../../components/ClusterGraph";
-import { dispatch } from "rxjs/internal/observable/pairs";
+import axios from "axios";
 
 
 export default function Pageanalyse() {
@@ -27,8 +27,13 @@ export default function Pageanalyse() {
     const [isHidden,setIsHidden]=useState(sty.show);
     const router = useRouter()
     const [radioValue,setRadioValue] = useState("1")
+    const dispatch = useDispatch()
     const handleReason = (pid:any)=>{
         setRadioValue("3")
+        axios.post(`${Constant.testserver}/get_chain`,{
+            pid:pid
+        })
+        .then(e=>{dispatch(ActSetState({chain:e.data}))})
         setPict(
             <>
             <div className={sty.export}>

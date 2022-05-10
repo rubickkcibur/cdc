@@ -5,27 +5,13 @@ import { isNumber, isArray } from '@antv/util'
 import { Timeline } from 'antd';
 import styles from './index.module.scss'
 // import data from "./data.json"
-import my_data from "../../../../format_sample/cluster_fomat.json"
+// import my_data from "../../../../format_sample/cluster_fomat.json"
 import { useTypedSelector } from "../../lib/store"
-import MyApp from '../../pages/_app';
-import { Cluster } from '../AMapCom';
+import axios from 'axios';
+import Const from '../../lib/constant';
+import { ActSetState } from '../../lib/state/global';
+import { useDispatch } from 'react-redux';
 
-//完成待渲染数据格式的转换
-function convertJSON(){
-    const cnt = 0;
-    for(var n of data.nodes){
-      n.id = cnt++;
-    }
-    // for(var e in data.edges){
-    //   e.label = e.relation + "(" + e.notes + ")";
-    // }
-    // for(var c in data.clusters){
-    //   e.label = e.name;
-    // }
-    // for(var c in data.clusterEdges){
-    //   c.label = c.relation + "(" + c.notes + ")";
-    // }
-}
 
 export default function ClusterGraph({handleReason}) {
     const ref = React.useRef(null);
@@ -64,6 +50,7 @@ export default function ClusterGraph({handleReason}) {
     const darkBackColor = 'rgb(43, 47, 51)';
     const disableColor = '#777';
     const theme = 'dark';
+    const dispatch = useDispatch()
 
     const formClusterData=(my_data)=>{
       let ce = []
@@ -957,6 +944,13 @@ export default function ClusterGraph({handleReason}) {
       });
     };
     useEffect(()=>{
+      if (!aggrGraph){
+        axios.get(`${Const.testserver}/get_clusters`).then(e=>{
+          dispatch(ActSetState({aggrGraph:e.data}))
+        })
+        return
+      }
+      let my_data = aggrGraph
       G6.registerNode(
         'aggregated-node',
         {
@@ -1705,7 +1699,7 @@ export default function ClusterGraph({handleReason}) {
       bindListener(graph);
       graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
       graph.render();
-    },[])
+    },[aggrGraph])
     
     // useEffect(()=>{
     //   if(!aggrGraph || !graph) return;
