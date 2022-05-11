@@ -76,7 +76,7 @@ const SaveRestore = () => {
             <span style={{fontWeight:'bolder',fontSize:'25px',color:(ptype == "确诊")? 'white':'black'}}>{newNode.name}</span><br/>
             <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>{newNode.gender}</span>
             <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>  {newNode.type}</span><br/>
-            <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>确诊日期: {newNode.diagnosedTime}</span><br/>
+            <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>确诊日期: {newNode.diagnosedDate}</span><br/>
             <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>电话: {newNode.phone}</span>
           </div>
         },
@@ -109,7 +109,7 @@ const SaveRestore = () => {
             <span style={{fontWeight:'bolder',fontSize:'25px',color:(person.type == "确诊")? 'white':'black'}}>{person.name}</span><br/>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>{person.gender==1?"男":"女"}</span>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>  {person.type}</span><br/>
-            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>确诊日期: {person.diagnosedTime}</span><br/>
+            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>确诊日期: {person.diagnosedDate}</span><br/>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>电话: {person.phone}</span>
           </div>
         },
@@ -174,7 +174,7 @@ const SaveRestore = () => {
         }
       </Select>
     </Modal>
-    <Modal title="添加关系" visible={Modalvs} onOk={setEdgeDetail} onCancel={()=>{setRelation(null),setModalvs(false)}}>
+    <Modal title="添加关系" visible={Modalvs} onOk={setEdgeDetail} onCancel={()=>{setModalvs(false)}}>
       <AutoComplete
         style={{width: 200}}
         placeholder="input here"
