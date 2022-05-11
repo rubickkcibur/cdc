@@ -53,6 +53,16 @@ const SaveRestore = () => {
           setRelation(null);
         }
   },[relation]);
+
+  const onDispatch=(pid="0")=>{
+    if (!chain){
+      axios.post(`${Constant.testserver}/get_chain`,{
+        pid:pid
+      })
+      .then(e=>{dispatch(ActSetState({chain:e.data}))})
+    }
+  }
+
   const onAddNode=()=>{
     axios.get(`${Const.testserver}/get_all_patients`)
     .then(e=>{
@@ -154,7 +164,7 @@ const SaveRestore = () => {
         <button className={sty.Btn}>save</button>
         <button className={sty.Btn}>restore</button>
         <button className={sty.Btn} onClick={()=>{onAddNode()}}>add node</button>
-        <button className={sty.Btn} onClick={()=>{dispatch(ActSetState({chain:chain_data}))}}>dispatch</button>
+        <button className={sty.Btn} onClick={()=>{onDispatch()}}>dispatch</button>
       </div>
       {<MiniMap/>}
     </ReactFlow>

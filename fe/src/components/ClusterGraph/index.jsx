@@ -51,7 +51,6 @@ export default function ClusterGraph({handleReason}) {
     const disableColor = '#777';
     const theme = 'dark';
     const dispatch = useDispatch()
-
     const formClusterData=(my_data)=>{
       let ce = []
       my_data.clusterEdges.forEach((e)=>{
@@ -86,7 +85,6 @@ export default function ClusterGraph({handleReason}) {
       })
       return {clusterEdges:ce,clusters:cn}
     }
-
     const formOriginData=(my_data)=>{
       let nodes = my_data.nodes.map((v,i)=>({
         ...v,
@@ -101,7 +99,6 @@ export default function ClusterGraph({handleReason}) {
       }))
       return {nodes:nodes,edges:edges}
     }
-
     const subjectColors = [
       '#5F95FF', // blue
       '#61DDAA',
@@ -1701,68 +1698,5 @@ export default function ClusterGraph({handleReason}) {
       graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
       graph.render();
     },[aggrGraph])
-    
-    // useEffect(()=>{
-    //   if(!aggrGraph || !graph) return;
-    //   nodeMap = {};
-    //   aggregatedNodeMap.clear()
-    //   currentUnproccessedData.clear()
-    //   hiddenItemIds.clear()
-    //   //todo:是否还有需要clear的数据
-    //   const clusteredData = {clusterEdges:aggrGraph.clusterEdges,clusters:aggrGraph.clusters}
-    //   const aggregatedData = { nodes: [], edges: [] };
-    //   clusteredData.clusters.forEach((cluster, i) => {
-    //     cluster.nodes.forEach((node) => {
-    //       node.level = 0;
-    //       node.label = node.id;
-    //       node.type = '';
-    //       node.colorSet = colorSets[i];
-    //       nodeMap[node.id] = node;
-    //     });
-    //     const cnode = {
-    //       id: cluster.id,
-    //       type: 'aggregated-node',
-    //       count: cluster.nodes.length,
-    //       level: 1,
-    //       label: cluster.id,
-    //       colorSet: colorSets[i],
-    //       idx: i,
-    //     };
-    //     aggregatedNodeMap[cluster.id] = cnode;
-    //     aggregatedData.nodes.push(cnode);
-    //   });
-    //   clusteredData.clusterEdges.forEach((clusterEdge) => {
-    //     const cedge = {
-    //       ...clusterEdge,
-    //       size: Math.log(clusterEdge.count),
-    //       label: '',
-    //       id: `edge-${uniqueId()}`,
-    //     };
-    //     if (cedge.source === cedge.target) {
-    //       cedge.type = 'loop';
-    //       cedge.loopCfg = {
-    //         dist: 20,
-    //       };
-    //     } else cedge.type = 'line';
-    //     aggregatedData.edges.push(cedge);
-    //   });
-    //   data.edges.forEach((edge) => {
-    //     edge.label = `${edge.source}-${edge.target}`;
-    //     edge.id = `edge-${uniqueId()}`;
-    //   });
-    //   currentUnproccessedData = aggregatedData;
-    //   const { edges: processedEdges } = processNodesEdges(
-    //     currentUnproccessedData.nodes,
-    //     currentUnproccessedData.edges,
-    //     CANVAS_WIDTH,
-    //     CANVAS_HEIGHT,
-    //     largeGraphMode,
-    //     true,
-    //     true,
-    //   );
-    //   graph.clear()
-    //   graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
-    //   graph.render();
-    // },[aggrGraph])
     return <div id="container" ref={ref} style={{width:"100%",height:"85vh"}}></div>;
   }
