@@ -1016,7 +1016,7 @@ export default function ClusterGraph({handleReason}) {
             }
             group.addShape('text', {
               attrs: {
-                text: `${cfg.count}`,
+                text: `${cfg.name}`,
                 x: 0,
                 y: 0,
                 textAlign: 'center',
@@ -1160,7 +1160,7 @@ export default function ClusterGraph({handleReason}) {
               offsetY = lineNum * (fontSize || 12);
               group.addShape('text', {
                 attrs: {
-                  text,
+                  text:`${cfg.name}`,
                   x: 0,
                   y: r + refY + offsetY + 5,
                   textAlign: 'center',
@@ -1463,6 +1463,7 @@ export default function ClusterGraph({handleReason}) {
           level: 1,
           //label:cluster.id,
           label: cluster.name,
+          name: cluster.name,
           colorSet: colorSets[i],
           idx: i,
         };
