@@ -82,3 +82,8 @@
   .g6-component-contextmenu li:hover {
     color: #aaaaaa;
 	}
+  .g6-component-tooltip {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0px 10px 24px 10px;
+    box-shadow: rgb(174, 174, 174) 0px 0px 10px;
+  }

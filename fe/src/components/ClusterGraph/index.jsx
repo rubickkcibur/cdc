@@ -1461,6 +1461,8 @@ export default function ClusterGraph({handleReason}) {
           name: cluster.name,
           colorSet: colorSets[i],
           idx: i,
+          note:cluster.note,
+          gps:cluster.gps
         };
         aggregatedNodeMap[cluster.id] = cnode;
         aggregatedData.nodes.push(cnode);
@@ -1641,6 +1643,39 @@ export default function ClusterGraph({handleReason}) {
         // 在哪些类型的元素上响应
         itemTypes: ['node', 'edge', 'canvas'],
       });
+      const tooltip = new G6.Tooltip({
+        offsetX: 10,
+        offsetY: 10,
+        // the types of items that allow the tooltip show up
+        // 允许出现 tooltip 的 item 类型
+        itemTypes: ['node'],
+        // custom the tooltip's content
+        // 自定义 tooltip 内容
+        getContent: (e) => {
+          const outDiv = document.createElement('div');
+          const model = e.item.getModel()
+          if (model.type === "aggregated-node"){
+            outDiv.style.width = 'fit-content';
+            //outDiv.style.padding = '0px 0px 20px 0px';
+            outDiv.innerHTML = `
+              <h4>Custom Content</h4>
+              <ul>
+                <li>经纬度: ${model.gps}</li>
+              </ul>
+              <ul>
+                <li>包含地点: ${model.note}</li>
+              </ul>`;
+            return outDiv;
+          }else if (model.type === "real-node"){
+            outDiv.style.width = 'fit-content';
+            //outDiv.style.padding = '0px 0px 20px 0px';
+            outDiv.innerHTML = `
+              <h4>Custom Content</h4>
+              `;
+            return outDiv;
+          }
+        },
+      });
       graph = new G6.Graph({
         container: ReactDOM.findDOMNode(ref.current),
         width: CANVAS_WIDTH,
@@ -1683,7 +1718,7 @@ export default function ClusterGraph({handleReason}) {
           type: 'aggregated-node',
           size: DEFAULTNODESIZE,
         },
-        plugins: [contextMenu],
+        plugins: [contextMenu,tooltip],
       });
       graph.get('canvas').set('localRefresh', false);
       // const layoutConfig = getForceLayoutConfig(graph, largeGraphMode);
