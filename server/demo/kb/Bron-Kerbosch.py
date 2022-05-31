@@ -180,7 +180,7 @@ def start(build=False,traverse=False,dmax=5,version=2):
 
 
 BK_VERSION = 2
-DMAX = 0.5
+DMAX = 2
 all_max_cliques = []
 name2no = json.load(open("./name2no.json","r",encoding="utf-8"))
 no2name = json.load(open("./no2name.json","r",encoding="utf-8"))

@@ -39,6 +39,18 @@ const SaveRestore = () => {
     setEdge(edge);
     setModalvs(true);
   },[edge]);
+  const onEdgeContextMenu = useCallback((event,edge)=>{
+    console.log("edge id :"+ edge.id)
+    const newedge = []
+    edges.map((item)=>{
+      console.log(item.id)
+      if(item.id != edge.id) {
+        newedge.push(item)
+      }
+    })
+    console.log(newedge)
+    setEdges(newedge) 
+  })
   const setEdgeDetail=useCallback(()=>{
     if(relation != null) {
           setModalvs(false);
@@ -56,7 +68,7 @@ const SaveRestore = () => {
 
   const onDispatch=(pid="0")=>{
     if (!chain){
-      axios.post(`${Constant.testserver}/get_chain`,{
+      axios.post(`${Const.testserver}/get_chain`,{
         pid:pid
       })
       .then(e=>{dispatch(ActSetState({chain:e.data}))})
@@ -119,7 +131,7 @@ const SaveRestore = () => {
             <span style={{fontWeight:'bolder',fontSize:'25px',color:(person.type == "确诊")? 'white':'black'}}>{person.name}</span><br/>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>{person.gender==1?"男":"女"}</span>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>  {person.type}</span><br/>
-            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>确诊日期: {person.diagnosedDate}</span><br/>
+            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>确日期: {person.diagnosedDate}</span><br/>
             <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>电话: {person.phone}</span>
           </div>
         },
@@ -142,6 +154,7 @@ const SaveRestore = () => {
           label:edge.relation,
           source: "node-" + edge.source,
           target: "node-" + edge.target,
+          animated: edge.isTruth == 1?  true : false
         }
         newEdge.labelShowBg = false;
         setEdges((edges)=>edges.concat(newEdge))
@@ -159,6 +172,7 @@ const SaveRestore = () => {
       onConnect={onConnect}
       onInit={setRfInstance}
       onEdgeClick={onEdgeClick}
+      onEdgeContextMenu={onEdgeContextMenu}
     >
       <div style={{"position": "absolute","right": "50px","top": "10px","z-index": "4","font-size": "12px"}}>
         <button className={sty.Btn}>save</button>

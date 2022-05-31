@@ -5,7 +5,7 @@ const Const = {
     //boltserver: "bolt://bridge.cnworkshop.xyz:20005",
     // boltserver:"bolt://192.168.1.194:7687",
     boltserver: "bolt://82.157.153.27:5307",
-    testserver: "http://82.157.153.27:5309"
+    testserver: "http://82.157.153.27:5305"
 
     // boltserver: "bolt://bridge.cnworkshop.xyz/bolt"
 }

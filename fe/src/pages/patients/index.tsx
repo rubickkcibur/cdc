@@ -49,7 +49,8 @@ export default function Pagepatients() {
       {
         title: "身份证号",
         dataIndex: "personal_id",
-        width:150
+        width:150,
+        render:text=>("********")
       },
       {
         title: "性别",

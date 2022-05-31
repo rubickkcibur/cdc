@@ -18,6 +18,7 @@ from django.http import FileResponse
 from bson import json_util
 from pathlib import Path
 import os
+from demo.kb.form_cluster import get_clusters
 # Create your views here.
 
 neo4j_path = "http://neo4j:7474/"
@@ -30,6 +31,30 @@ col_epidemic = db["epidemic"] #疫情表
 graph = Graph(neo4j_path, user="neo4j", password="123456")
 node_matcher = NodeMatcher(graph)
 rel_matcher = RelationshipMatcher(graph)
+
+@api_view(["GET"])
+def getCluster(request):
+    # data = request.data
+    # dist = data["distance"]
+    # time = data["time"]
+    ret = get_clusters()
+    for n in ret["nodes"]:
+        name = n["name"]
+        patient = col.find_one({"basic.name":name})
+        n["pid"] = patient["basic"]["personal_id"]
+        n["gender"] = patient["basic"]["gender"]
+        n["phone"] = patient["basic"]["phone"]
+        n["diagnosedTime"] = ""
+        n["type"] = "确诊"
+    response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "*"
+    return response
+    
+
+
 
 
 @api_view(["POST"])
@@ -505,7 +530,7 @@ def download_docx(request):
 @api_view(["POST"])
 def epidemicUpload(request):
     if request.method == "POST":
-        data = request.data
+        data = request.data.copy()
         col_epidemic.insert_one(data)
         return HttpResponse("succeed", status=status.HTTP_200_OK)
 

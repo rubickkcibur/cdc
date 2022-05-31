@@ -1,31 +1,24 @@
-import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs} from "antd";
-import { DownOutlined } from '@ant-design/icons';
-import DescriptionsItem from "antd/lib/descriptions/Item";
+import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs, DatePicker} from "antd";
 import React, { useDebugValue, useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout"
-import { useTypedSelector } from "../../lib/store";
 import sty from "./index.module.scss"
-import { ColumnsType } from "antd/lib/table";
-import { extracDate } from "../../lib/utils";
 import { useDispatch } from "react-redux";
 import {ActRemovePauses, ActSetAggr, ActSetState, SendData2Store} from "../../lib/state/global";
 import Axios from "axios";
 import Constant from '../../lib/constant'
-import Search from "antd/lib/input/Search";
 import { useRouter } from "next/dist/client/router";
-import NewRouteForm from "../../components/NewRoute";
-import Routes from "../../components/Routes";
-import initialElements from '../../components/drawboard/initial-elements';
 import SaveRestore from "../../components/drawboard"
-import DeviceGraph from "../../components/JtopoNodes"
 import ClusterGraph from "../../components/ClusterGraph";
 import axios from "axios";
+import { useTypedSelector } from "../../lib/store";
+
+const {RangePicker} = DatePicker
+const { Option } = Select;
 
 
 export default function Pageanalyse() {
     const { Option } = Select;
     const [isHidden,setIsHidden]=useState(sty.show);
-    const router = useRouter()
     const [radioValue,setRadioValue] = useState("1")
     const dispatch = useDispatch()
     const handleReason = (pid:any)=>{
@@ -46,20 +39,32 @@ export default function Pageanalyse() {
         )
         setIsHidden(sty.hidden)
     }
-    const [areaSlider,setAS] = useState<Number>(1000)
-    const [timeSlider,setTS] = useState<Number>(60)
+    const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
+    const [dist,setD] = useState(100)
+    const [unit,setU] = useState(0.001)
+    const [startTime,setST] = useState("2022-04-22")
+    const [endTime,setET] = useState("2022-05-16")
+    const [district,setDT] = useState("海淀区")
     
     const[pict,setPict]=useState(
         <ClusterGraph handleReason={handleReason}/>
     );
-    // const dispatch = useDispatch()
-    // const clickSlider =()=>{
-    //     dispatch(SendData2Store(areaSlider[0],timeSlider[0]))
-    //     Axios.post(`${Constant.apihost}/getAggr`,{area:areaSlider[0],time:timeSlider[0]})
-    //     .then(e=>{
-    //       dispatch(ActSetAggr({e}))
-    //     })
-    // }
+
+    useEffect(()=>{
+        if (!aggrGraph){
+            axios.post(`${Constant.testserver}/get_clusters2`,{
+                dist:dist*unit,
+                startTime:startTime,
+                endTime:endTime,
+                district:district
+            }).then(e=>{
+                dispatch(ActSetState({aggrGraph:e.data}))
+            })
+            // axios.get(`${Constant.testserver}/get_clusters`).then(e=>{
+            //     dispatch(ActSetState({aggrGraph:e.data}))
+            // })
+        }
+    },[aggrGraph])
 
     const onChange = (e:any) => {
         if (e.target.value=="3"){
@@ -90,29 +95,16 @@ export default function Pageanalyse() {
         <MainLayout>
             <div className={sty.Table}>
             <Row>
-                <Col span={2}></Col>
                 <Col style={{marginTop:'1px'}} span={6}>
                     <Row className={isHidden}>
                         <Col span={7} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合距离差:</span></Col>
-                 
-                        <Col span={4}>
-                            <Select defaultValue="01" style={{ width: 70 }}>
-                                <Option value="01">小于</Option>
-                                <Option value="02">大于</Option>
-                                <Option value="03">等于</Option>
-                            </Select>
-                        </Col>
-
                         <Col span={1}></Col>
-
                         <Col span={6}>
-                            <Slider max={1000} defaultValue={1000} onChange={(value:any) => setAS(value)}/>
+                            <Slider max={1000} defaultValue={1000} onChange={(value:any) => setD(value)}/>
                         </Col>
-
                         <Col span={1}></Col>
-
                         <Col span={4}>
-                            <Select defaultValue="01" style={{ width: 70 }}>
+                            <Select defaultValue="01" onChange={(value:any)=>setU(value==="01"?0.001:1)}>
                                 <Option value="01">米</Option>
                                 <Option value="02">千米</Option>
                             </Select>
@@ -122,43 +114,45 @@ export default function Pageanalyse() {
                 </Col>
                 <Col style={{marginTop:'1px'}} span={6}>
                     <Row className={isHidden}>
-                        <Col span={7} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合时间差:</span></Col>
-                 
-                        <Col span={4}>
-                            <Select defaultValue="01" style={{ width: 70 }}>
-                                <Option value="01">小于</Option>
-                                <Option value="02">大于</Option>
-                                <Option value="03">等于</Option>
-                            </Select>
+                    <Col span={7} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合日期:</span></Col>
+                        <Col span={17}>
+                            <RangePicker onChange={(v,s)=>{setST(s[0]),setET(s[1])}}/>
                         </Col>
-
-                        <Col span={1}></Col>
-
-                        <Col span={6}>
-                            <Slider max={60} defaultValue={60} onChange={(v:any)=>setTS(v)}/>
-                        </Col>
-
-                        <Col span={1}></Col>
-
-                        <Col span={4}>
-                            <Select defaultValue="01" style={{ width: 70 }}>
-                                <Option value="01">分钟</Option>
-                                <Option value="02">小时</Option>
-                                <Option value="03">日</Option>
-                            </Select>
-                        </Col>
-                        <Col span={3}></Col>
                     </Row>
                 </Col>
-           
+                <Col span={2}>
+                    <Row className={isHidden}>
+                        <Select defaultValue={"海淀区"} onChange={(value:any)=>{setDT(value)}}>
+                            <Option value="东城区">东城区</Option>
+                            <Option value="西城区">西城区</Option>
+                            <Option value="朝阳区">朝阳区</Option>
+                            <Option value="海淀区">海淀区</Option>
+                            <Option value="房山区">房山区</Option>
+                        </Select>
+                    </Row>
+                </Col>
                 <Col span={1}></Col>
-                <Button type="primary" onClick={()=>{console.log("待实现")}}>获取数据</Button>
+                    <Row className={isHidden}>
+                        <Button type="primary" onClick={()=>{
+                            console.log(dist,startTime,endTime,district)
+                            axios.post(`${Constant.testserver}/get_clusters2`,{
+                                dist:dist*unit,
+                                startTime:startTime,
+                                endTime:endTime,
+                                district:district
+                            }).then(e=>{
+                                dispatch(ActSetState({aggrGraph:e.data}))
+                                console.log(e.data)
+                            })
+                            // axios.get(`${Constant.testserver}/get_clusters`).then(e=>{
+                            //     dispatch(ActSetState({aggrGraph:e.data}))
+                            // })
+                        }}>获取数据</Button>
+                    </Row>
                 <Col span={1}></Col>
-           
                 <Col span={5}>
                     <Radio.Group value={radioValue} onChange={(e)=>onChange(e)}>
                         <Radio.Button value="1">聚合传播关系图</Radio.Button>
-                        {/* <Radio.Button value="2">时空传播关系图</Radio.Button> */}
                         <Radio.Button value="3">手绘画板</Radio.Button>
                     </Radio.Group>
                 </Col>

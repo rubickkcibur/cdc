@@ -25,4 +25,5 @@ urlpatterns = [
     path("api/initData",views.initData),
     path("api/downloadDocx",views.download_docx),
     path("api/getAllPlace",views.getAllPlace),
+    path("api/get_clusters",views.getCluster)
 ]

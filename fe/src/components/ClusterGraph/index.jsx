@@ -16,14 +16,13 @@ import { useDispatch } from 'react-redux';
 export default function ClusterGraph({handleReason}) {
     const ref = React.useRef(null);
     const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
-    const { labelPropagation, louvain, findShortestPath } = G6.Algorithm;
     const { uniqueId } = G6.Util;
     const NODESIZEMAPPING = 'degree';
     const SMALLGRAPHLABELMAXLENGTH = 5;
     let labelMaxLength = SMALLGRAPHLABELMAXLENGTH;
     const DEFAULTNODESIZE = 20;
     const DEFAULTAGGREGATEDNODESIZE = 53;
-    const NODE_LIMIT = 40; // TODO: find a proper number for maximum node number on the canvas
+    const NODE_LIMIT = 100; // TODO: find a proper number for maximum node number on the canvas
     let graph = null;
     let currentUnproccessedData = { nodes: [], edges: [] };
     let nodeMap = {};
@@ -544,24 +543,24 @@ export default function ClusterGraph({handleReason}) {
     
       // layout.instance.stop();
       // force 需要使用不同 id 的对象才能进行全新的布局，否则会使用原来的引用。因此复制一份节点和边作为 force 的布局数据
-      layout.instance.init({
-        nodes: graphData.nodes,
-        edges,
-      });
+      // layout.instance.init({
+      //   nodes: graphData.nodes,
+      //   edges,
+      // });
     
-      layout.instance.minMovement = 0.0001;
-      // layout.instance.getCenter = d => {
-      // 	const cachePosition = cachePositions[d.id];
-      // 	if (!cachePosition && (d.x || d.y)) return [d.x, d.y, 10];
-      // 	else if (cachePosition) return [cachePosition.x, cachePosition.y, 10];
-      // 	return [width / 2, height / 2, 10];
-      // }
-      layout.instance.getMass = (d) => {
-        const cachePosition = cachePositions[d.id];
-        if (cachePosition) return 5;
-        return 1;
-      };
-      layout.instance.execute();
+      // layout.instance.minMovement = 0.0001;
+      // // layout.instance.getCenter = d => {
+      // // 	const cachePosition = cachePositions[d.id];
+      // // 	if (!cachePosition && (d.x || d.y)) return [d.x, d.y, 10];
+      // // 	else if (cachePosition) return [cachePosition.x, cachePosition.y, 10];
+      // // 	return [width / 2, height / 2, 10];
+      // // }
+      // layout.instance.getMass = (d) => {
+      //   const cachePosition = cachePositions[d.id];
+      //   if (cachePosition) return 5;
+      //   return 1;
+      // };
+      // layout.instance.execute();
       return { nodes, edges };
     };
     const getMixedGraph = (
@@ -837,7 +836,7 @@ export default function ClusterGraph({handleReason}) {
       return positionMap;
     };
     const stopLayout = () => {
-      layout.instance.stop();
+      // layout.instance.stop();
     };
     const bindListener = (graph) => {
       graph.on('keydown', (evt) => {
@@ -942,12 +941,11 @@ export default function ClusterGraph({handleReason}) {
     };
     useEffect(()=>{
       if (!aggrGraph){
-        axios.get(`${Const.testserver}/get_clusters`).then(e=>{
-          dispatch(ActSetState({aggrGraph:e.data}))
-        })
+        console.log("node data")
         return
       }
       let my_data = aggrGraph
+      document.getElementById("container").innerHTML=""
       G6.registerNode(
         'aggregated-node',
         {
@@ -1650,6 +1648,9 @@ export default function ClusterGraph({handleReason}) {
         linkCenter: true,
         minZoom: 0.1,
         groupByTypes: false,
+        layout:{
+          type:'gForce',
+        },
         modes: {
           default: [
             {
@@ -1685,14 +1686,14 @@ export default function ClusterGraph({handleReason}) {
         plugins: [contextMenu],
       });
       graph.get('canvas').set('localRefresh', false);
-      const layoutConfig = getForceLayoutConfig(graph, largeGraphMode);
-      layoutConfig.center = [CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2];
-      layout.instance = new G6.Layout['gForce'](layoutConfig);
-      layout.instance.init({
-        nodes: currentUnproccessedData.nodes,
-        edges: processedEdges,
-      });
-      layout.instance.execute();
+      // const layoutConfig = getForceLayoutConfig(graph, largeGraphMode);
+      // layoutConfig.center = [CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2];
+      // layout.instance = new G6.Layout['gForce'](layoutConfig);
+      // layout.instance.init({
+      //   nodes: currentUnproccessedData.nodes,
+      //   edges: processedEdges,
+      // });
+      // layout.instance.execute();
 
       bindListener(graph);
       graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
