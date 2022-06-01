@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
+import dagre from 'dagre';
 import ReactFlow, {
   ReactFlowProvider,
   useNodesState,
@@ -14,7 +15,6 @@ import { useDispatch } from 'react-redux';
 import { ActSetState } from '../../lib/state/global';
 import { useTypedSelector } from '../../lib/store';
 // import chain_data from "./initial-elements"
-import chain_data from "../../../../format_sample/chain_format.json";
 import sty from './index.module.scss';
 import {Modal,Select,AutoComplete} from 'antd'
 import Const from '../../lib/constant';
@@ -35,6 +35,54 @@ const SaveRestore = () => {
   const [edge,setEdge] = useState(null);
   const [relation,setRelation] = useState(null);
   var num = 0;
+  const dagreGraph = new dagre.graphlib.Graph();
+  dagreGraph.setDefaultEdgeLabel(() => ({}));
+
+  const nodeWidth = 172;
+  const nodeHeight = 130;
+
+  const getLayoutedElements =useCallback((tmpnodes, tmpedges, direction = 'TB') => {
+    const isHorizontal = direction === 'LR';
+    dagreGraph.setGraph({ rankdir: direction });
+    tmpnodes.forEach((node) => {
+      dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+    });
+
+    tmpedges.forEach((edge) => {
+      dagreGraph.setEdge(edge.source, edge.target);
+    });
+
+    dagre.layout(dagreGraph);
+
+    tmpnodes.forEach((node) => {
+      const nodeWithPosition = dagreGraph.node(node.id);
+      node.targetPosition = isHorizontal ? 'left' : 'top';
+      node.sourcePosition = isHorizontal ? 'right' : 'bottom';
+
+      // We are shifting the dagre node position (anchor=center center) to the top left
+      // so it matches the React Flow node anchor point (top left).
+      node.position = {
+        x: nodeWithPosition.x - nodeWidth/2,
+        y: nodeWithPosition.y - nodeHeight / 2,
+      };
+      return node;
+    });
+    console.log(tmpnodes)
+    return {tmpnodes,tmpedges}
+  },[]);
+  const onLayout = useCallback(
+    (direction) => {
+      const {tmpnodes:layoutedNodes,tmpedges:layoutedEdges } = getLayoutedElements(
+        nodes,
+        edges,
+        direction
+      );
+      console.log(layoutedNodes)
+      setNodes([...layoutedNodes]);
+      setEdges([...layoutedEdges]);
+    },
+    [nodes, edges]
+  );
   const onEdgeClick = useCallback((event,edge)=>{
     setEdge(edge);
     setModalvs(true);
@@ -95,17 +143,17 @@ const SaveRestore = () => {
         data:{
           label: 
           <div>
-            <span style={{fontWeight:'bolder',fontSize:'25px',color:(ptype == "确诊")? 'white':'black'}}>{newNode.name}</span><br/>
-            <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>{newNode.gender}</span>
-            <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>  {newNode.type}</span><br/>
-            <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>确诊日期: {newNode.diagnosedDate}</span><br/>
-            <span style={{fontWeight:'bolder',color:(ptype == "确诊")? 'white':'black'}}>电话: {newNode.phone}</span>
+            <span style={{fontWeight:'bolder',fontSize:'15px',color:(newNode.type == "确诊")? 'white':'black'}}>{newNode.name}</span><br/>
+            <sapn style={{color:(newNode.type == "确诊")? 'white':'black'}}>{newNode.gender==1?"男":"女"} {newNode.type}</sapn><br/>
+            <sapn style={{color:(newNode.type == "确诊")? 'white':'black'}}>确诊日期: {newNode.diagnosedDate}</sapn><br/>
+            <sapn style={{color:(newNode.type == "确诊")? 'white':'black'}}>电话: {newNode.phone}</sapn>
           </div>
         },
         position:{
           x: Math.random() * 800,
           y: 0
-        }
+        },
+        style:{borderRadius:20,padding:1,border:"1px solid #555"},
       }
       if(ptype==="确诊") {
         n.style = { ...n.style, backgroundColor: '#8B0000' };
@@ -128,17 +176,17 @@ const SaveRestore = () => {
         data:{
           label: 
           <div>
-            <span style={{fontWeight:'bolder',fontSize:'25px',color:(person.type == "确诊")? 'white':'black'}}>{person.name}</span><br/>
-            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>{person.gender==1?"男":"女"}</span>
-            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>  {person.type}</span><br/>
-            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>确日期: {person.diagnosedDate}</span><br/>
-            <span style={{fontWeight:'bolder',color:(person.type == "确诊")? 'white':'black'}}>电话: {person.phone}</span>
+            <span style={{fontWeight:'bolder',fontSize:'15px',color:(person.type == "确诊")? 'white':'black'}}>{person.name}</span><br/>
+            <span style={{color:(person.type == "确诊")? 'white':'black'}}>{person.gender==1?"男":"女"} {person.type}</span><br/>
+            <span style={{color:(person.type == "确诊")? 'white':'black'}}>确诊日期: {person.diagnosedDate}</span><br/>
+            <span style={{color:(person.type == "确诊")? 'white':'black'}}>电话: {person.phone}</span>
           </div>
         },
         position:{
           x: Math.random() * 800,
           y: person.level*100
-        }
+        },
+        style:{borderRadius:20,padding:1,border:"1px solid #555"},
       }
       num++;
       if(person.type==="确诊") {
@@ -174,11 +222,13 @@ const SaveRestore = () => {
       onEdgeClick={onEdgeClick}
       onEdgeContextMenu={onEdgeContextMenu}
     >
-      <div style={{"position": "absolute","right": "50px","top": "10px","z-index": "4","font-size": "12px"}}>
+      <div style={{"position": "absolute","right": "50px","top": "10px","zIndex": "4","fontSize": "12px"}}>
         <button className={sty.Btn}>save</button>
         <button className={sty.Btn}>restore</button>
         <button className={sty.Btn} onClick={()=>{onAddNode()}}>add node</button>
         <button className={sty.Btn} onClick={()=>{onDispatch()}}>dispatch</button>
+        <button className={sty.Btn} onClick={() => onLayout('TB')}>vertical layout</button>
+        <button className={sty.Btn} onClick={() => onLayout('LR')}>horizontal layout</button>
       </div>
       {<MiniMap/>}
     </ReactFlow>
