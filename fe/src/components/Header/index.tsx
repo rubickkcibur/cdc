@@ -33,11 +33,11 @@ const MenuItem = [
     icon: <TeamOutlined />,
     url: '/overview'
   },
-  // {
-  //   title: "案例对比",
-  //   icon: <FormOutlined />,
-  //   url: '/patientAnalyze'
-  // },
+  {
+    title: "案例对比",
+    icon: <FormOutlined />,
+    url: '/patientAnalyze'
+  },
   {
     title:"传播分析",
     icon:<NodeIndexOutlined />,

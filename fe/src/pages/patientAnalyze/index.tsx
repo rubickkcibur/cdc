@@ -1,4 +1,4 @@
-import { Button, Col, Divider, Input, InputNumber, Popover, Row, Select, Slider, Statistic, Table } from "antd";
+import { Button, Col, Descriptions, Divider, Input, InputNumber, Popover, Row, Select, Slider, Statistic, Table, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout";
 import Routes from "../../components/Routes";
@@ -13,6 +13,7 @@ import { ActSetState } from "../../lib/state/global";
 import { useDispatch } from "react-redux";
 import { generate } from "rxjs";
 const { Option } = Select;
+const { TabPane } = Tabs;
 
 export default function PatientAnalyze(){
     const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
@@ -175,7 +176,7 @@ export default function PatientAnalyze(){
         <MainLayout>
             <Row>
                 <Col span={8} className={sty.personCol}>
-                    <div className={sty.personHeader}>
+                    {/* <div className={sty.personHeader}>
                         <UserOutlined style={{marginTop:'10px',marginLeft:'5px',marginRight:'5px',fontSize:'18px'}}/>
                         <div style={{marginTop:'2px',fontSize:'20px'}}>
                             {loadedBasic?.name}
@@ -184,7 +185,24 @@ export default function PatientAnalyze(){
                     <Divider/>
                     <div style={{height: "86vh",overflowY: "auto",overflowX:"auto"}}>
                       <Routes/>
-                    </div>
+                    </div> */}
+                    <Descriptions title="User Info">
+                      <Descriptions.Item label="UserName">Zhou Maomao</Descriptions.Item>
+                      <Descriptions.Item label="Telephone">1810000000</Descriptions.Item>
+                      <Descriptions.Item label="Live">Hangzhou, Zhejiang</Descriptions.Item>
+                      <Descriptions.Item label="Remark">empty</Descriptions.Item>
+                      <Descriptions.Item label="Address">
+                        No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+                      </Descriptions.Item>
+                    </Descriptions>
+                    <Divider orientation="left">行程</Divider>
+                    <Tabs defaultActiveKey="1" tabPosition={"top"} style={{ height: "65vh" }}>
+                      {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
+                        <TabPane tab={`Tab-${i}`} key={i} disabled={i === 28}>
+                          Content of tab {i}
+                        </TabPane>
+                      ))}
+                    </Tabs>
                 </Col>
                 <Col span={16}>
                     <Col span={24}>

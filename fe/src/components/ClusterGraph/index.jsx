@@ -72,6 +72,7 @@ export default function ClusterGraph({handleReason}) {
           name:v.name,
           note:v.note,
           gps:v.gps,
+          rangeTime:v.rangeTime,
           nodes:v.nodes.map((nid)=>({
             id:`pnode-${nid}`,
             // phone:my_data.nodes[nid].phone,
@@ -79,7 +80,8 @@ export default function ClusterGraph({handleReason}) {
             // gender:my_data.nodes[nid].gender,
             // time:my_data.nodes[nid].diagnosedTime
             ...my_data.nodes[nid]
-          }))
+          })),
+          names:v.nodes.map((nid)=>(my_data.nodes[nid].pid))
         })
       })
       return {clusterEdges:ce,clusters:cn}
@@ -593,11 +595,8 @@ export default function ClusterGraph({handleReason}) {
         }
       });
       originData.edges.forEach((edge) => {
-        console.log(edge)
         const isSourceInExpandArray = expandMap[nodeMap[edge.source].clusterId];
         const isTargetInExpandArray = expandMap[nodeMap[edge.target].clusterId];
-        console.log(nodeMap[edge.source])
-        console.log(nodeMap[edge.target])
         if (isSourceInExpandArray && isTargetInExpandArray) {
           edges.push(edge);
         } else if (isSourceInExpandArray) {
@@ -624,8 +623,6 @@ export default function ClusterGraph({handleReason}) {
         if (expandMap[edge.source] || expandMap[edge.target]) return;
         else edges.push(edge);
       });
-      console.log(nodes)
-      console.log(edges)
       return { nodes, edges };
     };
     const getNeighborMixedGraph = (
@@ -944,6 +941,7 @@ export default function ClusterGraph({handleReason}) {
         console.log("node data")
         return
       }
+      console.log(my_data)
       let my_data = aggrGraph
       document.getElementById("container").innerHTML=""
       G6.registerNode(
@@ -1444,7 +1442,6 @@ export default function ClusterGraph({handleReason}) {
       clusteredData.clusters.forEach((cluster, i) => {
         cluster.nodes.forEach((node) => {
           node.level = 0;
-          //node.label = node.id;
           node.clusterId = cluster.id
           node.label = `${node.name}`;
           node.type = '';
@@ -1462,7 +1459,9 @@ export default function ClusterGraph({handleReason}) {
           colorSet: colorSets[i],
           idx: i,
           note:cluster.note,
-          gps:cluster.gps
+          gps:cluster.gps,
+          rangeTime:cluster.rangeTime,
+          names:cluster.names
         };
         aggregatedNodeMap[cluster.id] = cnode;
         aggregatedData.nodes.push(cnode);
@@ -1501,7 +1500,6 @@ export default function ClusterGraph({handleReason}) {
         true,
         true,
       );
-      // console.log(processedEdges)
       const contextMenu = new G6.Menu({
         shouldBegin(evt) {
           if (evt.target && evt.target.isCanvas && evt.target.isCanvas()) return true;
@@ -1522,14 +1520,12 @@ export default function ClusterGraph({handleReason}) {
             if (itemType === 'node') {
               if (model.level !== 0) {
                 return `<ul>
-                <li id='expand'>Expand the Cluster</li>
-                <li id='hide'>Hide the Node</li>
+                <li id='expand'>展开聚合团</li>
               </ul>`;
               } else {
                 return `<ul>
-                <li id='collapse'>Collapse the Cluster</li>
-                <li id='reason'>Reason</li>
-                <li id='hide'>Hide the Node</li>
+                <li id='collapse'>聚合</li>
+                <li id='reason'>推理</li>
               </ul>`;
               }
             } else {
@@ -1540,7 +1536,6 @@ export default function ClusterGraph({handleReason}) {
           }
         },
         handleMenuClick: (target, item) => {
-          console.log(item.getModel())
           const model = item && item.getModel();
           const liIdStrs = target.id.split('-');
           let mixedGraphData;
@@ -1663,7 +1658,13 @@ export default function ClusterGraph({handleReason}) {
                 <li>经纬度: ${model.gps}</li>
               </ul>
               <ul>
-                <li>包含地点: ${model.note}</li>
+                <li>包含地点: ${model.note.replace(/;/g,"<br/>")}</li>
+              </ul>
+              <ul>
+                <li>包含病例: ${model.names.join(";")}</li>
+              </ul>
+              <ul>
+                <li>时间跨度: ${model.rangeTime}</li>
               </ul>`;
             return outDiv;
           }else if (model.type === "real-node"){
@@ -1671,6 +1672,9 @@ export default function ClusterGraph({handleReason}) {
             //outDiv.style.padding = '0px 0px 20px 0px';
             outDiv.innerHTML = `
               <h4>Custom Content</h4>
+              <ul>
+                <li>确诊日期: ${model.diagnosedTime}</li>
+              </ul>
               `;
             return outDiv;
           }
