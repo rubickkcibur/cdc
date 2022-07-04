@@ -21,7 +21,7 @@ export default function ClusterGraph({handleReason}) {
     const SMALLGRAPHLABELMAXLENGTH = 5;
     let labelMaxLength = SMALLGRAPHLABELMAXLENGTH;
     const DEFAULTNODESIZE = 20;
-    const DEFAULTAGGREGATEDNODESIZE = 53;
+    const DEFAULTAGGREGATEDNODESIZE = 63;
     const NODE_LIMIT = 100; // TODO: find a proper number for maximum node number on the canvas
     let graph = null;
     let currentUnproccessedData = { nodes: [], edges: [] };
@@ -72,6 +72,7 @@ export default function ClusterGraph({handleReason}) {
           name:v.name,
           note:v.note,
           gps:v.gps,
+          time:v.time,
           rangeTime:v.rangeTime,
           nodes:v.nodes.map((nid)=>({
             id:`pnode-${nid}`,
@@ -865,7 +866,32 @@ export default function ClusterGraph({handleReason}) {
           label: model.oriLabel,
         });
         model.oriLabel = currentLabel;
-        graph.setItemState(item, 'hover', true);
+        // graph.setItemState(item, 'hover', true);
+        let my_data = aggrGraph;
+        const clusteredData = formClusterData(my_data);
+        const data = formOriginData(my_data)
+       
+        const mixedGraphData = getMixedGraph(
+          clusteredData,
+          data,
+          nodeMap,
+          aggregatedNodeMap,
+          expandArray,
+          collapseArray,
+        );
+        // console.log(model);
+        mixedGraphData.nodes.forEach((node)=>{
+            
+            if(node.type !== "aggregated-node"){
+              // console.log(node);
+              let thisNode = nodeMap[node.id];
+              console.log(thisNode);
+              if(thisNode.clusterId == model.clusterId)
+                graph.setItemState(`${node.id}`, 'focus', true);
+            }
+              
+          }
+        );
         item.toFront();
       });
     
@@ -877,7 +903,32 @@ export default function ClusterGraph({handleReason}) {
           label: model.oriLabel,
         });
         model.oriLabel = currentLabel;
-        graph.setItemState(item, 'hover', false);
+        // graph.setItemState(item, 'hover', false);
+        let my_data = aggrGraph;
+        const clusteredData = formClusterData(my_data);
+        const data = formOriginData(my_data)
+       
+        const mixedGraphData = getMixedGraph(
+          clusteredData,
+          data,
+          nodeMap,
+          aggregatedNodeMap,
+          expandArray,
+          collapseArray,
+        );
+        // console.log(model);
+        mixedGraphData.nodes.forEach((node)=>{
+            
+            if(node.type !== "aggregated-node"){
+              // console.log(node);
+              let thisNode = nodeMap[node.id];
+              console.log(thisNode);
+              if(thisNode.clusterId == model.clusterId && thisNode.id != model.id)
+                graph.setItemState(`${node.id}`, 'focus', false);
+            }
+              
+          }
+        );
       });
     
       graph.on('edge:mouseenter', (evt) => {
@@ -891,6 +942,7 @@ export default function ClusterGraph({handleReason}) {
         item.toFront();
         item.getSource().toFront();
         item.getTarget().toFront();
+        graph.setItemState(item, 'focus', true);
       });
     
       graph.on('edge:mouseleave', (evt) => {
@@ -941,15 +993,17 @@ export default function ClusterGraph({handleReason}) {
         console.log("node data")
         return
       }
-      console.log(my_data)
+      
       let my_data = aggrGraph
+      console.log(1111111111111111111111111111111)
+      console.log(my_data)
       document.getElementById("container").innerHTML=""
       G6.registerNode(
         'aggregated-node',
         {
           draw(cfg, group) {
-            let width = 53,
-              height = 27;
+            let width = 53*Math.log(Math.sqrt(cfg.count))*3,
+              height = 27*Math.log(Math.sqrt(cfg.count))*2;
             const style = cfg.style || {};
             const colorSet = cfg.colorSet || colorSets[0];
       
@@ -1153,7 +1207,7 @@ export default function ClusterGraph({handleReason}) {
               offsetY = lineNum * (fontSize || 12);
               group.addShape('text', {
                 attrs: {
-                  text:`${cfg.name}`,
+                  text:`${cfg.name}\n${cfg.diagnosedTime}`,
                   x: 0,
                   y: r + refY + offsetY + 5,
                   textAlign: 'center',
@@ -1446,6 +1500,7 @@ export default function ClusterGraph({handleReason}) {
           node.label = `${node.name}`;
           node.type = '';
           node.colorSet = colorSets[i];
+          node.diagnosedTime = `${node.diagnosedTime}`;
           nodeMap[node.id] = node;
         });
         const cnode = {
@@ -1456,6 +1511,7 @@ export default function ClusterGraph({handleReason}) {
           //label:cluster.id,
           label: cluster.name,
           name: cluster.name,
+          time:cluster.time,
           colorSet: colorSets[i],
           idx: i,
           note:cluster.note,
@@ -1737,6 +1793,7 @@ export default function ClusterGraph({handleReason}) {
       bindListener(graph);
       graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
       graph.render();
+      console.log(graph.findById('cluster-1'))
     },[aggrGraph])
     return <div id="container" ref={ref} style={{width:"100%",height:"85vh"}}></div>;
   }
