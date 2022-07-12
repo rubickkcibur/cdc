@@ -58,6 +58,7 @@ export type TState = {
   time?:number
   all_patients?:any
   graph?:any
+  patient_route?:any
 }
 
 const getEpi=()=>{

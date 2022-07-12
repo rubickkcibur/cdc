@@ -4,7 +4,7 @@ import MainLayout from "../../components/MainLayoout/PageLayout";
 import Routes from "../../components/Routes";
 import sty from './index.module.scss'
 import { Card } from "../addroute";
-import { UserOutlined } from "@ant-design/icons";
+import { SortAscendingOutlined, UserOutlined } from "@ant-design/icons";
 import { useTypedSelector } from "../../lib/store";
 import Const from "../../lib/constant";
 import {Map} from "react-amap"
@@ -12,18 +12,27 @@ import { AMapShowedMarker } from "../../components/AMapMarker";
 import { ActSetState } from "../../lib/state/global";
 import { useDispatch } from "react-redux";
 import { generate } from "rxjs";
+import axios from 'axios';
+import {Modal} from 'antd'
+import { number } from "echarts";
 const { Option } = Select;
 const { TabPane } = Tabs;
 
 export default function PatientAnalyze(){
     const loadedBasic = useTypedSelector(e=>e.PAGlobalReducer.loadedBasic)
     const loadedRelatedInfo = useTypedSelector(e=>e.PAGlobalReducer.loadedRelatedInfo)
+    const allPatients = useTypedSelector(e=>e.PAGlobalReducer.all_patients)
+    const patientRoute = useTypedSelector(e=>e.PAGlobalReducer.patient_route)
+    const [isModalVisible,setIMV] = useState(false)
+    const [patient,setNewPatient]  = useState(null)
+
     const [timeOp,setTO] = useState<string>("01")
     const [timeValue,setTV] = useState<number>(1)
     const [timeUnit,setTU] = useState<number>(1)
     const [distanceOp,setDO] = useState<string>("01")
     const [distanceValue,setDV] = useState<number>(1)
     const [distanceUnit,setDU] = useState<number>(1)
+
     const [dataSource,setDS] = useState<any[]>([])
     const amap = useTypedSelector(e=>e.PAGlobalReducer.amap)
     const dispatch = useDispatch()
@@ -105,6 +114,38 @@ export default function PatientAnalyze(){
         const viz = new NeoVis.default(config)
         viz.render();
     }
+    const selectPerson=(pid="0")=>{
+      axios.get(`${Const.testserver}/get_all_patients`)
+      .then(e=>{
+        dispatch(ActSetState({
+          all_patients:e.data
+        }))
+      })
+      .then(e=>{
+        setIMV(true)
+      })
+    }
+
+    const setTarget=(epid,timeValue,timeUnit,distanceValue,distanceUnit)=>{
+      axios.post(`${Const.testserver}/get_patient_route`,{
+        pid:epid,
+      })
+      .then(e=>{dispatch(ActSetState({patient_route:e.data}))})
+      console.log("setTarget")
+      console.log(patientRoute)
+      console.log("timeValue")
+      console.log(timeValue)
+      axios.post(`${Const.testserver}/get_patientmap_d_t`,{
+        pid:epid,
+        timeValue:timeValue,
+        timeUnit:timeUnit,
+        distanceValue:distanceValue,
+        distanceUnit:distanceUnit
+      })
+      .then(e=>{dispatch(ActSetState({loadedRelatedInfo:e.data}))})
+      console.log("loadedRealtedInfo")
+      console.log(loadedRelatedInfo)
+    }
     useEffect(() => {
         if (process.browser)
             draw("people")
@@ -112,6 +153,7 @@ export default function PatientAnalyze(){
 
     useEffect(()=>{
       setDS(generateDataSource())
+      console.log("datasource")
       console.log(generateDataSource())
     },[loadedRelatedInfo,timeOp,timeUnit,timeValue,distanceUnit,distanceOp,distanceValue])
 
@@ -149,24 +191,28 @@ export default function PatientAnalyze(){
     ];
 
     const generateDataSource = ()=>{
+      console.log("generateDataSource")
+      console.log(loadedRelatedInfo)
       if (loadedRelatedInfo){
-        const filter = loadedRelatedInfo.filter((e:any)=>(
-          (timeOp == "01"?(e.time_interval < timeValue*timeUnit*60):
-          timeOp == "02"?(e.time_interval > timeValue*timeUnit*60):
-          (e.time_interval == timeValue*timeUnit*60))
+        console.log( loadedRelatedInfo[0].edge_relation)
+        const filter = loadedRelatedInfo[0].edge_relation.filter((e:any)=>(
+          // (timeOp == "01"?(e.time_interval < timeValue*timeUnit*60):
+          // timeOp == "02"?(e.time_interval > timeValue*timeUnit*60):
+          // (e.time_interval == timeValue*timeUnit*60))
+          1
           &&
-          (distanceOp == "01"?(e.distance_interval*1000 < distanceValue*distanceUnit):
-          distanceOp == "02"?(e.distance_interval*1000 < distanceValue*distanceUnit):
-          (e.distance_interval*1000 == distanceValue*distanceUnit))
+          (distanceOp == "01"?(e.distance*1000 < distanceValue*distanceUnit):
+          distanceOp == "02"?(e.distance*1000 < distanceValue*distanceUnit):
+          (e.distance*1000 == distanceValue*distanceUnit))
         ))
         return filter.map((e:any,idx:any)=>({
           key:String(idx),
-          name:e.relate_basic.name,
-          time:e.time,
-          loca:e.location.name,
-          asso_time:e.relate_time,
-          asso_loca:e.relate_location.name,
-          dist:e.distance_interval + "km"
+          name:e.pid2_name,
+          time:e.crushdate,
+          loca:e.crushlocationname,
+          asso_time:e.crushtime,
+          asso_loca:e.crushlocationname2,
+          dist:parseInt(e.distance*1000+"") + "m"
         }))
       }else{
         return []
@@ -175,33 +221,58 @@ export default function PatientAnalyze(){
     return(
         <MainLayout>
             <Row>
-                <Col span={8} className={sty.personCol}>
-                    {/* <div className={sty.personHeader}>
-                        <UserOutlined style={{marginTop:'10px',marginLeft:'5px',marginRight:'5px',fontSize:'18px'}}/>
-                        <div style={{marginTop:'2px',fontSize:'20px'}}>
-                            {loadedBasic?.name}
-                        </div>
-                    </div>
-                    <Divider/>
-                    <div style={{height: "86vh",overflowY: "auto",overflowX:"auto"}}>
-                      <Routes/>
-                    </div> */}
-                    <Descriptions title="User Info">
-                      <Descriptions.Item label="UserName">Zhou Maomao</Descriptions.Item>
-                      <Descriptions.Item label="Telephone">1810000000</Descriptions.Item>
-                      <Descriptions.Item label="Live">Hangzhou, Zhejiang</Descriptions.Item>
-                      <Descriptions.Item label="Remark">empty</Descriptions.Item>
-                      <Descriptions.Item label="Address">
-                        No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+                <Col span={8} >
+                    <button className={sty.Btn} onClick={()=>{selectPerson()}}>选择病人</button>
+                    <Modal title="选择病人" visible={isModalVisible} onOk={()=>{setIMV(false)}} onCancel={()=>{setIMV(false)}}>
+                      <Select style={{ width: 120 }} onChange={(value)=>{
+                        let p = allPatients.find(e=>e.pid===value)
+                        console.log("选择的人是："+p)
+                        console.log("他的pid "+p.pid)
+                        console.log(timeValue)
+                        setTarget(p.pid,timeValue,timeUnit,distanceValue,distanceUnit)
+                      }}>
+                        {
+                          allPatients?
+                          allPatients.map((e,i)=>(
+                            <Option value={e.pid}>{e.name}</Option>
+                          )):
+                          null
+                        }
+                      </Select>
+                    </Modal>
+                    <Descriptions title="病者信息"  bordered={true} size={"small"}>
+                      <Descriptions.Item label="姓名" span={2}>{patientRoute? patientRoute[0].name : ""}</Descriptions.Item>
+                      <Descriptions.Item label="性别" span={2}>{patientRoute? patientRoute[0].gender : ""}</Descriptions.Item>
+                      <Descriptions.Item label="确诊时间" span={2}>{patientRoute? patientRoute[0].diagnosedTime : ""}</Descriptions.Item>
+                      <Descriptions.Item label="手机号" span={2}>{patientRoute? patientRoute[0].phone : ""}</Descriptions.Item>
+                      <Descriptions.Item label="疫苗" span={10}>{patientRoute? patientRoute[0].vaccine : ""}</Descriptions.Item>
+                      <Descriptions.Item label="职业" span={10}>{patientRoute? patientRoute[0].vocation : ""}</Descriptions.Item>
+                      <Descriptions.Item label="备注" span={10}>
+                      {patientRoute? patientRoute[0].note : ""}
                       </Descriptions.Item>
                     </Descriptions>
                     <Divider orientation="left">行程</Divider>
+                    {console.log("行程")}
+                    {console.log(patientRoute)}
                     <Tabs defaultActiveKey="1" tabPosition={"top"} style={{ height: "65vh" }}>
-                      {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
+                      {/* {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
                         <TabPane tab={`Tab-${i}`} key={i} disabled={i === 28}>
                           Content of tab {i}
                         </TabPane>
-                      ))}
+                      ))} */}
+                      { patientRoute?
+                        patientRoute[0].route.map((e,i)=>(
+                          <TabPane tab={e[0]} key={i} disabled={i === 28}>
+                            <Descriptions title=""  bordered>
+                            {e.map((r,j)=>(
+                              j==0? "":(
+                                <Descriptions.Item label={r[2]} span={10}>{r[0]}</Descriptions.Item>
+                              )
+                            ))}
+                            </Descriptions>
+                          </TabPane>
+                        ))  :""
+                      }
                     </Tabs>
                 </Col>
                 <Col span={16}>

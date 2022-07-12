@@ -35,3 +35,18 @@
     overflow-y: auto;
     height: 40vh;
 }
+.Btn {
+    text-decoration: none;
+    color: white;
+    padding: 5px 15px;
+    margin-right: 5px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 4px solid rgba(0,0,0,0.21);
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    background: rgba(102,152,203,1);
+    float:right;
+ }
+ .Btn:active 	{background: #608FBF;} 

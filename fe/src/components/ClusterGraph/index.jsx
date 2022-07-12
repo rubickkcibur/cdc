@@ -44,8 +44,8 @@ export default function ClusterGraph({handleReason}) {
     const duration = 2000;
     const animateOpacity = 0.6;
     const animateBackOpacity = 0.1;
-    const virtualEdgeOpacity = 0.1;
-    const realEdgeOpacity = 0.2;
+    const virtualEdgeOpacity = 1;
+    const realEdgeOpacity = 1;
     const darkBackColor = 'rgb(43, 47, 51)';
     const disableColor = '#777';
     const theme = 'dark';
@@ -138,8 +138,10 @@ export default function ClusterGraph({handleReason}) {
       },
       edge: {
         style: {
-          stroke: '#acaeaf',
-          realEdgeStroke: '#acaeaf', //'#f00',
+         // stroke: '#acaeaf',
+         stroke: '#fff',
+         // realEdgeStroke: '#acaeaf', //'#f00',
+         realEdgeStroke: '#fff',
           realEdgeOpacity,
           strokeOpacity: realEdgeOpacity,
         },
@@ -995,7 +997,7 @@ export default function ClusterGraph({handleReason}) {
       }
       
       let my_data = aggrGraph
-      console.log(1111111111111111111111111111111)
+      // console.log(1111111111111111111111111111111)
       console.log(my_data)
       document.getElementById("container").innerHTML=""
       G6.registerNode(
@@ -1063,7 +1065,7 @@ export default function ClusterGraph({handleReason}) {
             }
             group.addShape('text', {
               attrs: {
-                text: `${cfg.name}`,
+                text: `${formatText(cfg.name, labelMaxLength, '...')}`,
                 x: 0,
                 y: 0,
                 textAlign: 'center',
@@ -1364,7 +1366,8 @@ export default function ClusterGraph({handleReason}) {
                 }
               } else {
                 keyShape.stopAnimate();
-                const stroke = '#acaeaf';
+                // const stroke = '#acaeaf';
+                const stroke = '#fff';
                 const opacity = model.isReal ? realEdgeOpacity : virtualEdgeOpacity;
                 keyShape.attr({
                   stroke,
@@ -1465,7 +1468,8 @@ export default function ClusterGraph({handleReason}) {
                 }
               } else {
                 keyShape.stopAnimate();
-                const stroke = '#acaeaf';
+                // const stroke = '#acaeaf';
+                const stroke = '#fff';
                 const opacity = model.isReal ? realEdgeOpacity : virtualEdgeOpacity;
                 keyShape.attr({
                   stroke,
@@ -1491,18 +1495,12 @@ export default function ClusterGraph({handleReason}) {
       nodeMap = {}; //node.id 2 node
       // const clusteredData = louvain(data, false, 'weight'); //todo: change cluster algorithm to ours
       const clusteredData = formClusterData(my_data);
-      const data = formOriginData(my_data)
+      const data = formOriginData(my_data);
+      let color = ["#00FFC6","#30AADD","#43919B","#247881"];
+      let c = 9,
+          a=0,b;
       const aggregatedData = { nodes: [], edges: [] };
       clusteredData.clusters.forEach((cluster, i) => {
-        cluster.nodes.forEach((node) => {
-          node.level = 0;
-          node.clusterId = cluster.id
-          node.label = `${node.name}`;
-          node.type = '';
-          node.colorSet = colorSets[i];
-          node.diagnosedTime = `${node.diagnosedTime}`;
-          nodeMap[node.id] = node;
-        });
         const cnode = {
           id: cluster.id,
           type: 'aggregated-node',
@@ -1519,8 +1517,74 @@ export default function ClusterGraph({handleReason}) {
           rangeTime:cluster.rangeTime,
           names:cluster.names
         };
+
         aggregatedNodeMap[cluster.id] = cnode;
         aggregatedData.nodes.push(cnode);
+
+        // let thisColor = "#";
+        // thisColor += color;
+        // // console.log('这个颜色拼好了吗？');
+        // // console.log(thisColor);
+        // a =  Math.floor(Math.random()*20), 
+        // b = 230 + Math.floor(Math.random()*25);
+        // c = (c + 177)%255;
+        // function randomSort() {
+        //   return Math.random() < 0.45 ? -1 : 1
+        // }
+        // let randomArray = [a, b, c].sort(randomSort)
+        // let output = `rgb(${randomArray[0]},${randomArray[1]},${randomArray[2]})`;
+        // console.log(cluster.id+output);
+        let output;
+        if(cnode.count >= 5){
+          output = color[3];
+        }else if(cnode.count >=4){
+          output = color[2];
+        }else if(cnode.count >=3){
+          output = color[1];
+        }else{
+          output = color[0];
+        }
+        const subjectColors = [output];
+
+        aggregatedNodeMap[cluster.id].colorSet = G6.Util.getColorSetsBySubjectColors(
+          subjectColors,
+          darkBackColor,
+          theme,
+          disableColor,
+        )[0];
+//         let numberOfColor = parseInt(color,16);
+//         // console.log("numberofcolor:",numberOfColor);
+//         let r_color_str = color.substring(0,2);
+//         let r_color = parseInt(r_color_str,16);
+//         let g_color = parseInt(color.substring(2,4),16);
+//         let b_color = parseInt(color.substring(4,6),16);
+      
+//         while((r_color + g_color + b_color) < 200){
+//           r_color = (r_color + 5)%255;
+//           g_color = (g_color + 5)%255;
+//           b_color = (b_color + 5)%255;
+//         }
+//         r_color = (Array(2).join("0") + r_color).slice(-2);
+//         g_color = (Array(2).join("0") + g_color).slice(-2);
+//         b_color = (Array(2).join("0") + b_color).slice(-2);
+// // console.log("补充完前置0",r_color);
+
+//         // let r_color = Math.floor(Math.random()*255);
+//         // let g_color = Math.floor(Math.random()*255);
+//         // let b_color = Math.floor(Math.random()*255);
+//         color = r_color.toString(16) + g_color.toString(16) +b_color.toString(16);
+
+        // console.log("看一下改完的颜色");
+        // console.log(color);
+        cluster.nodes.forEach((node) => {
+          node.level = 0;
+          node.clusterId = cluster.id
+          node.label = `${node.name}`;
+          node.type = '';
+          node.colorSet = cnode.colorSet;
+          node.diagnosedTime = `${node.diagnosedTime}`;
+          nodeMap[node.id] = node;
+        });
       });
 
       clusteredData.clusterEdges.forEach((clusterEdge) => {
