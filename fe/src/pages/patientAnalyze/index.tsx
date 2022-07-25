@@ -2,6 +2,7 @@ import { Button, Col, Descriptions, Divider, Input, InputNumber, Popover, Row, S
 import React, { useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout";
 import Routes from "../../components/Routes";
+import RelationMap from "../../components/RelationMap"
 import sty from './index.module.scss'
 import { Card } from "../addroute";
 import { SortAscendingOutlined, UserOutlined } from "@ant-design/icons";
@@ -23,6 +24,8 @@ export default function PatientAnalyze(){
     const loadedRelatedInfo = useTypedSelector(e=>e.PAGlobalReducer.loadedRelatedInfo)
     const allPatients = useTypedSelector(e=>e.PAGlobalReducer.all_patients)
     const patientRoute = useTypedSelector(e=>e.PAGlobalReducer.patient_route)
+    const relatedMap = useTypedSelector(e=>e.PAGlobalReducer.relatedMap)
+
     const [isModalVisible,setIMV] = useState(false)
     const [patient,setNewPatient]  = useState(null)
 
@@ -34,6 +37,8 @@ export default function PatientAnalyze(){
     const [distanceUnit,setDU] = useState<number>(1)
 
     const [dataSource,setDS] = useState<any[]>([])
+    const [rmap,setrmap] = useState(<RelationMap/>);
+
     const amap = useTypedSelector(e=>e.PAGlobalReducer.amap)
     const dispatch = useDispatch()
     function draw(e: string) {
@@ -145,6 +150,13 @@ export default function PatientAnalyze(){
       .then(e=>{dispatch(ActSetState({loadedRelatedInfo:e.data}))})
       console.log("loadedRealtedInfo")
       console.log(loadedRelatedInfo)
+
+      axios.post(`${Const.testserver}/get_patientmap_d_t_sel`,{
+        pid:epid,
+      })
+      .then(e=>{dispatch(ActSetState({relatedMap:e.data}))})
+      console.log("relatedmap")
+      console.log(relatedMap)
     }
     useEffect(() => {
         if (process.browser)
@@ -196,13 +208,14 @@ export default function PatientAnalyze(){
       if (loadedRelatedInfo){
         console.log( loadedRelatedInfo[0].edge_relation)
         const filter = loadedRelatedInfo[0].edge_relation.filter((e:any)=>(
-          // (timeOp == "01"?(e.time_interval < timeValue*timeUnit*60):
-          // timeOp == "02"?(e.time_interval > timeValue*timeUnit*60):
-          // (e.time_interval == timeValue*timeUnit*60))
-          1
+          (timeOp == "01"?(e.time_interval*60 < timeValue*timeUnit):
+          timeOp == "02"?(e.time_interval*60 > timeValue*timeUnit):
+          timeOp == "03"?(e.time_interval*60 == timeValue*timeUnit):
+          (e.time_interval*60 == timeValue*timeUnit))
           &&
           (distanceOp == "01"?(e.distance*1000 < distanceValue*distanceUnit):
-          distanceOp == "02"?(e.distance*1000 < distanceValue*distanceUnit):
+          distanceOp == "02"?(e.distance*1000 > distanceValue*distanceUnit):
+          distanceOp == "03"?(e.distance*1000 == distanceValue*distanceUnit):
           (e.distance*1000 == distanceValue*distanceUnit))
         ))
         return filter.map((e:any,idx:any)=>({
@@ -221,7 +234,7 @@ export default function PatientAnalyze(){
     return(
         <MainLayout>
             <Row>
-                <Col span={8} >
+                <Col span={10} >
                     <button className={sty.Btn} onClick={()=>{selectPerson()}}>选择病人</button>
                     <Modal title="选择病人" visible={isModalVisible} onOk={()=>{setIMV(false)}} onCancel={()=>{setIMV(false)}}>
                       <Select style={{ width: 120 }} onChange={(value)=>{
@@ -254,7 +267,7 @@ export default function PatientAnalyze(){
                     <Divider orientation="left">行程</Divider>
                     {console.log("行程")}
                     {console.log(patientRoute)}
-                    <Tabs defaultActiveKey="1" tabPosition={"top"} style={{ height: "65vh" }}>
+                    <Tabs defaultActiveKey="1" tabPosition={"top"} >
                       {/* {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
                         <TabPane tab={`Tab-${i}`} key={i} disabled={i === 28}>
                           Content of tab {i}
@@ -275,8 +288,8 @@ export default function PatientAnalyze(){
                       }
                     </Tabs>
                 </Col>
-                <Col span={16}>
-                    <Col span={24}>
+                <Col span={14}>
+                    {/* <Col span={24}>
                         <Row> </Row>
                         <div style={{height:"450px",width:"100%",marginLeft:'1%',backgroundColor:"white"}}>
                             <Row></Row>
@@ -292,11 +305,10 @@ export default function PatientAnalyze(){
                               <AMapShowedMarker/>
                             </Map>
                         </div>
-                    </Col>
-                    <Divider/>
+                    </Col> */}
                     <Col span={24}>
                         <Row style={{marginLeft:'1%'}}>
-                            <Col span={14}>
+                            <Col span={24}>
                                 <Card title={"确诊患者关联地点查询"}>
                                     <div className={sty.tableContainer}>
                                         <Row style={{marginTop:'10px',marginLeft:'15px'}} gutter={4}>
@@ -346,14 +358,17 @@ export default function PatientAnalyze(){
                                     </div>
                                 </Card>
                             </Col>
-                            <Col span={10}>
-                                <Card title={"人物关系图"} style={{marginLeft:'15px'}}>
-                                    <div style={{height:"400px"}}>
-                                        <div id={'viz'} className={sty.neovis} style={{ width: "100%", height: "100%" }}></div>
-                                    </div>
-                                </Card>
-                            </Col>
                         </Row>
+                    </Col>
+                    <Divider/>
+                    <Col span={24}>
+                        <Card title={"人物关系图"} style={{marginLeft:'15px'}}>
+                          <div style={{height:"500px"}}>
+                             <div id={'viz'} className={sty.neovis} style={{ width: "100%", height: "100%" }}>
+                              {rmap}
+                             </div>
+                          </div>
+                        </Card>
                     </Col>
                 </Col>
             </Row>

@@ -59,6 +59,8 @@ export type TState = {
   all_patients?:any
   graph?:any
   patient_route?:any
+  relatedMap?:any
+  patient_map?:any
 }
 
 const getEpi=()=>{

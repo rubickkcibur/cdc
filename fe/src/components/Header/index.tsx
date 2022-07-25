@@ -18,16 +18,16 @@ const MenuItem = [
   //   icon: <BarChartOutlined />,
   //   url: '/addroute'
   // },
-  {
-    title: "问卷管理",
-    icon: <FormOutlined />,
-    url: '/question'
-  },
-  {
-    title: "病例信息",
-    icon: <FormOutlined />,
-    url: '/'
-  },
+  // {
+  //   title: "问卷管理",
+  //   icon: <FormOutlined />,
+  //   url: '/question'
+  // },
+  // {
+  //   title: "病例信息",
+  //   icon: <FormOutlined />,
+  //   url: '/'
+  // },
   {
     title: "流调分析",
     icon: <TeamOutlined />,
@@ -43,16 +43,16 @@ const MenuItem = [
     icon:<NodeIndexOutlined />,
     url:'/analyse'
   },
-  {
-    title: "疫情对比",
-    icon: <FormOutlined />,
-    url: '/history'
-  },
-  {
-    title: "疫情总览",
-    icon: <FormOutlined />,
-    url: '/statistic'
-  },
+  // {
+  //   title: "疫情对比",
+  //   icon: <FormOutlined />,
+  //   url: '/history'
+  // },
+  // {
+  //   title: "疫情总览",
+  //   icon: <FormOutlined />,
+  //   url: '/statistic'
+  // },
   // {
   //   title: "疫情分布",
   //   icon:  <HeatMapOutlined/>,
