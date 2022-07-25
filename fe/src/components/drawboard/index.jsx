@@ -16,7 +16,7 @@ import { ActSetState } from '../../lib/state/global';
 import { useTypedSelector } from '../../lib/store';
 // import chain_data from "./initial-elements"
 import sty from './index.module.scss';
-import {Modal,Select,AutoComplete} from 'antd'
+import {Modal,Select,AutoComplete,message} from 'antd'
 import Const from '../../lib/constant';
 const { Option } = Select;
 
@@ -28,12 +28,15 @@ const SaveRestore = () => {
   const rf = useTypedSelector(e=>e.PAGlobalReducer.rfIns)
   const chain = useTypedSelector(e=>e.PAGlobalReducer.chain)
   const allPatients = useTypedSelector(e=>e.PAGlobalReducer.all_patients)
+  const all_chain_versions = useTypedSelector(e=>e.PAGlobalReducer.all_chain_versions)
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
   const [isModalVisible,setIMV] = useState(false)
+  const [isLoadModalVisible,setILMV] = useState(false)
   const [newNode,setNewNode] = useState(null)
   const [Modalvs,setModalvs] = useState(false);
   const [edge,setEdge] = useState(null);
   const [relation,setRelation] = useState(null);
+  const [version,setVersion] = useState("origin")
   var num = 0;
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -67,7 +70,6 @@ const SaveRestore = () => {
       };
       return node;
     });
-    console.log(tmpnodes)
     return {tmpnodes,tmpedges}
   },[]);
   const onLayout = useCallback(
@@ -77,7 +79,6 @@ const SaveRestore = () => {
         edges,
         direction
       );
-      console.log(layoutedNodes)
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
@@ -114,13 +115,12 @@ const SaveRestore = () => {
         }
   },[relation]);
 
-  const onDispatch=(pid="0")=>{
-    if (!chain){
-      axios.post(`${Const.testserver}/get_chain`,{
-        pid:pid
-      })
-      .then(e=>{dispatch(ActSetState({chain:e.data}))})
-    }
+  const loadChain = ()=>{
+    axios.post(`${Const.testserver}/get_chain`,{
+      pid:"0",
+      version:version
+    })
+    .then(e=>{dispatch(ActSetState({chain:e.data}))})
   }
 
   const onAddNode=()=>{
@@ -140,6 +140,8 @@ const SaveRestore = () => {
       let ptype = newNode.type
       const n = {
         id: "added_node-" + newNode.pid,
+        name: newNode.name,
+        pid: newNode.pid,
         data:{
           label: 
           <div>
@@ -161,18 +163,57 @@ const SaveRestore = () => {
         n.style = { ...n.style, backgroundColor: '#EEAD0E' };
       }
       setNodes((nodes)=>nodes.concat(n))
-      console.log(nodes)
     }
     else{
       console.log("no node")
     }
   }
 
+  const onSave=()=>{
+    let rnodes = []
+    let redges = []
+    nodes.forEach((node)=>{
+      rnodes.push({
+        id: node.id,
+        pid: node.pid,
+        name: node.name
+      })
+    })
+    edges.forEach((edge)=>{
+      redges.push({
+        source: edge.source,
+        target: edge.target,
+        relation: edge.label,
+        isTruth: edge.animated?0:1
+      })
+    })
+    axios.post(`${Const.testserver}/save_chain`,{
+      nodes:rnodes,
+      edges:redges
+    }).then(()=>{message.success('保存成功');})
+  }
+
+  const onLoad=()=>{
+    axios.get(`${Const.testserver}/get_all_versions`)
+    .then(e=>{
+      dispatch(ActSetState({
+        all_chain_versions:e.data
+      }))
+    })
+    .then(e=>{
+      setILMV(true)
+    })
+  }
+
   useEffect(()=>{
     if (!chain) return;
+    setNodes([])
+    setEdges([])
     chain.nodes.forEach((person) => {
       const newNode = {
         id: "node-" + num,
+        name: person.name,
+        pid: person.pid,
         data:{
           label: 
           <div>
@@ -202,7 +243,7 @@ const SaveRestore = () => {
           label:edge.relation,
           source: "node-" + edge.source,
           target: "node-" + edge.target,
-          animated: edge.isTruth == 1?  true : false
+          animated: !(edge.isTruth == 1)
         }
         newEdge.labelShowBg = false;
         setEdges((edges)=>edges.concat(newEdge))
@@ -223,12 +264,11 @@ const SaveRestore = () => {
       onEdgeContextMenu={onEdgeContextMenu}
     >
       <div style={{"position": "absolute","right": "50px","top": "10px","zIndex": "4","fontSize": "12px"}}>
-        <button className={sty.Btn}>save</button>
-        <button className={sty.Btn}>restore</button>
-        <button className={sty.Btn} onClick={()=>{onAddNode()}}>add node</button>
-        <button className={sty.Btn} onClick={()=>{onDispatch()}}>dispatch</button>
-        <button className={sty.Btn} onClick={() => onLayout('TB')}>vertical layout</button>
-        <button className={sty.Btn} onClick={() => onLayout('LR')}>horizontal layout</button>
+        <button className={sty.Btn} onClick={()=>{onSave()}}>保存</button>
+        <button className={sty.Btn} onClick={()=>{onLoad()}}>加载</button>
+        <button className={sty.Btn} onClick={()=>{onAddNode()}}>新增节点</button>
+        <button className={sty.Btn} onClick={() => onLayout('TB')}>垂直布局</button>
+        <button className={sty.Btn} onClick={() => onLayout('LR')}>水平布局</button>
       </div>
       {<MiniMap/>}
     </ReactFlow>
@@ -256,6 +296,19 @@ const SaveRestore = () => {
         value={relation}
         onChange={(value)=>setRelation(value)}
       />
+    </Modal>
+    <Modal title="加载传播链" visible={isLoadModalVisible} onOk={()=>{loadChain(),setILMV(false)}} onCancel={()=>{setILMV(false)}}>
+      <Select style={{ width: 300 }} onChange={(value)=>{
+        setVersion(value)
+      }}>
+        {
+          all_chain_versions?
+          all_chain_versions.map((e,i)=>(
+            <Option value={e}>{e}</Option>
+          )):
+          null
+        }
+      </Select>
     </Modal>
     </>
   );

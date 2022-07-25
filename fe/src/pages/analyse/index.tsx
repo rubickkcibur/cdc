@@ -29,9 +29,9 @@ export default function Pageanalyse() {
         .then(e=>{dispatch(ActSetState({chain:e.data}))})
         setPict(
             <>
-            <div className={sty.export}>
+            {/* <div className={sty.export}>
                 <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
-            </div>
+            </div> */}
             <div style={{width: "90vw",height: "90vh"}}>
                 <SaveRestore/>
             </div>
@@ -73,9 +73,9 @@ export default function Pageanalyse() {
             setRadioValue("3")
             setPict(
                 <>
-                <div className={sty.export}>
+                {/* <div className={sty.export}>
                     <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
-                </div>
+                </div> */}
                 <div style={{width: "90vw",height: "90vh"}}>
                     <SaveRestore/>
                 </div>
