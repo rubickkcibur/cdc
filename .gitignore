@@ -105,6 +105,6 @@ dist
 
 format_sample
 back
-lc/.idea
 lc/mysql
+lc/.idea
 new_fe
