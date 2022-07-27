@@ -62,7 +62,6 @@ export default function ClusterGraph({handleReason}) {
           note:e.note,
           label:e.label,
           relation:e.relation,
-          note:e.note
         })
       })
       let cn = []
@@ -82,7 +81,7 @@ export default function ClusterGraph({handleReason}) {
             // time:my_data.nodes[nid].diagnosedTime
             ...my_data.nodes[nid]
           })),
-          names:v.nodes.map((nid)=>(my_data.nodes[nid].pid))
+          names:v.nodes.map((nid)=>(my_data.nodes[nid].name))
         })
       })
       return {clusterEdges:ce,clusters:cn}
@@ -1859,5 +1858,5 @@ export default function ClusterGraph({handleReason}) {
       graph.render();
       console.log(graph.findById('cluster-1'))
     },[aggrGraph])
-    return <div id="container" ref={ref} style={{width:"100%",height:"85vh"}}></div>;
+    return <div id="container" ref={ref} style={{width:"95vw",height:"85vh",margin:"0"}}></div>;
   }

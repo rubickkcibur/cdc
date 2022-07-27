@@ -1,5 +1,6 @@
 from email.errors import MultipartInvariantViolationDefect
 from ntpath import join
+from signal import pause
 from tracemalloc import start
 from math import *
 from datetime import datetime,timedelta
@@ -42,11 +43,8 @@ class Cluster():
         self.location_cluster = location_cluster
         self.patients = []
         self.order = False
-    def addPatient(self,date,time,node_id,location_id):
-        year = "2022"
-        month,day = date.strip().split("-")
-        hour,min = time.strip().split(":")
-        self.patients.append((datetime(int(year),int(month),int(day),int(hour),int(min),0),node_id,location_id))
+    def addPatient(self,dtime,node_id,location_id):
+        self.patients.append((dtime,node_id,location_id))
         self.order=False
     def fromPatientList(self,l):
         self.patients = l
@@ -109,6 +107,9 @@ class AggregateGraph():
         self.clusters = clusters
         self.graph = graph
         self.store_path = store_path
+        for p in pause_list:
+            if p[3] == "None":
+                p[3] = "12:00:00"
     
     @classmethod
     def load_data(cls,path):
@@ -212,7 +213,7 @@ class AggregateGraph():
                 continue
             cluster_ids = self.location2clusterid[location_id]
             for cluster_id in cluster_ids:
-                self.clusters[cluster_id].addPatient(date,time,node_id,location_id)
+                self.clusters[cluster_id].addPatient(datetime.strptime(" ".join([date,time]),"%Y-%m-%d %H:%M:%S"),node_id,location_id)
         #每个团的人员停留信息按时间顺序排序
         for cluster in self.clusters:
             cluster.sort()
@@ -372,8 +373,7 @@ class AggregateGraph():
         for item in self.pause_list:
             location_id = item[1]
             date = " ".join([item[2],item[3]])
-            date = datetime.strptime(date,"%m-%d %H:%M")
-            date = date.replace(year=2022)
+            date = datetime.strptime(date,"%Y-%m-%d %H:%M:%S")
             if start_time <= date <= end_time:
                 self.clipped_locations.add(location_id)
 

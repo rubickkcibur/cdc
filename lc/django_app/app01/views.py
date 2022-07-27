@@ -13,7 +13,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from app01.utils.reasoning import get_reason_result
 from app01.utils.cluster import Cluster
-from app01.max_clique.cluster import AggregateGraph
+from app01.max_clique.cluster import AggregateGraph, Location, Node
 import datetime 
 import math
 from functools import reduce
@@ -256,7 +256,7 @@ def get_clusters2(request):
     end_time = data["endTime"]
     district = data["district"]
     filterNum = data["filter"]
-    ag = AggregateGraph.load_data("./app01/max_clique/test")
+    ag = AggregateGraph.load_data("./app01/max_clique/xian")
     ag.clipData(start_time,end_time)
     ag.buildGraph(dist)
     ag.buildClusters()
@@ -709,3 +709,57 @@ def get_patient_d_t(patientid,timeValue,timeUnit,distanceValue,distanceUnit):
 def time2hour(timein):
     tmp = str(timein).split(":")
     return float(tmp[0])+float(tmp[1])/60+float(tmp[2])/3600
+
+def temp():
+    node_list = []
+    pid2idx = {}
+    for e in App01Patient.objects.all():
+        pid2idx[e.pid] = len(node_list)
+        node_list.append({
+            "pid": e.pid,
+            "name": e.name,
+            "gender":"男" if e.gender else "女",
+            "phone":e.phone,
+            "diagnosedTime":str(e.diagnoseddate),
+            "type":"确诊"
+        })
+    location_list = []
+    lname2idx = {}
+    for l in App01Location.objects.all():
+        lname2idx[l.name5] = len(location_list)
+        location_list.append({
+            "name":l.name5,
+            "gps":l.gps,
+            "note":l.name1
+        })
+    pause_list = []
+    for s in App01Stay.objects.all():
+        if s.startdate is None:
+            continue
+        pause_list.append([
+            pid2idx[s.pid_id],
+            lname2idx[s.lname_id],
+            str(s.startdate),
+            str(s.starttime)
+        ])
+    with open("app01/max_clique/xian/node_list.json","w",encoding="utf8") as f:
+        json.dump(node_list,f)
+    with open("app01/max_clique/xian/location_list.json","w",encoding="utf8") as f:
+        json.dump(location_list,f)
+    with open("app01/max_clique/xian/pause_list.json","w",encoding="utf8") as f:
+        json.dump(pause_list,f)
+
+
+# with open("app01/max_clique/xian/node_list.json","r",encoding="utf8") as f:
+#     node_list = json.load(f)
+#     node_list = [Node(e["pid"],e["phone"],e["name"],e["gender"],e["diagnosedTime"],e["type"]) for e in node_list]
+# with open("app01/max_clique/xian/location_list.json","r",encoding="utf8") as f:
+#     location_list = json.load(f)
+#     location_list = [Location(e["name"],e["gps"],e["note"]) for e in location_list]
+# with open("app01/max_clique/xian/pause_list.json","r",encoding="utf8") as f:
+#     pause_list = json.load(f)
+# ag = AggregateGraph(node_list,location_list,pause_list,"./app01/max_clique/xian")
+# ag.clipData("2021-01-01","2022-05-31")
+# ag.buildGraph(1)
+# ag.buildClusters()
+# ag.save()

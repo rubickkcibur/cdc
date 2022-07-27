@@ -24,7 +24,8 @@ export default function Pageanalyse() {
     const handleReason = (pid:any)=>{
         setRadioValue("3")
         axios.post(`${Constant.testserver}/get_chain`,{
-            pid:pid
+            pid:pid,
+            version:"origin"
         })
         .then(e=>{dispatch(ActSetState({chain:e.data}))})
         setPict(
@@ -46,7 +47,7 @@ export default function Pageanalyse() {
     const [timeUnit,setTU] = useState(1)
     const [startTime,setST] = useState("2022-04-22")
     const [endTime,setET] = useState("2022-05-16")
-    const [district,setDT] = useState(["海淀区"])
+    const [district,setDT] = useState(["陕西省"])
     const [omitSingle,setOS] = useState(true)
     
     const[pict,setPict]=useState(
@@ -97,7 +98,7 @@ export default function Pageanalyse() {
         <MainLayout>
             <div className={sty.Table}>
             <Row>
-                <Col style={{marginTop:'1px'}} span={4}>
+                <Col style={{margin:'0'}} span={4}>
                     <Row className={isHidden}>
                         <Col span={8} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合距离差:</span></Col>
                         <Col span={6}>
@@ -113,7 +114,7 @@ export default function Pageanalyse() {
                         <Col span={1}></Col>
                     </Row>
                 </Col>
-                <Col style={{marginTop:'1px'}} span={4}>
+                <Col style={{margin:'0'}} span={4}>
                     <Row className={isHidden}>
                         <Col span={8} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合时间差:</span></Col>
                         <Col span={6}>
@@ -129,7 +130,7 @@ export default function Pageanalyse() {
                         <Col span={1}></Col>
                     </Row>
                 </Col>
-                <Col style={{marginTop:'1px'}} span={5}>
+                <Col style={{margin:'0'}} span={5}>
                     <Row className={isHidden}>
                         <Col span={7} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合日期:</span></Col>
                         <Col span={17}>
@@ -141,7 +142,7 @@ export default function Pageanalyse() {
                     <Row className={isHidden}>
                         <Col span={2}></Col>
                         <Col span={20}>
-                            <Select style={{width:"200px"}} mode="multiple" defaultValue={"海淀区"} onChange={(value:any)=>{console.log(value),setDT(value)}}>
+                            <Select style={{width:"200px"}} mode="multiple" defaultValue={"陕西省"} onChange={(value:any)=>{console.log(value),setDT(value)}}>
                                 <Option value="东城区">东城区</Option>
                                 <Option value="西城区">西城区</Option>
                                 <Option value="朝阳区">朝阳区</Option>
@@ -154,6 +155,7 @@ export default function Pageanalyse() {
                                 <Option value="顺义区">顺义区</Option>
                                 <Option value="大兴区">大兴区</Option>
                                 <Option value="延庆区">延庆区</Option>
+                                <Option value="陕西省">陕西省</Option>
                             </Select>
                         </Col>
                         <Col span={2}></Col>
