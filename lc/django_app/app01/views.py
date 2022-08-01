@@ -17,7 +17,18 @@ from app01.max_clique.cluster import AggregateGraph, Location, Node
 import datetime 
 import math
 from functools import reduce
+from django.http import FileResponse
 # Create your views here.
+
+@api_view(["GET"])
+def download_cluster_csv(request):
+    if request.method == "GET":
+        file = open("./app01/max_clique/cluster.csv", 'rb')
+        response = FileResponse(file)
+        response['Content-Type'] = 'application/csv'
+        response['Content-Disposition'] = 'attachment;filename="cluster.csv"'
+        return response
+
 @api_view(["POST"])
 def get_chain(request):
     if request.method == "POST":
@@ -256,11 +267,13 @@ def get_clusters2(request):
     end_time = data["endTime"]
     district = data["district"]
     filterNum = data["filter"]
+    interval = data["time"]
     ag = AggregateGraph.load_data("./app01/max_clique/xian")
     ag.clipData(start_time,end_time)
     ag.buildGraph(dist)
     ag.buildClusters()
-    re = ag.generateFormatData(start_time,end_time,district,filterNum)
+    re = ag.generateFormatData(start_time,end_time,district,filterNum,interval=interval)
+    ag.formatData2csv(re,"./app01/max_clique/cluster.csv")
     response = HttpResponse(json.dumps(re), content_type="application/json", status=status.HTTP_200_OK)
     response["Access-Control-Allow-Origin"] = "*"
     response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
@@ -469,8 +482,6 @@ def test_contact(request):
         return response
     else:
         print("method wrong!")
-
-
 
 def turn_name(name,people):
     k=0
@@ -749,17 +760,40 @@ def temp():
     with open("app01/max_clique/xian/pause_list.json","w",encoding="utf8") as f:
         json.dump(pause_list,f)
 
-
-# with open("app01/max_clique/xian/node_list.json","r",encoding="utf8") as f:
-#     node_list = json.load(f)
-#     node_list = [Node(e["pid"],e["phone"],e["name"],e["gender"],e["diagnosedTime"],e["type"]) for e in node_list]
-# with open("app01/max_clique/xian/location_list.json","r",encoding="utf8") as f:
-#     location_list = json.load(f)
-#     location_list = [Location(e["name"],e["gps"],e["note"]) for e in location_list]
-# with open("app01/max_clique/xian/pause_list.json","r",encoding="utf8") as f:
-#     pause_list = json.load(f)
-# ag = AggregateGraph(node_list,location_list,pause_list,"./app01/max_clique/xian")
-# ag.clipData("2021-01-01","2022-05-31")
-# ag.buildGraph(1)
-# ag.buildClusters()
-# ag.save()
+@api_view(["GET"])
+def get_statistcs(request):
+    if request.method == "GET":
+        contacts = {}
+        for c in App01Contact.objects.all():
+            pid = c.pid1_id
+            pid2 = c.pid2
+            if pid not in contacts:
+                contacts[pid] = set()
+            contacts[pid].add(pid2)
+        locations = {}
+        for l in App01Stay.objects.all():
+            gps = l.gps_id
+            name = l.lname_id
+            if gps not in locations:
+                locations[gps] = [name,0]
+            locations[gps][1] += 1
+        total_contacts = sum([len(s) for s in contacts.values()])
+        max_location_name = ""
+        max_location_pp = 0
+        for tup in locations.values():
+            if tup[1] > max_location_pp:
+                max_location_pp = tup[1]
+                max_location_name = tup[0]
+        ret={
+            "total_patients": len(App01Patient.objects.all()),
+            "total_contacts": total_contacts,
+            "total_locations": len(App01Location.objects.all()),
+            "max_location_name": max_location_name,
+            "max_location_pp": max_location_pp
+        }
+        response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+        response["Access-Control-Max-Age"] = "1000"
+        response["Access-Control-Allow-Headers"] = "*"
+        return response

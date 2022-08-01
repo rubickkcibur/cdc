@@ -1,4 +1,4 @@
-import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs, DatePicker, Checkbox} from "antd";
+import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs, DatePicker, Checkbox, Drawer} from "antd";
 import React, { useDebugValue, useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout"
 import sty from "./index.module.scss"
@@ -49,6 +49,7 @@ export default function Pageanalyse() {
     const [endTime,setET] = useState("2022-05-16")
     const [district,setDT] = useState(["陕西省"])
     const [omitSingle,setOS] = useState(true)
+    const [visible,setVisible] = useState(false)
     
     const[pict,setPict]=useState(
         <ClusterGraph handleReason={handleReason}/>
@@ -192,13 +193,25 @@ export default function Pageanalyse() {
                     </Row>
                 </Col>
                 <Col span={3}>
-                    <Radio.Group value={radioValue} onChange={(e)=>onChange(e)}>
+                    {/* <Radio.Group value={radioValue} onChange={(e)=>onChange(e)}>
                         <Radio.Button value="1">聚合传播关系图</Radio.Button>
                         <Radio.Button value="3">手绘画板</Radio.Button>
-                    </Radio.Group>
+                    </Radio.Group> */}
+                    <Button onClick={()=>{setVisible(true)}}>打开画板</Button>
+                    <Button ><a href={`${Constant.testserver}/download_cluster_csv`}>下载文档</a></Button>
                 </Col>
             </Row>
-
+            <Drawer
+                title={"手绘画板"}
+                placement="right"
+                width={1000}
+                onClose={()=>{setVisible(false)}}
+                visible={visible}
+            >
+                <div style={{width: "95%",height: "100%"}}>
+                    <SaveRestore/>
+                </div>
+            </Drawer>
             <div style={{height:'100%'}}>
                 {pict}
             </div>

@@ -1551,36 +1551,13 @@ export default function ClusterGraph({handleReason}) {
           theme,
           disableColor,
         )[0];
-//         let numberOfColor = parseInt(color,16);
-//         // console.log("numberofcolor:",numberOfColor);
-//         let r_color_str = color.substring(0,2);
-//         let r_color = parseInt(r_color_str,16);
-//         let g_color = parseInt(color.substring(2,4),16);
-//         let b_color = parseInt(color.substring(4,6),16);
-      
-//         while((r_color + g_color + b_color) < 200){
-//           r_color = (r_color + 5)%255;
-//           g_color = (g_color + 5)%255;
-//           b_color = (b_color + 5)%255;
-//         }
-//         r_color = (Array(2).join("0") + r_color).slice(-2);
-//         g_color = (Array(2).join("0") + g_color).slice(-2);
-//         b_color = (Array(2).join("0") + b_color).slice(-2);
-// // console.log("补充完前置0",r_color);
-
-//         // let r_color = Math.floor(Math.random()*255);
-//         // let g_color = Math.floor(Math.random()*255);
-//         // let b_color = Math.floor(Math.random()*255);
-//         color = r_color.toString(16) + g_color.toString(16) +b_color.toString(16);
-
-        // console.log("看一下改完的颜色");
-        // console.log(color);
         cluster.nodes.forEach((node) => {
           node.level = 0;
           node.clusterId = cluster.id
           node.label = `${node.name}`;
           node.type = '';
           node.colorSet = cnode.colorSet;
+          node.belongto = cluster.name;
           node.diagnosedTime = `${node.diagnosedTime}`;
           nodeMap[node.id] = node;
         });
@@ -1793,6 +1770,9 @@ export default function ClusterGraph({handleReason}) {
               <h4>Custom Content</h4>
               <ul>
                 <li>确诊日期: ${model.diagnosedTime}</li>
+              </ul>
+              <ul>
+                <li>所属聚合团: ${model.belongto}</li>
               </ul>
               `;
             return outDiv;

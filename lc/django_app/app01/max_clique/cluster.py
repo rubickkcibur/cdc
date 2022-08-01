@@ -6,6 +6,8 @@ from math import *
 from datetime import datetime,timedelta
 import json
 import os
+import csv
+import re as regex
 class Node():
     def __init__(self,pid,phone,name,gender,diagnosedTime,ntype):
         self.pid = pid
@@ -377,6 +379,40 @@ class AggregateGraph():
             if start_time <= date <= end_time:
                 self.clipped_locations.add(location_id)
 
+    def formatData2csv(self,data,path):
+        clusters = data["clusters"]
+        cluster_edges = data["clusterEdges"]
+        nodes = data["nodes"]
+        items = []
+        cluster_graph = [[0]*len(clusters) for i in range(len(clusters))]
+        for c in clusters:
+            items.append([
+                c["id"],
+                c["name"],
+                c["gps"],
+                ";".join([nodes[id]["name"] for id in c["nodes"]]),
+                c["note"],
+                c["rangeTime"].split("--")[0],
+                c["rangeTime"].split("--")[1]
+            ])
+        for edge in cluster_edges:
+            sid = int(regex.match(r'^cluster-(\d+)',edge["source"]).group(1))
+            tid = int(regex.match(r'^cluster-(\d+)',edge["target"]).group(1))
+            cluster_graph[sid][tid] = 1
+            cluster_graph[tid][sid] = 1
+        
+        for i in range(len(clusters)):
+            items[i].append(sum(cluster_graph[i]))
+            neighbors = []
+            for j in range(len(clusters)):
+                if cluster_graph[i][j] > 0:
+                    neighbors.append("cluster-{}".format(j))
+            items[i].append(";".join(neighbors))
+        with open(path,"w",encoding="utf8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["id","名称","经纬度","包含病例","包含地点","时间跨度起","时间跨度止","连接度","链接团"])
+            for item in items:
+                writer.writerow(item)
             
 # ag = AggregateGraph.load_data("./test")
 # ag.buildGraph(0.1)

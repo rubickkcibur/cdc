@@ -243,7 +243,8 @@ const SaveRestore = () => {
           label:edge.relation,
           source: "node-" + edge.source,
           target: "node-" + edge.target,
-          animated: !(edge.isTruth == 1)
+          animated: !(edge.isTruth == 1),
+          style: {"stroke-width": "5px"}
         }
         newEdge.labelShowBg = false;
         setEdges((edges)=>edges.concat(newEdge))
