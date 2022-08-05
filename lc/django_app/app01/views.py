@@ -11,7 +11,7 @@ from app01.models import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app01.utils.reasoning import get_reason_result
+from app01.utils.reasoning import get_reason_result,refresh_origin
 from app01.utils.cluster import Cluster
 from app01.max_clique.cluster import AggregateGraph, Location, Node
 import datetime 
@@ -35,6 +35,7 @@ def get_chain(request):
         data = request.data
         pid = data["pid"]
         version = data["version"]
+        refresh_origin([(e.pid,e.diagnoseddate) for e in App01Patient.objects.all()],"./app01/max_clique/xian/format_data.json")
         result = get_reason_result(pid,version)
         nodes = []
         edges = []
@@ -273,6 +274,8 @@ def get_clusters2(request):
     ag.buildGraph(dist)
     ag.buildClusters()
     re = ag.generateFormatData(start_time,end_time,district,filterNum,interval=interval)
+    with open("./app01/max_clique/xian/format_data.json","w",encoding="utf8") as f:
+        json.dump(re,f)
     ag.formatData2csv(re,"./app01/max_clique/cluster.csv")
     response = HttpResponse(json.dumps(re), content_type="application/json", status=status.HTTP_200_OK)
     response["Access-Control-Allow-Origin"] = "*"

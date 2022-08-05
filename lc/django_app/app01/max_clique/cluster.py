@@ -391,6 +391,9 @@ class AggregateGraph():
                 c["name"],
                 c["gps"],
                 ";".join([nodes[id]["name"] for id in c["nodes"]]),
+                len(c["nodes"]),
+                "/".join(sorted([[nodes[id]["name"],nodes[id]["diagnosedTime"]] for id in c["nodes"]],
+                    key=lambda ele:datetime.strptime(ele[1],"%Y-%m-%d")).pop(0)),
                 c["note"],
                 c["rangeTime"].split("--")[0],
                 c["rangeTime"].split("--")[1]
@@ -398,19 +401,19 @@ class AggregateGraph():
         for edge in cluster_edges:
             sid = int(regex.match(r'^cluster-(\d+)',edge["source"]).group(1))
             tid = int(regex.match(r'^cluster-(\d+)',edge["target"]).group(1))
-            cluster_graph[sid][tid] = 1
-            cluster_graph[tid][sid] = 1
+            cluster_graph[sid][tid] = edge["note"]
+            cluster_graph[tid][sid] = edge["note"]
         
         for i in range(len(clusters)):
-            items[i].append(sum(cluster_graph[i]))
+            items[i].append(sum([1 if isinstance(ele,str) else 0 for ele in cluster_graph[i]]))
             neighbors = []
             for j in range(len(clusters)):
-                if cluster_graph[i][j] > 0:
-                    neighbors.append("cluster-{}".format(j))
+                if isinstance(cluster_graph[i][j],str):
+                    neighbors.append("cluster-{}({})".format(j,cluster_graph[i][j]))
             items[i].append(";".join(neighbors))
-        with open(path,"w",encoding="utf8") as f:
+        with open(path,"w",encoding="utf-8-sig") as f:
             writer = csv.writer(f)
-            writer.writerow(["id","名称","经纬度","包含病例","包含地点","时间跨度起","时间跨度止","连接度","链接团"])
+            writer.writerow(["id","名称","经纬度","包含病例","总病例数","首例确诊","包含地点","时间跨度起","时间跨度止","连接度","链接团"])
             for item in items:
                 writer.writerow(item)
             

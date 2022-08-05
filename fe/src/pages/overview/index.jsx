@@ -1,4 +1,4 @@
-import { Col, Row, Select, Statistic, Switch } from "antd"
+import { Col, Row, Select, Statistic, Switch,Card } from "antd"
 import axios from "axios"
 import React, { useEffect, useState } from "react"
 import MainLayout from "../../components/MainLayoout/PageLayout"
@@ -181,45 +181,40 @@ export default function PageOverview() {
   },[patinetMap])
   return (
     <MainLayout>
-      <Row>
-        <Col span={18}>
           <div id="container_overview" ref={ref} style={{height:"90vh"}}/>
-        </Col>
-        <Col span={6}>
-          
-          <Row>
-            <Col span={12}>
-              <Statistic
-                title={"总确诊人数"}
-                value={total_patients}
-                valueStyle={{ color: '#cf1322' }}
-              />
-            </Col>
-            <Col span={12}>
-              <Statistic
-                title={"总密接人数"}
-                value={total_contacts}
-                valueStyle={{ color: '#ffc23c' }}
-              />
-            </Col>
-            <Col span={12}>
-              <Statistic
-                title={"总风险位点"}
-                value={total_locations}
-                valueStyle={{ color: '#0096ff' }}
-              />
-            </Col>
-            <Col span={12}>
-              <Statistic
-                title={max_location_name}
-                value={max_location_pp}
-                valueStyle={{ color: '#cf1322' }}
-                suffix={"人次"}
-              />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+          <Card title={"关联图谱信息统计"} style={{"position":"fixed","top":"100px","right":"30px"}}>
+            <Row>
+              <Col span={12}>
+                <Statistic
+                  title={"总确诊人数"}
+                  value={total_patients}
+                  valueStyle={{ color: '#cf1322' }}
+                />
+              </Col>
+              <Col span={12}>
+                <Statistic
+                  title={"总密接人数"}
+                  value={total_contacts}
+                  valueStyle={{ color: '#ffc23c' }}
+                />
+              </Col>
+              <Col span={12}>
+                <Statistic
+                  title={"总风险位点"}
+                  value={total_locations}
+                  valueStyle={{ color: '#0096ff' }}
+                />
+              </Col>
+              <Col span={12}>
+                <Statistic
+                  title={max_location_name}
+                  value={max_location_pp}
+                  valueStyle={{ color: '#cf1322' }}
+                  suffix={"人次"}
+                />
+              </Col>
+            </Row>
+          </Card>
     </MainLayout>
   )
 }
