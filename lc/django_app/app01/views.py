@@ -800,3 +800,20 @@ def get_statistcs(request):
         response["Access-Control-Max-Age"] = "1000"
         response["Access-Control-Allow-Headers"] = "*"
         return response
+
+import zipfile
+from app01.utils.transform2StructuredData import transform2StructuredData
+@api_view(["POST"])
+def upload_files(request):
+    print(request.data["file"])
+    with zipfile.ZipFile(request.data["file"], 'r') as zfile:
+        for file in zfile.namelist():
+            content = zfile.read(file).decode('utf-8')
+            filename = file.encode('cp437').decode('gbk')
+            transform2StructuredData(filename,content)
+    response = HttpResponse(status=status.HTTP_200_OK)
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "*"
+    return response

@@ -60,7 +60,7 @@ export default function ClusterGraph({handleReason}) {
           count:e.count,
           id:`edge-${uniqueId()}`,
           note:e.note,
-          label:e.label,
+          label:`${e.relation}(${e.note})`,
           relation:e.relation,
         })
       })
@@ -537,7 +537,7 @@ export default function ClusterGraph({handleReason}) {
       );
     
       edges = processRes.edges;
-    
+      //final change
       graph.changeData({ nodes, edges });
     
       hideItems(graph);
@@ -603,27 +603,41 @@ export default function ClusterGraph({handleReason}) {
           edges.push(edge);
         } else if (isSourceInExpandArray) {
           const targetClusterId = nodeMap[edge.target].clusterId;
+          const targetC = graph.findById(targetClusterId)
+          let date=""
+          if (targetC){
+            let t = targetC.getModel().rangeTime
+            date = t.match(/(\d+[-]\d+[-]\d+)/)[1]
+          }
           const vedge = {
             source: edge.source,
             target: targetClusterId,
             id: `edge-${uniqueId()}`,
-            label: '',
+            label: `于${date}停留`,
           };
           edges.push(vedge);
         } else if (isTargetInExpandArray) {
           const sourceClusterId = nodeMap[edge.source].clusterId;
+          const sourceC = graph.findById(sourceClusterId)
+          let date=""
+          if (sourceC){
+            let t = sourceC.getModel().rangeTime
+            date = t.match(/(\d+[-]\d+[-]\d+)/)[1]
+          }
           const vedge = {
             target: edge.target,
             source: sourceClusterId,
             id: `edge-${uniqueId()}`,
-            label: '',
+            label: `于${date}停留`,
           };
           edges.push(vedge);
         }
       });
       aggregatedData.clusterEdges.forEach((edge) => {
         if (expandMap[edge.source] || expandMap[edge.target]) return;
-        else edges.push(edge);
+        else{
+          edges.push(edge);
+        }
       });
       return { nodes, edges };
     };
@@ -886,7 +900,6 @@ export default function ClusterGraph({handleReason}) {
             if(node.type !== "aggregated-node"){
               // console.log(node);
               let thisNode = nodeMap[node.id];
-              console.log(thisNode);
               if(thisNode.clusterId == model.clusterId)
                 graph.setItemState(`${node.id}`, 'focus', true);
             }
@@ -923,7 +936,6 @@ export default function ClusterGraph({handleReason}) {
             if(node.type !== "aggregated-node"){
               // console.log(node);
               let thisNode = nodeMap[node.id];
-              console.log(thisNode);
               if(thisNode.clusterId == model.clusterId && thisNode.id != model.id)
                 graph.setItemState(`${node.id}`, 'focus', false);
             }
@@ -991,13 +1003,12 @@ export default function ClusterGraph({handleReason}) {
     };
     useEffect(()=>{
       if (!aggrGraph){
-        console.log("node data")
+        console.log("no data")
         return
       }
       
       let my_data = aggrGraph
       // console.log(1111111111111111111111111111111)
-      console.log(my_data)
       document.getElementById("container").innerHTML=""
       G6.registerNode(
         'aggregated-node',
@@ -1558,6 +1569,7 @@ export default function ClusterGraph({handleReason}) {
           node.type = '';
           node.colorSet = cnode.colorSet;
           node.belongto = cluster.name;
+          node.rangeTime = cluster.rangeTime;
           node.diagnosedTime = `${node.diagnosedTime}`;
           nodeMap[node.id] = node;
         });
@@ -1749,7 +1761,7 @@ export default function ClusterGraph({handleReason}) {
             outDiv.style.width = 'fit-content';
             //outDiv.style.padding = '0px 0px 20px 0px';
             outDiv.innerHTML = `
-              <h4>Custom Content</h4>
+              <h4>聚合团信息</h4>
               <ul>
                 <li>经纬度: ${model.gps}</li>
               </ul>
@@ -1767,12 +1779,15 @@ export default function ClusterGraph({handleReason}) {
             outDiv.style.width = 'fit-content';
             //outDiv.style.padding = '0px 0px 20px 0px';
             outDiv.innerHTML = `
-              <h4>Custom Content</h4>
+              <h4>病例信息</h4>
               <ul>
                 <li>确诊日期: ${model.diagnosedTime}</li>
               </ul>
               <ul>
                 <li>所属聚合团: ${model.belongto}</li>
+              </ul>
+              <ul>
+                <li>时间跨度: ${model.rangeTime}</li>
               </ul>
               `;
             return outDiv;
@@ -1788,6 +1803,18 @@ export default function ClusterGraph({handleReason}) {
         groupByTypes: false,
         layout:{
           type:'gForce',
+          edgeStrength:(e)=>{
+            if (e.relation === "时空伴随")
+              return 1000
+            else
+              return 200
+          },
+          linkDistance:(e)=>{
+            if (e.relation === "时空伴随")
+              return 30
+            else
+              return 250
+          }
         },
         modes: {
           default: [
@@ -1836,7 +1863,6 @@ export default function ClusterGraph({handleReason}) {
       bindListener(graph);
       graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
       graph.render();
-      console.log(graph.findById('cluster-1'))
     },[aggrGraph])
     return <div id="container" ref={ref} style={{width:"95vw",height:"85vh",margin:"0"}}></div>;
   }

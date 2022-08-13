@@ -39,86 +39,7 @@ export default function PatientAnalyze(){
     const [dataSource,setDS] = useState<any[]>([])
     const [rmap,setrmap] = useState(<RelationMap/>);
 
-    const amap = useTypedSelector(e=>e.PAGlobalReducer.amap)
     const dispatch = useDispatch()
-    function draw(e: string) {
-        var config;
-        if (e == "location") {
-          config = {
-            encrypted: "ENCRYPTION_ON",
-            trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
-            container_id: "viz",
-            server_url: Const.boltserver,
-            server_user: "neo4j",
-            server_password: "123456",
-            labels: {
-              "Location": {
-                "caption": "name",
-                "size": "count",
-                "color": "red"
-              }
-            },
-            relationships: {
-              "To": {
-                "caption": "traffic",
-                "thickness": "count",
-                "color": "pink"
-              }
-            },
-            initial_cypher: "MATCH p=()-[r:To]->() RETURN p "
-          };
-        }
-        else {
-          config = {
-            encrypted: "ENCRYPTION_ON",
-            trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
-            container_id: "viz",
-            server_url: Const.boltserver,
-            server_user: "neo4j",
-            server_password: "123456",
-            labels: {
-              "Location": {
-                "caption": "name",
-                "size": "count",
-                "color": "#FFFFFF"
-              },
-              "Contact": {
-                "size": "count",
-                "caption": "name",
-                "color": "#FFFFFF"
-              },
-              "Patient": {
-                "size": "count",
-                "caption": "name",
-                "color": "#FFFFFF"
-              },
-            },
-            relationships: {
-              "contact": {
-                "caption": true,
-                "thickness": "count"
-              },
-              "To": {
-                "caption": "traffic",
-                "thickness": "count",
-                "color": "pink"
-              },
-              "TravelTo": {
-                "caption": "到访",
-                "thickness": "count",
-                "color": "blue"
-              }
-            },
-            initial_cypher: "MATCH p=(a:Patient)-[r:TravelTo]-()-[]-() WHERE a.name=\"" + loadedBasic?.name+"\" RETURN p"
-            // initial_cypher: "MATCH p=()-[r:With]->() RETURN p"
-            // initial_cypher: "MATCH p=()-[]->() RETURN p"
-          };
-        }
-    
-        const NeoVis = require('neovis.js/dist/neovis')
-        const viz = new NeoVis.default(config)
-        viz.render();
-    }
     const selectPerson=(pid="0")=>{
       axios.get(`${Const.testserver}/get_all_patients`)
       .then(e=>{
@@ -136,10 +57,6 @@ export default function PatientAnalyze(){
         pid:epid,
       })
       .then(e=>{dispatch(ActSetState({patient_route:e.data}))})
-      console.log("setTarget")
-      console.log(patientRoute)
-      console.log("timeValue")
-      console.log(timeValue)
       axios.post(`${Const.testserver}/get_patientmap_d_t`,{
         pid:epid,
         timeValue:timeValue,
@@ -148,25 +65,15 @@ export default function PatientAnalyze(){
         distanceUnit:distanceUnit
       })
       .then(e=>{dispatch(ActSetState({loadedRelatedInfo:e.data}))})
-      console.log("loadedRealtedInfo")
-      console.log(loadedRelatedInfo)
 
       axios.post(`${Const.testserver}/get_patientmap_d_t_sel`,{
         pid:epid,
       })
       .then(e=>{dispatch(ActSetState({relatedMap:e.data}))})
-      console.log("relatedmap")
-      console.log(relatedMap)
     }
-    useEffect(() => {
-        if (process.browser)
-            draw("people")
-    }, [loadedBasic])
 
     useEffect(()=>{
       setDS(generateDataSource())
-      console.log("datasource")
-      console.log(generateDataSource())
     },[loadedRelatedInfo,timeOp,timeUnit,timeValue,distanceUnit,distanceOp,distanceValue])
 
     const columns = [
@@ -203,10 +110,7 @@ export default function PatientAnalyze(){
     ];
 
     const generateDataSource = ()=>{
-      console.log("generateDataSource")
-      console.log(loadedRelatedInfo)
       if (loadedRelatedInfo){
-        console.log( loadedRelatedInfo[0].edge_relation)
         const filter = loadedRelatedInfo[0].edge_relation.filter((e:any)=>(
           (timeOp == "01"?(e.time_interval*60 < timeValue*timeUnit):
           timeOp == "02"?(e.time_interval*60 > timeValue*timeUnit):
@@ -239,9 +143,6 @@ export default function PatientAnalyze(){
                     <Modal title="选择病人" visible={isModalVisible} onOk={()=>{setIMV(false)}} onCancel={()=>{setIMV(false)}}>
                       <Select style={{ width: 120 }} onChange={(value)=>{
                         let p = allPatients.find(e=>e.pid===value)
-                        console.log("选择的人是："+p)
-                        console.log("他的pid "+p.pid)
-                        console.log(timeValue)
                         setTarget(p.pid,timeValue,timeUnit,distanceValue,distanceUnit)
                       }}>
                         {
@@ -265,8 +166,6 @@ export default function PatientAnalyze(){
                       </Descriptions.Item>
                     </Descriptions>
                     <Divider orientation="left">行程</Divider>
-                    {console.log("行程")}
-                    {console.log(patientRoute)}
                     <Tabs defaultActiveKey="1" tabPosition={"top"} >
                       {/* {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (
                         <TabPane tab={`Tab-${i}`} key={i} disabled={i === 28}>

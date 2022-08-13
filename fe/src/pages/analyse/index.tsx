@@ -11,6 +11,8 @@ import SaveRestore from "../../components/drawboard"
 import ClusterGraph from "../../components/ClusterGraph";
 import axios from "axios";
 import { useTypedSelector } from "../../lib/store";
+import moment from "moment";
+import { format } from "path";
 
 const {RangePicker} = DatePicker
 const { Option } = Select;
@@ -22,31 +24,20 @@ export default function Pageanalyse() {
     const [radioValue,setRadioValue] = useState("1")
     const dispatch = useDispatch()
     const handleReason = (pid:any)=>{
-        setRadioValue("3")
         axios.post(`${Constant.testserver}/get_chain`,{
             pid:pid,
             version:"origin"
         })
         .then(e=>{dispatch(ActSetState({chain:e.data}))})
-        setPict(
-            <>
-            {/* <div className={sty.export}>
-                <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
-            </div> */}
-            <div style={{width: "90vw",height: "90vh"}}>
-                <SaveRestore/>
-            </div>
-            </>
-        )
-        setIsHidden(sty.hidden)
+        setVisible(true)
     }
     const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
-    const [dist,setD] = useState(100)
+    const [dist,setD] = useState(500)
     const [distUnit,setDU] = useState(0.001)
-    const [time,setT] = useState(100)
+    const [time,setT] = useState(60)
     const [timeUnit,setTU] = useState(1)
-    const [startTime,setST] = useState("2022-04-22")
-    const [endTime,setET] = useState("2022-05-16")
+    const [startTime,setST] = useState("2021-11-01")
+    const [endTime,setET] = useState("2021-12-31")
     const [district,setDT] = useState(["陕西省"])
     const [omitSingle,setOS] = useState(true)
     const [visible,setVisible] = useState(false)
@@ -103,7 +94,7 @@ export default function Pageanalyse() {
                     <Row className={isHidden}>
                         <Col span={8} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合距离差:</span></Col>
                         <Col span={6}>
-                            <Slider max={1000} defaultValue={1000} onChange={(value:any) => setD(value)}/>
+                            <Slider max={1000} defaultValue={500} onChange={(value:any) => setD(value)}/>
                         </Col>
                         <Col span={1}></Col>
                         <Col span={6}>
@@ -119,7 +110,7 @@ export default function Pageanalyse() {
                     <Row className={isHidden}>
                         <Col span={8} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合时间差:</span></Col>
                         <Col span={6}>
-                            <Slider max={1000} defaultValue={1000} onChange={(value:any) => setT(value)}/>
+                            <Slider max={1000} defaultValue={60} onChange={(value:any) => setT(value)}/>
                         </Col>
                         <Col span={1}></Col>
                         <Col span={6}>
@@ -135,7 +126,13 @@ export default function Pageanalyse() {
                     <Row className={isHidden}>
                         <Col span={7} style={{marginTop:'4px'}}><span style={{fontSize:"18px"}}>聚合日期:</span></Col>
                         <Col span={17}>
-                            <RangePicker onChange={(v,s)=>{setST(s[0]),setET(s[1])}}/>
+                            <RangePicker 
+                                defaultValue={[
+                                    moment("2021-11-01",'YYYY-MM-DD'),
+                                    moment("2021-12-31",'YYYY-MM-DD')
+                                ]}
+                                onChange={(v,s)=>{setST(s[0]),setET(s[1])}}
+                            />
                         </Col>
                     </Row>
                 </Col>

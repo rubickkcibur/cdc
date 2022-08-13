@@ -322,7 +322,8 @@ class AggregateGraph():
                     "phone":patient.phone,
                     "diagnosedTime":patient.diagnosedTime,
                     "type":patient.type,
-                    "clusterId": cluster_id
+                    "clusterId": cluster_id,
+                    "stayTime": str(st)
                 })
             node_id1 = node_cnt
             node_cnt += len(patients_id)
@@ -347,9 +348,11 @@ class AggregateGraph():
             for j in range(i+1,len(cnodes)):
                 interset = cnodes[i] & cnodes[j]
                 if len(interset) > 0:
+                    itime = datetime.strptime(clusters[i]["rangeTime"].split("--")[0],"%Y-%m-%d %H:%M:%S")
+                    jtime = datetime.strptime(clusters[j]["rangeTime"].split("--")[0],"%Y-%m-%d %H:%M:%S")
                     cluster_edges.append({
-                        "source":"cluster-{}".format(i),
-                        "target":"cluster-{}".format(j),
+                        "source":"cluster-{}".format(i if itime<=jtime else j),
+                        "target":"cluster-{}".format(i if itime>jtime else j),
                         "relation":"存在同一人",
                         "note":",".join([self.node_list[id].name for id in interset]),
                         "count":len(interset)
@@ -357,11 +360,15 @@ class AggregateGraph():
         for i in range(len(nodes)):
             for j in range(i+1,len(nodes)):
                 if nodes[i]["pid"] == nodes[j]["pid"]:
+                    itime = datetime.strptime(nodes[i]["stayTime"],"%Y-%m-%d %H:%M:%S")
+                    jtime = datetime.strptime(nodes[j]["stayTime"],"%Y-%m-%d %H:%M:%S")
                     edges.append({
-                        "source":i,
-                        "target":j,
-                        "relation":"同一人",
-                        "note":nodes[i]["pid"]
+                        "source":i if itime<=jtime else j,
+                        "target":i if itime>jtime else j,
+                        "relation":"--".join(
+                            [str(itime),str(jtime)] if itime <= jtime else [str(jtime),str(itime)]
+                        ),
+                        "note":nodes[i]["name"]
                     })
         return {"nodes":nodes,"edges":edges,"clusters":clusters,"clusterEdges":cluster_edges}
     
@@ -388,15 +395,15 @@ class AggregateGraph():
         for c in clusters:
             items.append([
                 c["id"],
+                c["rangeTime"].split("--")[0],
+                c["rangeTime"].split("--")[1],
                 c["name"],
                 c["gps"],
                 ";".join([nodes[id]["name"] for id in c["nodes"]]),
                 len(c["nodes"]),
                 "/".join(sorted([[nodes[id]["name"],nodes[id]["diagnosedTime"]] for id in c["nodes"]],
                     key=lambda ele:datetime.strptime(ele[1],"%Y-%m-%d")).pop(0)),
-                c["note"],
-                c["rangeTime"].split("--")[0],
-                c["rangeTime"].split("--")[1]
+                c["note"]
             ])
         for edge in cluster_edges:
             sid = int(regex.match(r'^cluster-(\d+)',edge["source"]).group(1))
@@ -413,7 +420,7 @@ class AggregateGraph():
             items[i].append(";".join(neighbors))
         with open(path,"w",encoding="utf-8-sig") as f:
             writer = csv.writer(f)
-            writer.writerow(["id","名称","经纬度","包含病例","总病例数","首例确诊","包含地点","时间跨度起","时间跨度止","连接度","链接团"])
+            writer.writerow(["id","时间跨度起","时间跨度止","名称","经纬度","包含病例","总病例数","首例确诊","包含地点","连接度","链接团"])
             for item in items:
                 writer.writerow(item)
             

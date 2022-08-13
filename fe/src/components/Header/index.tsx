@@ -6,7 +6,8 @@ import {
   TeamOutlined,
   NodeIndexOutlined,
   FormOutlined,
-  HeatMapOutlined
+  HeatMapOutlined,
+  CopyOutlined
 } from "@ant-design/icons"
 
 import sty from "./index.module.scss"
@@ -29,17 +30,22 @@ const MenuItem = [
   //   url: '/'
   // },
   {
-    title: "流调分析",
+    title: "上传报告",
+    icon: <CopyOutlined />,
+    url: '/uploadFile'
+  },
+  {
+    title: "图谱总览",
     icon: <TeamOutlined />,
     url: '/overview'
   },
   {
-    title: "案例对比",
+    title: "个案分析",
     icon: <FormOutlined />,
     url: '/patientAnalyze'
   },
   {
-    title:"传播分析",
+    title:"聚集分析",
     icon:<NodeIndexOutlined />,
     url:'/analyse'
   },
