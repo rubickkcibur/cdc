@@ -11,6 +11,7 @@ import { ActSetState } from "../../lib/state/global"
 import ReactDOM from 'react-dom'
 import G6 from "@antv/g6"
 import { useRef } from "react"
+import { replaceAt } from "../../lib/utils"
 
 export default function PageOverview() {
   const patinetMap = useTypedSelector(e=>e.PAGlobalReducer.patient_map)
@@ -20,6 +21,12 @@ export default function PageOverview() {
   const [total_contacts,setTC] = useState(0)
   const [max_location_name,setMLN] = useState("")
   const [max_location_pp,setMLP] = useState(0)
+  const [total_accompany,setTA] = useState(0)
+  const [max_accompany_name,setMAN] = useState("")
+  const [max_accompany_num,setMANum] = useState(0)
+  const [max_contact_name,setMCN] = useState("")
+  const [max_contact_num,setMCNum] = useState(0)
+  const [unprotection_rate,setUR] = useState(0)
   const ref = useRef(null)
   useEffect(()=>{
     axios.get(`${Constant.testserver}/get_patientmap_d_t_all`)
@@ -34,6 +41,13 @@ export default function PageOverview() {
         setTC(e.data.total_contacts)
         setMLN(e.data.max_location_name)
         setMLP(e.data.max_location_pp)
+        setTA(e.data.total_accompany)
+        setMAN(e.data.max_accompany_name)
+        setMANum(e.data.max_accompany_num)
+        setMCN(e.data.max_contact_name)
+        setMCNum(e.data.max_contact_num)
+        setUR(e.data.unprotection_rate)
+        console.log(e.data)
       })
   },[])
   useEffect(()=>{
@@ -125,7 +139,7 @@ export default function PageOverview() {
         id:`node-${idx}`,
         pid:node.pid,
         name:node.name,
-        label:node.name,
+        label:replaceAt(node.name,1,"某"),
         gender:node.gender,
         size:node.type=="patient"?40:25,
         type:node.type
@@ -182,20 +196,20 @@ export default function PageOverview() {
   return (
     <MainLayout>
           <div id="container_overview" ref={ref} style={{height:"90vh"}}/>
-          <Card title={"关联图谱信息统计"} style={{"position":"fixed","top":"100px","right":"30px"}}>
+          <Card title={"关联图谱信息统计"} style={{"position":"fixed","top":"100px","right":"30px","width":"20vw"}}>
             <Row>
               <Col span={12}>
                 <Statistic
                   title={"总确诊人数"}
                   value={total_patients}
-                  valueStyle={{ color: '#cf1322' }}
+                  valueStyle={{ color: '#0096ff' }}
                 />
               </Col>
               <Col span={12}>
                 <Statistic
                   title={"总密接人数"}
                   value={total_contacts}
-                  valueStyle={{ color: '#ffc23c' }}
+                  valueStyle={{ color: '#0096ff' }}
                 />
               </Col>
               <Col span={12}>
@@ -207,10 +221,39 @@ export default function PageOverview() {
               </Col>
               <Col span={12}>
                 <Statistic
-                  title={max_location_name}
-                  value={max_location_pp}
+                  title={"总时空伴随"}
+                  value={total_accompany}
+                  valueStyle={{ color: '#0096ff' }}
+                />
+              </Col>
+              <Col span={12}>
+                <Statistic
+                  title={"最多经停"}
+                  value={`${max_location_name}(${max_location_pp}人次)`}
                   valueStyle={{ color: '#cf1322' }}
-                  suffix={"人次"}
+                />
+              </Col>
+              <Col span={12}>
+                <Statistic
+                  title={"最多伴随病例"}
+                  value={`${max_accompany_name}(${max_accompany_num}人次)`}
+                  valueStyle={{ color: '#cf1322' }}
+                />
+              </Col>
+              <Col span={12}>
+                <Statistic
+                  title={"最多密接病例"}
+                  value={`${max_contact_name}(${max_contact_num}人)`}
+                  valueStyle={{ color: '#cf1322' }}
+                />
+              </Col>
+              <Col span={12}>
+                <Statistic
+                  title={"无防护比例"}
+                  value={unprotection_rate*100}
+                  precision={2}
+                  valueStyle={{ color: '#ffc23c' }}
+                  suffix={"%"}
                 />
               </Col>
             </Row>

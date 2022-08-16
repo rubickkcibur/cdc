@@ -1,9 +1,9 @@
-import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs, DatePicker, Checkbox, Drawer} from "antd";
+import {Button, Col, Row, Select, Slider, Radio, Popover, AutoComplete, Tabs, DatePicker, Checkbox, Drawer, Divider} from "antd";
 import React, { useDebugValue, useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayoout/PageLayout"
 import sty from "./index.module.scss"
 import { useDispatch } from "react-redux";
-import {ActRemovePauses, ActSetAggr, ActSetState, SendData2Store} from "../../lib/state/global";
+import {ActRemovePauses, ActSetAggr, ActSetState, PAGlobalReducer, SendData2Store} from "../../lib/state/global";
 import Axios from "axios";
 import Constant from '../../lib/constant'
 import { useRouter } from "next/dist/client/router";
@@ -21,7 +21,6 @@ const { Option } = Select;
 export default function Pageanalyse() {
     const { Option } = Select;
     const [isHidden,setIsHidden]=useState(sty.show);
-    const [radioValue,setRadioValue] = useState("1")
     const dispatch = useDispatch()
     const handleReason = (pid:any)=>{
         axios.post(`${Constant.testserver}/get_chain`,{
@@ -31,7 +30,9 @@ export default function Pageanalyse() {
         .then(e=>{dispatch(ActSetState({chain:e.data}))})
         setVisible(true)
     }
-    const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
+    const aggrGraph_fewer = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph_fewer)
+    const aggrGraph_more = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph_more)
+    const all_patients = useTypedSelector(e=>e.PAGlobalReducer.all_patients)
     const [dist,setD] = useState(500)
     const [distUnit,setDU] = useState(0.001)
     const [time,setT] = useState(60)
@@ -39,53 +40,82 @@ export default function Pageanalyse() {
     const [startTime,setST] = useState("2021-11-01")
     const [endTime,setET] = useState("2021-12-31")
     const [district,setDT] = useState(["陕西省"])
+    const [peopleFewer,setPF] = useState([])
+    const [peopleMore,setPM] = useState([])
     const [omitSingle,setOS] = useState(true)
     const [visible,setVisible] = useState(false)
-    
-    const[pict,setPict]=useState(
-        <ClusterGraph handleReason={handleReason}/>
-    );
 
     useEffect(()=>{
-        if (!aggrGraph){
+        if (!aggrGraph_fewer){
             axios.post(`${Constant.testserver}/get_clusters2`,{
                 dist:dist*distUnit,
                 time:time*timeUnit,
                 startTime:startTime,
                 endTime:endTime,
                 district:district,
-                filter:omitSingle?1:0
+                filter:omitSingle?1:0,
+                people:peopleFewer
             }).then(e=>{
-                dispatch(ActSetState({aggrGraph:e.data}))
+                dispatch(ActSetState({aggrGraph_fewer:e.data}))
             })
         }
-    },[aggrGraph])
+        if (!aggrGraph_more){
+            axios.post(`${Constant.testserver}/get_clusters2`,{
+                dist:dist*distUnit,
+                time:time*timeUnit,
+                startTime:startTime,
+                endTime:endTime,
+                district:district,
+                filter:omitSingle?1:0,
+                people:peopleMore
+            }).then(e=>{
+                dispatch(ActSetState({aggrGraph_more:e.data}))
+            })
+        }
+        if (!all_patients){
+            axios.get(`${Constant.testserver}/get_all_patients`)
+            .then(e=>{
+                dispatch(ActSetState({
+                    all_patients:e.data
+                }))
+            })
+        }
+    },[aggrGraph_fewer,aggrGraph_more,all_patients])
 
-    const onChange = (e:any) => {
-        if (e.target.value=="3"){
-            setRadioValue("3")
-            setPict(
-                <>
-                {/* <div className={sty.export}>
-                    <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
-                </div> */}
-                <div style={{width: "90vw",height: "90vh"}}>
-                    <SaveRestore/>
-                </div>
-                </>
-            )
-            setIsHidden(sty.hidden)
-        }
-        //人群聚合
-        else if(e.target.value=="1"){
-            setRadioValue("1")
-            setPict(
-                <ClusterGraph handleReason={handleReason}/>
-            )
-            setIsHidden(sty.show)
-        }
-        //时间聚合
-    };
+    const differAggreate = (idx) => {
+        console.log(all_patients[idx].pid)
+        dispatch(ActSetState({
+            focus_id:all_patients[idx].pid
+        }))
+        setPF(all_patients.slice(0,idx))
+        setPM(all_patients.slice(0,idx+1))
+    }
+
+    // const onChange = (e:any) => {
+    //     if (e.target.value=="3"){
+    //         setRadioValue("3")
+    //         setPict(
+    //             <>
+    //             {/* <div className={sty.export}>
+    //                 <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
+    //             </div> */}
+    //             <div style={{width: "90vw",height: "90vh"}}>
+    //                 <SaveRestore/>
+    //             </div>
+    //             </>
+    //         )
+    //         setIsHidden(sty.hidden)
+    //     }
+    //     //人群聚合
+    //     else if(e.target.value=="1"){
+    //         setRadioValue("1")
+    //         setPict(
+    //             <ClusterGraph handleReason={handleReason}/>
+    //         )
+    //         setIsHidden(sty.show)
+    //     }
+    //     //时间聚合
+    // };
     return(
         <MainLayout>
             <div className={sty.Table}>
@@ -171,21 +201,28 @@ export default function Pageanalyse() {
                 <Col span={2}>
                     <Row className={isHidden}>
                         <Button type="primary" onClick={()=>{
-                            console.log(dist,startTime,endTime,district)
                             axios.post(`${Constant.testserver}/get_clusters2`,{
                                 dist:dist*distUnit,
                                 time:time*timeUnit,
                                 startTime:startTime,
                                 endTime:endTime,
                                 district:district,
-                                filter:omitSingle?1:0
+                                filter:omitSingle?1:0,
+                                people:peopleFewer.map((e)=>(e.pid))
                             }).then(e=>{
-                                dispatch(ActSetState({aggrGraph:e.data}))
-                                console.log(e.data)
+                                dispatch(ActSetState({aggrGraph_fewer:e.data}))
                             })
-                            // axios.get(`${Constant.testserver}/get_clusters`).then(e=>{
-                            //     dispatch(ActSetState({aggrGraph:e.data}))
-                            // })
+                            axios.post(`${Constant.testserver}/get_clusters2`,{
+                                dist:dist*distUnit,
+                                time:time*timeUnit,
+                                startTime:startTime,
+                                endTime:endTime,
+                                district:district,
+                                filter:omitSingle?1:0,
+                                people:peopleMore.map((e)=>(e.pid))
+                            }).then(e=>{
+                                dispatch(ActSetState({aggrGraph_more:e.data}))
+                            })
                         }}>获取数据</Button>
                     </Row>
                 </Col>
@@ -209,9 +246,26 @@ export default function Pageanalyse() {
                     <SaveRestore/>
                 </div>
             </Drawer>
-            <div style={{height:'100%'}}>
-                {pict}
-            </div>
+            <Row>
+                <Col span={11}>
+                    <ClusterGraph handleReason={handleReason} container_id={"container"} aggrGraph={aggrGraph_fewer}/>
+                </Col>
+                <Col span={2}>
+                    <h3>选择差异分析对象</h3>
+                    <Select style={{width:"100%"}} defaultValue={0} onChange={(e)=>{differAggreate(e)}}>
+                        {
+                            all_patients?
+                            all_patients.map((e,idx)=>(
+                                <Option value={idx}>{e.name}</Option>
+                            ))
+                            :null
+                        }
+                    </Select>
+                </Col>
+                <Col span={11}>
+                    <ClusterGraph handleReason={handleReason} container_id={"container_2"} aggrGraph={aggrGraph_more} focused={true}/>
+                </Col>
+            </Row>
         </div>
         </MainLayout>
     )

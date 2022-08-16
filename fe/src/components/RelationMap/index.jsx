@@ -2,6 +2,7 @@ import G6 from '@antv/g6';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useTypedSelector } from '../../lib/store';
+import {replaceAt} from '../../lib/utils'
 let graph = null;
 let contact_types = ['同居','同事','同学','同车','共餐','同行','短暂接触','开会'];
 
@@ -79,7 +80,7 @@ export default function RelationMap(){
           if(flag){
             nodes.push({
             id:node.name,
-            label:node.name,
+            label:replaceAt(node.name,1,"某"),
             style:{
               fill:'#B7D3DF',
               stroke:'blue',

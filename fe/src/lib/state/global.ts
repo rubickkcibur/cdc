@@ -52,7 +52,8 @@ export type TState = {
   rfIns?:any
   epidemics?:any
   loadedRelatedInfo?:any
-  aggrGraph?:any
+  aggrGraph_fewer?:any
+  aggrGraph_more?:any
   chain?:any
   distance?:number
   time?:number
@@ -62,6 +63,7 @@ export type TState = {
   relatedMap?:any
   patient_map?:any
   all_chain_versions?:any
+  focus_id?:""
 }
 
 const getEpi=()=>{
@@ -161,9 +163,6 @@ export const PAGlobalReducer: Reducer<TState, TAction> = (
       case ActionsEnum.SendData2Store:
         draft.distance=action.dis
         draft.time=action.time
-        return draft
-      case ActionsEnum.ActSetAggr:
-        draft.aggrGraph=action.aggr
         return draft
       default:
         return draft

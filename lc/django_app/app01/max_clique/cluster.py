@@ -109,6 +109,9 @@ class AggregateGraph():
         self.clusters = clusters
         self.graph = graph
         self.store_path = store_path
+        self.pid2nid = {}
+        for idx,n in enumerate(self.node_list):
+            self.pid2nid[n.pid] = idx
         for p in pause_list:
             if p[3] == "None":
                 p[3] = "12:00:00"
@@ -275,7 +278,7 @@ class AggregateGraph():
         with open(os.path.join(self.store_path,"clusters_adj.json"),"w",encoding="utf8") as f:
             json.dump(adj,f)
         
-    def generateFormatData(self,start_time,end_time,district,filterNum=1,interval=60):
+    def generateFormatData(self,start_time,end_time,district,filterNum=1,interval=60,people=[]):
         start_time = datetime.strptime(start_time,"%Y-%m-%d") if start_time != "" else None
         end_time = datetime.strptime(end_time,"%Y-%m-%d") if end_time != "" else None
         nodes = []
@@ -299,11 +302,22 @@ class AggregateGraph():
                 if cantain(subClusters[i],subClusters[j]):
                     marks.add(j)
                     subClusters[i][1] |= subClusters[j][1]
+                    subClusters[i][2] = min(subClusters[i][2],subClusters[j][2])
+                    subClusters[i][3] = max(subClusters[i][3],subClusters[j][3])
                 elif cantain(subClusters[j],subClusters[i]):
                     marks.add(i)
                     subClusters[j][1] |= subClusters[i][1]
+                    subClusters[j][2] = min(subClusters[i][2],subClusters[j][2])
+                    subClusters[j][3] = max(subClusters[i][3],subClusters[j][3])
                 
         subClusters = [c for index,c in enumerate(subClusters) if index not in marks]
+
+        if len(people) > 0:
+            for cluster in subClusters:
+                origin_id = cluster[0]
+                filter_id = set([self.pid2nid[pid] for pid in people])
+                new_id = origin_id & filter_id
+                cluster[0] = new_id
 
         for cluster in subClusters:
             cluster_id = len(clusters)
@@ -365,9 +379,10 @@ class AggregateGraph():
                     edges.append({
                         "source":i if itime<=jtime else j,
                         "target":i if itime>jtime else j,
-                        "relation":"--".join(
-                            [str(itime),str(jtime)] if itime <= jtime else [str(jtime),str(itime)]
-                        ),
+                        # "relation":"--".join(
+                        #     [str(itime),str(jtime)] if itime <= jtime else [str(jtime),str(itime)]
+                        # ),
+                        "relation":"相隔{}天".format(abs((itime-jtime).days)),
                         "note":nodes[i]["name"]
                     })
         return {"nodes":nodes,"edges":edges,"clusters":clusters,"clusterEdges":cluster_edges}

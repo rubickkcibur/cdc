@@ -13,9 +13,10 @@ import { ActSetState } from '../../lib/state/global';
 import { useDispatch } from 'react-redux';
 
 
-export default function ClusterGraph({handleReason}) {
+export default function ClusterGraph({handleReason,container_id,aggrGraph,focused=false}) {
     const ref = React.useRef(null);
-    const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
+    // const aggrGraph = useTypedSelector(e=>e.PAGlobalReducer.aggrGraph)
+    const focus_id = useTypedSelector(e=>e.PAGlobalReducer.focus_id)
     const { uniqueId } = G6.Util;
     const NODESIZEMAPPING = 'degree';
     const SMALLGRAPHLABELMAXLENGTH = 5;
@@ -1009,7 +1010,7 @@ export default function ClusterGraph({handleReason}) {
       
       let my_data = aggrGraph
       // console.log(1111111111111111111111111111111)
-      document.getElementById("container").innerHTML=""
+      document.getElementById(container_id).innerHTML=""
       G6.registerNode(
         'aggregated-node',
         {
@@ -1497,7 +1498,7 @@ export default function ClusterGraph({handleReason}) {
         },
         'single-edge',
       );
-      const container = document.getElementById('container');
+      const container = document.getElementById(container_id);
       container.style.backgroundColor = '#2b2f33';
       CANVAS_WIDTH = container.scrollWidth;
       CANVAS_HEIGHT = (container.scrollHeight || 500) - 30;
@@ -1511,6 +1512,15 @@ export default function ClusterGraph({handleReason}) {
           a=0,b;
       const aggregatedData = { nodes: [], edges: [] };
       clusteredData.clusters.forEach((cluster, i) => {
+        let pids = cluster.nodes.map((n)=>(n.pid))
+        let highlight_flag = false
+        pids.forEach(pid => {
+          console.log(pid," ",focus_id)
+          if (pid === focus_id){
+            highlight_flag = true
+            console.log("flag!")
+          }
+        }); 
         const cnode = {
           id: cluster.id,
           type: 'aggregated-node',
@@ -1525,27 +1535,17 @@ export default function ClusterGraph({handleReason}) {
           note:cluster.note,
           gps:cluster.gps,
           rangeTime:cluster.rangeTime,
-          names:cluster.names
+          names:cluster.names,
+          highlight_flag:highlight_flag
         };
 
         aggregatedNodeMap[cluster.id] = cnode;
         aggregatedData.nodes.push(cnode);
-
-        // let thisColor = "#";
-        // thisColor += color;
-        // // console.log('这个颜色拼好了吗？');
-        // // console.log(thisColor);
-        // a =  Math.floor(Math.random()*20), 
-        // b = 230 + Math.floor(Math.random()*25);
-        // c = (c + 177)%255;
-        // function randomSort() {
-        //   return Math.random() < 0.45 ? -1 : 1
-        // }
-        // let randomArray = [a, b, c].sort(randomSort)
-        // let output = `rgb(${randomArray[0]},${randomArray[1]},${randomArray[2]})`;
-        // console.log(cluster.id+output);
+        //here to adjust color
         let output;
-        if(cnode.count >= 5){
+        if (focused && cnode.highlight_flag){
+          output = "#FF1E00"
+        }else if(cnode.count >= 5){
           output = color[3];
         }else if(cnode.count >=4){
           output = color[2];
@@ -1864,5 +1864,5 @@ export default function ClusterGraph({handleReason}) {
       graph.data({ nodes: aggregatedData.nodes, edges: processedEdges });
       graph.render();
     },[aggrGraph])
-    return <div id="container" ref={ref} style={{width:"95vw",height:"85vh",margin:"0"}}></div>;
+    return <div id={container_id} ref={ref} style={{width:"100%",height:"85vh",margin:"0"}}></div>;
   }

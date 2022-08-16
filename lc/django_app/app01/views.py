@@ -142,9 +142,12 @@ def get_all_patients(request):
                 "name": e.name,
                 "gender":"男" if e.gender else "女",
                 "phone":e.phone,
-                "diagnosedTime":str(e.diagnoseddate),
+                "diagnosedTime":e.diagnoseddate,
                 "type":"确诊"
             })
+        ret = sorted(ret,key=lambda x:x["diagnosedTime"])
+        for ele in ret:
+            ele["diagnosedTime"] = str(ele["diagnosedTime"])
         response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
         response["Access-Control-Allow-Origin"] = "*"
         response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
@@ -269,11 +272,12 @@ def get_clusters2(request):
     district = data["district"]
     filterNum = data["filter"]
     interval = data["time"]
+    people = data["people"]
     ag = AggregateGraph.load_data("./app01/max_clique/xian")
     ag.clipData(start_time,end_time)
     ag.buildGraph(dist)
     ag.buildClusters()
-    re = ag.generateFormatData(start_time,end_time,district,filterNum,interval=interval)
+    re = ag.generateFormatData(start_time,end_time,district,filterNum,interval=interval,people=people)
     with open("./app01/max_clique/xian/format_data.json","w",encoding="utf8") as f:
         json.dump(re,f)
     ag.formatData2csv(re,"./app01/max_clique/cluster.csv")
@@ -774,12 +778,18 @@ def get_statistcs(request):
                 contacts[pid] = set()
             contacts[pid].add(pid2)
         locations = {}
+        location_pids = {}
         for l in App01Stay.objects.all():
             gps = l.gps_id
             name = l.lname_id
+            pid = l.pid_id
             if gps not in locations:
                 locations[gps] = [name,0]
             locations[gps][1] += 1
+            if gps not in location_pids:
+                location_pids[gps] = set()
+            location_pids[gps].add(pid)
+
         total_contacts = sum([len(s) for s in contacts.values()])
         max_location_name = ""
         max_location_pp = 0
@@ -787,12 +797,39 @@ def get_statistcs(request):
             if tup[1] > max_location_pp:
                 max_location_pp = tup[1]
                 max_location_name = tup[0]
+        total_accompany = sum([len(s)-1 for s in location_pids.values()])
+        pid2accompany = {}
+        for v in location_pids.values():
+            if len(v)-1 > 0:
+                for pid in v:
+                    if pid not in pid2accompany:
+                        pid2accompany[pid] = 0
+                    pid2accompany[pid] += len(v) - 1
+        max_accompany_pid = ""
+        max_accompany_num = 0
+        for k,v in pid2accompany.items():
+            if v > max_accompany_num:
+                max_accompany_pid = k
+                max_accompany_num = v
+        max_contact_pid = ""
+        max_contact_num = 0
+        for k,v in contacts.items():
+            if len(v) > max_contact_num:
+                max_contact_pid = k
+                max_contact_num = len(v)
+
         ret={
             "total_patients": len(App01Patient.objects.all()),
             "total_contacts": total_contacts,
             "total_locations": len(App01Location.objects.all()),
             "max_location_name": max_location_name,
-            "max_location_pp": max_location_pp
+            "max_location_pp": max_location_pp,
+            "total_accompany": total_accompany,
+            "max_accompany_name": App01Patient.objects.get(pid=max_accompany_pid).name,
+            "max_accompany_num": max_accompany_num,
+            "max_contact_name": App01Patient.objects.get(pid=max_contact_pid).name,
+            "max_contact_num": max_contact_num,
+            "unprotection_rate": len(App01Stay.objects.filter(protection=0))/len(App01Stay.objects.all())
         }
         response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
         response["Access-Control-Allow-Origin"] = "*"
