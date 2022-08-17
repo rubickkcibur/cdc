@@ -13,6 +13,7 @@ import axios from "axios";
 import { useTypedSelector } from "../../lib/store";
 import moment from "moment";
 import { format } from "path";
+import ContactTable from "../../components/ContactTable";
 
 const {RangePicker} = DatePicker
 const { Option } = Select;
@@ -44,6 +45,9 @@ export default function Pageanalyse() {
     const [peopleMore,setPM] = useState([])
     const [omitSingle,setOS] = useState(true)
     const [visible,setVisible] = useState(false)
+    const [visible2,setVisible2] = useState(false)
+    const [contactData,setCD] = useState([])
+    
 
     useEffect(()=>{
         if (!aggrGraph_fewer){
@@ -91,31 +95,13 @@ export default function Pageanalyse() {
         setPM(all_patients.slice(0,idx+1))
     }
 
-    // const onChange = (e:any) => {
-    //     if (e.target.value=="3"){
-    //         setRadioValue("3")
-    //         setPict(
-    //             <>
-    //             {/* <div className={sty.export}>
-    //                 <Button type="primary"><a href={`${Constant.apihost}/download`}>导出</a></Button>
-    //             </div> */}
-    //             <div style={{width: "90vw",height: "90vh"}}>
-    //                 <SaveRestore/>
-    //             </div>
-    //             </>
-    //         )
-    //         setIsHidden(sty.hidden)
-    //     }
-    //     //人群聚合
-    //     else if(e.target.value=="1"){
-    //         setRadioValue("1")
-    //         setPict(
-    //             <ClusterGraph handleReason={handleReason}/>
-    //         )
-    //         setIsHidden(sty.show)
-    //     }
-    //     //时间聚合
-    // };
+    const getContactData = ()=>{
+        axios.get(`${Constant.testserver}/get_contacts_table`)
+        .then((e)=>{
+            setCD(e.data)
+        })
+        setVisible2(true)
+    }
     return(
         <MainLayout>
             <div className={sty.Table}>
@@ -246,6 +232,17 @@ export default function Pageanalyse() {
                     <SaveRestore/>
                 </div>
             </Drawer>
+            <Drawer
+                title={"密接表"}
+                placement="left"
+                width={800}
+                onClose={()=>{setVisible2(false)}}
+                visible={visible2}
+            >
+                <div style={{width: "95%",height: "100%"}}>
+                    <ContactTable dataSource={contactData}/>
+                </div>
+            </Drawer>
             <Row>
                 <Col span={11}>
                     <ClusterGraph handleReason={handleReason} container_id={"container"} aggrGraph={aggrGraph_fewer}/>
@@ -261,6 +258,7 @@ export default function Pageanalyse() {
                             :null
                         }
                     </Select>
+                    <Button onClick={getContactData}>密接表</Button>
                 </Col>
                 <Col span={11}>
                     <ClusterGraph handleReason={handleReason} container_id={"container_2"} aggrGraph={aggrGraph_more} focused={true}/>

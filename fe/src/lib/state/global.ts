@@ -63,7 +63,7 @@ export type TState = {
   relatedMap?:any
   patient_map?:any
   all_chain_versions?:any
-  focus_id?:""
+  focus_id?:"",
 }
 
 const getEpi=()=>{
