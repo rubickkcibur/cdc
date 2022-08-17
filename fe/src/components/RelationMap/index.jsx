@@ -64,7 +64,7 @@ export default function RelationMap(){
         if(node.pid != null){
           nodes.push({
           id:node.pid,
-          label:node.name,
+          label:replaceAt(node.name,1,"某"),
           style:{
             fill:'#C9BBCF',
             stroke:'blue',

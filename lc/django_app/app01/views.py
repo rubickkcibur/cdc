@@ -11,7 +11,7 @@ from app01.models import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app01.utils.reasoning import get_reason_result,refresh_origin
+from app01.utils.reasoning import get_reason_result, mask_name,refresh_origin
 from app01.utils.cluster import Cluster
 from app01.max_clique.cluster import AggregateGraph, Location, Node
 import datetime 
@@ -47,7 +47,7 @@ def get_chain(request):
                 nodes.append({
                     "pid": person.pid,
                     "phone": person.phone,
-                    "name": person.name,
+                    "name": mask_name(person.name),
                     "gender": person.gender,
                     "diagnosedDate": str(person.diagnoseddate),
                     "level": p["level"],
@@ -139,7 +139,7 @@ def get_all_patients(request):
         for e in App01Patient.objects.all():
             ret.append({
                 "pid": e.pid,
-                "name": e.name,
+                "name": mask_name(e.name),
                 "gender":"男" if e.gender else "女",
                 "phone":e.phone,
                 "diagnosedTime":e.diagnoseddate,
@@ -318,7 +318,7 @@ def get_patient_route(request):
         ret.append({
             #按需
             "pid": e.pid,
-            "name": e.name,
+            "name": mask_name(e.name),
             "gender": "男" if e.gender else "女",
             "phone": e.phone,
             "vocation":e.vocation,
@@ -351,7 +351,7 @@ def get_person(request):
         same_place_people = []
         for i in range(len(contactlist)):
             contact_people.append({
-                "pid": contactlist[i].pid2, #name
+                "pid": mask_name(contactlist[i].pid2), #name
                 "phone": contactlist[i].phone,
                 "type": contactlist[i].type,
             })
@@ -376,7 +376,7 @@ def get_person(request):
                 same_place_people.append({
                     # 按需
                     "pid": e.pid,
-                    "name": e.name,
+                    "name": mask_name(e.name),
                     "gender": "男" if e.gender else "女",
                     "phone": e.phone,
                     "vocation": e.vocation,
@@ -447,13 +447,13 @@ def get_patientmap_d_t_sel(request):
         tmp = list(App01Contact.objects.filter(pid1 = patientid).values_list("pid2","phone","type","contactaddress","contactaddressname"))
         for i in range(len(tmp)):
             ret[0]["node_persons"].append({
-                "name":tmp[i][0],
+                "name":mask_name(tmp[i][0]),
                 "phone":tmp[i][1],
                 "type":"密接",
                 })
             ret[0]["edge_relation"].append({
                 "pid1":patientid,
-                "pid2":tmp[i][0],
+                "pid2":mask_name(tmp[i][0]),
                 "contact_type":tmp[i][2],
                 "crushlocationname":tmp[i][4],
                 "crushlocation":tmp[i][3],
@@ -825,9 +825,9 @@ def get_statistcs(request):
             "max_location_name": max_location_name,
             "max_location_pp": max_location_pp,
             "total_accompany": total_accompany,
-            "max_accompany_name": App01Patient.objects.get(pid=max_accompany_pid).name,
+            "max_accompany_name": mask_name(App01Patient.objects.get(pid=max_accompany_pid).name),
             "max_accompany_num": max_accompany_num,
-            "max_contact_name": App01Patient.objects.get(pid=max_contact_pid).name,
+            "max_contact_name": mask_name(App01Patient.objects.get(pid=max_contact_pid).name),
             "max_contact_num": max_contact_num,
             "unprotection_rate": len(App01Stay.objects.filter(protection=0))/len(App01Stay.objects.all())
         }
@@ -854,3 +854,36 @@ def upload_files(request):
     response["Access-Control-Max-Age"] = "1000"
     response["Access-Control-Allow-Headers"] = "*"
     return response
+
+# contact_types = ['同居','同事','同学','同车','共餐','同行','短暂接触','开会']
+# names = [p.name for p in App01Patient.objects.all()]
+# result = []
+# for i,contact in enumerate(App01Contact.objects.all()):
+#     pid2 = contact.pid2
+#     if pid2 not in names:
+#         continue
+#     pid2 = App01Patient.objects.get(name=pid2).pid
+#     pid1 = contact.pid1_id
+#     location = contact.contactaddressname_id
+#     gps = contact.contactaddress_id
+#     patient1 = App01Patient.objects.get(pid=pid1)
+#     patient2 = App01Patient.objects.get(pid=pid2)
+#     result.append({
+#         "pid1": pid1, 
+#         "phone1": patient1.phone, 
+#         "name1": patient1.name, 
+#         "gender1": "男" if patient1.gender==1 else "女", 
+#         "diagnosedTime1": str(patient1.diagnoseddate), 
+#         "type1": "确诊",
+#         "pid2": pid2, 
+#         "phone2": patient2.phone, 
+#         "name2": patient2.name, 
+#         "gender2": "男" if patient2.gender==1 else "女", 
+#         "diagnosedTime2": str(patient2.diagnoseddate), 
+#         "type2": "确诊",
+#         "contact_type": contact_types[contact.type],
+#         "location": location,
+#         "gps":gps
+#     })
+# with open("./app01/max_clique/xian/contacts_list.json","w",encoding="utf8") as f:
+#     json.dump(result,f)

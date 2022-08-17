@@ -16,6 +16,7 @@ import { generate } from "rxjs";
 import axios from 'axios';
 import {Modal} from 'antd'
 import { number } from "echarts";
+import { replaceAt } from "../../lib/utils";
 const { Option } = Select;
 const { TabPane } = Tabs;
 
@@ -124,7 +125,7 @@ export default function PatientAnalyze(){
         ))
         return filter.map((e:any,idx:any)=>({
           key:String(idx),
-          name:e.pid2_name,
+          name:replaceAt(e.pid2_name,1,"某"),
           time:e.crushdate,
           loca:e.crushlocationname,
           asso_time:e.crushtime,

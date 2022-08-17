@@ -82,7 +82,8 @@ export default function ClusterGraph({handleReason,container_id,aggrGraph,focuse
             // time:my_data.nodes[nid].diagnosedTime
             ...my_data.nodes[nid]
           })),
-          names:v.nodes.map((nid)=>(my_data.nodes[nid].name))
+          names:v.nodes.map((nid)=>(my_data.nodes[nid].name)),
+          isContact:v.isContact
         })
       })
       return {clusterEdges:ce,clusters:cn}
@@ -1536,7 +1537,8 @@ export default function ClusterGraph({handleReason,container_id,aggrGraph,focuse
           gps:cluster.gps,
           rangeTime:cluster.rangeTime,
           names:cluster.names,
-          highlight_flag:highlight_flag
+          highlight_flag:highlight_flag,
+          isContact:cluster.isContact
         };
 
         aggregatedNodeMap[cluster.id] = cnode;
@@ -1545,6 +1547,8 @@ export default function ClusterGraph({handleReason,container_id,aggrGraph,focuse
         let output;
         if (focused && cnode.highlight_flag){
           output = "#FF1E00"
+        }else if(cnode.isContact){
+          output = "#EAE509"
         }else if(cnode.count >= 5){
           output = color[3];
         }else if(cnode.count >=4){

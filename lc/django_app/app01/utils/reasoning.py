@@ -1,6 +1,12 @@
 import json
 from app01.models import *
 
+def mask_name(name):
+    newname = list(name)
+    newname[1] = "某"
+    newname = "".join(newname)
+    return newname
+
 def get_reason_result(pid,version):
     with open("app01/chains/chain_{}.json".format(version),"r") as f:
         obj = json.load(f)
@@ -33,7 +39,7 @@ def refresh_origin(pids,path):
         pid2idx[k] = len(origin_chain)
         origin_chain.append({
             "pid":k,
-            "name":App01Patient.objects.get(pid=k).name,
+            "name":mask_name(App01Patient.objects.get(pid=k).name),
             "recorded":1,
             "father":v[1],
             "relation":v[2],

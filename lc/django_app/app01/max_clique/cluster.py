@@ -1,3 +1,4 @@
+from asyncore import file_dispatcher
 from email.errors import MultipartInvariantViolationDefect
 from ntpath import join
 from signal import pause
@@ -98,11 +99,12 @@ class Cluster():
         return re
     
 class AggregateGraph():
-    def __init__(self,node_list,location_list,pause_list,store_path,
+    def __init__(self,node_list,location_list,pause_list,contacts_list,store_path,
                     location_clusters=None,location2clusterid=None,clusters=None,graph=None):
         self.node_list = node_list
         self.location_list = location_list
         self.pause_list = pause_list
+        self.contacts_list = contacts_list
         self.location_size = len(self.location_list)
         self.location_clusters = location_clusters
         self.location2clusterid = location2clusterid
@@ -126,6 +128,8 @@ class AggregateGraph():
             location_list = [Location(e["name"],e["gps"],e["note"]) for e in llist]
         with open(os.path.join(path,"pause_list.json"),"r",encoding="utf8") as f:
             pause_list = json.load(f)
+        with open(os.path.join(path,"contacts_list.json"),"r",encoding="utf8") as f:
+            contacts_list = json.load(f)
         with open(os.path.join(path,"location_clusters.json"),"r",encoding="utf8") as f:
             location_clusters = [set(e) for e in json.load(f)]
         with open(os.path.join(path,"graph.json"),"r",encoding="utf8") as f:
@@ -142,7 +146,7 @@ class AggregateGraph():
                 c = Cluster(obj["location_cluster"])
                 c.fromPatientList([(datetime.strptime(e["datetime"],"%Y-%m-%d %H:%M:%S"),int(e["node_id"])) for e in obj["patients"]])
                 clusters.append(c)
-        return cls(node_list,location_list,pause_list,path,location_clusters,location2clusterid,clusters,graph)
+        return cls(node_list,location_list,pause_list,contacts_list,path,location_clusters,location2clusterid,clusters,graph)
 
     def distance(self,str1,str2):
         lng1,lat1 = [radians(float(s)) for s in str1.split(",")]
@@ -232,6 +236,8 @@ class AggregateGraph():
             json.dump([n.getStoreFormat() for n in self.location_list],f)
         with open(os.path.join(self.store_path,"pause_list.json"),"w",encoding="utf8") as f:
             json.dump(self.pause_list,f)
+        with open(os.path.join(self.store_path,"contacts_list.json"),"w",encoding="utf8") as f:
+            json.dump(self.contacts_list,f)
         with open(os.path.join(self.store_path,"location_clusters.json"),"w",encoding="utf8") as f:
             store_location_clusters = [list(c) for c in self.location_clusters]
             json.dump(store_location_clusters,f)
@@ -289,6 +295,7 @@ class AggregateGraph():
         node_cnt = 0
         district_cluster = [c for c in self.clusters if len(set(district) & set(map(lambda x:self.location_list[x].note,c.location_cluster)))>=1]
         subClusters = []
+        filter_id = set([self.pid2nid[pid] for pid in people]) if len(people) > 0 else set(self.pid2nid.values())
         for cluster in district_cluster:
             for c in cluster.filterNodes(start_time,end_time,interval=interval):
                 subClusters.append(c)
@@ -312,12 +319,10 @@ class AggregateGraph():
                 
         subClusters = [c for index,c in enumerate(subClusters) if index not in marks]
 
-        if len(people) > 0:
-            for cluster in subClusters:
-                origin_id = cluster[0]
-                filter_id = set([self.pid2nid[pid] for pid in people])
-                new_id = origin_id & filter_id
-                cluster[0] = new_id
+        for cluster in subClusters:
+            origin_id = cluster[0]
+            new_id = origin_id & filter_id
+            cluster[0] = new_id
 
         for cluster in subClusters:
             cluster_id = len(clusters)
@@ -327,8 +332,8 @@ class AggregateGraph():
             locations_id = list(cluster[1])
             st = cluster[2]
             et = cluster[3]
-            for pid in patients_id:
-                patient = self.node_list[pid]
+            for nid in patients_id:
+                patient = self.node_list[nid]
                 nodes.append({
                     "pid": patient.pid,
                     "name": patient.name,
@@ -356,14 +361,75 @@ class AggregateGraph():
                 "gps":self.location_list[locations_id[0]].gps,
                 "note":";".join([self.location_list[id].name for id in locations_id]),
                 "nodes":list(range(node_id1,node_id2)),
-                "rangeTime":"--".join([str(st),str(et)])
+                "rangeTime":"--".join([str(st),str(et)]),
+                "isContact":0
             })
+        
+        # contact_clusters = {}
+        # for contact in self.contacts_list:
+        #     pid1 = contact["pid1"]
+        #     pid2 = contact["pid2"]
+        #     nid1 = self.pid2nid[pid1]
+        #     nid2 = self.pid2nid[pid2]
+        #     ctype = contact["contact_type"]
+        #     location = contact["location"]
+        #     gps = contact["gps"]
+        #     if location not in contact_clusters:
+        #         contact_clusters[location] = [gps,set(),[]]
+        #     contact_clusters[location][1].add(nid1)
+        #     contact_clusters[location][1].add(nid2)
+        #     contact_clusters[location][2].append([nid1,nid2,ctype])
+        # for location,content in contact_clusters.items():
+        #     gps,nids,relations = content
+        #     cluster_id = len(clusters)
+        #     if len(filter_id&nids) < 2:
+        #         continue
+        #     nid2idx = {}
+        #     for nid in nids&filter_id:
+        #         patient = self.node_list[nid]
+        #         nid2idx[nid] = len(nodes)
+        #         nodes.append({
+        #             "pid": patient.pid,
+        #             "name": patient.name,
+        #             "gender":patient.gender,
+        #             "phone":patient.phone,
+        #             "diagnosedTime":patient.diagnosedTime,
+        #             "type":patient.type,
+        #             "clusterId": cluster_id,
+        #             "stayTime": "not stay"
+        #         })
+        #     for relation in relations:
+        #         if (relation[0] not in filter_id) or (relation[1] not in filter_id):
+        #             continue
+        #         idx1 = nid2idx[relation[0]]
+        #         idx2 = nid2idx[relation[1]]
+        #         edges.append({
+        #             "source":idx1,
+        #             "target":idx2,
+        #             "relation":relation[2],
+        #             "note":""
+        #         })
+        #     cnodes.append(nids)
+        #     clusters.append({
+        #         "id":"cluster-{}".format(cluster_id),
+        #         "name":location,
+        #         "gps":gps,
+        #         "note":location,
+        #         "nodes":list(range(len(nodes)-len(nids&filter_id),len(nodes))),
+        #         "rangeTime":"not rangeTime",
+        #         "isContact":1
+        #     })
+
         for i in range(len(cnodes)):
             for j in range(i+1,len(cnodes)):
                 interset = cnodes[i] & cnodes[j]
                 if len(interset) > 0:
-                    itime = datetime.strptime(clusters[i]["rangeTime"].split("--")[0],"%Y-%m-%d %H:%M:%S")
-                    jtime = datetime.strptime(clusters[j]["rangeTime"].split("--")[0],"%Y-%m-%d %H:%M:%S")
+                    if (not clusters[i]["rangeTime"].startswith("not")) and (not clusters[j]["rangeTime"].startswith("not")):
+                        itime = datetime.strptime(clusters[i]["rangeTime"].split("--")[0],"%Y-%m-%d %H:%M:%S")
+                        jtime = datetime.strptime(clusters[j]["rangeTime"].split("--")[0],"%Y-%m-%d %H:%M:%S")
+                    else:
+                        itime = datetime.now()
+                        jtime = datetime.now()
                     cluster_edges.append({
                         "source":"cluster-{}".format(i if itime<=jtime else j),
                         "target":"cluster-{}".format(i if itime>jtime else j),
@@ -374,15 +440,22 @@ class AggregateGraph():
         for i in range(len(nodes)):
             for j in range(i+1,len(nodes)):
                 if nodes[i]["pid"] == nodes[j]["pid"]:
-                    itime = datetime.strptime(nodes[i]["stayTime"],"%Y-%m-%d %H:%M:%S")
-                    jtime = datetime.strptime(nodes[j]["stayTime"],"%Y-%m-%d %H:%M:%S")
+                    relation_flag = True
+                    if (not nodes[i]["stayTime"].startswith("not")) and (not nodes[j]["stayTime"].startswith("not")):
+                        itime = datetime.strptime(nodes[i]["stayTime"],"%Y-%m-%d %H:%M:%S")
+                        jtime = datetime.strptime(nodes[j]["stayTime"],"%Y-%m-%d %H:%M:%S")
+                        relation_flag = True
+                    else:
+                        itime = datetime.now()
+                        jtime = datetime.now()
+                        relation_flag = False
                     edges.append({
                         "source":i if itime<=jtime else j,
                         "target":i if itime>jtime else j,
                         # "relation":"--".join(
                         #     [str(itime),str(jtime)] if itime <= jtime else [str(jtime),str(itime)]
                         # ),
-                        "relation":"相隔{}天".format(abs((itime-jtime).days)),
+                        "relation":"相隔{}天".format(abs((itime-jtime).days)) if relation_flag else "无相隔",
                         "note":nodes[i]["name"]
                     })
         return {"nodes":nodes,"edges":edges,"clusters":clusters,"clusterEdges":cluster_edges}
@@ -408,10 +481,12 @@ class AggregateGraph():
         items = []
         cluster_graph = [[0]*len(clusters) for i in range(len(clusters))]
         for c in clusters:
+            if len(c["nodes"]) < 1:
+                print(c)
             items.append([
                 c["id"],
-                c["rangeTime"].split("--")[0],
-                c["rangeTime"].split("--")[1],
+                c["rangeTime"].split("--")[0] if not c["rangeTime"].startswith("not") else "no time",
+                c["rangeTime"].split("--")[1] if not c["rangeTime"].startswith("not") else "no time",
                 c["name"],
                 c["gps"],
                 ";".join([nodes[id]["name"] for id in c["nodes"]]),
