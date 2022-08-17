@@ -855,6 +855,65 @@ def upload_files(request):
     response["Access-Control-Allow-Headers"] = "*"
     return response
 
+@api_view(["GET"])
+def get_contacts_table(request):
+    if request.method == "GET":
+        contact_types = ['同居','同事','同学','同车','共餐','同行','短暂接触','开会']
+        names = [p.name for p in App01Patient.objects.all()]
+        contact2patients = {}
+        prp = []
+        ret = []
+        for i,contact in enumerate(App01Contact.objects.all()):
+            pid2 = contact.pid2
+            if pid2 not in names:
+                if pid2 not in contact2patients:
+                    contact2patients[pid2] = set()
+                contact2patients[pid2].add("--".join([contact.pid1_id,contact_types[contact.type]]))
+            else:
+                pid2 = App01Patient.objects.get(name=pid2).pid
+                pid1 = contact.pid1_id
+                prp.append([pid1,pid2,contact_types[contact.type]])
+        for item in prp:
+            pid1,pid2,ctype = item
+            patient1 = App01Patient.objects.get(pid=pid1)
+            patient2 = App01Patient.objects.get(pid=pid2)
+            ret.append({
+                "pid1":pid1,
+                "name1":patient1.name,
+                "pid2":pid2,
+                "name2":patient2.name,
+                "type":"密接",
+                "note":ctype
+            })
+        for contact,s in contact2patients.items():
+            if len(s) < 2:
+                continue
+            patients = list(s)
+            for i in range(len(patients)):
+                for j in range(i+1,len(patients)):
+                    pid1,ctype1 = patients[i].split("--")
+                    pid2,ctype2 = patients[j].split("--")
+                    if pid1 == pid2:
+                        continue
+                    patient1 = App01Patient.objects.get(pid=pid1)
+                    patient2 = App01Patient.objects.get(pid=pid2)
+                    ret.append({
+                        "pid1":pid1,
+                        "name1":patient1.name,
+                        "pid2":pid2,
+                        "name2":patient2.name,
+                        "type":"次密接",
+                        "note":"-".join([ctype1,contact,ctype2])
+                    })
+        response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+        response["Access-Control-Max-Age"] = "1000"
+        response["Access-Control-Allow-Headers"] = "*"
+        return response
+
+
+
 # contact_types = ['同居','同事','同学','同车','共餐','同行','短暂接触','开会']
 # names = [p.name for p in App01Patient.objects.all()]
 # result = []

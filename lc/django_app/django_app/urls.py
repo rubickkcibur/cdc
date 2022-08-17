@@ -34,5 +34,6 @@ urlpatterns = [
     path('get_all_versions',views.get_all_versions),
     path('get_statistics',views.get_statistcs),
     path('download_cluster_csv',views.download_cluster_csv),
-    path('upload_files',views.upload_files)
+    path('upload_files',views.upload_files),
+    path('get_contacts_table',views.get_contacts_table)
 ]
