@@ -1,0 +1,8 @@
+id: location-77
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 阿战Lucky roll卷凉皮（长安步行街店）
+name5: 阿战Lucky roll卷凉皮（长安步行街店）
+gps: 108.931378,34.161525

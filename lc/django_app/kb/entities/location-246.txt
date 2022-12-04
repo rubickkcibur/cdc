@@ -1,0 +1,8 @@
+id: location-246
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 大明宫公园
+name5: 大明宫公园
+gps: 108.963558,34.292643

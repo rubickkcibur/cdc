@@ -1,0 +1,4 @@
+id: contact-3549
+type: contact
+name: 郭某兴
+phone: None

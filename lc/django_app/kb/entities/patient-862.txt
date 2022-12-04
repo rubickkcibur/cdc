@@ -1,0 +1,14 @@
+id: patient-862
+type: patient
+pid: 862
+name: 章某雯
+age: 32
+gender: female
+vocation: 工程师
+height: 165
+weight: 60
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2021-12-16
+note: 既往体健，怀孕5个月

@@ -1,0 +1,8 @@
+id: location-31
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 万澳茶冰厅旺座现代店
+name5: 万澳茶冰厅旺座现代店
+gps: 108.892057,34.215976

@@ -1,0 +1,8 @@
+id: location-157
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 小米之家22号未来体验店
+name5: 小米之家22号未来体验店
+gps: 108.946532,34.26061

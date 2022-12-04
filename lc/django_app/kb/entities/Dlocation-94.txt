@@ -1,0 +1,4 @@
+id: Dlocation-94
+type: Dlocation
+name: 307路公交
+note: 大雁塔站至临潼东关站

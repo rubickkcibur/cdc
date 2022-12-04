@@ -1,0 +1,4 @@
+id: contact-3495
+type: contact
+name: 黄某朋
+phone: phone_2059

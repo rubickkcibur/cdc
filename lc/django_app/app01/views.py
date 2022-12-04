@@ -11,14 +11,52 @@ from app01.models import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from app01.utils.reasoning import get_reason_result, mask_name,refresh_origin
-from app01.utils.cluster import Cluster
+from app01.utils.reasoning import get_reason_result, mask_name,refresh_origin,get_fake_result
 from app01.max_clique.cluster import AggregateGraph, Location, Node
 import datetime 
 import math
 from functools import reduce
 from django.http import FileResponse
+import app01.utils.get_kb
 # Create your views here.
+
+@api_view(["POST"])
+def get_fake_chain(request):
+    result = get_fake_result()
+    nodes = []
+    edges = []
+    edgeCount = 0
+    for i, p in enumerate(result):
+        pid = p["pid"]
+        if len(pid) > 0:
+            person = App01Patient.objects.get(pid=pid)
+            nodes.append({
+                "pid": person.pid,
+                "phone": person.phone,
+                "name": mask_name(person.name),
+                "gender": person.gender,
+                "diagnosedDate": str(person.diagnoseddate),
+                "level": p["level"],
+                "type": "核酸阴性" if person.diagnoseddate is None else "确诊"
+            })
+        else:
+            pass
+        if p["father"] >= 0:
+            edges.append({
+                "id": edgeCount,
+                "source": p["father"],
+                "target": i,
+                "relation": p["relation"],
+                "isTruth": p["isTruth"]
+            })
+            edgeCount += 1
+    ret = {"nodes": nodes, "edges": edges}
+    response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "*"
+    return response
 
 @api_view(["GET"])
 def download_cluster_csv(request):
@@ -157,111 +195,111 @@ def get_all_patients(request):
     else:
         print("method wrong!")
 
-@api_view(["GET"])
-def get_clusters(request):
-    location2cluster = {}
-    for contact in App01Contact.objects.all():
-        did = contact.contacttravel_id
-        gps = contact.contactaddress_id
-        pid = contact.pid1_id
-        # print(pid)
-        contact_name = contact.pid2
-        contact_type = contact.type
-        if gps is None and did is None:
-            print(contact.__dict__)
-        if did is not None:
-            if did not in location2cluster:
-                location = App01Dynamiclocation.objects.get(id = did)
-                name = location.name
-                note = location.note
-                gps = ""
-                location2cluster[did] = Cluster(name,gps,note)
-            location2cluster[did].add_edge(pid,contact_name,contact_type)
-        else:
-            if gps not in location2cluster:
-                name = contact.contactaddressname_id
-                note = ""
-                location2cluster[gps] = Cluster(name,gps,note)
-            location2cluster[gps].add_edge(pid,contact_name,contact_type)
-    nodes = []
-    edges = []
-    clusters = []
-    cluster_edges = []
-    node_cnt = 0
-    cluster_cnt = 0
-    for key,value in location2cluster.items():
-        if len(value.edges) < 5:
-            continue
-        value.change_type()
-        name2cnt = {}
-        for name in value.generate_nodes_set():
-            name2cnt[name] = node_cnt
-            node_cnt += 1
-            if name.isdigit():
-                patient = App01Patient.objects.get(pid=name)
-                nodes.append({
-                    "pid": patient.pid,
-                    "name": patient.name,
-                    "gender":"男" if patient.gender else "女",
-                    "phone":patient.phone,
-                    "diagnosedTime":str(patient.diagnoseddate),
-                    "type":"确诊",
-                    "clusterId": cluster_cnt
-                })
-            else:
-                nodes.append({
-                    "pid": "not recorded",
-                    "name": name,
-                    "gender":"男",
-                    "phone":"not recorded",
-                    "diagnosedTime":"",
-                    "type":"核酸阴性",
-                    "clusterId": cluster_cnt
-                })
-        for edge in value.edges:
-            edges.append({
-                "source":name2cnt[edge[0]],
-                "target":name2cnt[edge[1]],
-                "relation":edge[2],
-                "note":""
-            })
-        clusters.append({
-            "id":"cluster-{}".format(cluster_cnt),
-            "name":value.name,
-            "gps":value.gps,
-            "note":value.note,
-            "nodes":list(name2cnt.values())
-        })
-        cluster_cnt += 1
-    for i in range(len(nodes)):
-        id = nodes[i]["pid"]
-        if not id.isdigit():
-            continue
-        for j in range(i+1,len(nodes)):
-            id2 = nodes[j]["pid"]
-            if id == id2:
-                edges.append({
-                    "source":i,
-                    "target":j,
-                    "relation":"同一人",
-                    "note":""
-                })
-                if nodes[i]["clusterId"] != nodes[j]["clusterId"]:
-                    cluster_edges.append({
-                        "source":clusters[nodes[i]["clusterId"]]["id"],
-                        "target":clusters[nodes[j]["clusterId"]]["id"],
-                        "relation":"存在同一人",
-                        "note":"备注",
-                        "count":1
-                    })
-    print(len(clusters),len(cluster_edges))
-    ret = {"nodes":nodes,"edges":edges,"clusters":clusters,"clusterEdges":cluster_edges}
-    response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
-    response["Access-Control-Allow-Origin"] = "*"
-    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-    response["Access-Control-Max-Age"] = "1000"
-    response["Access-Control-Allow-Headers"] = "*"
-    return response
+# @api_view(["GET"])
+# def get_clusters(request):
+#     location2cluster = {}
+#     for contact in App01Contact.objects.all():
+#         did = contact.contacttravel_id
+#         gps = contact.contactaddress_id
+#         pid = contact.pid1_id
+#         # print(pid)
+#         contact_name = contact.pid2
+#         contact_type = contact.type
+#         if gps is None and did is None:
+#             print(contact.__dict__)
+#         if did is not None:
+#             if did not in location2cluster:
+#                 location = App01Dynamiclocation.objects.get(id = did)
+#                 name = location.name
+#                 note = location.note
+#                 gps = ""
+#                 location2cluster[did] = Cluster(name,gps,note)
+#             location2cluster[did].add_edge(pid,contact_name,contact_type)
+#         else:
+#             if gps not in location2cluster:
+#                 name = contact.contactaddressname_id
+#                 note = ""
+#                 location2cluster[gps] = Cluster(name,gps,note)
+#             location2cluster[gps].add_edge(pid,contact_name,contact_type)
+#     nodes = []
+#     edges = []
+#     clusters = []
+#     cluster_edges = []
+#     node_cnt = 0
+#     cluster_cnt = 0
+#     for key,value in location2cluster.items():
+#         if len(value.edges) < 5:
+#             continue
+#         value.change_type()
+#         name2cnt = {}
+#         for name in value.generate_nodes_set():
+#             name2cnt[name] = node_cnt
+#             node_cnt += 1
+#             if name.isdigit():
+#                 patient = App01Patient.objects.get(pid=name)
+#                 nodes.append({
+#                     "pid": patient.pid,
+#                     "name": patient.name,
+#                     "gender":"男" if patient.gender else "女",
+#                     "phone":patient.phone,
+#                     "diagnosedTime":str(patient.diagnoseddate),
+#                     "type":"确诊",
+#                     "clusterId": cluster_cnt
+#                 })
+#             else:
+#                 nodes.append({
+#                     "pid": "not recorded",
+#                     "name": name,
+#                     "gender":"男",
+#                     "phone":"not recorded",
+#                     "diagnosedTime":"",
+#                     "type":"核酸阴性",
+#                     "clusterId": cluster_cnt
+#                 })
+#         for edge in value.edges:
+#             edges.append({
+#                 "source":name2cnt[edge[0]],
+#                 "target":name2cnt[edge[1]],
+#                 "relation":edge[2],
+#                 "note":""
+#             })
+#         clusters.append({
+#             "id":"cluster-{}".format(cluster_cnt),
+#             "name":value.name,
+#             "gps":value.gps,
+#             "note":value.note,
+#             "nodes":list(name2cnt.values())
+#         })
+#         cluster_cnt += 1
+#     for i in range(len(nodes)):
+#         id = nodes[i]["pid"]
+#         if not id.isdigit():
+#             continue
+#         for j in range(i+1,len(nodes)):
+#             id2 = nodes[j]["pid"]
+#             if id == id2:
+#                 edges.append({
+#                     "source":i,
+#                     "target":j,
+#                     "relation":"同一人",
+#                     "note":""
+#                 })
+#                 if nodes[i]["clusterId"] != nodes[j]["clusterId"]:
+#                     cluster_edges.append({
+#                         "source":clusters[nodes[i]["clusterId"]]["id"],
+#                         "target":clusters[nodes[j]["clusterId"]]["id"],
+#                         "relation":"存在同一人",
+#                         "note":"备注",
+#                         "count":1
+#                     })
+#     print(len(clusters),len(cluster_edges))
+#     ret = {"nodes":nodes,"edges":edges,"clusters":clusters,"clusterEdges":cluster_edges}
+#     response = HttpResponse(json.dumps(ret), content_type="application/json", status=status.HTTP_200_OK)
+#     response["Access-Control-Allow-Origin"] = "*"
+#     response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+#     response["Access-Control-Max-Age"] = "1000"
+#     response["Access-Control-Allow-Headers"] = "*"
+#     return response
 
 @api_view(["POST"])
 def get_clusters2(request):

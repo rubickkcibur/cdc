@@ -1,0 +1,8 @@
+id: location-5
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 秦镇吕记秦香聚米皮店
+name5: 秦镇吕记秦香聚米皮店
+gps: 108.756326,34.111046

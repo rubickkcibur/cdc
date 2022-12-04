@@ -1,0 +1,8 @@
+id: location-104
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 城市立方
+name5: 城市立方
+gps: 108.937519,34.194006

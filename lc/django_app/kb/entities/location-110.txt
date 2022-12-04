@@ -1,0 +1,8 @@
+id: location-110
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 朱雀大街真爱中国餐厅
+name5: 朱雀大街真爱中国餐厅
+gps: 108.938507,34.237381

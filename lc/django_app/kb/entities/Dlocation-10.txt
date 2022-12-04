@@ -1,0 +1,4 @@
+id: Dlocation-10
+type: Dlocation
+name: 出租车(车号不详)
+note: 鲁晓静早晨去医院的出租车

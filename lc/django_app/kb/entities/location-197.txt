@@ -1,0 +1,8 @@
+id: location-197
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 南二环中段长安大学校本部电控学院
+name5: 南二环中段长安大学校本部电控学院
+gps: 108.955348,34.230772

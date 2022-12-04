@@ -1,0 +1,8 @@
+id: location-102
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学12号公寓
+name5: 长安大学12号公寓一层
+gps: 108.937271,34.227758

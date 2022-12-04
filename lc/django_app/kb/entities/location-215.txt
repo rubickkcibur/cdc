@@ -1,0 +1,8 @@
+id: location-215
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 雁塔区
+name4: 便民菜场
+name5: 便民菜场
+gps: 108.95637,34.21017

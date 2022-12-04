@@ -1,0 +1,8 @@
+id: location-209
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 中国银行西安翠华路支行
+name5: 中国银行西安翠华路支行
+gps: 108.956302,34.228633

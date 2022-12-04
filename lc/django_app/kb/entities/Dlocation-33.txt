@@ -1,0 +1,4 @@
+id: Dlocation-33
+type: Dlocation
+name: 719路公交车
+note: 万寿北路北口-西航花园方向，车牌号陕A07006D

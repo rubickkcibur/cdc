@@ -1,0 +1,8 @@
+id: location-270
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 半坡公交站
+name5: 半坡公交站理疗店（初见SPA浴足道）
+gps: 109.053529,34.274504

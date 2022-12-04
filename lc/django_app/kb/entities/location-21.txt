@@ -1,0 +1,8 @@
+id: location-21
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 张亮麻辣烫
+name5: 雁塔区长延堡街道丈八东路
+gps: 108.867221,34.201404

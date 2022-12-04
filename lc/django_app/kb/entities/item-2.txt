@@ -1,0 +1,4 @@
+id: item-2
+type: item
+name: 外卖
+note: APP点餐

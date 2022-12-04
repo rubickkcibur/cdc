@@ -1,0 +1,8 @@
+id: location-283
+type: location
+name1: 陕西省
+name2: 延安市
+name3: 
+name4: 百米大道电信公司
+name5: 百米大道电信公司餐厅、办公室
+gps: 109.521545,36.614997

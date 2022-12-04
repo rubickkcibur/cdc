@@ -1,0 +1,8 @@
+id: location-205
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 兴善东街湖南米粉
+name5: 兴善东街湖南米粉
+gps: 108.956163,34.225662

@@ -1,0 +1,8 @@
+id: location-156
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 陕西高速集团大厦16层会议室
+name5: 陕西高速集团大厦16层会议室
+gps: 108.946501,34.233839

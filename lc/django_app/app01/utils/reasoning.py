@@ -1,6 +1,11 @@
 import json
 from app01.models import *
 
+def get_fake_result():
+    with open("app01/utils/reason_result.json","r") as f:
+        obj = json.load(f)
+    return obj
+
 def mask_name(name):
     newname = list(name)
     newname[1] = "某"

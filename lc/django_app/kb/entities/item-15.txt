@@ -1,0 +1,4 @@
+id: item-15
+type: item
+name: 盒饭
+note: 买饭

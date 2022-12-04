@@ -1,0 +1,14 @@
+id: patient-2507
+type: patient
+pid: 2507
+name: 张某年
+age: 52
+gender: male
+vocation: 系延安电信公司职工
+height: 170
+weight: 60
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2021-12-15
+note: 本人目前无任何不适症状。

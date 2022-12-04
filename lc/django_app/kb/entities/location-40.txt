@@ -1,0 +1,8 @@
+id: location-40
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 渭水校区住宅小区6号楼1单元2501
+name5: 渭水校区住宅小区6号楼1单元2501
+gps: 108.90016,34.370292

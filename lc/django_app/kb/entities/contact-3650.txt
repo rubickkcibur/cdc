@@ -1,0 +1,4 @@
+id: contact-3650
+type: contact
+name: 金某库
+phone: None

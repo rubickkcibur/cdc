@@ -1,0 +1,4 @@
+id: Dlocation-20
+type: Dlocation
+name: 公交(车次不详)
+note: 12月9日，鲁晓静14:00时坐公交到小寨

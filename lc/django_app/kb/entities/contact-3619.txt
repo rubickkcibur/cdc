@@ -1,0 +1,4 @@
+id: contact-3619
+type: contact
+name: 刘某
+phone: None

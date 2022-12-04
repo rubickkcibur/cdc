@@ -1,0 +1,8 @@
+id: location-127
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 星巴克（银泰城小寨店）
+name5: 星巴克（银泰城小寨店）
+gps: 108.940329,34.223188

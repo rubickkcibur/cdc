@@ -1,0 +1,4 @@
+id: contact-3382
+type: contact
+name: 贺某伟
+phone: None

@@ -1,0 +1,4 @@
+id: contact-3545
+type: contact
+name: 苟某刚
+phone: None

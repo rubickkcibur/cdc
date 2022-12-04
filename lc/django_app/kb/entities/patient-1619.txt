@@ -1,0 +1,14 @@
+id: patient-1619
+type: patient
+pid: 1619
+name: 张某
+age: 20
+gender: male
+vocation: 隔离酒店工作人员（负责送餐、消杀、收取垃圾）
+height: 186
+weight: 55
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-12
+hospitaldate: 2022-12-13
+note: 既往体健。

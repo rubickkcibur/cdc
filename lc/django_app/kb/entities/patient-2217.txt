@@ -1,0 +1,14 @@
+id: patient-2217
+type: patient
+pid: 2217
+name: 刘某斌
+age: 38
+gender: male
+vocation: 教职工
+height: 167
+weight: 70
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2022-12-15
+note: 既往体健，无基础性疾病。

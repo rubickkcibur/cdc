@@ -1,0 +1,8 @@
+id: location-161
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 永宁门城墙
+name5: 永宁门城墙
+gps: 108.947029,34.25066

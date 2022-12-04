@@ -1,0 +1,8 @@
+id: location-56
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安市莲湖区玉祥门怡景大厦19楼D座
+name5: 西安市莲湖区玉祥门怡景大厦19楼D座
+gps: 108.913759,34.268861

@@ -1,0 +1,8 @@
+id: location-185
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安市老李家牛羊肉泡馍店
+name5: 西安市老李家牛羊肉泡馍店
+gps: 108.953391,34.321708

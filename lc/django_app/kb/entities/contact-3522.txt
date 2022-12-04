@@ -1,0 +1,4 @@
+id: contact-3522
+type: contact
+name: 刘某
+phone: None

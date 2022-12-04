@@ -1,0 +1,8 @@
+id: location-115
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 辫子张糖葫芦店
+name5: 辫子张糖葫芦店(雁塔区小寨西路与朱雀大街交叉口东南角)
+gps: 108.93948,34.222586

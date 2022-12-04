@@ -1,0 +1,8 @@
+id: location-72
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 边东街
+name5: 边东街
+gps: 108.929361,34.244959

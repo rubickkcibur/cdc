@@ -1,0 +1,8 @@
+id: location-17
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 一小
+name5: 长安区第一小学
+gps: 108.841082,34.126052

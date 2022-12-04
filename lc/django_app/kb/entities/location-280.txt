@@ -1,0 +1,8 @@
+id: location-280
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 灞桥安保公司
+name5: 灞桥安保公司
+gps: 109.070769,34.284004

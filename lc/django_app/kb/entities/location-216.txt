@@ -1,0 +1,8 @@
+id: location-216
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 雁塔区翠华路泰生药店
+name5: 雁塔区翠华路泰生药店
+gps: 108.956377,34.226878

@@ -1,0 +1,4 @@
+id: contact-3502
+type: contact
+name: 宋某
+phone: None

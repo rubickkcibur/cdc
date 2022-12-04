@@ -1,0 +1,4 @@
+id: Dlocation-49
+type: Dlocation
+name: 地铁5号线
+note: 黄渠头B口上；西安建筑科技大学地铁站下

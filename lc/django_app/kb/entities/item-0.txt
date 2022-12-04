@@ -1,0 +1,4 @@
+id: item-0
+type: item
+name: 饿了么外卖
+note: APP点餐

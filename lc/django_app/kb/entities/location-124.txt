@@ -1,0 +1,8 @@
+id: location-124
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 交通职业技术学院
+name5: 交通职业技术学院食堂
+gps: 108.93981,34.32461

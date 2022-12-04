@@ -1,0 +1,8 @@
+id: location-286
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 延安电信公司
+name5: 延安电信公司
+gps: 109.686858,37.145866

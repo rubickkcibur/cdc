@@ -1,0 +1,8 @@
+id: location-158
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 省体育场
+name5: 省体育场南二环路边
+gps: 108.946709,34.231827

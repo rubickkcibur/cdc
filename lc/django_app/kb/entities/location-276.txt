@@ -1,0 +1,8 @@
+id: location-276
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 灞桥瑾程酒店
+name5: 灞桥瑾程酒店610
+gps: 109.057679,34.337325

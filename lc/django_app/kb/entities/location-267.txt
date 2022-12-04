@@ -1,0 +1,8 @@
+id: location-267
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西航花园公交站
+name5: 西航花园公交站
+gps: 109.022763,34.396577

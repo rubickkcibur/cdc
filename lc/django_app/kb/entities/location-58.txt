@@ -1,0 +1,8 @@
+id: location-58
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 劳动路小笼包子店
+name5: 劳动路小笼包子店
+gps: 108.919932,34.259692

@@ -1,0 +1,4 @@
+id: contact-3673
+type: contact
+name: 石某
+phone: None

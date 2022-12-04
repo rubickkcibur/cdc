@@ -1,0 +1,14 @@
+id: patient-1
+type: patient
+pid: 1
+name: 高某泰恒
+age: 10
+gender: male
+vocation: 小学生
+height: 140
+weight: 30
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2022-12-16
+note: 既往体健，无基础性疾病。

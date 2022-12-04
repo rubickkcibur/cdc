@@ -1,0 +1,8 @@
+id: location-230
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 北二环中航樾公馆家中楼下农贸市场
+name5: 北二环中航樾公馆家中楼下农贸市场
+gps: 108.96045,34.307301

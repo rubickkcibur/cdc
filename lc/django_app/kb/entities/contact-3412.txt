@@ -1,0 +1,4 @@
+id: contact-3412
+type: contact
+name: 富某竹
+phone: None

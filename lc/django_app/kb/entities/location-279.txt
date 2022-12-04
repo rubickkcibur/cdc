@@ -1,0 +1,9 @@
+id: location-279
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 灞桥瑾程酒店13，14，15楼层
+
+name5: 灞桥瑾程酒店13，14，15楼层
+gps: 109.057679,34.337326

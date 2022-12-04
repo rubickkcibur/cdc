@@ -1,0 +1,4 @@
+id: item-9
+type: item
+name: 入境隔离人员所住楼层的垃圾
+note: 收垃圾

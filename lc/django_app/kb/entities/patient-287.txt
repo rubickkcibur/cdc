@@ -1,0 +1,14 @@
+id: patient-287
+type: patient
+pid: 287
+name: 穆某刚
+age: 28
+gender: male
+vocation: 药店收银员
+height: 165
+weight: 65
+smoking: True
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2022-12-16
+note: 既往体健，无基础性疾病

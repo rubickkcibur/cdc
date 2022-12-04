@@ -1,0 +1,8 @@
+id: location-195
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 长安大学校本部行政办公四楼
+name5: 长安大学校本部行政办公四楼
+gps: 108.954399,34.231485

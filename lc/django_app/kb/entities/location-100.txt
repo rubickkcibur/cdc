@@ -1,0 +1,8 @@
+id: location-100
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 城市立方晨曦篮球培训机构
+name5: 城市立方晨曦篮球培训机构
+gps: 108.93698,34.194307

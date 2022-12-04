@@ -1,0 +1,14 @@
+id: patient-441
+type: patient
+pid: 441
+name: 闫某德
+age: 47
+gender: male
+vocation: 大学教授
+height: 168
+weight: 75
+smoking: True
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2022-12-15
+note: 既往体健，无基础性疾病

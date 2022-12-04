@@ -1,0 +1,8 @@
+id: location-220
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 勇利赵家烧烤（翠花北路店）
+name5: 勇利赵家烧烤（翠花北路店）
+gps: 108.956811,34.227788

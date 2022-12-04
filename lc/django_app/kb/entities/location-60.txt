@@ -1,0 +1,8 @@
+id: location-60
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 坚果盒子美食城
+name5: 坚果盒子美食城
+gps: 108.920341,34.268974

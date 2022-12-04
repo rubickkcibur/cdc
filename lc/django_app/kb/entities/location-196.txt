@@ -1,0 +1,8 @@
+id: location-196
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 雨润市场（未央区尚苑路8号）
+name5: 雨润市场（未央区尚苑路8号）
+gps: 108.954399,34.231485

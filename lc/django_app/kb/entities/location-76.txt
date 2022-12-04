@@ -1,0 +1,8 @@
+id: location-76
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安市“每一天”便利超市莲湖路店
+name5: 西安市“每一天”便利超市莲湖路店
+gps: 108.931025,34.292494

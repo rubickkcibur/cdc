@@ -1,0 +1,8 @@
+id: location-289
+type: location
+name1: 陕西省
+name2: 商洛市
+name3: 商南县
+name4: 青山镇北宽坪红色教育基地
+name5: 北宽坪红色教育基地
+gps: 110.148549,33.905501

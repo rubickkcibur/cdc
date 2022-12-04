@@ -1,0 +1,8 @@
+id: location-247
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 岐人奇味吃饭餐馆
+name5: 岐人奇味吃饭餐馆
+gps: 108.963585,34.233282

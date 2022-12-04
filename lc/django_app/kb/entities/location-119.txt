@@ -1,0 +1,8 @@
+id: location-119
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安交通大学附属小学雁塔校区
+name5: 西安交通大学附属小学雁塔校区
+gps: 108.939763,34.221911

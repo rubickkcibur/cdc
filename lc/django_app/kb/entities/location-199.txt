@@ -1,0 +1,8 @@
+id: location-199
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学宾馆（舌上源）
+name5: 长安大学宾馆舌上源
+gps: 108.955348,34.230772

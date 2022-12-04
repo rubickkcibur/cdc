@@ -1,0 +1,8 @@
+id: location-25
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 满益百早餐店
+name5: 雁塔区长延堡街道丈八东路满益百早餐店
+gps: 108.885864,34.193235

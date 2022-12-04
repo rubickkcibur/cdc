@@ -1,0 +1,8 @@
+id: location-37
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学渭水校区住宅小区地库
+name5: 长安大学渭水校区住宅小区地库
+gps: 108.893395,34.369844

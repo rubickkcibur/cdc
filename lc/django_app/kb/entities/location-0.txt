@@ -1,0 +1,8 @@
+id: location-0
+type: location
+name1: 陕西省
+name2: 咸阳市
+name3: 兴平市
+name4: 咸阳市兴平市北长安街
+name5: 咸阳市兴平市北长安街
+gps: 108.489577,34.302101

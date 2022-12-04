@@ -1,0 +1,8 @@
+id: location-74
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 三福（太阳新街店）
+name5: 三福（太阳新街店）
+gps: 108.930477,34.159777

@@ -1,0 +1,14 @@
+id: patient-1392
+type: patient
+pid: 1392
+name: 郭某
+age: 26
+gender: female
+vocation: 药剂师
+height: 162
+weight: 58
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-11
+hospitaldate: 2022-12-12
+note: 既往体健，无基础性疾病。

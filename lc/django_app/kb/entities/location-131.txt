@@ -1,0 +1,8 @@
+id: location-131
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 伊明烤肉坊(长丰园店)
+name5: 伊明烤肉坊(长丰园店)
+gps: 108.940962,34.192578

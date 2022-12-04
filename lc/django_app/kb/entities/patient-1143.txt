@@ -1,0 +1,14 @@
+id: patient-1143
+type: patient
+pid: 1143
+name: 李某
+age: 62
+gender: female
+vocation: 退休人员
+height: 160
+weight: 60
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2021-12-16
+note: 既往有高血压史，平时口服苯磺酸氨氯地平片（1/4片/日），自测血压控制在120/80mmHg

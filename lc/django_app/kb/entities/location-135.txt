@@ -1,0 +1,8 @@
+id: location-135
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长丰园涮菜馆
+name5: 长丰园涮菜馆
+gps: 108.942139,34.191646

@@ -1,0 +1,8 @@
+id: location-11
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安咸阳国际机场
+name5: T3航站楼正对面室外露天停车场
+gps: 108.764882,34.438179

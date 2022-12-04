@@ -1,0 +1,8 @@
+id: location-59
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 鑫食派美食城扯面店
+name5: 鑫食派美食城扯面店
+gps: 108.92034,34.268522

@@ -1,0 +1,8 @@
+id: location-106
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 紫郡长安北区
+name5: 紫郡长安北区
+gps: 108.937835,34.192675

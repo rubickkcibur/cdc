@@ -1,0 +1,8 @@
+id: location-53
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 草滩一路尚苑路口肉丸胡辣汤店
+name5: 草滩一路尚苑路口肉丸胡辣汤店
+gps: 108.912605,34.37614

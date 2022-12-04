@@ -1,0 +1,4 @@
+id: item-8
+type: item
+name: 隔离入境人员的行李
+note: 搬运行李

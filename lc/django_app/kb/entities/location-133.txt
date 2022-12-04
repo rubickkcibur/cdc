@@ -1,0 +1,8 @@
+id: location-133
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长丰园门口药店
+name5: 长丰园门口药店
+gps: 108.941326,34.191825

@@ -1,0 +1,4 @@
+id: Dlocation-45
+type: Dlocation
+name: 601路公交车
+note: 曲江池南路新开门南路口方向-中登家园方向；陕A5573X

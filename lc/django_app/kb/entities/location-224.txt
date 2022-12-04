@@ -1,0 +1,8 @@
+id: location-224
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 翠华路小学门口
+name5: 翠华路小学门口
+gps: 108.957548,34.227165

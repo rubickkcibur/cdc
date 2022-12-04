@@ -1,0 +1,4 @@
+id: Dlocation-36
+type: Dlocation
+name: 地铁1号线
+note: 沣河森林公园站出站

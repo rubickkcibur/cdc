@@ -1,0 +1,8 @@
+id: location-239
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 大悦城购物中心温野菜
+name5: 大悦城购物中心温野菜
+gps: 108.962112,34.216595

@@ -1,0 +1,8 @@
+id: location-85
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 碑林区大学东路含光巷第一个7层住宅楼6层
+name5: 碑林区大学东路含光巷第一个7层住宅楼6层
+gps: 108.933681,34.244781

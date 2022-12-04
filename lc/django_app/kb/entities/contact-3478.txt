@@ -1,0 +1,4 @@
+id: contact-3478
+type: contact
+name: 罗某洋
+phone: None

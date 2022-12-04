@@ -1,0 +1,8 @@
+id: location-262
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 蜜雪冰城907966店
+name5: 蜜雪冰城907966店
+gps: 108.998913,34.261744

@@ -1,0 +1,4 @@
+id: contact-3400
+type: contact
+name: 张某
+phone: None

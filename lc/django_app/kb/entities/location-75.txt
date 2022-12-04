@@ -1,0 +1,8 @@
+id: location-75
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 川源钢管厂小郡肝自助小火锅
+name5: 川源钢管厂小郡肝自助小火锅
+gps: 108.930522,34.28006

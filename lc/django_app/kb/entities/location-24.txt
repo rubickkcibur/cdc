@@ -1,0 +1,8 @@
+id: location-24
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安区郭杜街道西部大道与文苑北路交叉口
+name5: 长安区郭杜街道西部大道与文苑北路交叉口
+gps: 108.880231,34.171263

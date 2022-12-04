@@ -1,0 +1,4 @@
+id: Dlocation-87
+type: Dlocation
+name: 18路或229路等公交车
+note: 一附院站—城南客运站

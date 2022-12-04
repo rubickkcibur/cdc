@@ -102,9 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+.vscode
 
-format_sample
 back
 lc/mysql
 lc/.idea
 new_fe
+server/
+
+*.__pycache__/

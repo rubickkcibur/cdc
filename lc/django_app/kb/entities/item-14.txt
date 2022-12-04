@@ -1,0 +1,4 @@
+id: item-14
+type: item
+name: 水果
+note: 买水果

@@ -1,0 +1,8 @@
+id: location-273
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 灞桥瑾程酒店
+name5: 13 14 15楼层,7楼污染区和缓冲区,6层和7层通道
+gps: 109.057679,34.337325

@@ -1,0 +1,4 @@
+id: contact-3508
+type: contact
+name: 赵某
+phone: phone_258

@@ -1,0 +1,8 @@
+id: location-51
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 西安劳动路C1出口
+name5: 西安劳动路C1出口
+gps: 108.910433,34.269003

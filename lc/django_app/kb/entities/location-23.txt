@@ -1,0 +1,8 @@
+id: location-23
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学渭水校区住宅小区
+name5: 长安大学渭水校区住宅小区10号楼3单元1601
+gps: 108.874077,34.366399

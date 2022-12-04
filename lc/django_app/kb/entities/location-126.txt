@@ -1,0 +1,8 @@
+id: location-126
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 碑林区体育北路92号东北王酱(体育场店)
+name5: 碑林区体育北路92号东北王酱
+gps: 108.940321,34.234973

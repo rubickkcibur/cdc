@@ -1,0 +1,8 @@
+id: location-250
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 子午路张记肉夹馍（后村店）
+name5: 子午路张记肉夹馍（后村店）
+gps: 108.971732,34.226136

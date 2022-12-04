@@ -1,0 +1,8 @@
+id: location-189
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学校本部北院
+name5: 万谛美途酒店华山厅
+gps: 108.954399,34.231485

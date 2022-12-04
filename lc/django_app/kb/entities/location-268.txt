@@ -1,0 +1,8 @@
+id: location-268
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 凯德广场高飞披萨
+name5: 凯德广场高飞披萨
+gps: 109.043405,34.276848

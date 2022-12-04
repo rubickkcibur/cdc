@@ -1,0 +1,8 @@
+id: location-30
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安马思特张餐饮服务有限公司
+name5: 西安马思特张餐饮服务有限公司
+gps: 108.890947,34.216256

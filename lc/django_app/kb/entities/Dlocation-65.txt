@@ -1,0 +1,4 @@
+id: Dlocation-65
+type: Dlocation
+name: 地铁1号线
+note: 劳动路—通化门

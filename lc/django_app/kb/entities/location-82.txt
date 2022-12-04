@@ -1,0 +1,8 @@
+id: location-82
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 含光路盛安广场虾捞叨餐厅
+name5: 含光路盛安广场虾捞叨餐厅
+gps: 108.93302,34.242823

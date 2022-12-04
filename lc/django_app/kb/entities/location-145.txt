@@ -1,0 +1,8 @@
+id: location-145
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 大兴善寺
+name5: 大兴善寺
+gps: 108.943551,34.227136

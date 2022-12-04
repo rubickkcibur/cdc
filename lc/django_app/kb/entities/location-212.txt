@@ -1,0 +1,8 @@
+id: location-212
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学家属院小区2区15号楼1506
+name5: 长安大学家属院小区2区15号楼1506
+gps: 108.956333,34.227966

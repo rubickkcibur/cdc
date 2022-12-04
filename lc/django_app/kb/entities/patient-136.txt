@@ -1,0 +1,14 @@
+id: patient-136
+type: patient
+pid: 136
+name: 滑某忠
+age: 53
+gender: male
+vocation: 行政人员
+height: 180
+weight: 80
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-16
+hospitaldate: 2022-12-16
+note: 既往体健，无基础性疾病

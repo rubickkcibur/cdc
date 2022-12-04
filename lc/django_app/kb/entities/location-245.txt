@@ -1,0 +1,8 @@
+id: location-245
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 雁塔区翠华路229号
+name5: 雁塔区翠华路229号
+gps: 108.963419,34.226859

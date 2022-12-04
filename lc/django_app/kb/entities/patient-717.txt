@@ -1,0 +1,14 @@
+id: patient-717
+type: patient
+pid: 717
+name: 闫某荣
+age: 29
+gender: female
+vocation: 发热门诊和普通门诊（根据排班安排）收费员
+height: 159
+weight: 65
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-16
+hospitaldate: 2022-12-16
+note: 既往秋冬季有感冒嗓子发炎症状

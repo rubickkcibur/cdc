@@ -1,0 +1,8 @@
+id: location-213
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 雁塔区住建局（雁塔区翠华路146号）
+name5: 雁塔区住建局（雁塔区翠华路146号）
+gps: 108.956338,34.216218

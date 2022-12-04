@@ -1,0 +1,8 @@
+id: location-7
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安咸阳国际机场
+name5: J68-J74柜台值机附近厕所
+gps: 108.764882,34.438179

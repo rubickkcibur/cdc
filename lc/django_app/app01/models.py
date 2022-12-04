@@ -122,6 +122,7 @@ class App01Touch(models.Model):
     iid = models.IntegerField(blank=True, null=True)
     type = models.IntegerField(blank=True, null=True)
     protection = models.IntegerField(blank=True, null=True)
+    tid = models.IntegerField(db_column='tid', primary_key=True)
     pid1 = models.ForeignKey(App01Patient, models.DO_NOTHING,related_name="pid2touch")
     touchaddress = models.ForeignKey(App01Location, models.DO_NOTHING, db_column='touchAddress_id',related_name="name2touch")  # Field name made lowercase.
     touchaddressname = models.ForeignKey(App01Location, models.DO_NOTHING, db_column='touchAddressName_id',related_name="gps2touch")  # Field name made lowercase.

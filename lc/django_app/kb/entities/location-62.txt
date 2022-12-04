@@ -1,0 +1,8 @@
+id: location-62
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 太白印象城
+name5: 太白印象城
+gps: 108.921934,34.235182

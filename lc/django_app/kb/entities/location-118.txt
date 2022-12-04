@@ -1,0 +1,8 @@
+id: location-118
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 天佑医院门口小吃摊
+name5: 天佑医院门口小吃摊
+gps: 108.939679,34.195165

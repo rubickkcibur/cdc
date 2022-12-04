@@ -1,0 +1,8 @@
+id: location-259
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 南湖公园
+name5: 阅江楼东边洗手间
+gps: 108.984382,34.20227

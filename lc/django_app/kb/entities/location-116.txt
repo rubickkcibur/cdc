@@ -1,0 +1,8 @@
+id: location-116
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 天佑儿童医院
+name5: 天佑儿童医院
+gps: 108.939679,34.195165

@@ -1,0 +1,8 @@
+id: location-122
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安区福泽巷一汉中热米皮店
+name5: 长安区福泽巷一汉中热米皮店
+gps: 108.9398,34.131186

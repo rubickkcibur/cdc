@@ -1,0 +1,8 @@
+id: location-257
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 中海观园A区
+name5: 中海观园A区1号楼4层401室
+gps: 108.98048,34.222169

@@ -1,0 +1,8 @@
+id: location-294
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学本部
+name5: 住建办办公室1楼会议室
+gps: 116.330469,39.932048

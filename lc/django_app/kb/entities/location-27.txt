@@ -1,0 +1,8 @@
+id: location-27
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 陕西泽润建设项目管理有限公司
+name5: 陕西泽润建设项目管理有限公司（莲湖区沣惠南路38号A座20层）
+gps: 108.887608,34.247293

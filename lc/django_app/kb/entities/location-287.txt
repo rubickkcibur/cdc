@@ -1,0 +1,8 @@
+id: location-287
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 商洛黎华古镇牛肉火锅
+name5: 商洛黎华古镇牛肉火锅
+gps: 109.87151,33.528349

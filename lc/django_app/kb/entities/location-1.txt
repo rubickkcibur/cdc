@@ -1,0 +1,8 @@
+id: location-1
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 咸阳李想大虾花园火锅
+name5: 咸阳李想大虾花园火锅（咸阳秦都店）
+gps: 108.703863,34.332339

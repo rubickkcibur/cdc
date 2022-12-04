@@ -1,0 +1,8 @@
+id: location-64
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 兵器工业521医院
+name5: 兵器工业521医院
+gps: 108.923493,34.197201

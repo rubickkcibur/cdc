@@ -1,0 +1,8 @@
+id: location-70
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安广场
+name5: 7-8家服装店
+gps: 108.928812,34.156736

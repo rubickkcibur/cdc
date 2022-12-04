@@ -1,0 +1,8 @@
+id: location-103
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 崇业路住宅区北院
+name5: 崇业路住宅区北院
+gps: 108.937313,34.228001

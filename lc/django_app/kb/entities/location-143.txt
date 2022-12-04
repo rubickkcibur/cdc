@@ -1,0 +1,8 @@
+id: location-143
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安北路14号四季荟餐厅
+name5: 长安北路14号四季荟餐厅（YP18包厢）
+gps: 108.943196,34.230518

@@ -1,0 +1,8 @@
+id: location-69
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 49坊老村长铁锅炖羊肉
+name5: 49坊老村长铁锅炖羊肉
+gps: 108.92802,34.195784

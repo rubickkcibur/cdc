@@ -1,0 +1,8 @@
+id: location-162
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 钟楼
+name5: 钟楼
+gps: 108.94703,34.25943

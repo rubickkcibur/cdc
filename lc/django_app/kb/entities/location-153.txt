@@ -1,0 +1,8 @@
+id: location-153
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 军人服务社
+name5: 军人服务社二楼
+gps: 108.946113,34.220059

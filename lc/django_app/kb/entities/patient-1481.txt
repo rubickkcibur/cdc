@@ -1,0 +1,14 @@
+id: patient-1481
+type: patient
+pid: 1481
+name: 高某丽
+age: 32
+gender: female
+vocation: 四季荟餐厅服务员
+height: 153
+weight: 59
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2021-12-15
+note: 2019年做过心脏手术，现已恢复

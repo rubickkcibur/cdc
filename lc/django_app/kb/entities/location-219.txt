@@ -1,0 +1,8 @@
+id: location-219
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 杨家麻辣粉肉夹馍
+name5: 杨家麻辣粉肉夹馍
+gps: 108.956753,34.227487

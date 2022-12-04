@@ -1,0 +1,8 @@
+id: location-251
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 乐和公馆小区
+name5: 乐和公馆小区1号楼10705室
+gps: 108.971937,34.226153

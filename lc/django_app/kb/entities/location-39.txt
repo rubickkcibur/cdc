@@ -1,0 +1,8 @@
+id: location-39
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 番食园高新火锅店
+name5: 番食园高新火锅店
+gps: 108.894288,34.219041

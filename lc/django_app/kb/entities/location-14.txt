@@ -1,0 +1,8 @@
+id: location-14
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西咸新区奥林匹克花园E3栋5楼8户
+name5: 西咸新区奥林匹克花园E3栋5楼8户
+gps: 108.786259,34.314754

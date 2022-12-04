@@ -1,0 +1,8 @@
+id: location-49
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学渭水校区北辰楼
+name5: 长安大学渭水校区北辰楼
+gps: 108.906456,34.368004

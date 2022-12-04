@@ -1,0 +1,8 @@
+id: location-52
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 美年大体检（雁塔区二环南路西段）
+name5: 美年大体检（雁塔区二环南路西段）
+gps: 108.911182,34.237879

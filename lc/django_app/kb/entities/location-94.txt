@@ -1,0 +1,8 @@
+id: location-94
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 24小时折扣店
+name5: 24小时折扣店
+gps: 108.936066,34.295816

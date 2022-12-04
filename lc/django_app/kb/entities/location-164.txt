@@ -1,0 +1,8 @@
+id: location-164
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 北大街安烁美食城
+name5: 北大街安烁美食城（新城区北大街157号负一层）
+gps: 108.947498,34.27136

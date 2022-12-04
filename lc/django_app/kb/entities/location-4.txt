@@ -1,0 +1,8 @@
+id: location-4
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 沣河森林公园地铁站
+name5: 沣河森林公园地铁站
+gps: 108.752874,34.320219

@@ -1,0 +1,8 @@
+id: location-92
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 凯德广场负一层长安小饭堂
+name5: 凯德广场负一层长安小饭堂
+gps: 108.935881,34.228705

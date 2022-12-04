@@ -1,0 +1,4 @@
+id: Dlocation-29
+type: Dlocation
+name: 401路公交车
+note: 2021城南客运站-纺织城枢纽站方向，车牌号陕A01607D）至半坡站下车

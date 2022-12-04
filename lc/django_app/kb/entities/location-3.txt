@@ -1,0 +1,8 @@
+id: location-3
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 咸阳新嘉惠购物广场
+name5: 咸阳新嘉惠购物广场
+gps: 108.714477,34.334511

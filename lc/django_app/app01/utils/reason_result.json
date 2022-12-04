@@ -1,7 +1,7 @@
 [
     {
-        "pid":"2085",
-        "name":"张建林",
+        "pid":"1284",
+        "name":"鲁某静",
         "recorded":1,
         "father":-1,
         "relation":"",
@@ -9,120 +9,39 @@
         "isTruth":1
     },
     {
-        "pid":"862",
-        "name":"章舒雯",
+        "pid":"1",
+        "name":"高某泰恒",
         "recorded":1,
         "father":0,
-        "relation":"潜在接触可能",
+        "relation":"伊明烤肉坊接触",
         "level":1,
-        "isTruth":0
-    },
-    {
-        "pid":"136",
-        "name":"滑思忠",
-        "recorded":1,
-        "father":0,
-        "relation":"长安大学",
-        "level":1,
-        "isTruth":1
-    },
-    {
-        "pid":"2217",
-        "name":"刘向斌",
-        "recorded":1,
-        "father":0,
-        "relation":"长安大学(渭水校区)",
-        "level":1,
-        "isTruth":0
-    },
-    {
-        "pid":"2379",
-        "name":"赵阳",
-        "recorded":1,
-        "father":0,
-        "relation":"长安大学",
-        "level":1,
-        "isTruth":1
-    },
-    {
-        "pid":"1143",
-        "name":"李炜",
-        "recorded":1,
-        "father":1,
-        "relation":"凯德汇豪云邸",
-        "level":2,
-        "isTruth":1
-    },
-    {
-        "pid":"441",
-        "name":"闫茂德",
-        "recorded":1,
-        "father":2,
-        "relation":"长安大学",
-        "level":2,
-        "isTruth":0
-    },
-    {
-        "pid":"1619",
-        "name":"张鹏",
-        "recorded":1,
-        "father":2,
-        "relation":"潜在接触可能",
-        "level":2,
-        "isTruth":0
-    },
-    {
-        "pid":"563",
-        "name":"王武功",
-        "recorded":1,
-        "father":4,
-        "relation":"长安大学",
-        "level":2,
-        "isTruth":1
-    },
-    {
-        "pid":"1284",
-        "name":"鲁晓静",
-        "recorded":1,
-        "father":3,
-        "relation":"长安大学(渭水校区)",
-        "level":2,
-        "isTruth":1
-    },
-    {
-        "pid":"0",
-        "name":"向涛",
-        "recorded":1,
-        "father":7,
-        "relation":"灞桥锦程酒店",
-        "level":3,
-        "isTruth":1
-    },
-    {
-        "pid":"1001",
-        "name":"杨波",
-        "recorded":1,
-        "father":9,
-        "relation":"西安交通大学第一附属医院",
-        "level":3,
         "isTruth":1
     },
     {
         "pid":"1943",
-        "name":"刘莲菜",
+        "name":"刘某莱",
         "recorded":1,
-        "father":9,
-        "relation":"西安交通大学第一附属医院",
+        "father":1,
+        "relation":"西安交大时空伴随",
+        "level":2,
+        "isTruth":1
+    },
+    {
+        "pid":"2085",
+        "name":"张某林",
+        "recorded":1,
+        "father":2,
+        "relation":"石洪腊牛肉肉夹馍共餐",
         "level":3,
         "isTruth":1
     },
     {
-        "pid":"1",
-        "name":"高金泰恒",
+        "pid":"862",
+        "name":"章某雯",
         "recorded":1,
-        "father":11,
-        "relation":"潜在接触可能",
+        "father":3,
+        "relation":"长安大学家属院时空伴随",
         "level":4,
-        "isTruth":0
+        "isTruth":1
     }
 ]

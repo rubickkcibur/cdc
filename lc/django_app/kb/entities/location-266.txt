@@ -1,0 +1,8 @@
+id: location-266
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 花谷会所
+name5: 花谷会所
+gps: 109.022001,34.404349

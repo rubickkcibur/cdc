@@ -1,0 +1,8 @@
+id: location-225
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安大学本部
+name5: 长安大学本部住宅建设会议室
+gps: 108.9583,34.23181

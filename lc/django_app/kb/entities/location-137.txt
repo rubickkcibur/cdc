@@ -1,0 +1,9 @@
+id: location-137
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 西安市第八医院4027
+
+name5: 西安市第八医院4027
+gps: 108.94236,34.196633

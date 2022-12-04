@@ -1,0 +1,8 @@
+id: location-165
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 高新区新时代广场B座1405室
+name5: 高新区新时代广场B座1405室
+gps: 108.947849,34.263339

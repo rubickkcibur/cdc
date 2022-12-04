@@ -1,0 +1,8 @@
+id: location-67
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 每一天便利店
+name5: 雁塔区长延堡街道丈八东路
+gps: 108.926862,34.19891

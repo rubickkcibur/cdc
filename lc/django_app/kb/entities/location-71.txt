@@ -1,0 +1,8 @@
+id: location-71
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 凤城十路与明光路十字西南角安家水盆羊肉
+name5: 凤城十路与明光路十字西南角安家水盆羊肉
+gps: 108.929188,34.351367

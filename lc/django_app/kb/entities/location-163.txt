@@ -1,0 +1,8 @@
+id: location-163
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安北路75号唐乐宫宴会酒店
+name5: 长安北路75号唐乐宫宴会酒店3楼V1/V2包间
+gps: 108.94723,34.236274

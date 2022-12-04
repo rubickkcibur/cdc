@@ -1,0 +1,8 @@
+id: location-26
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 丈八一路1号汇鑫工商银行
+name5: 丈八一路1号汇鑫工商银行
+gps: 108.887399,34.195318

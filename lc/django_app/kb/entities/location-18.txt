@@ -1,0 +1,8 @@
+id: location-18
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 陕西省科学技术大厅
+name5: 雁塔区丈八五路与瞪羚路十字向南200米路西
+gps: 108.862709,34.200382

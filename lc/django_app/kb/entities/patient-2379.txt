@@ -1,0 +1,14 @@
+id: patient-2379
+type: patient
+pid: 2379
+name: 赵某
+age: 31
+gender: male
+vocation: 长安大学基建处科员
+height: 180
+weight: 100
+smoking: False
+vaccine: 3
+diagnoseddate: 2021-12-15
+hospitaldate: 2022-12-16
+note: 既往体健，无基础性疾病。

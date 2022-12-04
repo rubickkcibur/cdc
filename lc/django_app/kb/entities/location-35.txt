@@ -1,0 +1,8 @@
+id: location-35
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安唐轩阁餐饮有限责任公司高新分公司
+name5: 雁塔区科技路50号金桥国际广场A-B座裙楼
+gps: 108.89238,34.234911

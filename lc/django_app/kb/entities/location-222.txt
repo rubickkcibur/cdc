@@ -1,0 +1,8 @@
+id: location-222
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 雁塔区南二环东段398号钱塘月色
+name5: 雁塔区南二环东段398号钱塘月色
+gps: 108.9573,34.229534

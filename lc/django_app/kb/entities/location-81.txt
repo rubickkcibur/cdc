@@ -1,0 +1,8 @@
+id: location-81
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 吉祥村十字MOMOPARK商场4楼喜来稀肉
+name5: 吉祥村十字MOMOPARK商场4楼喜来稀肉
+gps: 108.932969,34.221776

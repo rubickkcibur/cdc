@@ -1,0 +1,8 @@
+id: location-13
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 西沟电信支局营业厅
+name5: 西沟电信支局营业厅
+gps: 108.77198,36.814655

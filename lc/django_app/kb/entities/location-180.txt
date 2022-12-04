@@ -1,0 +1,8 @@
+id: location-180
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 八百万堂设计师中餐厅
+name5: 八百万堂设计师中餐厅（万象天地店）
+gps: 108.951263,34.200037

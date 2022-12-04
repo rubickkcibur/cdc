@@ -1,0 +1,8 @@
+id: location-226
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 建设路西边聚鑫福彩店
+name5: 建设路西边聚鑫福彩店
+gps: 108.958492,34.235575

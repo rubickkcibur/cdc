@@ -1,0 +1,8 @@
+id: location-272
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安市灞桥瑾程酒店旁佰佳汇生活超市
+name5: 西安市灞桥瑾程酒店旁佰佳汇生活超市
+gps: 109.057375,34.336447

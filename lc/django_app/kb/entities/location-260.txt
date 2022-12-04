@@ -1,0 +1,8 @@
+id: location-260
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安市北环医院
+name5: 西安市北环医院
+gps: 108.992871,34.306439

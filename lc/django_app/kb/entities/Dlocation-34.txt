@@ -1,0 +1,4 @@
+id: Dlocation-34
+type: Dlocation
+name: 600路公交车
+note: 文景路凤城七路口-陕师大长安校区方向，车牌号陕A0317X,北大街站至会展中心站

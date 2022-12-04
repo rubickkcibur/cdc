@@ -1,0 +1,8 @@
+id: location-221
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 真阿婆水饺
+name5: 真阿婆水饺
+gps: 108.956813,34.226901

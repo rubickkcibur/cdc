@@ -1,0 +1,8 @@
+id: location-285
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 延大附院东关分院
+name5: 延大附院东关分院
+gps: 109.529777,36.619721

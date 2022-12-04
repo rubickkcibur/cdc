@@ -1,0 +1,8 @@
+id: location-97
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 交大一附院门诊部
+name5: 交大一附院门诊部
+gps: 108.936781,34.219029

@@ -1,0 +1,8 @@
+id: location-244
+type: location
+name1: 陕西省
+name2: 西安市
+name3: None
+name4: 西安市第三医院发热门诊
+name5: 西安市第三医院发热门诊
+gps: 108.963393,34.321113

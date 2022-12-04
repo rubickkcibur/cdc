@@ -1,0 +1,14 @@
+id: patient-1001
+type: patient
+pid: 1001
+name: 杨某
+age: 51
+gender: male
+vocation: 长安大学基建科办公室主任
+height: 172
+weight: 80
+smoking: False
+vaccine: 3
+diagnoseddate: 2021-12-14
+hospitaldate: 2022-12-14
+note: 既往患有慢性肾炎和慢性鼻炎。

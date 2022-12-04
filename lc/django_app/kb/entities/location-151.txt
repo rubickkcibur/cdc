@@ -1,0 +1,8 @@
+id: location-151
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 长安区长百商厦（北长安街119号）
+name5: 盛运涮烤
+gps: 108.945265,34.15992

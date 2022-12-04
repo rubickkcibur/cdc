@@ -1,0 +1,8 @@
+id: location-28
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 雅逸新城南区1号楼
+name5: 雅逸新城南区1号楼1804
+gps: 108.889105,34.277432

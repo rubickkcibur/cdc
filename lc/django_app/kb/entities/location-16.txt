@@ -1,0 +1,8 @@
+id: location-16
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安国际医学中心
+name5: 西安国际医学中心
+gps: 108.839657,34.142076

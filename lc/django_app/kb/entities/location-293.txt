@@ -1,0 +1,8 @@
+id: location-293
+type: location
+name1: 陕西省
+name2: 商洛市
+name3: 商南县
+name4: 青山社区
+name5: 青山社区
+gps: 110.910185,33.421646

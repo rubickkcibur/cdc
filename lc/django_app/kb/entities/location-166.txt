@@ -1,0 +1,8 @@
+id: location-166
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 开元商城（钟楼店）
+name5: 开元商城（钟楼店）
+gps: 108.948139,34.258584

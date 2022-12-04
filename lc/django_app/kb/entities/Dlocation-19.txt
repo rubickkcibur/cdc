@@ -1,0 +1,4 @@
+id: Dlocation-19
+type: Dlocation
+name: 出租车（车号不详）
+note: 鲁晓静从永宁门城墙回家

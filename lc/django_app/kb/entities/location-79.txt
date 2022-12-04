@@ -1,0 +1,8 @@
+id: location-79
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 清凉山森林公园
+name5: 清凉山森林公园
+gps: 108.931821,34.174858

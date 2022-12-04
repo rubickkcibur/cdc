@@ -1,0 +1,8 @@
+id: location-20
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 草滩八路农贸市场
+name5: 草滩八路农贸市场
+gps: 108.865387,34.362176

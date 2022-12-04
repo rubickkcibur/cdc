@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef,Col, Row, } from 'react';
 import axios from 'axios';
 import dagre from 'dagre';
 import ReactFlow, {
@@ -18,6 +18,7 @@ import { useTypedSelector } from '../../lib/store';
 import sty from './index.module.scss';
 import {Modal,Select,AutoComplete,message} from 'antd'
 import Const from '../../lib/constant';
+import Draggable from 'react-draggable';
 const { Option } = Select;
 
 const SaveRestore = () => {
@@ -32,6 +33,25 @@ const SaveRestore = () => {
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
   const [isModalVisible,setIMV] = useState(false)
   const [isLoadModalVisible,setILMV] = useState(false)
+  //temp elem
+  const [tempVisible,setTV] = useState(false)
+  const [disabled,setDisabled] = useState(false)
+  const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+  const draggleRef = useRef(null);
+  const onStart = (_event, uiData) => {
+    const { clientWidth, clientHeight } = window.document.documentElement;
+    const targetRect = draggleRef.current?.getBoundingClientRect();
+    if (!targetRect) {
+      return;
+    }
+    setBounds({
+      left: -targetRect.left + uiData.x,
+      right: clientWidth - (targetRect.right - uiData.x),
+      top: -targetRect.top + uiData.y,
+      bottom: clientHeight - (targetRect.bottom - uiData.y),
+    });
+  };
+
   const [newNode,setNewNode] = useState(null)
   const [Modalvs,setModalvs] = useState(false);
   const [edge,setEdge] = useState(null);
@@ -265,6 +285,7 @@ const SaveRestore = () => {
       onEdgeContextMenu={onEdgeContextMenu}
     >
       <div style={{"position": "absolute","right": "50px","top": "10px","zIndex": "4","fontSize": "12px"}}>
+        <button className={sty.Btn} onClick={()=>{setTV(true)}}>选择病例</button>
         <button className={sty.Btn} onClick={()=>{onSave()}}>保存</button>
         <button className={sty.Btn} onClick={()=>{onLoad()}}>加载</button>
         <button className={sty.Btn} onClick={()=>{onAddNode()}}>新增节点</button>
@@ -274,6 +295,69 @@ const SaveRestore = () => {
       {<MiniMap/>}
     </ReactFlow>
     </ReactFlowProvider>
+    <Modal 
+      title={
+        <div
+          style={{
+            width: '100%',
+            cursor: 'move',
+          }}
+          onMouseOver={() => {
+            if (disabled) {
+              setDisabled(false);
+            }
+          }}
+          onMouseOut={() => {
+            setDisabled(true);
+          }}
+          onFocus={() => {}}
+          onBlur={() => {}}
+        >
+          传播判定
+        </div>
+      }
+      visible={tempVisible} 
+      onOk={()=>{setTV(false)}} 
+      onCancel={()=>{setTV(false)}}
+      modalRender={modal => (
+        <Draggable
+          disabled={disabled}
+          bounds={bounds}
+          onStart={(event, uiData) => onStart(event, uiData)}
+        >
+          <div ref={draggleRef}>{modal}</div>
+        </Draggable>
+      )}
+      >
+        <div style={{"height":"350px"}}>
+          <Select placeholder={"选择病例1"} style={{ width: 120 }} onChange={(value)=>{
+            let p = allPatients.find(e=>e.pid===value)
+            console.log(p)
+            setNewNode(p)
+          }}>
+            {
+              allPatients?
+              allPatients.map((e,i)=>(
+                <Option value={e.pid}>{e.name}</Option>
+              )):
+              null
+            }
+          </Select>
+          <Select placeholder={"选择病例2"} style={{ width: 120 }} onChange={(value)=>{
+            let p = allPatients.find(e=>e.pid===value)
+            console.log(p)
+            setNewNode(p)
+          }}>
+            {
+              allPatients?
+              allPatients.map((e,i)=>(
+                <Option value={e.pid}>{e.name}</Option>
+              )):
+              null
+            }
+          </Select>
+        </div>
+    </Modal>
     <Modal title="新增节点" visible={isModalVisible} onOk={()=>{addNode(),setIMV(false)}} onCancel={()=>{setNewNode(null),setIMV(false)}}>
       <Select style={{ width: 120 }} onChange={(value)=>{
         let p = allPatients.find(e=>e.pid===value)

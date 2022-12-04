@@ -1,0 +1,8 @@
+id: location-99
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 汉神购物广场
+name5: 汉神购物广场地下停车场、三楼儿童游乐区、二楼四楼美食城
+gps: 108.93691,34.339081

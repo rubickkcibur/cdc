@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('get_chain',views.get_chain),
     path('get_all_patients',views.get_all_patients),
-    path('get_clusters',views.get_clusters),
+    # path('get_clusters',views.get_clusters),
     path('get_clusters2',views.get_clusters2),
     path('get_patient_route',views.get_patient_route),
     path('get_person',views.get_person),
@@ -35,5 +35,6 @@ urlpatterns = [
     path('get_statistics',views.get_statistcs),
     path('download_cluster_csv',views.download_cluster_csv),
     path('upload_files',views.upload_files),
-    path('get_contacts_table',views.get_contacts_table)
+    path('get_contacts_table',views.get_contacts_table),
+    path('get_fake_chain',views.get_fake_chain)
 ]

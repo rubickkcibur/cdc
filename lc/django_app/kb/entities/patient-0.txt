@@ -1,0 +1,14 @@
+id: patient-0
+type: patient
+pid: 0
+name: 向某
+age: 21
+gender: male
+vocation: 隔离酒店工作人员（负责送餐、消杀、收取垃圾）
+height: 175
+weight: 74
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-07
+hospitaldate: 2021-12-09
+note: 既往体健，自述有季节性过敏性鼻炎

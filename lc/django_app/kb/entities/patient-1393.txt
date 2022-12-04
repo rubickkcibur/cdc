@@ -1,0 +1,14 @@
+id: patient-1393
+type: patient
+pid: 1393
+name: 陈某珍
+age: 64
+gender: female
+vocation: 退休人员
+height: 164
+weight: 50
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-16
+hospitaldate: 2021-12-17
+note: 既往有高血压史

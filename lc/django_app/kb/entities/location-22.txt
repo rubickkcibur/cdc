@@ -1,0 +1,8 @@
+id: location-22
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 阳光新天地（长安区西部大道）
+name5: 阳光新天地（长安区西部大道）
+gps: 108.868074,34.170047

@@ -1,0 +1,4 @@
+id: Dlocation-32
+type: Dlocation
+name: 719路公交车
+note: 西航花园方向-万寿北路北口）至北关下车

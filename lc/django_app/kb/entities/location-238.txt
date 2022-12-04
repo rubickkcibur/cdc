@@ -1,0 +1,8 @@
+id: location-238
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 大悦城购物中心
+name5: 大悦城购物中心温野菜日本涮涮锅
+gps: 108.962061,34.216545

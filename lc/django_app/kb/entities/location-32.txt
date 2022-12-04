@@ -1,0 +1,8 @@
+id: location-32
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 庄严巷吴记绥德羊杂碎科技路店
+name5: 庄严巷吴记绥德羊杂碎科技路店
+gps: 108.892141,34.214204

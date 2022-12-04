@@ -1,0 +1,8 @@
+id: location-281
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 临潼区
+name4: 秦岭北路东六小区1栋1单元1-1
+name5: 秦岭北路东六小区1栋1单元1-1
+gps: 109.227336,34.375903

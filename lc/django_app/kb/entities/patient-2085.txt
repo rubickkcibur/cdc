@@ -1,0 +1,14 @@
+id: patient-2085
+type: patient
+pid: 2085
+name: 张某林
+age: 48
+gender: male
+vocation: 大学行政人员
+height: 170
+weight: 72
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2021-12-15
+note: 既往体健，无基础性疾病

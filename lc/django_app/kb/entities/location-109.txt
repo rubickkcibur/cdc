@@ -1,0 +1,8 @@
+id: location-109
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 兴融东北风味餐厅
+name5: 兴融东北风味餐厅（雁塔区朱雀大街250号）
+gps: 108.938383,34.224815

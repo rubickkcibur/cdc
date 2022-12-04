@@ -1,0 +1,8 @@
+id: location-144
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 陕西省省体育场威克多羽毛球馆
+name5: 陕西省省体育场威克多羽毛球馆
+gps: 108.943252,34.234316

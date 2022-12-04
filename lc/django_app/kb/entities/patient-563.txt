@@ -1,0 +1,14 @@
+id: patient-563
+type: patient
+pid: 563
+name: 王某功
+age: 49
+gender: male
+vocation: 长安大学资产经营公司书记
+height: 170
+weight: 82
+smoking: True
+vaccine: 2
+diagnoseddate: 2021-12-16
+hospitaldate: 2022-12-16
+note: 既往患有高血压

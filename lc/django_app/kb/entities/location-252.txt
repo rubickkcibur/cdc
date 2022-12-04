@@ -1,0 +1,8 @@
+id: location-252
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 先启半步颠小酒馆
+name5: 先启半步颠小酒馆（太乙城生活中心3楼）
+gps: 108.973356,34.235062

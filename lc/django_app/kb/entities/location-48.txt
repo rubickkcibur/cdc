@@ -1,0 +1,8 @@
+id: location-48
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 铁锅炖羊肉
+name5: 铁锅炖羊肉（雁塔区科技路维也纳国际酒店附近,西安高新科技路地铁站店）
+gps: 108.904065,34.231216

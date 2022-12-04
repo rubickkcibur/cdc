@@ -1,0 +1,8 @@
+id: location-93
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 刘家沟陕北铁锅炖羊肉店
+name5: 刘家沟陕北铁锅炖羊肉店
+gps: 108.936043,34.241941

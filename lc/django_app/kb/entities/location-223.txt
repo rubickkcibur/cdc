@@ -1,0 +1,8 @@
+id: location-223
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 大雁塔假日酒店
+name5: 大雁塔假日酒店
+gps: 108.957531,34.229366

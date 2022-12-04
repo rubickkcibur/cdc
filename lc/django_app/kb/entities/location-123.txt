@@ -1,0 +1,8 @@
+id: location-123
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 交通职业技术学院
+name5: 交通职业技术学院
+gps: 108.93981,34.32461

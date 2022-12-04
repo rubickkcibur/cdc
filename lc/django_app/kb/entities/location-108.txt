@@ -1,0 +1,8 @@
+id: location-108
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安市雁塔区紫郡长安北区F5栋2单元401室
+name5: 西安市雁塔区紫郡长安北区F5栋2单元401室
+gps: 108.93835,34.192464

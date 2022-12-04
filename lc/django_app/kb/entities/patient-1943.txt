@@ -1,0 +1,14 @@
+id: patient-1943
+type: patient
+pid: 1943
+name: 刘某菜
+age: 71
+gender: female
+vocation: 无
+height: 170
+weight: 60
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-14
+hospitaldate: 2022-12-14
+note: 有耳鸣、高血压、脑梗疾病史

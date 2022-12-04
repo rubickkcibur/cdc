@@ -1,0 +1,8 @@
+id: location-111
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 沣润万家生活超市
+name5: 沣润万家生活超市
+gps: 108.938674,34.192633

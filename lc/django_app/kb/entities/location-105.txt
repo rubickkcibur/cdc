@@ -1,0 +1,8 @@
+id: location-105
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 城市立方文化体育综合体
+name5: 城市立方文化体育综合体
+gps: 108.937519,34.194006

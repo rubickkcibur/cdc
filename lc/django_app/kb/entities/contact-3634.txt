@@ -1,0 +1,4 @@
+id: contact-3634
+type: contact
+name: 高某红
+phone: None

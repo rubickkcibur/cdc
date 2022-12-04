@@ -1,0 +1,8 @@
+id: location-95
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安交通大学第一附属医院急诊科
+name5: 西安交通大学第一附属医院急诊科
+gps: 108.936183,34.218905

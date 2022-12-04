@@ -1,0 +1,8 @@
+id: location-61
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 太白印象城B1层盒马鲜生
+name5: 太白印象城B1层盒马鲜生
+gps: 108.921469,34.235399

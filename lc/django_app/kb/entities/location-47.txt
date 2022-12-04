@@ -1,0 +1,8 @@
+id: location-47
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 高新区咖啡创业园区“鳗鱼饭”店
+name5: 高新区咖啡创业园区“鳗鱼饭”店
+gps: 108.902864,34.237093

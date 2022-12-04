@@ -1,0 +1,8 @@
+id: location-204
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 开元路农贸市场小吃城刀削面
+name5: 开元路农贸市场小吃城刀削面
+gps: 108.956156,34.351285

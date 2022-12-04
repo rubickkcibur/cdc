@@ -1,0 +1,8 @@
+id: location-68
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 陕西西安佑贝儿科门诊
+name5: 佑贝儿科门诊（莲湖区唐元宫18号）
+gps: 108.926895,34.260739

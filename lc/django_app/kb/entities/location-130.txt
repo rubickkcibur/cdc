@@ -1,0 +1,8 @@
+id: location-130
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: HomeLife家
+name5: HomeLife家
+gps: 108.94096,34.195425

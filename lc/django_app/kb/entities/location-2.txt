@@ -1,0 +1,8 @@
+id: location-2
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 咸阳渭城区马家堡村
+name5: 咸阳渭城区马家堡村
+gps: 108.706946,34.352947

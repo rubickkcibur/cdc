@@ -1,0 +1,8 @@
+id: location-271
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 西安市灞桥瑾程酒店旁健豪图文广告
+name5: 西安市灞桥瑾程酒店旁健豪图文广告
+gps: 109.057319,34.336135

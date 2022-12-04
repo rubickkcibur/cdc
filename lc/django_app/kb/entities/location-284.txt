@@ -1,0 +1,8 @@
+id: location-284
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 延安市宝塔区新洲花园B区25-1-301
+name5: 延安市宝塔区新洲花园B区25-1-301
+gps: 109.525302,36.612918

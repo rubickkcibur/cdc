@@ -1,0 +1,8 @@
+id: location-203
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 育才路与翠华路口交叉处
+name5: 育才路与翠华路口交叉处地下室西头菜市场
+gps: 108.956082,34.226434

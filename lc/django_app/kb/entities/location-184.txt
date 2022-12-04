@@ -1,0 +1,8 @@
+id: location-184
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 科技二路万科物业国际A座30楼安保公司
+name5: 科技二路万科物业国际A座30楼安保公司
+gps: 108.952589,34.25067

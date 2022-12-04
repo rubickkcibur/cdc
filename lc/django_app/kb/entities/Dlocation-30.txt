@@ -1,0 +1,4 @@
+id: Dlocation-30
+type: Dlocation
+name: 246路公交车
+note: 杏渭公交调度站路-纺织城枢纽站方向）至奥体中心

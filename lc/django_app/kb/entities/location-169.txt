@@ -1,0 +1,8 @@
+id: location-169
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: SKP
+name5: SKP4楼、6楼、11楼北京厨房
+gps: 108.948733,34.247559

@@ -1,0 +1,4 @@
+id: item-10
+type: item
+name: 菜
+note: 买菜

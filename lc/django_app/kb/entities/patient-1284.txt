@@ -1,0 +1,14 @@
+id: patient-1284
+type: patient
+pid: 1284
+name: 鲁某静
+age: 23
+gender: female
+vocation: 游戏设计师
+height: 160
+weight: 52
+smoking: False
+vaccine: 2
+diagnoseddate: 2021-12-15
+hospitaldate: 2021-12-17
+note: 既往体健，无基础性疾病

@@ -1,0 +1,8 @@
+id: location-282
+type: location
+name1: 陕西省
+name2: 西安市
+name3: 
+name4: 商洛市高速出口附近森林农家乐
+name5: 商洛市高速出口附近森林农家乐
+gps: 109.410373,33.745706
